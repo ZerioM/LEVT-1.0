@@ -1,0 +1,1 @@
+-git clone hat aufgrund von Berechtigungen nicht über die Git Bash funktioniert - Grassinger fragen
