@@ -1,14 +1,3 @@
-#Lumen
-
-/vendor
-/.idea
-Homestead.json
-Homestead.yaml
-.env
-.phpunit.result.cache
-
-#Ionic
-
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
