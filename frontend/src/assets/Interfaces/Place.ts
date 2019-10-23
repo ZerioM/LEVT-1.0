@@ -6,5 +6,6 @@ export interface Place{
     coordinateX: number;
     coordinateY: number;
     images:Image[];
+    thumbnail:Image;
 
 }
