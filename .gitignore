@@ -4,7 +4,7 @@
 /backend/levt/vendor/composer
 /vendor
 /composer
-/.idea
+backend/levt/.idea
 Homestead.json
 Homestead.yaml
 .env
