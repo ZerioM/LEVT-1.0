@@ -8,7 +8,7 @@ import { Journey } from 'src/assets/Interfaces/Journey';
 })
 export class DataService {
 
- // public currentQuiz:Quiz={id:"",title:"neu",questions:[]}
+  public currentJourney:Journey={journeyID:null,name:"",username:"",userImageScrc:"",likes:null,disklikes:null,places:[],thumbnail:null}
 
   constructor(private http: HttpClient) { }
 
@@ -16,7 +16,9 @@ export class DataService {
     this.http.get("assets/journeys.json").subscribe( (loadedData: Journey)=> {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
-        console.log(JSON.stringify(loadedData));
+        //console.log(JSON.stringify(loadedData));
+        this.currentJourney=loadedData;
+        console.log(this.currentJourney);
       }else{
 
         console.log("null per http geladen");
