@@ -1,6 +1,7 @@
 #Lumen
 
 /backend/levt/vendor
+/backend/levt/vendor/composer
 /vendor
 /composer
 /.idea
@@ -8,6 +9,7 @@ Homestead.json
 Homestead.yaml
 .env
 .phpunit.result.cache
+
 
 #Ionic
 
