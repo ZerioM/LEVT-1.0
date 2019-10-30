@@ -14,6 +14,11 @@ class AlterTables extends Migration
     public function up()
     {
         //
+
+        Schema::table('users', function($table) {
+            $table->foreign('_profileImageID')->references('imageID')->on('images');
+        });
+
         Schema::table('journeys', function($table) {
             $table->foreign('_userID')->references('userID')->on('users');
             $table->foreign('_thumbnailID')->references('imageID')->on('images');
