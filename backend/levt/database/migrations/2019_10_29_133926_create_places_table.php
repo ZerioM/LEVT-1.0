@@ -15,14 +15,16 @@ class CreatePlacesTable extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->bigIncrements('placeID');
-            $table->foreign('_journeyID')->references('journeyID')->on('journeys');
-            $table->foreign('_thumbnailID')->references('imageID')->on('images');
-            $table->foreign('_countryID')->references('countryID')->on('countries');
+            $table->bigInteger('_journeyID')->unsigned();
+            $table->bigInteger('_thumbnailID')->unsigned();
+            $table->bigInteger('_countryID')->unsigned();
             $table->string('placeName');
             $table->decimal('coordinateX', 15, 10);
             $table->decimal('coordinateY', 15, 10);
             $table->timestamps();
         });
+
+
     }
 
     /**

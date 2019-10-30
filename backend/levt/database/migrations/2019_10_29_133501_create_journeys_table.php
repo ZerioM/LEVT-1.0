@@ -15,11 +15,13 @@ class CreateJourneysTable extends Migration
     {
         Schema::create('journeys', function (Blueprint $table) {
             $table->bigIncrements('journeyID');
-            $table->foreign('_userID')->references('userID')->on('users');
-            $table->foreign('_thumbnailID')->references('imageID')->on('images');
+            $table->bigInteger('_userID')->unsigned();
+            $table->bigInteger('_thumbnailID')->unsigned();
             $table->string('journeyName');
             $table->timestamps();
         });
+
+
     }
 
     /**

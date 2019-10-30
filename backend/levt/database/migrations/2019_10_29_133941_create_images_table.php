@@ -15,13 +15,14 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('imageID');
-            $table->foreign('_placeID')->references('placeID')->on('places');
+            $table->bigInteger('_placeID')->unsigned();
             $table->string('src');
             $table->longText('post');
             $table->decimal('coordinateX', 15, 10);
             $table->decimal('coordinateY', 15, 10);
             $table->timestamps();
         });
+
     }
 
     /**
