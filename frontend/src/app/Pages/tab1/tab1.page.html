@@ -18,5 +18,19 @@
         <ion-button (click)="loadJSON()"> JSON Laden</ion-button>
       </ion-card-content>
     </ion-card>
+
+   <ion-list>
+     <ion-card *ngFor="let j of data.currentJourneys.journeys">
+       <ion-item>
+          <img src="{{j.thumbnail.imageSrc}}" alt="Reise" /> 
+       </ion-item>
+       <ion-item>
+          <img src={{j.userImageSrc}} alt="User" /> 
+       </ion-item>
+       <ion-item> <ion-label>{{j.username}}</ion-label></ion-item>
+      
+
+     </ion-card>
+   </ion-list>
     
 </ion-content>
