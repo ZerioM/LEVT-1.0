@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCountriesTable extends Migration
+class PostcoordinateNull extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('countries', function (Blueprint $table) {
-            $table->bigIncrements('countryID');
-            $table->string('countryName');
-            $table->timestamp('updated');
-            $table->timestamp('created')->default(DB::raw('CURRENT_TIMESTAMP'));
+        //
+        Schema::table('images', function($table) {
+            $table->longText('post')->nullable()->default(null)->change();
+            $table->decimal('coordinateX', 15, 10)->nullable()->default(null)->change();
+            $table->decimal('coordinateY', 15, 10)->nullable()->default(null)->change();
         });
     }
 
@@ -28,6 +28,6 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('countries');
+        //
     }
 }

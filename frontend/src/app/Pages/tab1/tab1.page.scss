@@ -2,3 +2,34 @@
   max-height: 35vh;
   overflow: hidden;
 }
+.container{
+	width: 90%;
+	width: 90%;
+	margin-left: auto;	
+	margin-right: auto;
+	display: flex;
+	flex-direction: column;
+}
+.header{
+	width:100%;
+	z-index: 1;
+}
+#suche {
+	border: 5px solid #182f30;
+	border-radius: 0.5em;;
+	font-size: 14pt;
+	line-height: 10px;
+	width: 70%;
+	margin-left:auto;
+	margin-right: auto;
+	transition: width 0.5s ease-in-out;
+	box-shadow: 5px 5px 5px #182f30;
+	z-index: 3;
+}
+ 
+#suche:focus {
+  width: 80%;
+}
+#setup{
+  color:#182f30; 
+}

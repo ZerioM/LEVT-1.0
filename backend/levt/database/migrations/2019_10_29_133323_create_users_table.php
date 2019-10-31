@@ -19,7 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->unique('username');
             $table->string('pwHash');
-            $table->timestamps();
+            $table->timestamp('updated');
+            $table->timestamp('created')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }
 
