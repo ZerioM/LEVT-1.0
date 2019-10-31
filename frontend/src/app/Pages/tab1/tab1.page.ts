@@ -9,7 +9,10 @@ import { NavController } from '@ionic/angular';
 })
 export class Tab1Page {
 
-  constructor(private data: DataService, private navCtrl:NavController) {}
+  constructor(private data: DataService, private navCtrl:NavController) {
+
+    this.loadJSON();
+  }
 
 
   loadJSON(){
