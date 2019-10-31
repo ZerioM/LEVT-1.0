@@ -9,14 +9,14 @@ import { Journeys } from 'src/assets/Interfaces/Journeys';
 })
 export class DataService {
 
-  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,arrivalDate:null,departureDate:null,places:[],thumbnail:null}
+  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,arrivalDate:null,departureDate:null,places:[],thumbnailSrc:null}
 
   public currentJourneys:Journeys={journeys:[]}
 
   constructor(private http: HttpClient) { }
 
   loadJSON(){
-    this.http.get("assets/journeys.json").subscribe( (loadedData: Journeys)=> {
+    this.http.get("/assets/journeys.json").subscribe( (loadedData: Journeys)=> {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
