@@ -20,7 +20,8 @@ class CreateImagesTable extends Migration
             $table->longText('post');
             $table->decimal('coordinateX', 15, 10);
             $table->decimal('coordinateY', 15, 10);
-            $table->timestamps();
+            $table->timestamp('updated');
+            $table->timestamp('created')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
 
     }
