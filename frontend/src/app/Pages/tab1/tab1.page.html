@@ -23,17 +23,17 @@
   <ion-list>
     <ion-card *ngFor="let j of data.currentJourneys.journeys">
       <ion-item>
-        <img src="{{j.thumbnail.imageSrc}}" alt="Reise" />
+        <img src="{{j.thumbnail.imgSrc}}" alt="Reise" />
       </ion-item>
       <ion-row>
         <ion-item class="userpic">
-          <img src={{j.userimgSrc}} alt="User" />
+          <img src={{j.userImgSrc}} alt="User" />
         </ion-item>
         <ion-item>
           <ion-label>{{j.username}}</ion-label>
         </ion-item>
         <ion-item class="alignright">
-          <ion-label>Anreise - Abreise</ion-label>
+          <ion-label>{{j.arrivalDate}}-{{j.departureDate}}</ion-label>
         </ion-item>
       </ion-row>
     </ion-card>

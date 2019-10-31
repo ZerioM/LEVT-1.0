@@ -5,9 +5,10 @@ export interface Journey{
     journeyID: number;
     name: string;
     username: string;
-    userImageScrc:string;
-    likes: number;
-    disklikes: number;
+    userImgSrc:string;
+    bookmarks: number;
+    arrivalDate: Date
+    departureDate: Date;
     places: Place[];
     thumbnail: Image;
 }
