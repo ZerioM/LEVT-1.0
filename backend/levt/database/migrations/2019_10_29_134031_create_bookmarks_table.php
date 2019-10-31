@@ -18,7 +18,8 @@ class CreateBookmarksTable extends Migration
             $table->bigInteger('_userID')->unsigned();
             $table->bigInteger('_journeyID')->unsigned();
             //userID muss NULLable sein - Grischa fragen
-            $table->timestamps();
+            $table->timestamp('updated');
+            $table->timestamp('created')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
 
 
