@@ -9,7 +9,7 @@ import { Journeys } from 'src/assets/Interfaces/Journeys';
 })
 export class DataService {
 
-  public currentJourney:Journey={journeyID:null,name:"",username:"",userImageScrc:"",likes:null,disklikes:null,places:[],thumbnail:null}
+  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,arrivalDate:null,departureDate:null,places:[],thumbnail:null}
 
   public currentJourneys:Journeys={journeys:[]}
 
