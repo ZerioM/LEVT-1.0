@@ -16,7 +16,9 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   loadJSON(){
-    this.http.get("http://levt.test/top100").subscribe( (loadedData: Journeys)=> {
+    // /assets/journeys.json liefert die Testdaten - Funktioniert schon
+    // levt.test/top100 soll die Daten aus der DB liefern - Funktioniert noch nicht
+    this.http.get("/assets/journeys.json").subscribe( (loadedData: Journeys)=> {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
