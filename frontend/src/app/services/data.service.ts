@@ -18,7 +18,7 @@ export class DataService {
   loadJSON(){
     // /assets/journeys.json liefert die Testdaten - Funktioniert schon
     // levt.test/top100 soll die Daten aus der DB liefern - Funktioniert noch nicht
-    this.http.get("http://levt.test/top100").subscribe( (loadedData: Journeys)=> {
+    this.http.get("/assets/journeys.json").subscribe( (loadedData: Journeys)=> {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
