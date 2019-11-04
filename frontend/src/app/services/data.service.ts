@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Image } from 'src/assets/Interfaces/Image';
-import { Journey } from 'src/assets/Interfaces/Journey';
-import { Journeys } from 'src/assets/Interfaces/Journeys';
+import { Image } from 'src/app/Interfaces/Image';
+import { Journey } from 'src/app/Interfaces/Journey';
+import { Journeys } from 'src/app/Interfaces/Journeys';
 
 @Injectable({
   providedIn: 'root'
