@@ -1,35 +1,145 @@
-.welcome-card img {
-  max-height: 35vh;
-  overflow: hidden;
+#setup{
+	color:#182f30;
+	position: fixed;
+	z-index: 2;
+	right:0;
 }
-.container{
+div.tabs-inner{
 	width: 90%;
-	width: 90%;
-	margin-left: auto;	
+	margin-left: auto;
 	margin-right: auto;
 	display: flex;
 	flex-direction: column;
 }
-.header{
-	width:100%;
-	z-index: 1;
+.welcome-card img {
+  max-height: 35vh;
+  overflow: hidden;
 }
-#suche {
+ion-list .headerAll{
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 1;
+	position: relative;
+}
+img.header{
+	position: absolute;
+	z-index: -1;
+
+}
+ion-searchbar{
+	margin-top: 130px;
 	border: 5px solid #182f30;
-	border-radius: 0.5em;;
-	font-size: 14pt;
-	line-height: 10px;
+	border-radius: 0.5em;
+	font-size: 14pt !important;
 	width: 70%;
 	margin-left:auto;
 	margin-right: auto;
+	margin-top: 150px;
 	transition: width 0.5s ease-in-out;
 	box-shadow: 5px 5px 5px #182f30;
 	z-index: 3;
+	padding:0;
+} 
+ion-searchbar:focus{
+	width: 80%;
+} 
+/*#suche {
+	width: 70%;
+	margin-left:auto;
+	margin-right: auto;
+	margin-top: 150px;
+	padding: 10px;
+	border: 5px solid #161616;
+	border-radius: 0.5em;;
+	font-size: 14pt;
+	transition: width 0.5s ease-in-out;
+	box-shadow: 5px 5px 5px #161616;
+	z-index: 3;
 }
- 
 #suche:focus {
   width: 80%;
+}*/
+/*.userpic{
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	content: "{{j.userImgSrc}}";
+	border-color: transparent #f3961c;
+	border-style: solid;
+	position: absolute;
+border-width: 0 0 30px 50px;
+}*/
+.userpic{
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
 }
-#setup{
-  color:#182f30; 
+/*ion-row .md.hydrated{
+height:250px;
+border: none;
+}*/
+
+.frameLeft .frameRight{
+	position: absolute;
+	width: 30px;
+	height: 30px;
+}
+.pictureFrame {
+	height: 250px;
+	width: 100%;
+	margin: 10px auto;
+}
+.singlepic{
+	position: relative;
+	padding: 10px;
+}
+.active .frameLeft {
+	top: 0;
+	left: 0;
+	border-top: 4px solid #182f30;
+	border-left: 4px solid #182f30;
+  }  
+  .active .frameRight {
+	bottom: 0;
+	right: 0;
+	border-bottom: 4px solid #182f30;
+	border-right: 4px solid #182f30;
+  }  
+  .actualImg {
+	width: 100%;
+	display: block;
+  }
+/*
+.rahmenLinks {
+	width: 30px;
+	height: 30px;
+	border-top: solid 3px #161616;
+	border-left: solid 3px #161616;
+	z-index: -1;
+}
+.rahmenRechts {
+	width: 30px;
+	height: 30px;
+	border-right: solid 3px #161616;
+	border-bottom: solid 3px #161616;
+	z-index: -1;
+	position:absolute;
+	right:0;
+	bottom:0;
+}
+.bild {
+	width: 100%;
+	height: 250px;
+	overflow: auto;
+	z-index: 1000;
+	margin-left: -20px;
+	margin-top: 10px;
+	margin-right: 20px;
+}
+*/
+.pfeilOben{
+	   position: fixed; 
+        bottom: 0; 
+        right: 0; 
 }

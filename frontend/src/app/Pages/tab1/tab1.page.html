@@ -1,36 +1,53 @@
-
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="end">
+  <ion-list class="headerAll">
+
+    <ion-buttons id="setup" slot="end">
       <ion-button icon-only>
-        <ion-icon id="setup" name="apps"></ion-icon>
+        <ion-icon name="apps" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
-  </ion-toolbar>
-  <img class="header" src="/assets/images/LEVT_Header.svg" alt="" />
-  <ion-searchbar id="suche" placeholder="Suche deine Traumdestination"></ion-searchbar>
+
+    <img class="header" src="/assets/images/LEVT_Header.svg" alt="" />
+    <ion-searchbar placeholder="Suche deine Traumdestination"></ion-searchbar>
+    <!--<input type="search" id="suche" placeholder="Suche deine Traumdestination">-->
+  </ion-list>
+
 </ion-header>
 
 <ion-content>
-  
 
-  <ion-list>
-    <ion-card *ngFor="let j of data.currentJourneys.journeys">
-      <ion-item>
-        <img src="{{j.thumbnail.imgSrc}}" alt="Reise" />
-      </ion-item>
-      <ion-row>
-        <ion-item class="userpic">
-          <img src={{j.userImgSrc}} alt="User" />
+  <div class="pictureFrame">
+    <ion-list>
+      <div class="singlepic" *ngFor="let j of data.currentJourneys.journeys">
+        <div class="frameLeft"></div>
+        <div class="frameRight"></div>
+        <ion-item class="actualImg">
+          <img src="{{j.thumbnail.imgSrc}}" alt="Reise" />
         </ion-item>
-        <ion-item>
-          <ion-label>{{j.username}}</ion-label>
-        </ion-item>
-        <ion-item class="alignright">
-          <ion-label>{{j.arrivalDate}} - {{j.departureDate}}</ion-label>
-        </ion-item>
-      </ion-row>
-    </ion-card>
-  </ion-list>
-
+        <ion-row>
+          <ion-item class="userpic">
+            <img src={{j.userImgSrc}} alt="User" />
+          </ion-item>
+          <ion-item>
+            <ion-label>{{j.username}}</ion-label>
+          </ion-item>
+          <ion-item class="alignright">
+            <ion-label>{{j.arrivalDate}} - {{j.departureDate}}</ion-label>
+          </ion-item>
+        </ion-row>
+    </div>
+    </ion-list>
+  </div>
 </ion-content>
+
+<script>
+  let elArr = document.getElementsByClassName('singlepic');
+for (let el of elArr) {
+  el.addEventListener('click', (e) => {
+    for(let tmp of elArr) {
+      tmp.classList.remove('active');
+    }
+    e.currentTarget.classList.add('active');
+  });
+}
+</script>
