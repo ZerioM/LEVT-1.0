@@ -23,7 +23,8 @@ class Controller extends BaseController
                     GROUP BY journeys.journeyID
                     ORDER BY bookmarks DESC;');
 
-        return '"journeys":{ '.json_encode($result, JSON_PRETTY_PRINT)." \n}";
+        //return '"journeys":{ '.json_encode($result, JSON_PRETTY_PRINT)." \n}";
+        return '{"journeys": '.json_encode($result, JSON_PRETTY_PRINT)." \n}";
 
 
     }
