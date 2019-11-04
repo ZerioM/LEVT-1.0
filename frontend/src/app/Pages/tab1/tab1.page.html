@@ -1,55 +1,48 @@
 <ion-header>
   <ion-list class="headerAll">
-
     <ion-buttons id="setup" slot="end">
       <ion-button icon-only>
         <ion-icon name="apps" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
-
     <img class="header" src="/assets/images/LEVT_Header.svg" alt="" />
     <ion-searchbar placeholder="Suche deine Traumdestination"></ion-searchbar>
-    <!--<input type="search" id="suche" placeholder="Suche deine Traumdestination">-->
   </ion-list>
-
 </ion-header>
 
 <ion-content>
-
-
-  <div class="pictureFrame">
-    <ion-list>
-      <div class="singlepic" *ngFor="let j of data.currentJourneys.journeys">
-        <div class="frameLeft"></div>
-        <div class="frameRight"></div>
-        <ion-item class="actualImg">
+  <ion-list lines="none">
+    <div class="pictureFrame active" *ngFor="let j of data.currentJourneys.journeys">
+      <div class="frameLeft"></div>
+      <div class="frameRight"></div>
+      <div class="actualImg">
+        <ion-item>
           <img src="{{j.thumbnailSrc}}" alt="Reise" />
-
         </ion-item>
-        <ion-row>
+        <div class="picInformations">
           <ion-item class="userpic">
             <img src={{j.userImgSrc}} alt="User" />
           </ion-item>
           <ion-item>
             <ion-label>{{j.username}}</ion-label>
           </ion-item>
-          <ion-item class="alignright">
+          <ion-item>
             <ion-label>{{j.arrivalDate}} - {{j.departureDate}}</ion-label>
           </ion-item>
-        </ion-row>
+        </div>
+      </div>
     </div>
-    </ion-list>
-  </div>
+  </ion-list>
 </ion-content>
 
 <script>
   let elArr = document.getElementsByClassName('singlepic');
-for (let el of elArr) {
-  el.addEventListener('click', (e) => {
-    for(let tmp of elArr) {
-      tmp.classList.remove('active');
-    }
-    e.currentTarget.classList.add('active');
-  });
-}
+  for (let el of elArr) {
+    el.addEventListener('click', (e) => {
+      for (let tmp of elArr) {
+        tmp.classList.remove('active');
+      }
+      e.currentTarget.classList.add('active');
+    });
+  }
 </script>
