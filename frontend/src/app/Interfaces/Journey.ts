@@ -10,5 +10,5 @@ export interface Journey{
     arrivalDate: Date
     departureDate: Date;
     places: Place[];
-    thumbnail: Image;
+    thumbnailSrc: string;
 }
