@@ -7,7 +7,7 @@ export interface Journey{
     username: string;
     userImgSrc:string;
     bookmarks: number;
-    arrivalDate: Date
+    arrivalDate: Date;
     departureDate: Date;
     places: Place[];
     thumbnailSrc: string;
