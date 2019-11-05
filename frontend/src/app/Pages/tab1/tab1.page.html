@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header color="none">
   <ion-list class="headerAll">
     <ion-buttons id="setup" slot="end">
       <ion-button icon-only>
@@ -11,31 +11,36 @@
 </ion-header>
 
 <ion-content>
-  <ion-list lines="none">
-    <div class="pictureFrame active" *ngFor="let j of data.currentJourneys.journeys">
-      <div class="frameLeft"></div>
-      <div class="frameRight"></div>
-      <div class="actualImg">
-        <ion-item>
-          <img src="{{j.thumbnailSrc}}" alt="Reise" />
-        </ion-item>
-        <div class="picInformations">
-          <ion-item class="userpic">
-            <img src={{j.userImgSrc}} alt="User" />
+  <ion-list lines="none" color="none">
+    <div id="gallery" *ngFor="let j of data.currentJourneys.journeys">
+      <div class="pictureFrame">
+        <div class="frameLeft"></div>
+        <div class="imgAndInfo">
+          <ion-item class="thumbnailImg" color="none">
+            <img src="{{j.thumbnailSrc}}" alt="Reise" />
           </ion-item>
-          <ion-item>
-            <ion-label>{{j.username}}</ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label>{{j.arrivalDate}} - {{j.departureDate}}</ion-label>
-          </ion-item>
+          <div class="picInformations">
+            <div class="userpicAndName">
+              <ion-item color="none">
+                <img src={{j.userImgSrc}} alt="User" class="userpic" />
+              </ion-item>
+              <ion-item color="none">
+                <ion-label>{{j.username}}</ion-label>
+              </ion-item>
+            </div>
+            <ion-item color="none">
+              <ion-label>{{j.arrivalDate}} - {{j.departureDate}}</ion-label>
+            </ion-item>
+          </div>
+          
         </div>
+        <div class="frameRight"></div>
       </div>
     </div>
   </ion-list>
 </ion-content>
 
-<script>
+<!--<script>
   let elArr = document.getElementsByClassName('singlepic');
   for (let el of elArr) {
     el.addEventListener('click', (e) => {
@@ -45,4 +50,4 @@
       e.currentTarget.classList.add('active');
     });
   }
-</script>
+</script>-->
