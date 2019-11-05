@@ -2,7 +2,8 @@
 
 ## Completed User Stories and work packages
 
-### 7. Ein Besucher möchte auf der Startseite die beliebtesten Reisen angezeigt bekommen, um einen guten ersten Eindruck der App und einen Überblick +ber die derzeitigen Hotspots zu bekommen.
+### 7. A visitor wants to see the most popular journeys on the homepage, in order to get a good first impression of the application and an overview of the current hotspots.
+
 #### 71 Create Tables in db - completed
 #### 72 Create Webservice - open
 #### 73 Create Testdata - completed
