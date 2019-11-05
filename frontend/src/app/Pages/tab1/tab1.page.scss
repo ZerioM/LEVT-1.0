@@ -11,6 +11,9 @@ div.tabs-inner {
   display: flex;
   flex-direction: column;
 }
+ion-list.md.list-md.list-lines-none.list-md-lines-none.hydrated{
+	background:0;
+}
 
 ion-list .headerAll {
   margin-left: auto;
@@ -19,8 +22,8 @@ ion-list .headerAll {
   position: relative;
 }
 img.header {
-  height: auto;
   width: 100%;
+  padding-top: 5px;
   position: absolute;
   z-index: -1;
 }
@@ -123,6 +126,9 @@ ion-item {
   margin: 0;
   --ion-safe-area-right: 0;
   --ion-safe-area-left: 0;
+}
+ion-list{
+	padding:0;
 }
 .pfeilOben {
   position: fixed;
