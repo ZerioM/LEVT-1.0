@@ -1,13 +1,12 @@
-import { Image } from './Image';
+
+import { Post } from './Post';
 
 export interface Place{
     placeID: number;
     name: string;
-    arrivalDate: Date;
-    departureDate: Date;
     coordinateX: number;
     coordinateY: number;
-    images:Image[];
+    posts:Post[];
     thumbnailSrc:string;
 
 }

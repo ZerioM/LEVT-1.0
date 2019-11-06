@@ -7,8 +7,18 @@ export interface Journey{
     username: string;
     userImgSrc:string;
     bookmarks: number;
-    arrivalDate: Date;
-    departureDate: Date;
+    season: string;
+    year: number;
+    duration: number;
+    companionship: string;
+    detail: string;
+    totalCosts: number;
+    activityCosts: number;
+    accommodationgCosts: number;
+    foodCosts: number;
+    transportCosts: number;
+    otherCosts: number
     places: Place[];
     thumbnailSrc: string;
+    
 }

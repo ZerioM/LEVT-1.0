@@ -19,6 +19,6 @@ export class Tab1Page {
 
   loadJSON(){
 
-    this.data.loadJSON();
+    this.data.loadTopPosts();
   }
 }
