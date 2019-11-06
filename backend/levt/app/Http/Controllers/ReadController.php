@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 
-class Controller extends BaseController
+class ReadController extends BaseController
 {
     //
     public function loadTopPosts() {

@@ -17,4 +17,12 @@ $router->get('/', function () use ($router) {
 
 //$router->get('/JSONData','JSONController@returnJSON');
 
-$router->get('/top100','Controller@loadTopPosts');
+$router->get('/top100','ReadController@loadTopPosts');
+
+$router->post('/newJourney','CreateController@insertJourney');
+
+$router->post('/newPlace','CreateController@insertPlace');
+
+$router->post('/newPost','CreateController@insertPost');
+
+$router->post('/newImage','CreateController@insertImage');
