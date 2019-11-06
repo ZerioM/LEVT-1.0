@@ -18,4 +18,4 @@
 
 #77 Create Service in Ionic - completed
 
-#78 Correct date format (middle-european) - open
+#78 Correct date format (middle-european) - completed
