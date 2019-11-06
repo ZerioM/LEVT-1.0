@@ -14,7 +14,7 @@ import localeEN from '@angular/common/locales/en';
 })
 export class DataService {
 
-  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,arrivalDate:null,departureDate:null,places:[],thumbnailSrc:null}
+  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,duration:null,companionship:"",detail:"",totalCosts: null,accommodationgCosts:null,activityCosts:null,transportCosts:null,foodCosts:null,otherCosts:null,places:[],thumbnailSrc:null}
 
   public currentJourneys:Journeys={journeys:[]}
 
@@ -43,7 +43,7 @@ export class DataService {
         //console.log(JSON.stringify(loadedData));
         this.currentJourneys=loadedData;
 
-        this.currentJourneys.journeys.forEach(journey => {
+        /*this.currentJourneys.journeys.forEach(journey => {
           //MZ: Change date format
           //dd.MM.yyyy for normal date, MMM for 'Nov'
           this.arrivalDateString = formatDate(journey.arrivalDate,'MMMM yyyy', this.locale);
@@ -51,7 +51,7 @@ export class DataService {
 
           this.departureDateString = formatDate(journey.departureDate,'MMMM yyyy',this.locale);
           journey.departureDate = this.departureDateString;      
-        });
+        });*/
 
         console.log(this.currentJourneys);
       }else{
@@ -73,7 +73,7 @@ export class DataService {
         //console.log(JSON.stringify(loadedData));
         this.currentJourneys=loadedData;
 
-        this.currentJourneys.journeys.forEach(journey => {
+        /*this.currentJourneys.journeys.forEach(journey => {
           //MZ: Change date format
           //dd.MM.yyyy for normal date, MMM for 'Nov'
           this.arrivalDateString = formatDate(journey.arrivalDate,'MMMM yyyy', this.locale);
@@ -84,7 +84,7 @@ export class DataService {
         });
 
         console.log(this.currentJourneys);
-      }else{
+      }else{*/
 
         console.log("null per http geladen");
       }
