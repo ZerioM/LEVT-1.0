@@ -1,3 +1,6 @@
+body{
+  height: auto;
+}
 #setup {
   color: #182f30;
   position: fixed;
@@ -148,10 +151,12 @@ ion-list{
   background-color: #415f4b;
   margin-right: 15px;
   margin-bottom: 15px;
-  text-align: justify;
-  font-weight: bolder;
-  font-size: 12pt;
   color: #d68900;
   bottom: 0;
   right: 0;
+}
+#arrowUp{
+  font-size: 16pt;
+  text-align: justify;
+  font-weight: bolder;
 }
