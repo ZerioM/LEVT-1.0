@@ -12,7 +12,7 @@ export class Tab2Page {
   constructor(private data: DataService, private navCtrl:NavController) {}
 
   goToAddCountries(){
-    this.navCtrl.navigateForward("");
+    this.navCtrl.navigateForward("/add-country");
   }
 }
 
