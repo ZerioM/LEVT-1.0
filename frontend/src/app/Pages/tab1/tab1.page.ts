@@ -9,15 +9,6 @@ import { NavController, IonContent } from '@ionic/angular';
 })
 export class Tab1Page {
 
-//@ViewChild (Content) content: Content;
-
-/*function smoothScrollJS(elementIDtoScrollTo, timeInMilli){
-  [document.documentElement,document.body].animate({
-    scrollTop: document.getElementById(elementIDtoScrollTo).offset().top}, timeInMilli);
-}*/
-
-
-
   constructor(private data: DataService, private navCtrl:NavController) {
 
     this.loadJSON();
