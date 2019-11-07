@@ -1,6 +1,6 @@
 import { Component} from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import { NavController } from '@ionic/angular';
+import { NavController, IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -16,6 +16,8 @@ export class Tab1Page {
     scrollTop: document.getElementById(elementIDtoScrollTo).offset().top}, timeInMilli);
 }*/
 
+
+
   constructor(private data: DataService, private navCtrl:NavController) {
 
     this.loadJSON();
@@ -26,4 +28,12 @@ export class Tab1Page {
 
     this.data.loadTestJSON();
   }
+
+  smoothScrollJS(){
+    let content = document.querySelector('ion-content');
+    let timeInMilli = 2000;
+    console.log("Try to animate...");
+    content.scrollToTop(timeInMilli);
+  }
+
 }
