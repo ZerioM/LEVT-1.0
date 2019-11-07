@@ -1,0 +1,45 @@
+<ion-header color="none">
+  <ion-list class="headerAll">
+    <ion-buttons id="setup" slot="end">
+      <ion-button icon-only>
+        <ion-icon name="apps" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <img class="header" id="header" src="/assets/images/LEVT_Header.svg" alt="" />
+    <ion-searchbar id="suche" placeholder="Dream destination" padding="none"></ion-searchbar>
+  </ion-list>
+</ion-header>
+
+<ion-content color="none">
+  <ion-list lines="none">
+    <div id="gallery" *ngFor="let j of data.currentJourneys.journeys">
+      <div class="pictureFrame">
+        <div class="frameLeft"></div>
+        <div class="imgAndInfo">
+          <ion-item class="thumbnailImg" color="none">
+            <img src="{{j.thumbnailSrc}}" alt="Reise" />
+          </ion-item>
+          <div class="picInformations">
+            <div class="userpicAndName">
+              <ion-item color="none">
+                <img src="{{j.userImgSrc}}" alt="User" class="userpic" />
+              </ion-item>
+              <ion-item color="none">
+                <ion-label>{{j.username}}</ion-label>
+              </ion-item>
+            </div>
+            <ion-item color="none" id="travelTime">
+              <ion-icon name="md-time" id="timeIcon"></ion-icon>
+              <ion-label>{{j.season}} - {{j.year}}</ion-label>
+            </ion-item>
+          </div>
+        </div>
+        <div class="frameRight"></div>
+      </div>
+    </div>
+  </ion-list>
+  <div id="start">
+      <ion-icon id="arrowUp" color="#d68900" name="ios-arrow-up" (click)="smoothScrollJS()"></ion-icon>
+  </div> <!--FUNKTIONIERT aber lädt Seite nochmal-->
+  <!--<button id="start" onclick="window.scrollTo(0,0)">&and;</button> FUNKTIONIERT noch NICHT-->
+</ion-content>
