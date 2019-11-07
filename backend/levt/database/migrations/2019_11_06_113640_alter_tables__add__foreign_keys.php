@@ -14,13 +14,13 @@ class AlterTablesAddForeignKeys extends Migration
     public function up()
     {
         Schema::table('costs', function($table) {
-            //$table->foreign('_journeyID')->references('journeyID')->on('journeys');
-            //$table->foreign('_activityID')->references('activityID')->on('activities');
+            $table->foreign('_journeyID')->references('journeyID')->on('journeys');
+            $table->foreign('_activityID')->references('activityID')->on('activities');
         });
 
         Schema::table('posts', function($table) {
-            //$table->foreign('_placeID')->references('placeID')->on('places');
-            //$table->foreign('_activityID')->references('activityID')->on('activities');
+            $table->foreign('_placeID')->references('placeID')->on('places');
+            $table->foreign('_activityID')->references('activityID')->on('activities');
         });
 
         Schema::table('journeys', function($table) {
