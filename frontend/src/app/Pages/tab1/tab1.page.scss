@@ -33,7 +33,7 @@ ion-list.headerAll.md.list-md.hydrated{
   position: relative;
 }
 .header {
-  width: 100%;
+  width: 98%;
   margin-left:auto;
   margin-right: auto;
   padding-top: 5px;
@@ -50,17 +50,13 @@ ion-header.md.header-md.header-collapse-none.hydrated{
 ion-searchbar {
   border: 5px solid #182f30;
   border-radius: 0.5em;
-  width: 70%;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 35%;
-  transition: width 0.5s ease-in-out;
   box-shadow: 5px 5px 5px #182f30;
   z-index: 3;
   padding: 0;
-}
-ion-searchbar:focus {
-  width: 80%;
 }
 .searchbar-input.sc-ion-searchbar-md{
   -webkit-padding-start: 40px;
