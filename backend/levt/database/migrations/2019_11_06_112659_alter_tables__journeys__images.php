@@ -14,8 +14,8 @@ class AlterTablesJourneysImages extends Migration
     public function up()
     {
         Schema::table('journeys', function($table) {
-            //$table->dropColumn('arrivaldate');
-            //$table->dropColumn('departuredate');
+            $table->dropColumn('arrivaldate');
+            $table->dropColumn('departuredate');
             $table->bigInteger('_seasonID')->unsigned();
             $table->bigInteger('_journeyCategoryID')->unsigned();
             $table->bigInteger('_companionshipID')->unsigned();
@@ -26,9 +26,9 @@ class AlterTablesJourneysImages extends Migration
         });
 
         Schema::table('images', function($table) {
-            //$table->dropColumn('post');
-            //$table->dropForeign('images__placeid_foreign');
-            //$table->dropColumn('_placeID');
+            $table->dropColumn('post');
+            $table->dropForeign('images__placeid_foreign');
+            $table->dropColumn('_placeID');
             $table->bigInteger('_postID')->unsigned();
         });
 
