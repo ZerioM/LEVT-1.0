@@ -5,7 +5,7 @@
         <ion-icon name="apps" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <img class="header" src="/assets/images/LEVT_Header.svg" alt="" />
+    <img class="header" id="header" src="/assets/images/LEVT_Header.svg" alt="" />
     <ion-searchbar id="suche" placeholder="Dream destination" padding="none"></ion-searchbar>
   </ion-list>
 </ion-header>
@@ -39,7 +39,7 @@
     </div>
   </ion-list>
   <div id="start">
-      <ion-icon id="arrowUp" color="#d68900" name="ios-arrow-up" onclick="window.history.go()"></ion-icon>
+      <ion-icon id="arrowUp" color="#d68900" name="ios-arrow-up" (click)="smoothScrollJS()"></ion-icon>
   </div> <!--FUNKTIONIERT aber lädt Seite nochmal-->
   <!--<button id="start" onclick="window.scrollTo(0,0)">&and;</button> FUNKTIONIERT noch NICHT-->
 </ion-content>
