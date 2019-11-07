@@ -22,7 +22,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\Journey::class, function (Faker\Generator $faker) {
     return [
         '_userID' => $faker->numberBetween($min = 1, $max = 50),
-        '_thumbnailID' => $faker->numberBetween($min = 1, $max = 3),
+        '_thumbnailID' => $faker->numberBetween($min = 5, $max = 7),
         'journeyName' => $faker->name.' Journey',
         '_seasonID' => $faker->numberBetween($min = 1, $max = 4),
         '_journeyCategoryID' => $faker->numberBetween($min = 1, $max = 7),
