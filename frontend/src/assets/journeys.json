@@ -1,0 +1,225 @@
+{"journeys":[
+    {
+        "journeyID": 1,
+        "name": "Côte d'Azure",
+        "username": "sandra2401",
+        "userImgSrc": "/assets/images/sandra2401.jpg",
+        "bookmarks": 10,
+        "arrivalDate": "29.05.2019",
+        "departureDate": "05.06.2019",
+        "thumbnailSrc": "/assets/images/01.jpg",
+        "places":[
+            {
+                "PlaceID": 1,
+                "name": "Antibes",
+                "CoordinatesX": 43.579245,
+                "CoordinatesY": 7.118339,
+                "arrivalDate": "29.05.2019",
+                "departureDate": "05.06.2019",
+                "images": [
+                    {
+                        "imageID": 1,
+                        "imgSrc": "/assets/images/01.jpg",
+                        "post": "Das ist Antibes. Habe einer Empfehlung von User @gs2000 nach diese Stadt besucht und war beeindruckt.",
+                        "coordinatesX": 43.579245,
+                        "coordinatesY": 7.118339,
+                        "date": "29.05.2019",
+                        "location": "Antibes, France",
+                        "username": "sandra2401",
+                        "userImgSrc": "/assets/images/sandra2401.jpg",
+                        "placename": "Antibes",
+                        "countryname": "France" 
+                    }
+                ]
+                
+
+            },
+            {
+                "PlaceID": 2,
+                "name": "Nice",
+                "CoordinatesX": 43.697000,
+                "CoordinatesY": 7.270303,
+                "arrivalDate": "29.05.2019",
+                "departureDate": "05.06.2019",
+                "thumbnailSrc":"/assets/images/02.jpg",
+                "images": [
+                    {
+                        "imageID": 2,
+                        "imgSrc": "/assets/images/02.jpg",
+                        "post": "Really ***nice*** hier! Ach, dieser Wortwitz.",
+                        "coordinatesX": 43.697000,
+                        "CoordinatesY": 7.270303,
+                        "date": "29.05.2019",
+                        "location": "Nice, France",
+                        "username": "sandra2401",
+                        "userImgSrc": "/assets/images/sandra2401.jpg",
+                        "placename": "Nice",
+                        "countryname": "France" 
+                    },
+                    {
+                        "imageID": 3,
+                        "imgSrc": "/assets/images/03.jpg",
+                        "post": "Ein weiteres Bild aus Nizza, welches ich euch hier voller Stolz präsentieren möchte! Ich hoffe, ich bekomme dafür ein tolles Abzeichen!!!! #AuchNeuHier #soexcited",
+                        "coordinatesX": null,
+                        "coordinatesY": null,
+                        "date": "29.05.2019",
+                        "location": "Nice, France",
+                        "username": "sandra2401",
+                        "userImgSrc": "/assets/images/sandra2401.jpg",
+                        "placename": "Nice",
+                        "countryname": "France" 
+                    }
+                ]
+            }
+        ]
+        }
+    ,
+    {
+        "journeyID": 2,
+        "name": "Genova und Pisa",
+        "username": "viegi2105",
+        "userImgSrc": "/assets/images/viegi2105.jpg",
+        "bookmarks": 5,
+        "arrivalDate": "29.07.2019",
+        "departureDate": "05.08.2019",
+        "thumbnailSrc":"/assets/images/04.jpg",
+        "places": [
+            {
+                "PlaceID": 3,
+                "name": "Genua",
+                "CoordinatesX": 44.396367, 
+                "CoordinatesY": 8.943575,
+                "arrivalDate": "29.07.2019",
+                "departureDate": "05.08.2019",
+                "images":[
+                    {
+                        "imageID": 4,
+                        "imgSrc": "/assets/images/04.jpg",
+                        "post": "Ich fancy boy war in Genua...",
+                        "coordinatesX": 44.396367, 
+                        "CoordinatesY": 8.943575,
+                        "date": "29.05.2019",
+                        "location": "Genova, Italy",
+                        "username": "viegi2105",
+                        "userImgSrc": "/assets/images/viegi2105.jpg",
+                        "placename": "Genova",
+                        "countryname": "Italy" 
+                    }
+                ]
+            },
+            {
+                "PlaceID": 4,
+                "name": "Pisa",
+                "CoordinatesX": 43.713259, 
+                "CoordinatesY": 10.399480, 
+                "arrivalDate": "29.09.2019",
+                "departureDate": "05.10.2019",
+                "thumbnailSrc":"/assets/images/05.jpg",
+                "images":[
+                    {
+                        "imageID": 5,
+                        "imgSrc": "/assets/images/05.jpg",
+                        "post": "...und in Pisa war ich auch!",
+                        "coordinatesX": 43.713259, 
+                        "CoordinatesY": 10.399480,
+                        "date": "29.05.2019",
+                        "location": "Pisa, Italy",
+                        "username": "viegi2105",
+                        "userImgSrc": "/assets/images/viegi2105.jpg",
+                        "placename": "Pisa",
+                        "countryname": "Italy" 
+                    },
+                    {
+                        "imageID": 6,
+                        "imgSrc": "/assets/images/01.jpg",
+                        "post": "In Pisa habe ich sogar zwei Sehenswürdigkeiten gesehen! O.o",
+                        "coordinatesX": null,
+                        "coordinatesY": null,
+                        "date":"29.05.2019",
+                        "location": "Pisa, Italy",
+                        "username": "viegi2105",
+                        "userImgSrc": "/assets/images/viegi2105.jpg",
+                        "placename": "Pisa",
+                        "countryname": "Italy" 
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "journeyID": 3,
+        "name": "Hamburg und Berlin",
+        "username": "sarah3110",
+        "userImgSrc": "/assets/images/sarah3110.jpg",
+        "bookmarks": 22,
+        "arrivalDate": "10.1.2019",
+        "departureDate": "15.01.2019",
+        "thumbnailSrc": "/assets/images/07.jpg",
+        "places": [
+            {
+                "PlaceID": 5,
+                "name": "Hamburg",
+                "CoordinatesX": 53.554016,  
+                "CoordinatesY": 9.992139,
+                "arrivalDate": "10.01.2019",
+                "departureDate": "15.01.2019",
+                "thumbnailSrc": "/assets/images/01.jpg",
+                "images":[
+                    {
+                        "imageID": 7,
+                        "imgSrc": "/assets/images/07.jpg",
+                        "post": "Bei meiner Deutschland-Reise konnte ich natürlich einen Stop in Hamburg nicht auslassen.",
+                        "coordinatesX": 53.554016,  
+                        "CoordinatesY": 9.992139,
+                        "date": "29.05.2019",
+                        "location": "Hamburg, Germany",
+                        "username": "sarah3110",
+                        "userImgSrc": "/assets/images/sarah3110.jpg",
+                        "placename": "Hamburg",
+                        "countryname": "Germany" 
+                    }
+                ]
+            },
+            {
+                "PlaceID": 6,
+                "name": "Berlin",
+                "CoordinatesX": 52.511259,   
+                "CoordinatesY": 13.389770,
+                "arrivalDate": "20.04.2019",
+                "departureDate": "05.05.2019",
+                "thumbnailSrc": "/assets/images/01.jpg",
+                "images":[
+                    {
+                        "imageID": 8,
+                        "imgSrc": "/assets/images/08.jpg",
+                        "post": "In Berlin war ich dann auch noch. Ick bin eine Berlinerin!",
+                        "coordinatesX": 52.511259,   
+                        "CoordinatesY": 13.389770,
+                        "date": "29.05.2019",
+                        "location": "Berlin, Germany",
+                        "username": "sarah3110",
+                        "userImgSrc": "/assets/images/sarah3110.jpg",
+                        "placename": "Berlin",
+                        "countryname": "Germany" 
+                    },
+                    {
+                        "imageID": 9,
+                        "imgSrc": "/assets/images/09.jpg",
+                        "post": "Ich, mit einer Club-Mate in der Hand. #hatersgonnahate",
+                        "coordinatesX": null,
+                        "coordinatesY": null,
+                        "date": "29.05.2019",
+                        "location": "Berlin, Germany",
+                        "username": "sarah3110",
+                        "userImgSrc": "/assets/images/sarah3110.jpg",
+                        "placename": "Berlin",
+                        "countryname": "Germany" 
+                    }
+                ]
+            }
+        ]
+        
+    }
+]
+
+}

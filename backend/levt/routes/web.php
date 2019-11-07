@@ -14,3 +14,7 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+//$router->get('/JSONData','JSONController@returnJSON');
+
+$router->get('/top100','Controller@loadTopPosts');

@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Neue Reise
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content width="90%">
+  <ion-item>
+    <ion-label>Journey Title</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-input></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Season</ion-label>
+    <ion-select placeholder="Season">
+      <ion-select-option> Spring </ion-select-option>
+      <ion-select-option> Summer </ion-select-option>
+      <ion-select-option> Fall </ion-select-option>
+      <ion-select-option> Winter </ion-select-option>
+    </ion-select>
+    
+  </ion-item>
+  <ion-item>
+      <ion-label>Year</ion-label>
+      <ion-datetime displayFormat="YYYY"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-select placeholder="Type of Journey">
+    </ion-select>
+  </ion-item>
+  <ion-item>
+      <ion-select placeholder="Journey Companionship">  
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label color="warning" id="NoPlace"> You haven't added any places to your journey!</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-button class="middlebutton" color="primary">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Add a place to your journey
+      </ion-button>
+  </ion-item>
+    <ion-item>
+      <ion-label>Details</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-textarea placeholder="Tell us more about your Journey..." rows="10"></ion-textarea>
+    </ion-item>
+</ion-content>
