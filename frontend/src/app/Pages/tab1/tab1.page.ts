@@ -31,7 +31,7 @@ export class Tab1Page {
 
   smoothScrollJS(){
     let content = document.querySelector('ion-content');
-    let timeInMilli = 2000;
+    let timeInMilli = 500;
     console.log("Try to animate...");
     content.scrollToTop(timeInMilli);
   }

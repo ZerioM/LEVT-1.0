@@ -18,9 +18,15 @@ div.tabs-inner {
 ion-list.md.list-md.list-lines-none.list-md-lines-none.hydrated{
 	background:0;
 }
-
+ion-list.headerAll.md.list-md.hydrated{
+  background:0;
+  color:0;
+  margin:0;
+  padding:0;
+}
 .headerAll {
-  width: 90%;
+  width: 100%;
+  height: 250px;
   margin-left: auto;
   margin-right: auto;
   z-index: 1;
@@ -28,6 +34,8 @@ ion-list.md.list-md.list-lines-none.list-md-lines-none.hydrated{
 }
 .header {
   width: 100%;
+  margin-left:auto;
+  margin-right: auto;
   padding-top: 5px;
   position: absolute;
   z-index: -1;
@@ -36,6 +44,9 @@ ion-list.md.list-md.list-lines-none.list-md-lines-none.hydrated{
   content: 0;
   height: 0;
 } /* => balken nach Header*/
+ion-header.md.header-md.header-collapse-none.hydrated{
+  margin: 0;
+}
 ion-searchbar {
   border: 5px solid #182f30;
   border-radius: 0.5em;
