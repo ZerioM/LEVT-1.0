@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddCountryPage } from './add-country.page';
+import { AddPlacePage } from './add-place.page';
 
-describe('AddCountryPage', () => {
-  let component: AddCountryPage;
-  let fixture: ComponentFixture<AddCountryPage>;
+describe('AddPlacePage', () => {
+  let component: AddPlacePage;
+  let fixture: ComponentFixture<AddPlacePage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddCountryPage ],
+      declarations: [ AddPlacePage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddCountryPage);
+    fixture = TestBed.createComponent(AddPlacePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -9,10 +10,10 @@ import { NavController } from '@ionic/angular';
 })
 export class Tab2Page {
 
-  constructor(private data: DataService, private navCtrl:NavController) {}
+  constructor(private data: DataService, private navCtrl:NavController,  private router: Router) {}
 
-  goToAddCountries(){
-    this.navCtrl.navigateForward("/add-country");
+  goToAddPlace(){
+    this.router.navigateByUrl('/tabs/tab2/add-place');
   }
 }
 

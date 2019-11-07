@@ -24,6 +24,15 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../Pages/tab2/tab2.module').then(m => m.Tab2PageModule)
+          },
+          {
+            path: 'add-place',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/add-place/add-place.module').then (m => m.AddPlacePageModule)}
+            ]
           }
         ]
       },
