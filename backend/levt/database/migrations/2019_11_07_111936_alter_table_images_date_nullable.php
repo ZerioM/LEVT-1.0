@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableImages extends Migration
+class AlterTableImagesDateNullable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,7 @@ class AlterTableImages extends Migration
     public function up()
     {
         Schema::table('images', function($table) {
-            $table->dateTime('date');
-            $table->dropForeign('images__postID_foreign');
-            $table->dropColumn('_postID');
+            $table->dateTime('date')->nullable()->change();
         });
     }
 

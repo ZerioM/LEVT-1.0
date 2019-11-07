@@ -13,7 +13,7 @@ class ReadController extends BaseController
         //dann TOP 100 vong Bookmarks her
 
         $result = DB::select('SELECT journeys.journeyID,journeys.journeyName as name,users.username,
-                    profileImage.src as userImgSrc, COUNT(bookmarks.bookmarkID) AS bookmarks, journeys.arrivalDate, journeys.departureDate,
+                    profileImage.src as userImgSrc, COUNT(bookmarks.bookmarkID) AS bookmarks, 
                     null as places,thumbnailImage.src as thumbnailSrc
                     FROM journeys
                     INNER JOIN users ON journeys._userID = users.userID
