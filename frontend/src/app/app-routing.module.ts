@@ -5,7 +5,8 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  },  { path: 'add-country', loadChildren: './Pages/add-country/add-country.module#AddCountryPageModule' },
+  },  { path: 'add-place', loadChildren: './Pages/add-place/add-place.module#AddPlacePageModule' },
+
 
 
 ];
