@@ -84,7 +84,7 @@ export class DataService {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
         this.currentJourneys=loadedData;
-
+        this.currentJourneys.journeys = this.shuffleArray(this.currentJourneys.journeys);
         /*this.currentJourneys.journeys.forEach(journey => {
           //MZ: Change date format
           //dd.MM.yyyy for normal date, MMM for 'Nov'
@@ -94,10 +94,10 @@ export class DataService {
           this.departureDateString = formatDate(journey.departureDate,'MMMM yyyy',this.locale);
           journey.departureDate = this.departureDateString;      
         });
-
+        */
         console.log(this.currentJourneys);
-      }else{*/
-        
+      }else{
+
         console.log("null per http geladen");
       }
     });
@@ -106,4 +106,21 @@ export class DataService {
 
   }
 
+  // -> Fisher–Yates shuffle algorithm
+  shuffleArray(array) {
+    let m = array.length, t, i;
+  
+    // While there remain elements to shuffle
+    while (m) {
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+  
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+  
+    return array;
+  }
 }
