@@ -31,17 +31,23 @@
   </ion-item>
   <ion-item>
     <ion-select placeholder="Type of Journey">
+      <ion-select-option *ngFor="let c of data.journeyCategories.journeyCategories">
+        {{c.name}}
+      </ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>
-    <ion-select placeholder="Journey Companionship">
-    </ion-select>
-  </ion-item>
-  <ion-item>
-    <ion-label><b>Visited places</b></ion-label>
-  </ion-item>
-
-  <ion-item>
+      <ion-select placeholder="Journey Companionship">
+          <ion-select-option *ngFor="let cs of data.journeyCompanionships.journeyCompanionships">
+              {{cs.name}}
+            </ion-select-option>  
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label><b>Visited places</b></ion-label>
+    </ion-item>
+    
+   <ion-item>
     <div id="alreadyAddedPlaces" class="gridContainer">
       <div class="grid-item" *ngFor="let p of data.currentJourney.places">
         <img class="pictureGrid" src="{{p.thumbnailSrc}}" alt="" />
@@ -53,27 +59,44 @@
     </div>
   </ion-item>
 
+    <ion-item>
+      <ion-label color="warning" id="NoPlace"> You haven't added any places to your journey!</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-button  class="middlebutton" color="light" (click)="goToAddPlace()">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Add a place to your journey
+      </ion-button>
+    </ion-item>
+  <ion-item>  <hr></ion-item>
   <ion-item>
-    <ion-label color="warning" id="NoPlace"> You haven't added any places to your journey!</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-button class="middlebutton" color="primary" (click)="goToAddPlace()">
-      <ion-icon slot="start" name="add"></ion-icon>
-      Add a place to your journey
+      <ion-label><b>Journey Details</b></ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-textarea placeholder="Tell us more about your Journey..." rows="8" background="light"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox></ion-checkbox>
+      <ion-label> add travel costs</ion-label>
+    </ion-item>
+    <div id="divideCosts">
+        <ion-item>
+            <ion-checkbox></ion-checkbox>
+            <ion-label>divide costs by category</ion-label>
+          </ion-item>
+    </div>
+    <div id="journeycostsCategories">
+      <ion-item><ion-input placeholder="accomodation costs"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="transport costs"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="food costs"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="activity costs"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="other costs"></ion-input></ion-item>
+      <ion-item><ion-label>Total Costs</ion-label></ion-item>
+    </div>
+    <div id="journeycostsTotal">
+        <ion-item><ion-input placeholder="total costs"></ion-input></ion-item>
+    </div>
+    <ion-button color="primary" expand="full">
+        Finish
     </ion-button>
-  </ion-item>
-  <ion-item>
-    <hr>
-  </ion-item>
-  <ion-item>
-    <ion-label><b>Journey Details</b></ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-textarea placeholder="Tell us more about your Journey..." rows="8" background="light"></ion-textarea>
-  </ion-item>
-  <ion-item>
-    <ion-checkbox></ion-checkbox>
-    <ion-label> add travel costs</ion-label>
-  </ion-item>
-  <div id="journeycosts"></div>
 </ion-content>

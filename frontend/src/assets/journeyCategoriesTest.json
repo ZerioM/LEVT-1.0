@@ -1,0 +1,35 @@
+{"journeyCategories":[
+    {
+        "journeyCategoryID": 1,
+        "name": "Hiking"
+    },
+
+    {
+        "journeyCategoryID": 2,
+        "name": "Beach"
+    },
+
+    {
+        "journeyCategoryID": 3,
+        "name": "Nature"
+    },
+
+    {
+        "journeyCategoryID": 4,
+        "name": "Culture"
+    },
+    {
+        "journeyCategoryID": 5,
+        "name": "Winter Sport"
+    },
+    {
+        "journeyCategoryID": 6,
+        "name": "Summer Sport"
+    },
+    {
+        "journeyCategoryID": 7,
+        "name": "Sightseeing"
+    }
+       
+    ]
+}

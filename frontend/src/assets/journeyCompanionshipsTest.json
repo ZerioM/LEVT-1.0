@@ -1,0 +1,31 @@
+{"journeyCompanionships":[
+    {
+        "companionshipID": 1,
+        "name": "Alone"
+    },
+
+    {
+        "companionshipID": 2,
+        "name": "Friends (Up to 4)"
+    },
+
+    {
+        "companionshipID": 3,
+        "name":"Friends (5 and more)"
+    },
+
+    {
+        "companionshipID": 4,
+        "name": "Partner"
+    },
+    {
+        "companionshipID": 5,
+        "name": "Family (Up to 4)"
+    },
+    {
+        "companionshipID": 6,
+        "name": "Family (5 and more)"
+    }
+       
+    ]
+}
