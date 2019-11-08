@@ -6,6 +6,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\JourneyCategory as JourneyCategory;
+use App\Models\Companionship as Companionship;
 
 class ReadController extends BaseController
 {
@@ -39,5 +40,9 @@ class ReadController extends BaseController
 
     public function selectJourneyCategories(){
         return '{"journeyCategories": '.json_encode(JourneyCategory::all(), JSON_PRETTY_PRINT)." \n}";
+    }
+
+    public function selectCompanionships(){
+        return '{"companionships": '.json_encode(Companionship::all(), JSON_PRETTY_PRINT)." \n}";
     }
 }
