@@ -1,23 +1,68 @@
-hr{
+ion-icon #back {
+  color: #d68900;
+}
+.tabToolbars {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.tabHeading {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20pt;
+  font-variant: small-caps;
+  vertical-align: middle;
+}
+#toolbarLogo {
+  height: 50px;
+}
+.journeythumbnail {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+hr {
   width: 90%;
   height: 2px;
   background: lightgrey;
 }
-
-.gridContainer{
+.gridContainer {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   display: grid;
   grid-template-columns: auto auto auto;
+  justify-content: space-between;
 }
-
 .grid-item {
+  width: 100px;
   display: table-cell;
-  vertical-align: middle;
-  padding: 10px;
-  font-size: 15px;
-  width:100px;
+  margin-bottom: 30px;
+}
+.grid-item .addPlace {
+  width: 100px;
   height: 100px;
+  background-color: #7ba9a9bf;
+  vertical-align: middle;
   text-align: center;
-  margin:10px;
- 
-  
+  color: #182f30;
+  font-size: 70pt;
+}
+.pictureGrid {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+#visitedPlaceName {
+  width: 100%;
+  margin-top: -30px;
+  background-color: #eceeefbf;
+  vertical-align: middle;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  text-align: center;
+  position: relative;
 }
