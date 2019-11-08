@@ -40,11 +40,11 @@ export class DataService {
 
   loadTestJSON(){
 //ladet das JSON File mit den Testdaten aus den assets
-    this.http.get("/assets/placesTest.json").subscribe( (loadedData: Journey)=> {
+    this.http.get("/assets/journeys.json").subscribe( (loadedData: Journeys)=> {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
-        this.currentJourney=loadedData;
+        this.currentJourneys=loadedData;
 
         console.log("currentJourney wurde überschrieben");
 
@@ -65,7 +65,7 @@ export class DataService {
         });*/
         console.log(loadedData);
 
-        console.log(this.currentJourney);
+        console.log(this.currentJourneys);
       }else{
 
         console.log("null per http geladen");

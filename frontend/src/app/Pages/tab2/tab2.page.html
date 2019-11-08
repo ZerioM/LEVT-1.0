@@ -1,14 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Neue Reise
-    </ion-title>
-  </ion-toolbar>
+<ion-header color="none">
+  <ion-list class="tabToolbars" color="none">
+    <ion-buttons id="back" slot="start">
+      <ion-button icon-only>
+        <ion-icon name="ios-arrow" size="large"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="tabHeading" padding="none">New journey</ion-title>
+    <img id="toolbarLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
+  </ion-list>
 </ion-header>
 
-<ion-content width="90%">
+<ion-content class="tabsContent">
   <div id="journeythumbnail">
-      <img src="/assets/images/01.jpg" alt="Journeycover" class="journeythumbnail" />
+    <img class="journeythumbnail" src="/assets/images/01.jpg" alt="Journeycover" />
   </div>
   <ion-item>
     <ion-label><b>General</b></ion-label>
@@ -22,15 +26,21 @@
       <ion-select-option> Summer </ion-select-option>
       <ion-select-option> Fall </ion-select-option>
       <ion-select-option> Winter </ion-select-option>
-    </ion-select>   
-      <ion-datetime placeholder="Year" displayFormat="YYYY"></ion-datetime>
+    </ion-select>
+    <ion-datetime placeholder="Year" displayFormat="YYYY"></ion-datetime>
   </ion-item>
   <ion-item>
     <ion-select placeholder="Type of Journey">
+      <ion-select-option *ngFor="let c of data.journeyCategories.journeyCategories">
+        {{c.name}}
+      </ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>
-      <ion-select placeholder="Journey Companionship">  
+      <ion-select placeholder="Journey Companionship">
+          <ion-select-option *ngFor="let cs of data.journeyCompanionships.journeyCompanionships">
+              {{cs.name}}
+            </ion-select-option>  
       </ion-select>
     </ion-item>
     <ion-item>
@@ -39,13 +49,13 @@
     
    <ion-item>
     <div id="alreadyAddedPlaces" class="gridContainer">
-      <div class="grid-item" *ngFor="let p of data.currentJourney.places" >
-        {{p.name}}
-        <img src="{{p.thumbnailSrc}}" alt=""/>
+      <div class="grid-item" *ngFor="let p of data.currentJourney.places">
+        <img class="pictureGrid" src="{{p.thumbnailSrc}}" alt="" />
+        <div id="visitedPlaceName">{{p.name}}</div>
       </div>
       <div class="grid-item" (click)="goToAddPlace()">
-        +
-      </div> 
+        <ion-icon name="ios-add" class="addPlace" ></ion-icon>
+      </div>
     </div>
   </ion-item>
 
@@ -53,7 +63,7 @@
       <ion-label color="warning" id="NoPlace"> You haven't added any places to your journey!</ion-label>
     </ion-item>
     <ion-item>
-      <ion-button  class="middlebutton" color="primary" (click)="goToAddPlace()">
+      <ion-button  class="middlebutton" color="light" (click)="goToAddPlace()">
         <ion-icon slot="start" name="add"></ion-icon>
         Add a place to your journey
       </ion-button>
@@ -69,5 +79,24 @@
       <ion-checkbox></ion-checkbox>
       <ion-label> add travel costs</ion-label>
     </ion-item>
-    <div id="journeycosts"></div>
+    <div id="divideCosts">
+        <ion-item>
+            <ion-checkbox></ion-checkbox>
+            <ion-label>divide costs by category</ion-label>
+          </ion-item>
+    </div>
+    <div id="journeycostsCategories">
+      <ion-item><ion-input placeholder="accomodation costs"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="transport costs"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="food costs"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="activity costs"></ion-input></ion-item>
+      <ion-item><ion-input placeholder="other costs"></ion-input></ion-item>
+      <ion-item><ion-label>Total Costs</ion-label></ion-item>
+    </div>
+    <div id="journeycostsTotal">
+        <ion-item><ion-input placeholder="total costs"></ion-input></ion-item>
+    </div>
+    <ion-button color="primary" expand="full">
+        Finish
+    </ion-button>
 </ion-content>

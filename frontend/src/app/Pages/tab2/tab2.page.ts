@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { NewJourneyService } from 'src/app/services/new-journey.service';
 
 @Component({
   selector: 'app-tab2',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class Tab2Page {
 
-  constructor(private data: DataService, private navCtrl:NavController,  private router: Router) {
+  constructor(private data: NewJourneyService, private navCtrl:NavController,  private router: Router) {
     this.loadJSON();
   }
 
@@ -21,7 +22,9 @@ export class Tab2Page {
 
   loadJSON(){
 
-    this.data.loadTestJSON();
+    this.data.loadCurrentJourney();
+    this.data.loadJourneyCategories();
+    this.data.loadCompanionships();
   }
 }
 
