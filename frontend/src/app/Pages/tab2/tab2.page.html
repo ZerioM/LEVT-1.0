@@ -39,13 +39,13 @@
     
    <ion-item>
     <div id="alreadyAddedPlaces" class="gridContainer">
-      <div class="grid-item" *ngFor="let p of data.currentJourney.places" [ngStyle]="{'background-image': 'url(' + p.thumbnailSrcString + ')'}">
+      <div class="grid-item" *ngFor="let p of data.currentJourney.places" >
         {{p.name}}
+        <img src="{{p.thumbnailSrc}}" alt=""/>
       </div>
       <div class="grid-item" (click)="goToAddPlace()">
         +
-      </div>
-      
+      </div> 
     </div>
   </ion-item>
 

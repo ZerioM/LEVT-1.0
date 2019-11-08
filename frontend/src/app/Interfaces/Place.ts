@@ -8,7 +8,6 @@ export interface Place{
     coordinateX: number;
     coordinateY: number;
     posts:Post[];
-    thumbnailSrcString: string;
-    thumbnailSrcUrl:SafeUrl;
+    thumbnailSrc: string;
 
 }

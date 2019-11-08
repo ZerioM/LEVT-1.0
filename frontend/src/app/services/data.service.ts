@@ -15,7 +15,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class DataService {
 
-  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,duration:null,companionship:"",detail:"",totalCosts: null,accommodationCosts:null,activityCosts:null,transportCosts:null,foodCosts:null,otherCosts:null,places:[],thumbnailSrc:null}
+  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,duration:null,companionship:"",detail:"",totalCosts: null,accommodationCosts:null,activityCosts:null,transportCosts:null,foodCosts:null,otherCosts:null,places:[],thumbnailSrc:""}
 
   public currentJourneys:Journeys={journeys:[]}
 
@@ -48,11 +48,11 @@ export class DataService {
 
         console.log("currentJourney wurde überschrieben");
 
-        this.currentJourney.places.forEach( place=> {
+        /*this.currentJourney.places.forEach( place=> {
         this.thumbnailSrcString=place.thumbnailSrcString;
         place.thumbnailSrcUrl=this.sanitizer.bypassSecurityTrustUrl(this.thumbnailSrcString);
           
-        });
+        });*/
 
         /*this.currentJourneys.journeys.forEach(journey => {
           //MZ: Change date format
