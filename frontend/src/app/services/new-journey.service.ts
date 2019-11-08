@@ -44,7 +44,7 @@ export class NewJourneyService {
 
       loadJourneyCategories(){
         //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
-            this.http.get("/assets/journeyCategoriesTest.json").subscribe( (loadedData: JourneyCategories)=> {
+            this.http.get("http://levt.test/allJourneyCategories").subscribe( (loadedData: JourneyCategories)=> {
               if(loadedData!=null){
                 console.log("Json file wurde geladen");
                 //console.log(JSON.stringify(loadedData));

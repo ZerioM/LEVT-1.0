@@ -32,14 +32,14 @@
   <ion-item>
     <ion-select placeholder="Type of Journey">
       <ion-select-option *ngFor="let c of data.journeyCategories.journeyCategories">
-        {{c.name}}
+        {{c.journeyCategoryName}}
       </ion-select-option>
     </ion-select>
   </ion-item>
   <ion-item>
       <ion-select placeholder="Journey Companionship">
           <ion-select-option *ngFor="let cs of data.journeyCompanionships.journeyCompanionships">
-              {{cs.name}}
+              {{cs.companionshipType}}
             </ion-select-option>  
       </ion-select>
     </ion-item>
