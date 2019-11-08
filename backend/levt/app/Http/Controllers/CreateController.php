@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 
 class CreateController extends BaseController
 {
-    public function insertJourney() {
-
+    public function insertJourney(Request $request) {
+        $journeyController = new _JourneyController;
+        return $journeyController->insertOne($request);
     }
 
     public function insertPlace() {

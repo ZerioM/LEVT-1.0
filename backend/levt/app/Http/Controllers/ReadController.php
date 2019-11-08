@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\JourneyCategory as JourneyCategory;
-use App\Models\Companionship as Companionship;
+use App\Http\Controllers;
+
 
 class ReadController extends BaseController
 {
+
     //
     public function loadTopPosts() {
         //Abfrage Users mit Journeys und Images und Likes und Places und Countries joinen,
@@ -39,10 +40,12 @@ class ReadController extends BaseController
     }
 
     public function selectJourneyCategories(){
-        return '{"journeyCategories": '.json_encode(JourneyCategory::all(), JSON_PRETTY_PRINT)." \n}";
+        $jcc = new _JourneyCategoryController;
+        return $jcc->selectAll();
     }
 
     public function selectCompanionships(){
-        return '{"companionships": '.json_encode(Companionship::all(), JSON_PRETTY_PRINT)." \n}";
+        $csc = new _CompanionshipController;
+        return $csc->selectAll();
     }
 }
