@@ -14,7 +14,7 @@ export interface Journey{
     detail: string;
     totalCosts: number;
     activityCosts: number;
-    accommodationgCosts: number;
+    accommodationCosts: number;
     foodCosts: number;
     transportCosts: number;
     otherCosts: number

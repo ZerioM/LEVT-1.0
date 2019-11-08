@@ -10,10 +10,18 @@ import { Router } from '@angular/router';
 })
 export class Tab2Page {
 
-  constructor(private data: DataService, private navCtrl:NavController,  private router: Router) {}
+  constructor(private data: DataService, private navCtrl:NavController,  private router: Router) {
+    this.loadJSON();
+  }
 
   goToAddPlace(){
     this.router.navigateByUrl('/tabs/tab2/add-place');
+  }
+
+
+  loadJSON(){
+
+    this.data.loadTestJSON();
   }
 }
 

@@ -1,5 +1,6 @@
 
 import { Post } from './Post';
+import { SafeUrl } from '@angular/platform-browser';
 
 export interface Place{
     placeID: number;
@@ -7,6 +8,7 @@ export interface Place{
     coordinateX: number;
     coordinateY: number;
     posts:Post[];
-    thumbnailSrc:string;
+    thumbnailSrcString: string;
+    thumbnailSrcUrl:SafeUrl;
 
 }

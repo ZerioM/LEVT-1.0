@@ -8,22 +8,25 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
 import localeEN from '@angular/common/locales/en';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,duration:null,companionship:"",detail:"",totalCosts: null,accommodationgCosts:null,activityCosts:null,transportCosts:null,foodCosts:null,otherCosts:null,places:[],thumbnailSrc:null}
+  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,duration:null,companionship:"",detail:"",totalCosts: null,accommodationCosts:null,activityCosts:null,transportCosts:null,foodCosts:null,otherCosts:null,places:[],thumbnailSrc:null}
 
   public currentJourneys:Journeys={journeys:[]}
 
   public arrivalDateString: string;
   public departureDateString: string;
 
+  public thumbnailSrcString:string;
+
   private locale : string;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private sanitizer:DomSanitizer) { 
       
     /*
     //for german Date:
@@ -37,11 +40,19 @@ export class DataService {
 
   loadTestJSON(){
 //ladet das JSON File mit den Testdaten aus den assets
-    this.http.get("/assets/journeys.json").subscribe( (loadedData: Journeys)=> {
+    this.http.get("/assets/placesTest.json").subscribe( (loadedData: Journey)=> {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
-        this.currentJourneys=loadedData;
+        this.currentJourney=loadedData;
+
+        console.log("currentJourney wurde überschrieben");
+
+        this.currentJourney.places.forEach( place=> {
+        this.thumbnailSrcString=place.thumbnailSrcString;
+        place.thumbnailSrcUrl=this.sanitizer.bypassSecurityTrustUrl(this.thumbnailSrcString);
+          
+        });
 
         /*this.currentJourneys.journeys.forEach(journey => {
           //MZ: Change date format
@@ -52,8 +63,9 @@ export class DataService {
           this.departureDateString = formatDate(journey.departureDate,'MMMM yyyy',this.locale);
           journey.departureDate = this.departureDateString;      
         });*/
+        console.log(loadedData);
 
-        console.log(this.currentJourneys);
+        console.log(this.currentJourney);
       }else{
 
         console.log("null per http geladen");
@@ -85,7 +97,7 @@ export class DataService {
 
         console.log(this.currentJourneys);
       }else{*/
-
+        
         console.log("null per http geladen");
       }
     });

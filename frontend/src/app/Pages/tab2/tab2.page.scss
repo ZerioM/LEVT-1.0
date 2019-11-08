@@ -3,3 +3,22 @@ hr{
   height: 2px;
   background: lightgrey;
 }
+
+.gridContainer{
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.grid-item {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 10px;
+  font-size: 15px;
+  width:100px;
+  height: 100px;
+  text-align: center;
+  margin:10px;
+  background: lightgrey;
+ 
+  
+}
