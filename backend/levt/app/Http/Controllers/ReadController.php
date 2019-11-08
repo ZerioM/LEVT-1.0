@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\JourneyCategory as JourneyCategory;
+
 class ReadController extends BaseController
 {
     //
@@ -13,8 +15,8 @@ class ReadController extends BaseController
         //dann TOP 100 vong Bookmarks her
 
         $result = DB::select('SELECT journeys.journeyID,journeys.journeyName as name,users.username,
-                    profileImage.src as userImgSrc, COUNT(bookmarks.bookmarkID) AS bookmarks, 
-                    seasons.seasonName as season, journeys.year, 
+                    profileImage.src as userImgSrc, COUNT(bookmarks.bookmarkID) AS bookmarks,
+                    seasons.seasonName as season, journeys.year,
                     null as duration, null as companionship, null as detail, null as totalCosts,
                     null as activityCosts, null as accommodationgCosts, null as foodCosts,
                     null as transportCosts, null as otherCosts,
@@ -33,5 +35,9 @@ class ReadController extends BaseController
         return '{"journeys": '.json_encode($result, JSON_PRETTY_PRINT)." \n}";
 
 
+    }
+
+    public function selectJourneyCategories(){
+        return '{"journeyCategories": '.json_encode(JourneyCategory::all(), JSON_PRETTY_PRINT)." \n}";
     }
 }

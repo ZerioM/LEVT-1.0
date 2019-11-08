@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class JourneyCategory extends Model
 {
     //
+    protected $table = 'journeyCategories';
 }
