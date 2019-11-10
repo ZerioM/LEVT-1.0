@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
              CompanionTableSeeder::class,
              JourneyTableSeeder::class,
              BookmarkTableSeeder::class,
+             ActivityTableSeeder::class
              ]);
     }
 }
