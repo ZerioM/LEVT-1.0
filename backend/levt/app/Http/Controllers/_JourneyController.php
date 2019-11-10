@@ -16,27 +16,87 @@ class _JourneyController extends BaseController
     //
     public function insertOne(Request $request){
 
-        $userID = DB::table('users')->where('username',$request->input('username'))->value('userID');
-        //$thumbnailID = DB::table('images')->where('src',$request->input('thumbnailSRC'))->value('thumbnailID');
+        //Create DB table object
+            $insertJourneyArray = [
+                '_userID' => $request->input('userID'),
+                '_thumbnailID' => $request->input('thumbnailID'),
+                'journeyName' => $request->input('journeyName'),
+                '_seasonID' => $request->input('seasonID'),
+                '_journeyCategoryID' => $request->input('journeyCategoryID'),
+                '_companionshipID' => $request->input('companionshipID'),
+                'year' => $request->input('year'),
+                'detail' => $request->input('detail'),
+                'duration' => $request->input('duration'),
+                'cost' => $request->input('cost'),
+            ];
 
-        $insertArray = [
-            '_userID' => $userID,
-            '_thumbnailID' => $request->input('thumbnailID'),
-            'journeyName' => $request->input('journeyName'),
-            '_seasonID' => $request->input('seasonID'),
-            '_journeyCategoryID' => $request->input('journeyCategoryID'),
-            '_companionshipID' => $request->input('companionshipID'),
-            'year' => $request->input('year'),
-            'detail' => $request->input('detail'),
-            'duration' => $request->input('duration'),
-            'cost' => $request->input('cost')
-        ];
-        $id = DB::table('journeys')->insertGetId($insertArray);
-        $idArray = [
-            'journeyID' => $id,
-            'username' => $request->input('username')
-        ];
-        $returnArray = array_merge($idArray,array_shift($insertArray));
-        return json_encode($returnArray,JSON_PRETTY_PRINT);
+
+
+        //insert data and retrieve the new id of the journey
+            $id = DB::table('journeys')->insertGetId($insertJourneyArray);
+
+            $costcontroller = new _CostController;
+
+
+            if($request->input('cost') == null){
+                if($request->input('activityCosts') != null)
+                    $costcontroller->insert($id,1,$request->input('activityCosts'));
+                if($request->input('accomodationCosts') != null)
+                    $costcontroller->insert($id,2,$request->input('accomodationCosts'));
+                if($request->input('foodCosts') != null)
+                    $costcontroller->insert($id,3,$request->input('foodCosts'));
+                if($request->input('transportCosts') != null)
+                    $costcontroller->insert($id,4,$request->input('transportCosts'));
+                if($request->input('otherCosts') != null)
+                    $costcontroller->insert($id,5,$request->input('otherCosts'));
+            }
+
+
+
+        //build an business layer object as per interface
+            $username = DB::table('users')->where('userid',$request->input('userID'))->value('username');
+            $userImgSrc = DB::table('images')
+                                        ->join('users','images.imageID','=','users._profileImageID')
+                                        ->where('userid',$request->input('userID'))->value('src');
+            $season = DB::table('seasons')->where('seasonid',$request->input('seasonID'))->value('seasonName');
+            $companionship = DB::table('companionships')->where('companionshipID',$request->input('companionshipID'))->value('companionshipType');
+            $thumbnailSRC = DB::table('images')->where('imageID',$request->input('thumbnailID'))->value('src');
+
+            $outputArray = [
+                'journeyID' => $id,
+                'name' => $request->input('journeyName'),
+                'username' => $username,
+                'userImgSRC' => $userImgSrc,
+                'bookmarks' => null,
+                'season' => $season,
+                'year' => $request->input('year'),
+                'duration' => $request->input('duration'),
+                'companionship' => $companionship,
+                'detail' => $request->input('detail'),
+                'totalCosts' => $request->input('cost'),
+                'activityCosts' => $request->input('activityCosts'),
+                'accomodationCosts' => $request->input('accomodationCosts'),
+                'foodCosts' => $request->input('foodCosts'),
+                'transportCosts' => $request->input('transportCosts'),
+                'otherCosts' => $request->input('otherCosts'),
+                'thumbnailSrc' => $thumbnailSRC
+            ];
+
+           /* Maybe we use a transaction
+
+           DB::transaction(function()
+            {
+                $newAcct = Account::create([
+                    'accountname' => Input::get('accountname')
+                ]);
+
+                $newUser = User::create([
+                    'username' => Input::get('username'),
+                    'account_id' => $newAcct->id,
+                ]);
+            });*/
+
+        //return the business layer object as pretty json
+        return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 }
