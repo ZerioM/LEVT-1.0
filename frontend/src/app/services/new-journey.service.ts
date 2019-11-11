@@ -10,7 +10,7 @@ import { Companionships } from '../Interfaces/Companionships';
 })
 export class NewJourneyService {
 
-  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,duration:null,companionship:"",detail:"",totalCosts: null,accommodationCosts:null,activityCosts:null,transportCosts:null,foodCosts:null,otherCosts:null,places:[],thumbnailSrc:""}
+  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,duration:null,journeyCategory:"",companionship:"",detail:"",totalCosts: null,accommodationCosts:null,activityCosts:null,transportCosts:null,foodCosts:null,otherCosts:null,places:[],thumbnailSrc:""}
 
   public journeyCategories:JourneyCategories={journeyCategories:[]};
   public companionships:Companionships={companionships:[]};

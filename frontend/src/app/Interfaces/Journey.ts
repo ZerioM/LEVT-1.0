@@ -10,6 +10,7 @@ export interface Journey{
     season: string;
     year: number;
     duration: number;
+    journeyCategory: string;
     companionship: string;
     detail: string;
     totalCosts: number;
