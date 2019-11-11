@@ -17,4 +17,8 @@ class _JourneyCategoryController extends BaseController
 
         return '{"journeyCategories": '.json_encode(JourneyCategory::all(), JSON_PRETTY_PRINT)." \n}";
     }
+
+    public function selectNamePerID($id){
+        return DB::table('journeyCategories')->where('journeyCategoryID',$id)->value('journeyCategoryName');
+    }
 }

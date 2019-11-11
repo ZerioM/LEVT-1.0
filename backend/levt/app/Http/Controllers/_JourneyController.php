@@ -16,12 +16,22 @@ class _JourneyController extends BaseController
     //
     public function insertOne(Request $request){
 
+        $userController = new _UserController;
+        $imageController = new _ImageController;
+        $seasonController = new _SeasonController;
+        $companionshipController = new _CompanionshipController;
+        $journeyCategoryController = new _JourneyCategoryController;
+
         //Create DB table object
+
+            //$userID = $userController->selectIDPerUsername($request->input('username'));
+            //$thumbnailID = $imageController->selectIDPerSrc($request->input('thumbnailSrc'));
+
             $insertJourneyArray = [
-                '_userID' => $request->input('userID'),
-                '_thumbnailID' => $request->input('thumbnailID'),
+                '_userID' => $userController->selectIDPerUsername($request->input('username')),
+                '_thumbnailID' => $imageController->selectIDPerSrc($request->input('thumbnailSrc')),
                 'journeyName' => $request->input('journeyName'),
-                '_seasonID' => $request->input('seasonID'),
+                '_seasonID' => $seasonController->selectIDPerName($request->input('seasonName')),
                 '_journeyCategoryID' => $request->input('journeyCategoryID'),
                 '_companionshipID' => $request->input('companionshipID'),
                 'year' => $request->input('year'),
@@ -40,37 +50,34 @@ class _JourneyController extends BaseController
 
             if($request->input('cost') == null){
                 if($request->input('activityCosts') != null)
-                    $costcontroller->insert($id,1,$request->input('activityCosts'));
+                    $costcontroller->insertOne($id,1,$request->input('activityCosts'));
                 if($request->input('accomodationCosts') != null)
-                    $costcontroller->insert($id,2,$request->input('accomodationCosts'));
+                    $costcontroller->insertOne($id,2,$request->input('accomodationCosts'));
                 if($request->input('foodCosts') != null)
-                    $costcontroller->insert($id,3,$request->input('foodCosts'));
+                    $costcontroller->insertOne($id,3,$request->input('foodCosts'));
                 if($request->input('transportCosts') != null)
-                    $costcontroller->insert($id,4,$request->input('transportCosts'));
+                    $costcontroller->insertOne($id,4,$request->input('transportCosts'));
                 if($request->input('otherCosts') != null)
-                    $costcontroller->insert($id,5,$request->input('otherCosts'));
+                    $costcontroller->insertOne($id,5,$request->input('otherCosts'));
             }
 
 
 
         //build an business layer object as per interface
-            $username = DB::table('users')->where('userid',$request->input('userID'))->value('username');
-            $userImgSrc = DB::table('images')
-                                        ->join('users','images.imageID','=','users._profileImageID')
-                                        ->where('userid',$request->input('userID'))->value('src');
-            $season = DB::table('seasons')->where('seasonid',$request->input('seasonID'))->value('seasonName');
-            $companionship = DB::table('companionships')->where('companionshipID',$request->input('companionshipID'))->value('companionshipType');
-            $thumbnailSRC = DB::table('images')->where('imageID',$request->input('thumbnailID'))->value('src');
+            $userImgSrc = $imageController->selectSrcPerUserID($request->input('userID'));
+            $companionship = $companionshipController->selectTypePerID($request->input('companionshipID'));
+            $journeyCategory = $journeyCategoryController->selectNamePerID($request->input('journeyCategoryID'));
 
             $outputArray = [
                 'journeyID' => $id,
                 'name' => $request->input('journeyName'),
-                'username' => $username,
+                'username' => $request->input('username'),
                 'userImgSRC' => $userImgSrc,
                 'bookmarks' => null,
-                'season' => $season,
+                'season' => $request->input('seasonName'),
                 'year' => $request->input('year'),
                 'duration' => $request->input('duration'),
+                'journeyCategory' => $journeyCategory,
                 'companionship' => $companionship,
                 'detail' => $request->input('detail'),
                 'totalCosts' => $request->input('cost'),
@@ -79,7 +86,8 @@ class _JourneyController extends BaseController
                 'foodCosts' => $request->input('foodCosts'),
                 'transportCosts' => $request->input('transportCosts'),
                 'otherCosts' => $request->input('otherCosts'),
-                'thumbnailSrc' => $thumbnailSRC
+                'places' => null,
+                'thumbnailSrc' => $request->input('thumbnailSrc')
             ];
 
            /* Maybe we use a transaction

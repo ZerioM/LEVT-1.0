@@ -16,4 +16,8 @@ class _CompanionshipController extends BaseController
         return '{"companionships": '.json_encode(Companionship::all(), JSON_PRETTY_PRINT)." \n}";
     }
 
+    public function selectTypePerID($id){
+        return DB::table('companionships')->where('companionshipID',$id)->value('companionshipType');
+    }
+
 }

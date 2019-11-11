@@ -13,7 +13,7 @@ use App\Models\Cost as Cost;
 class _CostController extends BaseController
 {
     //
-    public function insert($journeyID,$activityID,$cost){
+    public function insertOne($journeyID,$activityID,$cost){
         $insertArray = [
             '_journeyID' => $journeyID,
             '_activityID' => $activityID,
