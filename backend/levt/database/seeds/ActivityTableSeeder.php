@@ -16,16 +16,16 @@ class ActivityTableSeeder extends Seeder
             'activityName' => 'leisure',
         ]);
         DB::table('activities')->insert([
-            'journeyCategoryName' => 'accommodation',
+            'activityName' => 'accommodation',
         ]);
         DB::table('activities')->insert([
-            'journeyCategoryName' => 'mealsanddrinks',
+            'activityName' => 'mealsanddrinks',
         ]);
         DB::table('activities')->insert([
-            'journeyCategoryName' => 'transport',
+            'activityName' => 'transport',
         ]);
         DB::table('activities')->insert([
-            'journeyCategoryName' => 'other',
+            'activityName' => 'other',
         ]);
 
     }
