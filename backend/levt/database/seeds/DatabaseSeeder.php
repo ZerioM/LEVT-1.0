@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
              BookmarkTableSeeder::class,
              ActivityTableSeeder::class,
              TransportTableSeeder::class,
+             CountryTableSeeder::class,
              ]);
     }
 }
