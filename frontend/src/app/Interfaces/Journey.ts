@@ -21,5 +21,14 @@ export interface Journey{
     otherCosts: number
     places: Place[];
     thumbnailSrc: string;
+    plane: boolean;
+    car: boolean;
+    bus: boolean;
+    train: boolean;
+    ship: boolean;
+    motorBike:boolean;
+    campingTrailer: boolean;
+    hiking:boolean;
+    bicycle: boolean;
     
 }

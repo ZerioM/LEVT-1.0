@@ -33,19 +33,25 @@
     <ion-datetime placeholder="Year" displayFormat="YYYY"></ion-datetime>
   </ion-item>
   <ion-item>
-    <ion-select placeholder="Type of Journey">
-      <ion-select-option *ngFor="let c of data.journeyCategories.journeyCategories">
+    <ion-segment>
+      <ion-segment-button *ngFor="let c of data.journeyCategories.journeyCategories" value="{{c.journeyCategoryID}}">
         {{c.journeyCategoryName}}
-      </ion-select-option>
-    </ion-select>
+      </ion-segment-button>
+    </ion-segment>
   </ion-item>
   <ion-item>
-      <ion-select placeholder="Journey Companionship">
-          <ion-select-option *ngFor="let cs of data.companionships.companionships">
+      <ion-segment>
+          <ion-segment-button *ngFor="let cs of data.companionships.companionships" value="{{cs.companionshipID}}">
               {{cs.companionshipType}}
-            </ion-select-option>  
-      </ion-select>
+          </ion-segment-button>  
+      </ion-segment>
     </ion-item>
+    <ion-item>
+      <ion-segment> 
+        <ion-segment-button *ngFor="let t of data.transports.transports"value="{{t.transportID}}">{{t.transportType}}</ion-segment-button>
+      </ion-segment>
+    </ion-item>
+    
   <ion-item>
     <ion-label><b>Visited places</b></ion-label>
   </ion-item>
@@ -86,7 +92,7 @@
       <ion-item><ion-input placeholder="food costs"></ion-input></ion-item>
       <ion-item><ion-input placeholder="activity costs"></ion-input></ion-item>
       <ion-item><ion-input placeholder="other costs"></ion-input></ion-item>
-      <ion-item><ion-label>Total Costs</ion-label></ion-item>
+     
     </div>
     <div id="journeycostsTotal">
         <ion-item><ion-input placeholder="total costs"></ion-input></ion-item>
@@ -94,4 +100,6 @@
     <ion-button color="primary" expand="full">
         Finish
     </ion-button>
+
 </ion-content>
+
