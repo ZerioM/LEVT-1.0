@@ -48,4 +48,9 @@ class ReadController extends BaseController
         $csc = new _CompanionshipController;
         return $csc->selectAll();
     }
+
+    public function selectTransports(){
+        $tsc = new _TransportController;
+        return $tsc->selectAll();
+    }
 }

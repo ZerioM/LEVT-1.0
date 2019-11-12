@@ -12,5 +12,7 @@ use App\Models\Transport as Transport;
 
 class _TransportController extends BaseController
 {
-    //
+    public function selectAll(){
+        return '{"transports": '.json_encode(Transport::all(), JSON_PRETTY_PRINT)." \n}";
+    }
 }

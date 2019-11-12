@@ -22,6 +22,7 @@ class _JourneyController extends BaseController
         $companionshipController = new _CompanionshipController;
         $journeyCategoryController = new _JourneyCategoryController;
         $costcontroller = new _CostController;
+        $journeyTransportController = new _JourneyTransportController;
 
         //Create DB table object
 
@@ -50,17 +51,44 @@ class _JourneyController extends BaseController
 
             if($request->input('cost') == null){
                 if($request->input('activityCosts') != null)
-                    $costcontroller->insertOne($id,1,$request->input('activityCosts'));
+                    $costcontroller->insertOne($id,'leisure',$request->input('activityCosts'));
                 if($request->input('accomodationCosts') != null)
-                    $costcontroller->insertOne($id,2,$request->input('accomodationCosts'));
+                    $costcontroller->insertOne($id,'accommodation',$request->input('accomodationCosts'));
                 if($request->input('foodCosts') != null)
-                    $costcontroller->insertOne($id,3,$request->input('foodCosts'));
+                    $costcontroller->insertOne($id,'mealsanddrinks',$request->input('foodCosts'));
                 if($request->input('transportCosts') != null)
-                    $costcontroller->insertOne($id,4,$request->input('transportCosts'));
+                    $costcontroller->insertOne($id,'transportation',$request->input('transportCosts'));
                 if($request->input('otherCosts') != null)
-                    $costcontroller->insertOne($id,5,$request->input('otherCosts'));
+                    $costcontroller->insertOne($id,'other',$request->input('otherCosts'));
             }
 
+            if($request->input('plane') != null){
+                $journeyTransportController->insertOne($id,'plane');
+            }
+            if($request->input('car') != null){
+                $journeyTransportController->insertOne($id,'car');
+            }
+            if($request->input('bus') != null){
+                $journeyTransportController->insertOne($id,'bus');
+            }
+            if($request->input('train') != null){
+                $journeyTransportController->insertOne($id,'train');
+            }
+            if($request->input('ship') != null){
+                $journeyTransportController->insertOne($id,'ship');
+            }
+            if($request->input('motorbike') != null){
+                $journeyTransportController->insertOne($id,'motorbike');
+            }
+            if($request->input('campingtrailer') != null){
+                $journeyTransportController->insertOne($id,'campingtrailer');
+            }
+            if($request->input('hiking') != null){
+                $journeyTransportController->insertOne($id,'hiking');
+            }
+            if($request->input('bicycle') != null){
+                $journeyTransportController->insertOne($id,'bicycle');
+            }
 
 
         //build an business layer object as per interface
