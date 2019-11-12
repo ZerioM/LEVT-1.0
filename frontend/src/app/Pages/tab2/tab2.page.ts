@@ -25,6 +25,7 @@ export class Tab2Page {
     this.data.loadCurrentJourney();
     this.data.loadJourneyCategories();
     this.data.loadCompanionships();
+    this.data.loadTransports();
   }
 }
 
