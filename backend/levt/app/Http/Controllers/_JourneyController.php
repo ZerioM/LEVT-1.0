@@ -115,7 +115,16 @@ class _JourneyController extends BaseController
                 'transportCosts' => $request->input('transportCosts'),
                 'otherCosts' => $request->input('otherCosts'),
                 'places' => null,
-                'thumbnailSrc' => $request->input('thumbnailSrc')
+                'thumbnailSrc' => $request->input('thumbnailSrc'),
+                'plane' => $request->input('plane'),
+                'car' => $request->input('car'),
+                'bus' => $request->input('bus'),
+                'train' => $request->input('train'),
+                'ship' => $request->input('ship'),
+                'motorbike' => $request->input('motorbike'),
+                'campingtrailer' => $request->input('campingtrailer'),
+                'hiking' => $request->input('hiking'),
+                'bicycle' => $request->input('bicycle')
             ];
 
            /* Maybe we use a transaction
