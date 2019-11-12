@@ -25,23 +25,20 @@ ion-icon #back {
   margin-right: auto;
 }
 hr {
-  width: 90%;
-  height: 2px;
-  background: lightgrey;
+  color: #182f30;
 }
 .gridContainer {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  display: grid;
-  grid-template-columns: auto auto auto;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 .grid-item {
   width: 100px;
-  display: table-cell;
   margin-bottom: 30px;
-}
+} //=> Bild & Text
 .grid-item .addPlace {
   width: 100px;
   height: 100px;
@@ -55,7 +52,7 @@ hr {
   width: 100px;
   height: 100px;
   object-fit: cover;
-}
+}//=> Bild alleine
 #visitedPlaceName {
   width: 100%;
   margin-top: -30px;
