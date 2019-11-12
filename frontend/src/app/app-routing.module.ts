@@ -5,7 +5,11 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  },  { path: 'add-place', loadChildren: './Pages/add-place/add-place.module#AddPlacePageModule' },
+  },
+  { path: 'add-place', loadChildren: './Pages/add-place/add-place.module#AddPlacePageModule' },
+
+ 
+  
 
 
 
