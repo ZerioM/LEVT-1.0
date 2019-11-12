@@ -21,6 +21,7 @@ class _JourneyController extends BaseController
         $seasonController = new _SeasonController;
         $companionshipController = new _CompanionshipController;
         $journeyCategoryController = new _JourneyCategoryController;
+        $costcontroller = new _CostController;
 
         //Create DB table object
 
@@ -45,7 +46,6 @@ class _JourneyController extends BaseController
         //insert data and retrieve the new id of the journey
             $id = DB::table('journeys')->insertGetId($insertJourneyArray);
 
-            $costcontroller = new _CostController;
 
 
             if($request->input('cost') == null){
