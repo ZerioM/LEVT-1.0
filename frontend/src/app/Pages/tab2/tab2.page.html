@@ -40,38 +40,25 @@
     <ion-datetime placeholder="Year" displayFormat="YYYY"></ion-datetime>
   </ion-item>
   <ion-item>
-    <ion-select placeholder="Type of Journey">
-      <ion-select-option *ngFor="let c of data.journeyCategories.journeyCategories">
+    <ion-segment>
+      <ion-segment-button *ngFor="let c of data.journeyCategories.journeyCategories" value="{{c.journeyCategoryID}}">
         {{c.journeyCategoryName}}
-      </ion-select-option>
-    </ion-select>
+      </ion-segment-button>
+    </ion-segment>
   </ion-item>
   <ion-item>
-      <ion-select placeholder="Journey Companionship">
-          <ion-select-option *ngFor="let cs of data.companionships.companionships">
+      <ion-segment>
+          <ion-segment-button *ngFor="let cs of data.companionships.companionships" value="{{cs.companionshipID}}">
               {{cs.companionshipType}}
-            </ion-select-option>  
-      </ion-select>
+          </ion-segment-button>  
+      </ion-segment>
     </ion-item>
-
-    <ion-segment>
-      <ion-segment-button *ngFor="let t of data.transports.transports"></ion-segment-button>
-    </ion-segment>
-
     <ion-item>
-      <ion-label><b>Visited places</b></ion-label>
+      <ion-segment> 
+        <ion-segment-button *ngFor="let t of data.transports.transports"value="{{t.transportID}}">{{t.transportType}}</ion-segment-button>
+      </ion-segment>
     </ion-item>
     
-   <ion-item>
-    <div id="alreadyAddedPlaces" class="gridContainer">
-      <div class="grid-item" *ngFor="let p of data.currentJourney.places">
-        <img class="pictureGrid" src="{{p.thumbnailSrc}}" alt="" />
-        <div id="visitedPlaceName">{{p.name}}</div>
-      </div>
-      <div class="grid-item" (click)="goToAddPlace()">
-        <ion-icon name="ios-add" class="addPlace" ></ion-icon>
-      </div>
-    </div>
   <ion-item>
     <ion-label><b>Visited places</b></ion-label>
   </ion-item>
@@ -127,4 +114,6 @@
     <ion-button color="primary" expand="full">
         Finish
     </ion-button>
+
 </ion-content>
+
