@@ -43,6 +43,11 @@
             </ion-select-option>  
       </ion-select>
     </ion-item>
+
+    <ion-segment>
+      <ion-segment-button *ngFor="let t of data.transports.transports"></ion-segment-button>
+    </ion-segment>
+
     <ion-item>
       <ion-label><b>Visited places</b></ion-label>
     </ion-item>
@@ -91,7 +96,7 @@
       <ion-item><ion-input placeholder="food costs"></ion-input></ion-item>
       <ion-item><ion-input placeholder="activity costs"></ion-input></ion-item>
       <ion-item><ion-input placeholder="other costs"></ion-input></ion-item>
-      <ion-item><ion-label>Total Costs</ion-label></ion-item>
+     
     </div>
     <div id="journeycostsTotal">
         <ion-item><ion-input placeholder="total costs"></ion-input></ion-item>
