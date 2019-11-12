@@ -18,16 +18,16 @@ class CompanionTableSeeder extends Seeder
             'companionshipType' => 'Friends (up to 4)',
         ]);
         DB::table('companionships')->insert([
-            'companionshipType' => 'Friends (4 and more)',
+            'companionshipType' => 'Friends (5 and more)',
         ]);
         DB::table('companionships')->insert([
             'companionshipType' => 'Partner',
         ]);
         DB::table('companionships')->insert([
-            'companionshipType' => 'Famaly (up to 4)',
+            'companionshipType' => 'Family (up to 4)',
         ]);
         DB::table('companionships')->insert([
-            'companionshipType' => 'Famaly (4 and more)',
+            'companionshipType' => 'Family (5 and more)',
         ]);
     }
 }

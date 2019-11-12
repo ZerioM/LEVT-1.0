@@ -12,25 +12,34 @@ class JourneyCategoriesTableSeeder extends Seeder
     public function run()
     {
         DB::table('journeyCategories')->insert([
-            'journeyCategoryName' => 'Hiking',
-        ]);
-        DB::table('journeyCategories')->insert([
-            'journeyCategoryName' => 'Beach',
-        ]);
-        DB::table('journeyCategories')->insert([
-            'journeyCategoryName' => 'Nature',
+            'journeyCategoryName' => 'Cruise',
         ]);
         DB::table('journeyCategories')->insert([
             'journeyCategoryName' => 'Culture',
         ]);
         DB::table('journeyCategories')->insert([
-            'journeyCategoryName' => 'Wintersport',
+            'journeyCategoryName' => 'Nature',
         ]);
         DB::table('journeyCategories')->insert([
-            'journeyCategoryName' => 'Summersport',
+            'journeyCategoryName' => 'Camping',
         ]);
         DB::table('journeyCategories')->insert([
-            'journeyCategoryName' => 'Sightseeing',
+            'journeyCategoryName' => 'Sports',
+        ]);
+        DB::table('journeyCategories')->insert([
+            'journeyCategoryName' => 'Roadtrip',
+        ]);
+        DB::table('journeyCategories')->insert([
+            'journeyCategoryName' => 'Interrail',
+        ]);
+        DB::table('journeyCategories')->insert([
+            'journeyCategoryName' => 'Beach Holiday',
+        ]);
+        DB::table('journeyCategories')->insert([
+            'journeyCategoryName' => 'Wellness',
+        ]);
+        DB::table('journeyCategories')->insert([
+            'journeyCategoryName' => 'Party',
         ]);
     }
 }

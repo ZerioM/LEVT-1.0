@@ -25,7 +25,7 @@ $factory->define(App\Models\Journey::class, function (Faker\Generator $faker) {
         '_thumbnailID' => $faker->numberBetween($min = 1, $max = 4),
         'journeyName' => $faker->name.' Journey',
         '_seasonID' => $faker->numberBetween($min = 1, $max = 4),
-        '_journeyCategoryID' => $faker->numberBetween($min = 1, $max = 7),
+        '_journeyCategoryID' => $faker->numberBetween($min = 1, $max = 10),
         '_companionshipID' => $faker->numberBetween($min = 1, $max = 6),
         'year' => $faker->numberBetween($min = 2010, $max = 2019),
         'detail' => $faker->text,
