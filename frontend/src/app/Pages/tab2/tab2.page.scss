@@ -1,6 +1,6 @@
-ion-icon #back {
+/*ion-icon #back {
   color: #d68900;
-}
+}*/
 .tabToolbars {
   width: 90%;
   margin-left: auto;
@@ -27,17 +27,28 @@ ion-icon #back {
 hr {
   color: #182f30;
 }
+#seasons{
+  width:100%;
+  margin-top: -30px;
+}
 .gridContainer {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  //flex-flow:row wrap;
+  //justify-content: space-between;
+}
+.gridContainer:after{
+display: flex;
+flex-wrap:wrap;
+justify-content: flex-start;
 }
 .grid-item {
   width: 100px;
   margin-bottom: 30px;
+  margin-right: 10px;
 } //=> Bild & Text
 .grid-item .addPlace {
   width: 100px;

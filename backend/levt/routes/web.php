@@ -30,3 +30,5 @@ $router->post('/newImage','CreateController@insertImage');
 $router->get('/allJourneyCategories','ReadController@selectJourneyCategories');
 
 $router->get('/allCompanionships','ReadController@selectCompanionships');
+
+$router->get('/allTransports','ReadController@selectTransports');
