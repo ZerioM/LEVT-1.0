@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NewJourneyService } from 'src/app/services/new-journey.service';
+import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-place',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddPlacePage implements OnInit {
 
-  constructor() { }
+  constructor(private data: NewJourneyService, private navCtrl:NavController,  private router: Router) { }
 
   ngOnInit() {
+  }
+
+  
+  goToAddPost(){
+    this.router.navigateByUrl('/tabs/tab2/add-post');
   }
 
 }
