@@ -117,7 +117,7 @@ export class NewJourneyService {
 
                   }
                     loadActivities(){
-                          this.http.get("/assets/journeyActivitiesTest.json").subscribe( (loadedData: Activities)=> {
+                          this.http.get("http://levt.test/allActivities").subscribe( (loadedData: Activities)=> {
                             if(loadedData!=null){
                               console.log("Json file wurde geladen");
                               //console.log(JSON.stringify(loadedData));

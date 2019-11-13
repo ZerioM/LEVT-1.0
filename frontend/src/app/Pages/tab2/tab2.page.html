@@ -58,7 +58,7 @@
   <ion-item>
     <ion-label><b>Visited places</b></ion-label>
   </ion-item>
-  <ion-item>
+  <ion-item *ngIf="showNoPlaceWarning()">
     <ion-label color="warning" id="NoPlace"> You haven't added any places to your journey!</ion-label>
   </ion-item>
   <ion-item>

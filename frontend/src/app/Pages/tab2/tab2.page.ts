@@ -13,6 +13,7 @@ export class Tab2Page {
 
   showC:Boolean = false;
   divideC:Boolean = false;
+  noPlace:Boolean=true;
 
   constructor(private data: NewJourneyService, private navCtrl:NavController,  private router: Router) {
     this.loadJSON();
@@ -38,6 +39,14 @@ export class Tab2Page {
 
   divideCosts(){
     this.divideC = !this.divideC;
+  }
+
+  showNoPlaceWarning(){
+    if(this.data.currentJourney.places!=null){
+      this.noPlace=false;
+    }
+
+
   }
 
   calculateTotalCosts(){
