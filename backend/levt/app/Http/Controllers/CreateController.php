@@ -14,16 +14,19 @@ class CreateController extends BaseController
         return $journeyController->insertOne($request);
     }
 
-    public function insertPlace() {
-
+    public function insertPlace(Request $request) {
+        $placeController = new _PlaceController; 
+        return $placeController->insertOne($request);
     }
 
-    public function insertPost() {
-
+    public function insertPost(Request $request) {
+        $postController = new _PostController;
+        return $postController->insertOne($request);
     }
 
-    public function insertImage() {
-
+    public function insertImage(Request $request) {
+        $imageController = new _ImageController;
+        return $imageController->insertOne($request);
     }
 
     /*

@@ -15,8 +15,6 @@ class _PlaceController extends BaseController
 
     public function insertOne(Request $request){
 
-        //ACHTUNG! VORHER country-Tabelle befüllen!
-
         $countryController = new _CountryController;
         $imageController = new _ImageController;
 
