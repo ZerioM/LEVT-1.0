@@ -14,10 +14,10 @@ export interface Journey{
     companionship: string;
     detail: string;
     totalCosts: number;
-    activityCosts: number;
+    leisureCosts: number;
     accommodationCosts: number;
-    foodCosts: number;
-    transportCosts: number;
+    mealsanddrinkCosts: number;
+    transportationCosts: number;
     otherCosts: number
     places: Place[];
     thumbnailSrc: string;

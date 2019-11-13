@@ -15,7 +15,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class DataService {
 
-  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,duration:null,journeyCategory:"",companionship:"",detail:"",totalCosts: null,accommodationCosts:null,activityCosts:null,transportCosts:null,foodCosts:null,otherCosts:null,places:[],thumbnailSrc:"",plane:true, car:false, bus:false, train:false,ship:false,motorBike:false,campingTrailer:false,hiking:false,bicycle:false}
+  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,duration:null,journeyCategory:"",companionship:"",detail:"",totalCosts: null,accommodationCosts:null,leisureCosts:null,transportationCosts:null,mealsanddrinkCosts:null,otherCosts:null,places:[],thumbnailSrc:"",plane:true, car:false, bus:false, train:false,ship:false,motorBike:false,campingTrailer:false,hiking:false,bicycle:false}
 
   public currentJourneys:Journeys={journeys:[]}
 

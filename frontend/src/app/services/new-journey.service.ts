@@ -12,8 +12,8 @@ import { Activities } from '../Interfaces/Activities';
 export class NewJourneyService {
 
   public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,
-  duration:null,journeyCategory:"",companionship:"",detail:"",totalCosts: null,accommodationCosts:null,activityCosts:null,
-  transportCosts:null,foodCosts:null,otherCosts:null,places:[],thumbnailSrc:"", plane:true, car:false, bus:false, 
+  duration:null,journeyCategory:"",companionship:"",detail:"",totalCosts: null,accommodationCosts:null,leisureCosts:null,
+  transportationCosts:null,mealsanddrinkCosts:null,otherCosts:null,places:[],thumbnailSrc:"", plane:true, car:false, bus:false, 
   train:false,ship:false,motorBike:false,campingTrailer:false,hiking:false,bicycle:false}
 
   public journeyCategories:JourneyCategories={journeyCategories:[]};
@@ -97,7 +97,7 @@ export class NewJourneyService {
 
               loadTransports(){
                 //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
-                    this.http.get("/assets/journeyTransportTest.json").subscribe( (loadedData: Transports)=> {
+                    this.http.get("http://levt.test/allTransports").subscribe( (loadedData: Transports)=> {
                       if(loadedData!=null){
                         console.log("Json file wurde geladen");
                         //console.log(JSON.stringify(loadedData));

@@ -33,6 +33,15 @@ const routes: Routes = [
                 loadChildren:()=>
                 import('../Pages/add-place/add-place.module').then (m => m.AddPlacePageModule)}
             ]
+          },
+          {
+            path: 'add-post',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/add-post/add-post.module').then (m => m.AddPostPageModule)}
+            ]
           }
         ]
       },
