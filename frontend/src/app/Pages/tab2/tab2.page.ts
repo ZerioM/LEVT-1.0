@@ -11,6 +11,9 @@ import { NewJourneyService } from 'src/app/services/new-journey.service';
 })
 export class Tab2Page {
 
+  showC:Boolean = false;
+  divideC:Boolean = false;
+
   constructor(private data: NewJourneyService, private navCtrl:NavController,  private router: Router) {
     this.loadJSON();
   }
@@ -26,6 +29,15 @@ export class Tab2Page {
     this.data.loadJourneyCategories();
     this.data.loadCompanionships();
     this.data.loadTransports();
+    this.data.loadActivities();
+  }
+  
+  showCosts(){
+    this.showC = !this.showC;
+  }
+
+  divideCosts(){
+    this.divideC = !this.divideC;
   }
 }
 

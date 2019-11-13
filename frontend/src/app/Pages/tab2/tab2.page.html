@@ -83,38 +83,48 @@
     <ion-textarea placeholder="Tell us more about your Journey..." rows="8" background="light"></ion-textarea>
   </ion-item>
   <ion-item>
-    <ion-checkbox></ion-checkbox>
+    <ion-checkbox (click)="showCosts()"></ion-checkbox>
     <ion-label> add travel costs</ion-label>
   </ion-item>
-  <div id="divideCosts">
+  <div id="divideCosts" *ngIf="showC">
     <ion-item>
-      <ion-checkbox></ion-checkbox>
+      <ion-checkbox (click)="divideCosts()"></ion-checkbox>
       <ion-label>divide costs by category</ion-label>
     </ion-item>
+  <div *ngIf="divideC" id="journeycostsCategories">
+     <ion-item *ngFor="let a of data.activities.activities">
+          <ion-label>{{a.activityName}}</ion-label>
+          <ion-input id="costcategories" inputmode="decimal" type="number" placeholder="0"></ion-input>
+          <ion-label>€</ion-label>
+      </ion-item>
+    <!--<ion-item>
+      <ion-label>accomodation costs</ion-label>
+      <ion-input id="costcategories" inputmode="decimal" type="number" placeholder="0"></ion-input>
+      <ion-label>€</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input inputmode="decimal" type="number" placeholder="transport costs"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input inputmode="decimal" type="number" placeholder="food costs"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input inputmode="decimal" type="number" placeholder="activity costs"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input inputmode="decimal" type="number" placeholder="other costs"></ion-input>
+    </ion-item> -->
+    <ion-item>
+      <ion-label>total costs</ion-label>
+    </ion-item>
   </div>
-  <div id="journeycostsCategories">
-    <ion-item>
-      <ion-input placeholder="accomodation costs"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input placeholder="transport costs"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input placeholder="food costs"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input placeholder="activity costs"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input placeholder="other costs"></ion-input>
-    </ion-item>
+  <div id="journeycostsTotal" *ngIf="!divideC">  
+      <ion-item>
+        <ion-input inputmode="decimal" type="number" placeholder="total costs"></ion-input>
+      </ion-item>
+    </div>
+</div>
 
-  </div>
-  <div id="journeycostsTotal">
-    <ion-item>
-      <ion-input placeholder="total costs"></ion-input>
-    </ion-item>
-  </div>
   <ion-button color="primary" expand="full">
     Finish
   </ion-button>
