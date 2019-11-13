@@ -129,6 +129,10 @@ class _JourneyController extends BaseController
 
            /* Maybe we use a transaction
 
+            in case of an error, at the moment some data would be inserted, some wouldn't
+            a transaction would prevent this by executing all statements together and rollbacking it
+            if errors occur
+
            DB::transaction(function()
             {
                 $newAcct = Account::create([
