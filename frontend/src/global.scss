@@ -27,13 +27,13 @@
 
     ion-item {
       font-size: 10pt;
-      margin: -5px;
+      --inner-padding-end: 0;
     };
 
 .alignright{
-
   float:right !important;
 }
+
 div.tabs-inner {
   width: 90%;
   margin-left: auto;
