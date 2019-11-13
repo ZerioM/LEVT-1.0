@@ -53,4 +53,9 @@ class ReadController extends BaseController
         $tsc = new _TransportController;
         return $tsc->selectAll();
     }
+
+    public function selectActivities(){
+        $acc = new _ActivitiyController;
+        return $acc->selectAll();
+    }
 }

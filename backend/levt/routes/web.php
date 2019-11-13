@@ -32,3 +32,5 @@ $router->get('/allJourneyCategories','ReadController@selectJourneyCategories');
 $router->get('/allCompanionships','ReadController@selectCompanionships');
 
 $router->get('/allTransports','ReadController@selectTransports');
+
+$router->get('/allActivities','ReadController@selectActivities');

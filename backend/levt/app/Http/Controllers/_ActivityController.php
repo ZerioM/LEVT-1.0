@@ -15,4 +15,8 @@ class _ActivityController extends BaseController
     public function selectNameByID($id){
         return DB::table('activities')->where('activityID',$id)->value('activityName');
     }
+
+    public function selectAll(){
+        return '{"activities": '.json_encode(Activity::all(), JSON_PRETTY_PRINT)." \n}";
+    }
 }
