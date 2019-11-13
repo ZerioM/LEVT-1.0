@@ -27,31 +27,38 @@
 hr {
   color: #182f30;
 }
-#journeyName.item-interactive.item-input.item-has-placeholder.item.ios.ion-focusable.hydrated{
-  margin:0;
-  padding:0;
-}
-.item-native{
-  padding:0;
-  background: 0;
-}
-.native-input.sc-ion-input-ios{
-  padding:0;
-}
 #journeyName{
-  border: 2px solid #182f30;
+  border: 1px solid #16161650;
+  vertical-align: middle;
+  margin-top: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12pt;
+  padding-left: 10px;
 }
 .segments{
   width:90%;
-  margin-top: -30px;
   display: flex;
   flex-wrap: wrap;
+  background: 0;
+}
+.sc-ion-segment-md-h.sc-ion-segment-md-s.md.hydrated{
+  
+}// ein Element
+.md.segment-button-layout-icon-top .ion-activatable .ion-activatable-instant .hydrated :host{
+  min-width: 0;
+}//alle Elemente
+
+item-inner{
+  padding: 0;
+  background: 0;
 }
 ion-segment-button{
   padding: 0;
+  background: 0;
 }
 ion-segment{
   padding:0;
+  background: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -77,12 +84,6 @@ input.native-input.sc-ion-input-md{
   //flex-wrap: wrap;
   flex-flow:row wrap;
   justify-content: space-between;
-}
-.gridContainer:after{
-display: flex;
-//justify-content: flex-start;
-flex-shrink: 0;
-flex-grow: 0;
 }
 .grid-item {
   width: 100px;
