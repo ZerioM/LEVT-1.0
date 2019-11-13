@@ -97,30 +97,17 @@
           <ion-input id="costcategories" inputmode="decimal" type="number" placeholder="0"></ion-input>
           <ion-label>€</ion-label>
       </ion-item>
-    <!--<ion-item>
-      <ion-label>accomodation costs</ion-label>
-      <ion-input id="costcategories" inputmode="decimal" type="number" placeholder="0"></ion-input>
-      <ion-label>€</ion-label>
-    </ion-item>
+      <hr>
     <ion-item>
-      <ion-input inputmode="decimal" type="number" placeholder="transport costs"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input inputmode="decimal" type="number" placeholder="food costs"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input inputmode="decimal" type="number" placeholder="activity costs"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input inputmode="decimal" type="number" placeholder="other costs"></ion-input>
-    </ion-item> -->
-    <ion-item>
-      <ion-label>total costs</ion-label>
+        <ion-label>total costs</ion-label>
+        <ion-label id="costcategories" inputmode="decimal" type="number"> 0 €</ion-label>
     </ion-item>
   </div>
-  <div id="journeycostsTotal" *ngIf="!divideC">  
+  <div id="journeycostsTotal" *ngIf="!divideC">
       <ion-item>
-        <ion-input inputmode="decimal" type="number" placeholder="total costs"></ion-input>
+          <ion-label>total costs</ion-label>
+          <ion-input id="costcategories" inputmode="decimal" type="number" placeholder="0"></ion-input>
+          <ion-label>€</ion-label>
       </ion-item>
     </div>
 </div>

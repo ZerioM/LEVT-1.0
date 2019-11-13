@@ -39,5 +39,10 @@ export class Tab2Page {
   divideCosts(){
     this.divideC = !this.divideC;
   }
+
+  calculateTotalCosts(){
+
+    
+  }
 }
 
