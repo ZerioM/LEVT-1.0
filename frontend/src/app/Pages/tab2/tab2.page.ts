@@ -29,6 +29,7 @@ export class Tab2Page {
     this.data.loadJourneyCategories();
     this.data.loadCompanionships();
     this.data.loadTransports();
+    this.data.loadActivities();
   }
   
   showCosts(){

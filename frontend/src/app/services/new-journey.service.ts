@@ -2,20 +2,24 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Journey } from '../Interfaces/Journey';
 import { JourneyCategories } from '../Interfaces/JourneyCategories';
-import { JourneyCategory } from '../Interfaces/JourneyCategory';
 import { Companionships } from '../Interfaces/Companionships';
-import { Transports } from '../Interfaces/Companionships copy';
+import { Transports } from '../Interfaces/Transports';
+import { Activities } from '../Interfaces/Activities';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewJourneyService {
 
-  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,duration:null,journeyCategory:"",companionship:"",detail:"",totalCosts: null,accommodationCosts:null,activityCosts:null,transportCosts:null,foodCosts:null,otherCosts:null,places:[],thumbnailSrc:"", plane:true, car:false, bus:false, train:false,ship:false,motorBike:false,campingTrailer:false,hiking:false,bicycle:false}
+  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,
+  duration:null,journeyCategory:"",companionship:"",detail:"",totalCosts: null,accommodationCosts:null,activityCosts:null,
+  transportCosts:null,foodCosts:null,otherCosts:null,places:[],thumbnailSrc:"", plane:true, car:false, bus:false, 
+  train:false,ship:false,motorBike:false,campingTrailer:false,hiking:false,bicycle:false}
 
   public journeyCategories:JourneyCategories={journeyCategories:[]};
   public companionships:Companionships={companionships:[]};
   public transports:Transports={transports:[]};
+  public activities:Activities={activities:[]};
   
 
   constructor(private http: HttpClient) { }
@@ -109,8 +113,25 @@ export class NewJourneyService {
                         console.log("null per http geladen");
                       }
                     });
-                
-                    
-                
+
+
                   }
+                    loadActivities(){
+                          this.http.get("/assets/journeyActivitiesTest.json").subscribe( (loadedData: Activities)=> {
+                            if(loadedData!=null){
+                              console.log("Json file wurde geladen");
+                              //console.log(JSON.stringify(loadedData));
+                              this.activities=loadedData;
+                      
+                              console.log("Transports wurden überschrieben");
+                    
+                              //console.log(loadedData);
+                      
+                              console.log(this.activities);
+                            }else{
+                      
+                              console.log("null per http geladen");
+                            }
+                          });
+                    }
 }
