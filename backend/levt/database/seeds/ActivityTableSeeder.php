@@ -13,19 +13,19 @@ class ActivityTableSeeder extends Seeder
     {
         //
         DB::table('activities')->insert([
-            'activityName' => 'leisure',
+            'activityName' => 'Leisure',
         ]);
         DB::table('activities')->insert([
-            'activityName' => 'accommodation',
+            'activityName' => 'Accommodation',
         ]);
         DB::table('activities')->insert([
-            'activityName' => 'mealsanddrinks',
+            'activityName' => 'Meals and Drinks',
         ]);
         DB::table('activities')->insert([
-            'activityName' => 'transport',
+            'activityName' => 'Transport',
         ]);
         DB::table('activities')->insert([
-            'activityName' => 'other',
+            'activityName' => 'Other',
         ]);
 
     }
