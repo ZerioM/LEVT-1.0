@@ -55,7 +55,7 @@ class ReadController extends BaseController
     }
 
     public function selectActivities(){
-        $acc = new _ActivitiyController;
+        $acc = new _ActivityController;
         return $acc->selectAll();
     }
 }
