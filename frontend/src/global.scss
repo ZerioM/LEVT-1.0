@@ -29,11 +29,6 @@
       font-size: 10pt;
       --inner-padding-end: 0;
     };
-
-.alignright{
-  float:right !important;
-}
-
 div.tabs-inner {
   width: 90%;
   margin-left: auto;
@@ -41,3 +36,27 @@ div.tabs-inner {
   display: flex;
   flex-direction: column;
 } // => Content auf allen Seiten
+ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
+  background:0;
+} //macht linie nach Header weg
+.tabHeader {
+      margin: -10px auto 5px auto; // top-right-bottom-left
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+} // Header auf allen Seiten
+.tabHeading {
+  padding-top: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20pt;
+  text-align: center;
+  font-variant: small-caps;
+  vertical-align: middle;
+}// Headerüberschrift auf allen Seiten
+#headerLogo {
+  height: 50px;
+}// Logo im Header auf allen Seiten
+.alignright{
+  float:right !important;
+}
+
