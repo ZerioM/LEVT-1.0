@@ -59,6 +59,7 @@ export class Tab2Page {
 
   showCosts() {
     this.showC = !this.showC;
+    if (!this.showC) this.totalCosts = null;
   }
 
   divideCosts() {
@@ -73,7 +74,7 @@ export class Tab2Page {
 
   }
 
-  safeJourney() { 
+  saveJourney() { 
 
     let inputs = document.querySelectorAll('ion-input');
     let textAreas = document.querySelectorAll('ion-textarea');
