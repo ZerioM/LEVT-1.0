@@ -6,6 +6,7 @@ import { Companionships } from '../Interfaces/Companionships';
 import { Transports } from '../Interfaces/Transports';
 import { Activities } from '../Interfaces/Activities';
 import { Place } from '../Interfaces/Place';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,13 @@ export class NewJourneyService {
   public transports: Transports = { transports: [] };
   public activities: Activities = { activities: [] };
 
+  //General
+  journeyTitle:string;
+  journeyYear:number;
+  journeySeason:string;
+  journeyCategorieID:number;
+  journeyCompanionshipID:number;
+
    //Costs
    leisureCosts:number;
    accommondationCosts:number;
@@ -35,7 +43,7 @@ export class NewJourneyService {
    totalCosts:number;
  
    //Journey Details
-   journeyTitle:string;
+  
    journeyDetails:string;
  
 
@@ -154,7 +162,7 @@ export class NewJourneyService {
   }
 
 
-  setInputs(leisureCosts:number,transportCosts:number,accommodationCosts:number,mealsanddrinkCosts:number,otherCosts:number,totalCosts:number,journeyTitle:string) {
+  setInputs(leisureCosts:number,transportCosts:number,accommodationCosts:number,mealsanddrinkCosts:number,otherCosts:number,totalCosts:number,journeyTitle:string, journeyDetails:string, journeyYear:number,journeySeason:string,journeyCategorieID:number,journeyCompanionshipID:number) {
     this.leisureCosts=leisureCosts;
     this.transportCosts=transportCosts;
     this.accommondationCosts=accommodationCosts;
@@ -162,6 +170,11 @@ export class NewJourneyService {
     this.otherCosts=otherCosts;
     this.totalCosts=totalCosts;
     this.journeyTitle=journeyTitle;
+    this.journeyDetails=journeyDetails;
+    this.journeyYear=journeyYear;
+    this.journeySeason=journeySeason;
+    this.journeyCategorieID=journeyCategorieID;
+    this.journeyCompanionshipID=journeyCompanionshipID;
 
     console.log(this.journeyTitle+"Dies ist von Dataservice");
   }
