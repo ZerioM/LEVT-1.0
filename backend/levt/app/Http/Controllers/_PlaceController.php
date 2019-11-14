@@ -15,32 +15,34 @@ class _PlaceController extends BaseController
 
     public function insertOne(Request $request){
 
+        $requestArray = $request->all();
+
         $countryController = new _CountryController;
         $imageController = new _ImageController;
 
-        $thumbnailID = $imageController->selectIDPerSrc($request->input('thumbnailSrc'));
+        $thumbnailID = $imageController->selectIDPerSrc($requestArray['thumbnailSrc']);
 
-        $countryID = $countryController->selectIDPerName($request->input('countryName'));
+        $countryID = $countryController->selectIDPerName($requestArray['countryName']);
 
         //Create DB table object
         $insertPlacesArray = [
-            '_journeyID' => $request->input('journeyID'),
+            '_journeyID' => $requestArray['journeyID'],
             '_thumbnailID' => $thumbnailID,
             '_countryID' => $countryID,
-            'placeName' => $request->input('name'),
-            'coordinateX' => $request->input('coordinateX'),
-            'coordinateY' => $request->input('coordinateY')
+            'placeName' => $requestArray['name'],
+            'coordinateX' => $requestArray['coordinateX'],
+            'coordinateY' => $requestArray['coordinateY']
         ];
 
         $id = DB::table('places')->insertGetId($insertPlacesArray);
 
         $outputArray = [
             'placeID' => $id,
-            'name' => $request->input('name'),
-            'coordinateX' => $request->input('coordinateX'),
-            'coordinateY' => $request->input('coordinateY'),
+            'name' => $requestArray['name'],
+            'coordinateX' => $requestArray['coordinateX'],
+            'coordinateY' => $requestArray['coordinateY'],
             'posts' => null,
-            'thumbnailSrc' => $request->input('thumbnailSrc')
+            'thumbnailSrc' => $requestArray['thumbnailSrc']
         ];
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
