@@ -160,7 +160,7 @@ class _JourneyController extends BaseController
                     profileImage.src as userImgSrc, COUNT(bookmarks.bookmarkID) AS bookmarks,
                     seasons.seasonName as season, journeys.year,
                     null as duration, null as companionship, null as detail, null as totalCosts,
-                    null as activityCosts, null as accommodationgCosts, null as foodCosts,
+                    null as leisureCosts, null as accommodationgCosts, null as foodCosts,
                     null as transportCosts, null as otherCosts,
                     null as places,thumbnailImage.src as thumbnailSrc
                     FROM journeys

@@ -1,7 +1,6 @@
 button.button-native{
   padding:0;
 }
-
 .journeythumbnail {
   width: 100%;
   margin-left: auto;
@@ -21,37 +20,31 @@ hr {
   padding-left: 10px;
   margin-bottom: 5px;
 }
-.segments{
-  width:90%;
-  border: 1px solid #182f30;
-  display: flex;
-  flex-wrap: wrap;
-  background: 0;
-}
-.sc-ion-segment-md-h.sc-ion-segment-md-s.md.hydrated{
- border: 1px solid #2cbfc7;
-}// alle Elemente
-item-inner{
-  padding: 0;
-  background: 0;
-}
-ion-segment-button{
-  padding: 0;
-  background: 0;
-}
-ion-segment{
-  padding:0;
-  background: 0;
+.seasonYear{
   display: flex;
   flex-direction: row;
+  background-color: darkolivegreen;
   justify-content: space-between;
-  overflow:hidden;
-}
-button.button-native{
+}// Jahreszeiten & Jahr
+#seasons{
+  min-width: 80%;
+  width: 80%;
   padding:0;
+} // alle Jahreszeiten
+#seasons ion-segment-button{
+  width: 20%;
+  min-width:20%;
+}//einzelne Elemente in Seasons & Jahr
+#journeyYear{
+  justify-content: right;
+  text-align: right;
 }
-input.native-input.sc-ion-input-md{
-  padding: 0;
+.journeyCategories{
+  min-width: 25%;
+  padding:0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 #transport{
   display:flex;
