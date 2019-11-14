@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Journey } from '../Interfaces/Journey';
 import { JourneyCategories } from '../Interfaces/JourneyCategories';
 import { Companionships } from '../Interfaces/Companionships';
@@ -28,27 +28,45 @@ export class NewJourneyService {
   public activities: Activities = { activities: [] };
 
   //General
-  journeyTitle:string;
-  journeyYear:number;
-  journeySeason:string;
-  journeyCategorieID:number;
-  journeyCompanionshipID:number;
+  journeyTitle: string;
+  journeyYear: number;
+  journeySeason: string;
+  journeyCategoryID: number;
+  journeyCompanionshipID: number;
+  journeyDuration: number;
+  username: string;
+  thumbnailSrc: string;
 
-   //Costs
-   leisureCosts:number;
-   accommondationCosts:number;
-   mealsanddrinksCosts:number;
-   transportCosts:number;
-   otherCosts:number;
-   totalCosts:number;
- 
-   //Journey Details
-  
-   journeyDetails:string;
- 
+  //Costs
+  leisureCosts: number;
+  accommondationCosts: number;
+  mealsanddrinksCosts: number;
+  transportCosts: number;
+  otherCosts: number;
+  totalCosts: number;
+
+  //Journey Details
+  journeyDetails: string;
+
+  //Transports
+  plane: boolean;
+  car: boolean;
+  bus: boolean;
+  train: boolean;
+  ship: boolean;
+  motorBike:boolean;
+  campingTrailer: boolean;
+  hiking:boolean;
+  bicycle: boolean;
+
+
+  data: any;
+
 
 
   constructor(private http: HttpClient) { }
+
+
 
 
   loadCurrentJourney() {
@@ -162,20 +180,47 @@ export class NewJourneyService {
   }
 
 
-  setInputs(leisureCosts:number,transportCosts:number,accommodationCosts:number,mealsanddrinkCosts:number,otherCosts:number,totalCosts:number,journeyTitle:string, journeyDetails:string, journeyYear:number,journeySeason:string,journeyCategorieID:number,journeyCompanionshipID:number) {
-    this.leisureCosts=leisureCosts;
-    this.transportCosts=transportCosts;
-    this.accommondationCosts=accommodationCosts;
-    this.mealsanddrinksCosts=mealsanddrinkCosts;
-    this.otherCosts=otherCosts;
-    this.totalCosts=totalCosts;
-    this.journeyTitle=journeyTitle;
-    this.journeyDetails=journeyDetails;
-    this.journeyYear=journeyYear;
-    this.journeySeason=journeySeason;
-    this.journeyCategorieID=journeyCategorieID;
-    this.journeyCompanionshipID=journeyCompanionshipID;
+  setInputs(leisureCosts: number, transportCosts: number, accommodationCosts: number, mealsanddrinkCosts: number, otherCosts: number, totalCosts: number, journeyTitle: string, journeyDetails: string, journeyYear: number, journeySeason: string, journeyCategoryID: number, journeyCompanionshipID: number, journeyDuration: number) {
+    this.leisureCosts = leisureCosts;
+    this.transportCosts = transportCosts;
+    this.accommondationCosts = accommodationCosts;
+    this.mealsanddrinksCosts = mealsanddrinkCosts;
+    this.otherCosts = otherCosts;
+    this.totalCosts = totalCosts;
+    this.journeyTitle = journeyTitle;
+    this.journeyDetails = journeyDetails;
+    this.journeyYear = journeyYear;
+    this.journeySeason = journeySeason;
+    this.journeyCategoryID = journeyCategoryID;
+    this.journeyCompanionshipID = journeyCompanionshipID;
+    this.journeyDuration = journeyDuration;
 
-    console.log(this.journeyTitle+"Dies ist von Dataservice");
+    console.log(this.journeyTitle + "Dies ist von Dataservice");
+
+    this.sendPostRequest();
+
+  }
+
+  sendPostRequest() {
+
+    this.data = {
+      "username": "Amir Conn",
+      "duration": 10,
+      "journeyName": this.journeyTitle,
+      "seasonName": this.journeySeason,
+      "journeyCategoryID": this.journeyCategoryID,
+      "companionshipID": this.journeyCompanionshipID,
+      "year": this.journeyYear,
+      "detail": this.journeyDetails,
+      "cost": this.totalCosts
+    }
+
+    this.http.post("http://levt.test/request", this.data).subscribe((loadedData: any) => {
+      console.log(loadedData);
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+
   }
 }
