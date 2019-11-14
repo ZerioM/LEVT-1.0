@@ -1,24 +1,12 @@
-/*ion-icon #back {
+#back {
   color: #d68900;
-}*/
-.tabToolbars {
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  font-size: 50pt;
+  padding-top: 10px;
 }
-.tabHeading {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 20pt;
-  font-variant: small-caps;
-  vertical-align: middle;
+button.button-native{
+  padding:0;
 }
-#toolbarLogo {
-  height: 50px;
-}
+
 .journeythumbnail {
   width: 100%;
   margin-left: auto;
@@ -114,7 +102,6 @@ input.native-input.sc-ion-input-md{
   text-align: center;
   position: relative;
 }
-
 .costcategories{
   justify-content: right;
   text-align: right;

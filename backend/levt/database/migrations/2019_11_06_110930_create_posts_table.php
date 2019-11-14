@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('postID');
             $table->bigInteger('_activityID')->unsigned()->default('1');
             $table->bigInteger('_placeID')->unsigned();
-            $table->string('text');
+            $table->text('text');
             $table->timestamp('updated');
             $table->timestamp('created')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
