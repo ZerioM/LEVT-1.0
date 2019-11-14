@@ -104,12 +104,15 @@ export class Tab2Page {
         console.log("journeyTitle ="+this.journeyTitle);
       }
 
-
     });
-    
 
     this.totalCosts=this.leisureCosts+this.mealsanddrinksCosts+this.otherCosts+this.transportCosts+this.accommondationCosts;
     console.log("TotalCosts:"+ this.totalCosts)
+
+    this.data.setInputs(this.leisureCosts,this.accommondationCosts,this.transportCosts,this.mealsanddrinksCosts,this.otherCosts,this.totalCosts,this.journeyTitle);
+    
+
+    
     this.router.navigateByUrl('/tabs/tab1');
   }
 
