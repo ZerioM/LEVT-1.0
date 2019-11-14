@@ -31,4 +31,14 @@ class _CostController extends BaseController
         return DB::table('costs')->insert($insertArray);
     }
 
+    public function selectAllCostsByJourneyIDAndType($id, $type){
+        if($type == "accommodation") $activityID = 2;
+        else if($type == "mealsanddrinks") $activityID = 3;
+        else if($type == "transportation") $activityID = 4;
+        else if($type == "other") $activityID = 5;
+        else $activityID = 1;
+
+        return DB::table('costs')->where([['_journeyID', '=', $id], ['_activityID', '=', $activityID]])->value('cost');
+    }
+
 }

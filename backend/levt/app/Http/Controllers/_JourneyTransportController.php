@@ -32,4 +32,19 @@ class _JourneyTransportController extends BaseController
 
         return DB::table('journeyTransports')->insert($insertArray);
     }
+
+    public function selectByJourneyIDAndType($id, $type){
+        if($type == "plane") $transportID = 1;
+        if($type == "car") $transportID = 2;
+        if($type == "bus") $transportID = 3;
+        if($type == "train") $transportID = 4;
+        if($type == "ship") $transportID = 5;
+        if($type == "motorbike") $transportID = 6;
+        if($type == "campingtrailer") $transportID = 7;
+        if($type == "hiking") $transportID = 8;
+        if($type == "bicycle") $transportID = 9;
+        else $transportID = 4;
+
+        return DB::table('journeyTransports')->where([['_journeyID', '=', $id], ['_transportID', '=', $transportID]])->count() == 1 ? true : false;
+    }
 }
