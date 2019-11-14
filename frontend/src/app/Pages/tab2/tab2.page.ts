@@ -16,12 +16,17 @@ export class Tab2Page {
   divideC:Boolean = false;
   noPlace:Boolean=true;
 
+  //Costs
   leisureCosts:number;
   accommondationCosts:number;
   mealsanddrinksCosts:number;
   transportCosts:number;
   otherCosts:number;
   totalCosts:number;
+
+  //Journey Details
+  journeyTitle:string;
+  journeyDetails:string;
 
 
   constructor(private data: NewJourneyService, private navCtrl:NavController,  private router: Router) {
@@ -64,9 +69,12 @@ export class Tab2Page {
     let inputs = document.querySelectorAll('ion-input');
     let i = 0;
     let a="";
+    let textAreas=document.querySelectorAll('ion-textarea');
     
-      inputs.forEach(input => {
 
+    //Input Felder auslesen
+      inputs.forEach(input => {
+        //Costs
       if(input.id.toString() == "leisure"){
         this.leisureCosts=parseInt(input.value);
         console.log("Leisure Costs ="+this.leisureCosts);
@@ -90,9 +98,15 @@ export class Tab2Page {
         this.otherCosts=parseInt(input.value);
         console.log("OtherCosts ="+this.otherCosts);
       }
+        //Journey Title
+      if(input.id.toString() == "journeyName"){
+        this.journeyTitle=input.value;
+        console.log("journeyTitle ="+this.journeyTitle);
+      }
 
 
     });
+    
 
     this.totalCosts=this.leisureCosts+this.mealsanddrinksCosts+this.otherCosts+this.transportCosts+this.accommondationCosts;
     console.log("TotalCosts:"+ this.totalCosts)
