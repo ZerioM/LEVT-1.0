@@ -55,8 +55,8 @@ class _JourneyController extends BaseController
             if($requestArray['cost'] == null){
                 if($requestArray['leisureCosts'] != null)
                     $costcontroller->insertOne($id,'leisure',$requestArray['leisureCosts']);
-                if($requestArray['accomodationCosts'] != null)
-                    $costcontroller->insertOne($id,'accommodation',$requestArray['accomodationCosts']);
+                if($requestArray['accommodationCosts'] != null)
+                    $costcontroller->insertOne($id,'accommodation',$requestArray['accommodationCosts']);
                 if($request['foodCosts'] != null)
                     $costcontroller->insertOne($id,'mealsanddrinks',$request['foodCosts']);
                 if($requestArray['transportCosts'] != null)
@@ -112,8 +112,8 @@ class _JourneyController extends BaseController
                 'companionship' => $companionship,
                 'detail' => $requestArray['detail'],
                 'totalCosts' => $requestArray['cost'],
-                'activityCosts' => $requestArray['activityCosts'],
-                'accomodationCosts' => $requestArray['accomodationCosts'],
+                'leisureCosts' => $requestArray['leisureCosts'],
+                'accommodationCosts' => $requestArray['accommodationCosts'],
                 'foodCosts' => $requestArray['foodCosts'],
                 'transportCosts' => $requestArray['transportCosts'],
                 'otherCosts' => $requestArray['otherCosts'],
@@ -160,7 +160,7 @@ class _JourneyController extends BaseController
                     profileImage.src as userImgSrc, COUNT(bookmarks.bookmarkID) AS bookmarks,
                     seasons.seasonName as season, journeys.year,
                     null as duration, null as companionship, null as detail, null as totalCosts,
-                    null as activityCosts, null as accommodationgCosts, null as foodCosts,
+                    null as leisureCosts, null as accommodationgCosts, null as foodCosts,
                     null as transportCosts, null as otherCosts,
                     null as places,thumbnailImage.src as thumbnailSrc
                     FROM journeys
