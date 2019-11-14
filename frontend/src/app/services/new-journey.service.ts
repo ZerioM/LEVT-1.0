@@ -5,6 +5,7 @@ import { JourneyCategories } from '../Interfaces/JourneyCategories';
 import { Companionships } from '../Interfaces/Companionships';
 import { Transports } from '../Interfaces/Transports';
 import { Activities } from '../Interfaces/Activities';
+import { Place } from '../Interfaces/Place';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,8 @@ export class NewJourneyService {
   duration:null,journeyCategory:"",companionship:"",detail:"",totalCosts: null,accommodationCosts:null,leisureCosts:null,
   transportationCosts:null,mealsanddrinkCosts:null,otherCosts:null,places:[],thumbnailSrc:"", plane:true, car:false, bus:false, 
   train:false,ship:false,motorBike:false,campingTrailer:false,hiking:false,bicycle:false}
+
+  public currentPlace:Place={placeID:null,name:"",coordinateX:null, coordinateY:null,posts:null,thumbnailSrc:""}
 
   public journeyCategories:JourneyCategories={journeyCategories:[]};
   public companionships:Companionships={companionships:[]};

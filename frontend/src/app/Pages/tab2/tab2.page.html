@@ -14,11 +14,12 @@
 </ion-header>
 
 <ion-content class="tabsContent">
+  <form (submit)="safeJourney()">
   <div id="journeythumbnail">
     <img class="journeythumbnail" src="/assets/images/01.jpg" alt="Journeycover" />
   </div>
   <ion-item id="journeyName" no-padding no-margin lines="none" color="none">
-    <ion-input type="text" placeholder="Give your journey a name" no-padding no-margin maxlength="50"></ion-input>
+    <ion-input id="journeyName" type="text" placeholder="Give your journey a name" no-padding no-margin maxlength="50"></ion-input>
   </ion-item>
   <ion-item class="segments" lines="none" no-padding color="none">
     <ion-segment no-padding>
@@ -77,7 +78,7 @@
     <ion-label><b>Journey Details</b></ion-label>
   </ion-item>
   <ion-item>
-    <ion-textarea placeholder="Tell us more about your Journey..." rows="8" background="light"></ion-textarea>
+    <ion-textarea placeholder="Tell us more about your Journey..." rows="8" background="light" id="jouneyDetails"></ion-textarea>
   </ion-item>
   <ion-item>
     <ion-checkbox (click)="showCosts()"></ion-checkbox>
@@ -91,26 +92,22 @@
   <div *ngIf="divideC" id="journeycostsCategories">
      <ion-item *ngFor="let a of data.activities.activities">
           <ion-label>{{a.activityName}}</ion-label>
-          <ion-input id="costcategories" inputmode="decimal" type="number" placeholder="0"></ion-input>
+          <ion-input id="{{a.activityName}}" class="costcategories" inputmode="decimal" type="number" placeholder="0" name="{{a.activityName}}" ></ion-input>
           <ion-label>€</ion-label>
       </ion-item>
-      <hr>
-    <ion-item>
-        <ion-label>total costs</ion-label>
-        <ion-label id="costcategories" inputmode="decimal" type="number"> 0 €</ion-label>
-    </ion-item>
+
   </div>
   <div id="journeycostsTotal" *ngIf="!divideC">
       <ion-item>
           <ion-label>total costs</ion-label>
-          <ion-input id="costcategories" inputmode="decimal" type="number" placeholder="0"></ion-input>
+          <ion-input class="costcategories" inputmode="decimal" type="number" placeholder="0"></ion-input>
           <ion-label>€</ion-label>
       </ion-item>
     </div>
 </div>
 
-  <ion-button color="primary" expand="full">
+  <ion-button color="primary" expand="full" type="submit">
     Finish
   </ion-button>
-
+  </form>
 </ion-content>
