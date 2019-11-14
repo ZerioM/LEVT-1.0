@@ -20,8 +20,9 @@ export class Tab2Page {
   journeyTitle: string;
   journeyYear:number;
   journeySeason:string;
-  journeyCategorieID:number;
+  journeyCategoryID:number;
   journeyCompanionshipID:number;
+  journeyDuration: number;
 
   //Costs
   leisureCosts: number;
@@ -30,6 +31,7 @@ export class Tab2Page {
   transportCosts: number;
   otherCosts: number;
   totalCosts: number;
+  
 
   //Journey Details
   
@@ -97,15 +99,15 @@ export class Tab2Page {
 
         }
 
-        if (segment.id.toString() == "journeyCategorie") {
+        if (segment.id.toString() == "journeyCategory") {
           for(let i=0; i< segment.getAttribute.length;i++){
             let sb=segment.value;
             if(sb=="ion-sb-"+i){
-              this.journeyCategorieID=segment.getAttribute[i].value;
+              this.journeyCategoryID=segment.getAttribute[i].value;
             }
-            this.journeyCategorieID = parseInt(segment.value);}
-            if (this.journeyCategorieID == null) this.journeyCategorieID =0;
-            console.log("Journey Categorie =" + this.journeyCategorieID);
+            this.journeyCategoryID = parseInt(segment.value);}
+            if (this.journeyCategoryID == null) this.journeyCategoryID =0;
+            console.log("Journey Category =" + this.journeyCategoryID);
   
           }
 
@@ -176,24 +178,30 @@ export class Tab2Page {
       if (input.id.toString() == "Transport") {
         this.transportCosts = parseInt(input.value);
         if (this.transportCosts == null) this.transportCosts = 0;
-        console.log("Transport Costs =" + this.transportCosts);
+        console.log("Transport Costs = " + this.transportCosts);
       }
 
       if (input.id.toString() == "Other") {
         this.otherCosts = parseInt(input.value);
         if (this.otherCosts == null) this.otherCosts = 0;
-        console.log("OtherCosts =" + this.otherCosts);
+        console.log("OtherCosts = " + this.otherCosts);
       }
 
       if (input.id.toString() == "totalcosts") {
         this.totalCosts = parseInt(input.value);
-        console.log("Total Costs =" + this.totalCosts);
+        console.log("Total Costs = " + this.totalCosts);
       }
       //Journey Title
       if (input.id.toString() == "journeyName") {
         this.journeyTitle = input.value;
-        console.log("journeyTitle =" + this.journeyTitle);
+        console.log("journeyTitle = " + this.journeyTitle);
       }
+      //journeyDuration
+      if (input.id.toString() == "journeyDuration") {
+        this.journeyDuration = parseInt(input.value);
+        console.log("journeyDuration = " + this.journeyDuration);
+      }
+
 
     });
 
@@ -202,7 +210,7 @@ export class Tab2Page {
     }
     console.log("TotalCosts:" + this.totalCosts)
 
-    this.data.setInputs(this.leisureCosts, this.accommondationCosts, this.transportCosts, this.mealsanddrinksCosts, this.otherCosts, this.totalCosts, this.journeyTitle, this.journeyDetails, this.journeyYear, this.journeySeason);
+    this.data.setInputs(this.leisureCosts, this.accommondationCosts, this.transportCosts, this.mealsanddrinksCosts, this.otherCosts, this.totalCosts, this.journeyTitle, this.journeyDetails, this.journeyYear, this.journeySeason, this.journeyCompanionshipID, this.journeyCategoryID, this.journeyDuration);
 
 
 

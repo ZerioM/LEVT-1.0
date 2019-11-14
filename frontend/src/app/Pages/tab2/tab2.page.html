@@ -26,6 +26,10 @@
     <ion-datetime placeholder="Year" displayFormat="YYYY" id="journeyYear"></ion-datetime>
   </ion-item>
   <ion-item>
+    <ion-input id="duration" placeholder="duration" inputmode="decimal" type="number">
+    </ion-input>
+  </ion-item>
+  <ion-item>
     <ion-segment id="journeyCategorie">
       <ion-segment-button *ngFor="let c of data.journeyCategories.journeyCategories" value="{{c.journeyCategoryID}}">
         {{c.journeyCategoryName}}

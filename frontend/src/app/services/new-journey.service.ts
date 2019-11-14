@@ -31,8 +31,11 @@ export class NewJourneyService {
   journeyTitle: string;
   journeyYear: number;
   journeySeason: string;
-  journeyCategorieID: number;
+  journeyCategoryID: number;
   journeyCompanionshipID: number;
+  journeyDuration: number;
+  username: string;
+  thumbnailSrc: string;
 
   //Costs
   leisureCosts: number;
@@ -44,6 +47,18 @@ export class NewJourneyService {
 
   //Journey Details
   journeyDetails: string;
+
+  //Transports
+  plane: boolean;
+  car: boolean;
+  bus: boolean;
+  train: boolean;
+  ship: boolean;
+  motorBike:boolean;
+  campingTrailer: boolean;
+  hiking:boolean;
+  bicycle: boolean;
+
 
   data: any;
 
@@ -165,7 +180,7 @@ export class NewJourneyService {
   }
 
 
-  setInputs(leisureCosts: number, transportCosts: number, accommodationCosts: number, mealsanddrinkCosts: number, otherCosts: number, totalCosts: number, journeyTitle: string, journeyDetails: string, journeyYear: number, journeySeason: string, journeyCategorieID: number, journeyCompanionshipID: number) {
+  setInputs(leisureCosts: number, transportCosts: number, accommodationCosts: number, mealsanddrinkCosts: number, otherCosts: number, totalCosts: number, journeyTitle: string, journeyDetails: string, journeyYear: number, journeySeason: string, journeyCategoryID: number, journeyCompanionshipID: number, journeyDuration: number) {
     this.leisureCosts = leisureCosts;
     this.transportCosts = transportCosts;
     this.accommondationCosts = accommodationCosts;
@@ -176,8 +191,9 @@ export class NewJourneyService {
     this.journeyDetails = journeyDetails;
     this.journeyYear = journeyYear;
     this.journeySeason = journeySeason;
-    this.journeyCategorieID = journeyCategorieID;
+    this.journeyCategoryID = journeyCategoryID;
     this.journeyCompanionshipID = journeyCompanionshipID;
+    this.journeyDuration = journeyDuration;
 
     console.log(this.journeyTitle + "Dies ist von Dataservice");
 
@@ -192,14 +208,14 @@ export class NewJourneyService {
       "duration": 10,
       "journeyName": this.journeyTitle,
       "seasonName": this.journeySeason,
-      "journeyCategoryID": this.journeyCategorieID,
+      "journeyCategoryID": this.journeyCategoryID,
       "companionshipID": this.journeyCompanionshipID,
       "year": this.journeyYear,
       "detail": this.journeyDetails,
       "cost": this.totalCosts
     }
 
-    this.http.post("http://levt.test/newJourney", this.data).subscribe((loadedData: Journey) => {
+    this.http.post("http://levt.test/request", this.data).subscribe((loadedData: any) => {
       console.log(loadedData);
       console.log("Post funktioniert");
     }, error => {
