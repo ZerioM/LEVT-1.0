@@ -16,4 +16,8 @@ class _SeasonController extends BaseController
     public function selectIDPerName($name){
         return DB::table('seasons')->where('seasonName',$name)->value('seasonID');
     }
+
+    public function selectNameByID($id){
+        return DB::table('seasons')->where('seasonID',$id)->value('seasonName');
+    }
 }

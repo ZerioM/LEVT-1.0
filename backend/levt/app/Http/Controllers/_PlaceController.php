@@ -46,4 +46,8 @@ class _PlaceController extends BaseController
         return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 
+    public function selectByJourneyIDWithoutChildren($journeyID){
+        return DB::table('places')->where('_journeyID', $journeyID); 
+    }
+
 }
