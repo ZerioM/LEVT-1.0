@@ -20,4 +20,10 @@ export class AddPlacePage implements OnInit {
     this.router.navigateByUrl('/tabs/tab2/add-post');
   }
 
+  
+  safePlace(){
+    this.router.navigateByUrl('/tabs/tab2');
+  }  
+
+
 }
