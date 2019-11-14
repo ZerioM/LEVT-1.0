@@ -40,13 +40,28 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
   background:0;
 } //macht linie nach Header weg
 .tabHeader {
-      margin: -10px auto 5px auto; // top-right-bottom-left
+  height: 60px;
+      margin: -10px auto 0 auto; // top-right-bottom-left
+      padding-top: 5px;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
 } // Header auf allen Seiten
+.cancel {
+  justify-content: left;
+  color: #d68900;
+  font-size: 50pt;
+  vertical-align: middle;
+  position: absolute;
+} // X auf Unterseiten
+.back {
+  justify-content: left;
+  color: #7ba9a9;
+  font-size: 50pt;
+  vertical-align: middle;
+  position: absolute;
+} // X auf Unterseiten
 .tabHeading {
-  padding-top: 10px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20pt;
   text-align: center;
@@ -55,6 +70,7 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
 }// Headerüberschrift auf allen Seiten
 #headerLogo {
   height: 50px;
+  vertical-align: middle;
 }// Logo im Header auf allen Seiten
 .alignright{
   float:right !important;

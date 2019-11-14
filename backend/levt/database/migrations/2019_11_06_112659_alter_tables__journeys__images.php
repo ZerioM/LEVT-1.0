@@ -20,7 +20,7 @@ class AlterTablesJourneysImages extends Migration
             $table->bigInteger('_journeyCategoryID')->unsigned();
             $table->bigInteger('_companionshipID')->unsigned();
             $table->integer('year');
-            $table->string('detail');
+            $table->text('detail');
             $table->integer('duration');
             $table->decimal('cost');
         });

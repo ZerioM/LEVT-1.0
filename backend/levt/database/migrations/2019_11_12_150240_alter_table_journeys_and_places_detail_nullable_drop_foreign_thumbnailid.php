@@ -14,7 +14,7 @@ class AlterTableJourneysAndPlacesDetailNullableDropForeignThumbnailid extends Mi
     public function up()
     {
         Schema::table('journeys', function($table) {
-            $table->string('detail')->nullable()->change();
+            $table->text('detail')->nullable()->change();
             $table->dropForeign('journeys__thumbnailID_foreign');
         });
 

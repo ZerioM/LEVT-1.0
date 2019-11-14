@@ -35,4 +35,8 @@ class _PostController extends BaseController
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
+
+    public function selectByPlaceIDWithoutChildren($placeID){
+        return DB::table('posts')->where('_placeID', $placeID);
+    }
 }
