@@ -15,7 +15,7 @@ class CreateController extends BaseController
     }
 
     public function insertPlace(Request $request) {
-        $placeController = new _PlaceController; 
+        $placeController = new _PlaceController;
         return $placeController->insertOne($request);
     }
 
@@ -60,4 +60,8 @@ class CreateController extends BaseController
         return "could not login. please try again";
     }
     */
+
+    public function returnRequest(Request $request){
+        return $request;
+    }
 }
