@@ -26,11 +26,11 @@ class _JourneyController extends BaseController
 
         //Create DB table object
 
-            //$userID = $userController->selectIDPerUsername($request->input('username'));
+            $userID = $userController->selectIDPerUsername($request->input('username'));
             //$thumbnailID = $imageController->selectIDPerSrc($request->input('thumbnailSrc'));
 
             $insertJourneyArray = [
-                '_userID' => $userController->selectIDPerUsername($request->input('username')),
+                '_userID' => $userID,
                 '_thumbnailID' => $imageController->selectIDPerSrc($request->input('thumbnailSrc')),
                 'journeyName' => $request->input('journeyName'),
                 '_seasonID' => $seasonController->selectIDPerName($request->input('seasonName')),
@@ -50,8 +50,8 @@ class _JourneyController extends BaseController
 
 
             if($request->input('cost') == null){
-                if($request->input('activityCosts') != null)
-                    $costcontroller->insertOne($id,'leisure',$request->input('activityCosts'));
+                if($request->input('leisureCosts') != null)
+                    $costcontroller->insertOne($id,'leisure',$request->input('leisureCosts'));
                 if($request->input('accomodationCosts') != null)
                     $costcontroller->insertOne($id,'accommodation',$request->input('accomodationCosts'));
                 if($request->input('foodCosts') != null)
@@ -92,7 +92,7 @@ class _JourneyController extends BaseController
 
 
         //build an business layer object as per interface
-            $userImgSrc = $imageController->selectSrcPerUserID($request->input('userID'));
+            $userImgSrc = $imageController->selectSrcPerUserID($userID);
             $companionship = $companionshipController->selectTypePerID($request->input('companionshipID'));
             $journeyCategory = $journeyCategoryController->selectNamePerID($request->input('journeyCategoryID'));
 
@@ -190,8 +190,23 @@ class _JourneyController extends BaseController
 
         $journeysArray = json_decode(json_encode(DB::table('journeys')->where('journeyID',$id)->get()), true);
         $journeyArray = $journeysArray[0];
-        print_r($journeyArray); //Records aus der Datenbank ist kein Array
-        $placesArray = $placeController->selectByJourneyIDWithoutChildren($id);
+        //print_r($journeyArray); //Records aus der Datenbank ist kein Array
+        $placesArray = json_decode(json_encode($placeController->selectByJourneyIDWithoutChildren($id)->get()),true);
+        //print_r($placesArray);
+        $outputPlacesArray = array();
+        foreach ($placesArray as $placeArray) {
+            $outputPlaceArray = array();
+            $outputPlaceArray = [
+                'placeID' => $placeArray['placeID'],
+                'name' => $placeArray['placeName'],
+                'coordinateX' => null,
+                'coordinateY' => null,
+                'posts' => null,
+                'thumbnailSrc' => $imageController->selectSrcPerImageID($placeArray['_thumbnailID'])
+            ];
+
+            array_push($outputPlacesArray,$outputPlaceArray);
+        }
 
          $outputArray = [
             'journeyID' => $id,
@@ -211,8 +226,8 @@ class _JourneyController extends BaseController
             'mealsanddrinkCosts' => $costController->selectAllCostsByJourneyIDAndType($id, 'mealsanddrinks'),
             'transportationCosts' => $costController->selectAllCostsByJourneyIDAndType($id, 'transport'),
             'otherCosts' => $costController->selectAllCostsByJourneyIDAndType($id, 'other'),
-            'places' => null, //das gehört noch gemacht
-            'thumbnailSrc' => $imageController->selectSrcPerImageID($journeyArray['_thumbnailID']), 
+            'places' => $outputPlacesArray, //das gehört noch gemacht
+            'thumbnailSrc' => $imageController->selectSrcPerImageID($journeyArray['_thumbnailID']),
             'plane' => $journeyTransportController->selectByJourneyIDAndType($id, 'plane'),
             'car' => $journeyTransportController->selectByJourneyIDAndType($id, 'car'),
             'bus' => $journeyTransportController->selectByJourneyIDAndType($id, 'bus'),
