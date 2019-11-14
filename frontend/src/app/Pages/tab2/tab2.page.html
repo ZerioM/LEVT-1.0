@@ -16,23 +16,23 @@
   <ion-item id="journeyName" no-padding no-margin lines="none" color="none">
     <ion-input type="text" placeholder="Give your journey a name" no-padding no-margin maxlength="50"></ion-input>
   </ion-item>
-  <ion-item class="segments" lines="none" no-padding color="none">
-    <ion-segment no-padding id="season">
-      <ion-segment-button no-padding value="Spring">Spring</ion-segment-button>
-      <ion-segment-button no-padding value="Summer">Summer</ion-segment-button>
-      <ion-segment-button no-padding value="Fall">Fall</ion-segment-button>
-      <ion-segment-button no-padding value="Winter">Winter</ion-segment-button>
+  <ion-item class="seasonYear" lines="none" no-padding color="none">
+    <ion-segment clear id="seasons">
+      <ion-segment-button clear value="Spring">Spring |</ion-segment-button>
+      <ion-segment-button clear value="Summer">Summer  |</ion-segment-button>
+      <ion-segment-button clear value="Fall">Fall  |</ion-segment-button>
+      <ion-segment-button clear value="Winter">Winter</ion-segment-button>
     </ion-segment>
     <ion-datetime placeholder="Year" displayFormat="YYYY" id="journeyYear"></ion-datetime>
   </ion-item>
-  <ion-item>
+  <ion-item  class="journeyCategories" lines="none" no-padding color="none">
     <ion-segment id="journeyCategorie">
       <ion-segment-button *ngFor="let c of data.journeyCategories.journeyCategories" value="{{c.journeyCategoryID}}">
         {{c.journeyCategoryName}}
       </ion-segment-button>
     </ion-segment>
   </ion-item>
-  <ion-item>
+  <ion-item  class="segments" lines="none" no-padding color="none">
     <ion-segment id="journeyCompanionship">
       <ion-segment-button *ngFor="let cs of data.companionships.companionships" value="{{cs.companionshipID}}">
         {{cs.companionshipType}}
