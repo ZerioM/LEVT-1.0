@@ -28,26 +28,26 @@ hr {
   color: #182f30;
 }
 #journeyName{
-  border: 1px solid #16161650;
+  //border: 1px solid #16161650;
+  border-bottom: 1px solid #16161650;
+  max-height: 30pt;
   vertical-align: middle;
   margin-top: 5px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 12pt;
   padding-left: 10px;
+  margin-bottom: 5px;
 }
 .segments{
   width:90%;
+  border: 1px solid #182f30;
   display: flex;
   flex-wrap: wrap;
   background: 0;
 }
 .sc-ion-segment-md-h.sc-ion-segment-md-s.md.hydrated{
-  
-}// ein Element
-.md.segment-button-layout-icon-top .ion-activatable .ion-activatable-instant .hydrated :host{
-  min-width: 0;
-}//alle Elemente
-
+ border: 1px solid #2cbfc7;
+}// alle Elemente
 item-inner{
   padding: 0;
   background: 0;

@@ -17,7 +17,7 @@ $router->get('/', function () use ($router) {
 
 //$router->get('/JSONData','JSONController@returnJSON');
 
-$router->get('/top100','ReadController@loadTopPosts');
+$router->get('/top100','ReadController@selectTopJourneys');
 
 $router->post('/newJourney','CreateController@insertJourney');
 
@@ -34,3 +34,5 @@ $router->get('/allCompanionships','ReadController@selectCompanionships');
 $router->get('/allTransports','ReadController@selectTransports');
 
 $router->get('/allActivities','ReadController@selectActivities');
+
+$router->get('/oneJourney','ReadController@selectOneJourney');
