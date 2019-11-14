@@ -87,7 +87,7 @@ export class Tab2Page {
     segments.forEach(segment=>{
      
 
-      if (segment.id.toString() == "season") {
+      if (segment.id.toString() == "seasons") {
         for(let i=0; i< segment.getAttribute.length;i++){
           let sb=segment.value;
           if(sb=="ion-sb-"+i){
