@@ -19,7 +19,7 @@ export class NewJourneyService {
     train: false, ship: false, motorBike: false, campingTrailer: false, hiking: false, bicycle: false
   }
 
-  public currentPlace: Place = { placeID: null, name: "", coordinateX: null, coordinateY: null, posts: null, thumbnailSrc: "" }
+  public currentPlace: Place = { placeID: null, name: "",text: "", coordinateX: null, coordinateY: null, posts: null, thumbnailSrc: "" }
 
   public journeyCategories: JourneyCategories = { journeyCategories: [] };
   public companionships: Companionships = { companionships: [] };
