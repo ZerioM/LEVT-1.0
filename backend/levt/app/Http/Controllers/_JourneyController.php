@@ -190,7 +190,7 @@ class _JourneyController extends BaseController
 
         $journeysArray = json_decode(json_encode(DB::table('journeys')->where('journeyID',$id)->get()), true);
         $journeyArray = $journeysArray[0];
-        print_r($journeyArray); //Records aus der Datenbank ist kein Array
+        //print_r($journeyArray); //Records aus der Datenbank ist kein Array
         $placesArray = $placeController->selectByJourneyIDWithoutChildren($id);
 
          $outputArray = [
