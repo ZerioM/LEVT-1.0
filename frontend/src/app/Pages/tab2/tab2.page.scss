@@ -21,36 +21,30 @@ hr {
   margin-bottom: 5px;
 }
 .seasonYear{
-  padding-left: 10px;
   display: flex;
   flex-direction: row;
+  background-color: darkolivegreen;
   justify-content: space-between;
-  z-index: 1;
 }// Jahreszeiten & Jahr
-ion-checkbox.season{
-  color: #161616;
-  --box-shadow: 0;
-}
-ion-checkbox.season:active{
- background-color: olive;
-}
+#seasons{
+  min-width: 80%;
+  width: 80%;
+  padding:0;
+} // alle Jahreszeiten
+#seasons ion-segment-button{
+  width: 20%;
+  min-width:20%;
+}//einzelne Elemente in Seasons & Jahr
 #journeyYear{
-  float: right;
+  justify-content: right;
+  text-align: right;
 }
-ion-item #journeyCategory{
-  background-color: olive;
+.journeyCategories{
+  min-width: 25%;
+  padding:0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-ion-button.journeyCategories{
-  padding-left: 10px;
-  flex-direction: row;
-  justify-content: space-between;
-  z-index: 1;
-  color: #161616;
-  --box-shadow: 0;
-  z-index: 99;
 }
 #transport{
   display:flex;
