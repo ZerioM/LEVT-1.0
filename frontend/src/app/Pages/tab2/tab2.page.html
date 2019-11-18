@@ -9,12 +9,13 @@
 </ion-header>
 
 <ion-content class="tabsContent">
-  <form (submit)="safeJourney()">
+  <form (submit)="saveJourney()">
+
     <div id="journeythumbnail">
       <img class="journeythumbnail" src="/assets/images/01.jpg" alt="Journeycover" />
     </div>
-    <ion-item id="journeyName" no-padding no-margin lines="none" color="none">
-      <ion-input type="text" placeholder="Give your journey a name" no-padding no-margin maxlength="50"></ion-input>
+    <ion-item no-padding no-margin lines="none" color="none">
+      <ion-input id="journeyName" type="text" placeholder="Give your journey a name" no-padding no-margin maxlength="50"></ion-input>
     </ion-item>
     <!--<ion-item class="seasonYear" lines="none" no-padding color="none">
       <ion-button class="season" color="none" no-padding expand="full">Spring</ion-button>|
@@ -53,15 +54,17 @@
         </ion-radio-group>
       </ion-list>
     <ion-item>
-      <ion-input id="duration" placeholder="duration" inputmode="decimal" type="number">
+      <ion-input id="journeyDuration" placeholder="duration" inputmode="decimal" type="number">
       </ion-input>
     </ion-item>
-    <ion-item id="journeyCategorie" lines="none" no-padding color="none">
+
+    <ion-item id="journeyCategory" lines="none" no-padding color="none">
       <ion-button class="journeyCategories" color="none" no-padding expand="full"
         *ngFor="let c of data.journeyCategories.journeyCategories">
         <!--value="{{c.journeyCategoryID}}"-->
         {{c.journeyCategoryName}}
       </ion-button>
+
     </ion-item>
     <ion-item class="segments" lines="none" no-padding color="none">
       <ion-segment id="journeyCompanionship">

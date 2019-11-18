@@ -66,6 +66,6 @@ class CreateController extends BaseController
         $requestArray = $request->all();
         //print_r($requestArray);
         //$requestArray = json_decode($requestArray);
-        return $requestArray['journeyName'];
+        return json_encode("haha".$requestArray['journeyName']);
     }
 }
