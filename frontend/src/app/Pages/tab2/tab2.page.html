@@ -13,8 +13,8 @@
     <div id="journeythumbnail">
       <img class="journeythumbnail" src="/assets/images/01.jpg" alt="Journeycover" />
     </div>
-    <ion-item id="journeyName" no-padding no-margin lines="none" color="none">
-      <ion-input type="text" placeholder="Give your journey a name" no-padding no-margin maxlength="50"></ion-input>
+    <ion-item no-padding no-margin lines="none" color="none">
+      <ion-input id="journeyName" type="text" placeholder="Give your journey a name" no-padding no-margin maxlength="50"></ion-input>
     </ion-item>
     <ion-item class="seasonYear" lines="none" no-padding color="none">
       <ion-segment clear id="seasons">
@@ -30,7 +30,7 @@
       </ion-input>
     </ion-item>
     <ion-item class="journeyCategories" lines="none" no-padding color="none">
-      <ion-segment id="journeyCategorie">
+      <ion-segment id="journeyCategory">
         <ion-segment-button *ngFor="let c of data.journeyCategories.journeyCategories" value="{{c.journeyCategoryID}}">
           {{c.journeyCategoryName}}
         </ion-segment-button>
