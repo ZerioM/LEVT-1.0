@@ -35,29 +35,29 @@ export class NewJourneyService {
   journeyCompanionshipID: number;
   journeyDuration: number;
   username: string;
-  thumbnailSrc: string=null;
+  thumbnailSrc: string;
 
   //Costs
-  leisureCosts: number=null;
-  accommodationCosts: number=null;
-  mealsanddrinksCosts: number=null;
-  transportCosts: number=null;
-  otherCosts: number=null;
-  totalCosts: number=null;
+  leisureCosts: number;
+  accommondationCosts: number;
+  mealsanddrinksCosts: number;
+  transportCosts: number;
+  otherCosts: number;
+  totalCosts: number;
 
   //Journey Details
-  journeyDetails: string=null;
+  journeyDetails: string;
 
   //Transports
-  plane: boolean=false;
-  car: boolean=false;
-  bus: boolean=false;
-  train: boolean=false;
-  ship: boolean=false;
-  motorBike:boolean=false;
-  campingTrailer: boolean=false;
-  hiking:boolean=false;
-  bicycle: boolean=false;
+  plane: boolean;
+  car: boolean;
+  bus: boolean;
+  train: boolean;
+  ship: boolean;
+  motorBike:boolean;
+  campingTrailer: boolean;
+  hiking:boolean;
+  bicycle: boolean;
 
 
   data: any;
@@ -183,7 +183,7 @@ export class NewJourneyService {
   setInputs(leisureCosts: number, transportCosts: number, accommodationCosts: number, mealsanddrinkCosts: number, otherCosts: number, totalCosts: number, journeyTitle: string, journeyDetails: string, journeyYear: number, journeySeason: string, journeyCategoryID: number, journeyCompanionshipID: number, journeyDuration: number) {
     this.leisureCosts = leisureCosts;
     this.transportCosts = transportCosts;
-    this.accommodationCosts = accommodationCosts;
+    this.accommondationCosts = accommodationCosts;
     this.mealsanddrinksCosts = mealsanddrinkCosts;
     this.otherCosts = otherCosts;
     this.totalCosts = totalCosts;
@@ -205,33 +205,17 @@ export class NewJourneyService {
 
     this.data = {
       "username": "Amir Conn",
-      "thumbnailSrc":this.thumbnailSrc,
-      "duration": this.journeyDuration,
+      "duration": 10,
       "journeyName": this.journeyTitle,
       "seasonName": this.journeySeason,
       "journeyCategoryID": this.journeyCategoryID,
       "companionshipID": this.journeyCompanionshipID,
       "year": this.journeyYear,
       "detail": this.journeyDetails,
-      "cost": this.totalCosts,
-      "leisureCosts":this.leisureCosts,
-      "accommodationCosts":this.accommodationCosts,
-      "foodCosts":this.mealsanddrinksCosts,
-      "transportCosts":this.transportCosts,
-      "otherCosts":this.otherCosts,
-      "plane":this.plane,
-      "car":this.car,
-      "bus":this.bus,
-      "train":this.train,
-      "ship":this.ship,
-      "motorbike":this.motorBike,
-      "campingtrailer":this.campingTrailer,
-      "hiking":this.hiking,
-      "bicycle":this.bicycle
-
+      "cost": this.totalCosts
     }
 
-    this.http.post("http://levt.test/newJourney", this.data).subscribe((loadedData: any) => {
+    this.http.post("http://levt.test/request", this.data).subscribe((loadedData: any) => {
       console.log(loadedData);
       console.log("Post funktioniert");
     }, error => {

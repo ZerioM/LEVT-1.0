@@ -14,23 +14,21 @@ class _PostController extends BaseController
 {
     public function insertOne(Request $request){
 
-        $requestArray = $request->all();
-
         $activityController = new _ActivityController;
 
 
         $insertPostArray = [
-            '_activityID' => $requestArray['activityID'],
-            '_placeID' => $requestArray['placeID'],
-            'text' => $requestArray['text']
+            '_activityID' => $request->input('activityID'),
+            '_placeID' => $request->input('placeID'),
+            'text' => $request->input('text')
         ];
 
         $id = DB::table('posts')->insertGetId($insertPostArray);
 
         $outputArray = [
             'postID' => $id,
-            'activity' => $activityController->selectNameByID($requestArray['activityID']),
-            'text' => $requestArray['text'],
+            'activity' => $activityController->selectNameByID($request->input('activityID')),
+            'text' => $request->input('text'),
             'place' => null,
             'images' => null
         ];

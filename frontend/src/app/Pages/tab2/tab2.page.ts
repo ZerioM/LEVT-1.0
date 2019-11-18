@@ -26,7 +26,7 @@ export class Tab2Page {
 
   //Costs
   leisureCosts: number;
-  accommodationCosts: number;
+  accommondationCosts: number;
   mealsanddrinksCosts: number;
   transportCosts: number;
   otherCosts: number;
@@ -59,7 +59,6 @@ export class Tab2Page {
 
   showCosts() {
     this.showC = !this.showC;
-    if (!this.showC) this.totalCosts = null;
   }
 
   divideCosts() {
@@ -74,7 +73,7 @@ export class Tab2Page {
 
   }
 
-  saveJourney() { 
+  safeJourney() { 
 
     let inputs = document.querySelectorAll('ion-input');
     let textAreas = document.querySelectorAll('ion-textarea');
@@ -88,13 +87,14 @@ export class Tab2Page {
     segments.forEach(segment=>{
      
 
-      if (segment.id.toString() == "seasons") {
+      if (segment.id.toString() == "season") {
         for(let i=0; i< segment.getAttribute.length;i++){
           let sb=segment.value;
           if(sb=="ion-sb-"+i){
             this.journeySeason=segment.getAttribute[i].value;
           }
           this.journeySeason = segment.value;}
+          if (this.journeySeason == null) this.journeySeason ="";
           console.log("Journey Season =" + this.journeySeason);
 
         }
@@ -106,6 +106,7 @@ export class Tab2Page {
               this.journeyCategoryID=segment.getAttribute[i].value;
             }
             this.journeyCategoryID = parseInt(segment.value);}
+            if (this.journeyCategoryID == null) this.journeyCategoryID =0;
             console.log("Journey Category =" + this.journeyCategoryID);
   
           }
@@ -117,6 +118,7 @@ export class Tab2Page {
                 this.journeyCompanionshipID=segment.getAttribute[i].value;
               }
               this.journeyCompanionshipID = parseInt(segment.value);}
+              if (this.journeyCompanionshipID == null) this.journeyCompanionshipID =0;
               console.log("Journey Companionship =" + this.journeyCompanionshipID);
     
             }
@@ -158,25 +160,30 @@ export class Tab2Page {
       //Costs
       if (input.id.toString() == "Leisure") {
         this.leisureCosts = parseInt(input.value);
+        if (this.leisureCosts == null) this.leisureCosts = 0;
         console.log("Leisure Costs =" + this.leisureCosts);
       }
       if (input.id.toString() == "Accommodation") {
-        this.accommodationCosts = parseInt(input.value);
-        console.log("AccomndationCosts =" + this.accommodationCosts);
+        this.accommondationCosts = parseInt(input.value);
+        if (this.accommondationCosts == null) this.accommondationCosts = 0;
+        console.log("AccomndationCosts =" + this.accommondationCosts);
       }
 
       if (input.id.toString() == "Meals and Drinks") {
         this.mealsanddrinksCosts = parseInt(input.value);
+        if (this.mealsanddrinksCosts == null) this.mealsanddrinksCosts = 0;
         console.log("Meals and Drink Costs =" + this.mealsanddrinksCosts);
       }
 
       if (input.id.toString() == "Transport") {
         this.transportCosts = parseInt(input.value);
+        if (this.transportCosts == null) this.transportCosts = 0;
         console.log("Transport Costs = " + this.transportCosts);
       }
 
       if (input.id.toString() == "Other") {
         this.otherCosts = parseInt(input.value);
+        if (this.otherCosts == null) this.otherCosts = 0;
         console.log("OtherCosts = " + this.otherCosts);
       }
 
@@ -199,18 +206,11 @@ export class Tab2Page {
     });
 
     if (this.divideC) {
-      this.totalCosts = this.leisureCosts + this.mealsanddrinksCosts + this.otherCosts + this.transportCosts + this.accommodationCosts;
-    } else {
-      this.leisureCosts =null;
-      this.mealsanddrinksCosts =null;
-      this.otherCosts =null;
-      this.transportCosts =null;
-      this.accommodationCosts =null;
-
+      this.totalCosts = this.leisureCosts + this.mealsanddrinksCosts + this.otherCosts + this.transportCosts + this.accommondationCosts;
     }
     console.log("TotalCosts:" + this.totalCosts)
 
-    this.data.setInputs(this.leisureCosts, this.accommodationCosts, this.transportCosts, this.mealsanddrinksCosts, this.otherCosts, this.totalCosts, this.journeyTitle, this.journeyDetails, this.journeyYear, this.journeySeason, this.journeyCompanionshipID, this.journeyCategoryID, this.journeyDuration);
+    this.data.setInputs(this.leisureCosts, this.accommondationCosts, this.transportCosts, this.mealsanddrinksCosts, this.otherCosts, this.totalCosts, this.journeyTitle, this.journeyDetails, this.journeyYear, this.journeySeason, this.journeyCompanionshipID, this.journeyCategoryID, this.journeyDuration);
 
 
 

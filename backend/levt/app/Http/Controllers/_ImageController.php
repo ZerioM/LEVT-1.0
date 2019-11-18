@@ -28,24 +28,22 @@ class _ImageController extends BaseController
 
     public function insertOne(Request $request){
 
-        $requestArray = $request->all();
-
         $insertImagesArray = [
-            'src' => $requestArray['src'],
-            'coordinateX' => $requestArray['coordinateX'],
-            'coordinateY' => $requestArray['coordinateY'],
-            'date' => $requestArray['date'],
-            '_postID' => $requestArray['postID'],
+            'src' => $request->input('src'),
+            'coordinateX' => $request->input('coordinateX'),
+            'coordinateY' => $request->input('coordinateY'),
+            'date' => $request->input('date'),
+            '_postID' => $request->input('postID'),
         ];
 
         $id = DB::table('images')->insertGetId($insertImagesArray);
 
         $outputArray = [
             'imageID' => $id,
-            'imageSrc' => $requestArray['src'],
-            'date' => $requestArray['date'],
-            'coordinateX' => $requestArray['coordinateX'],
-            'coordinateY' => $requestArray['coordinateY']
+            'imageSrc' => $request->input('src'),
+            'date' => $request->input('date'),
+            'coordinateX' => $request->input('coordinateX'),
+            'coordinateY' => $request->input('coordinateY')
         ];
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
