@@ -5,8 +5,8 @@
         <ion-icon name="apps" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <img class="header" src="/assets/images/LEVT_Header.svg" alt="" />
-    <ion-searchbar placeholder="Suche deine Traumdestination"></ion-searchbar>
+    <img class="header" id="header" src="/assets/images/LEVT_Header.svg" alt="" />
+    <ion-searchbar id="suche" placeholder="Dream destination" padding="none"></ion-searchbar>
   </ion-list>
 </ion-header>
 
@@ -22,14 +22,14 @@
           <div class="picInformations">
             <div class="userpicAndName">
               <ion-item color="none">
-                <img src={{j.userImgSrc}} alt="User" class="userpic" />
+                <img src="{{j.userImgSrc}}" alt="User" class="userpic" />
               </ion-item>
               <ion-item color="none">
                 <ion-label>{{j.username}}</ion-label>
               </ion-item>
             </div>
-            <ion-item color="none" class="travelTime">
-                <ion-icon name="md-time" class="timeIcon"></ion-icon>
+            <ion-item color="none" id="travelTime">
+              <ion-icon name="md-time" id="timeIcon"></ion-icon>
               <ion-label>{{j.season}} - {{j.year}}</ion-label>
             </ion-item>
           </div>
@@ -38,4 +38,8 @@
       </div>
     </div>
   </ion-list>
+  <div id="start">
+      <ion-icon id="arrowUp" color="#d68900" name="ios-arrow-up" (click)="smoothScrollJS()"></ion-icon>
+  </div> <!--FUNKTIONIERT aber lädt Seite nochmal-->
+  <!--<button id="start" onclick="window.scrollTo(0,0)">&and;</button> FUNKTIONIERT noch NICHT-->
 </ion-content>

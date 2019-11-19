@@ -1,1 +1,21 @@
-
+ion-tab-bar{
+    width:90%;
+    margin-right: auto;
+    margin-left:auto;
+    justify-content: space-between;
+}
+#home:active {
+  background-color: #eceeef;
+}
+#add:active {
+  background-color: #eceeef;
+}
+#navigate:active {
+  background-color: #eceeef;
+}
+#chat:active {
+  background-color: #eceeef;
+}
+#profil:active {
+  background-color: #eceeef;
+}

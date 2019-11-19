@@ -1,21 +1,34 @@
+body{
+  height: auto;
+}
 #setup {
   color: #182f30;
   position: fixed;
   z-index: 2;
   right: 0;
+  margin-top: 5px;
 }
 ion-list.md.list-md.list-lines-none.list-md-lines-none.hydrated{
 	background:0;
 }
-
-ion-list .headerAll {
+ion-list.headerAll.md.list-md.hydrated{
+  background:0;
+  color:0;
+  margin:0;
+  padding:0;
+}
+.headerAll {
+  width: 100%;
+  height: 250px;
   margin-left: auto;
   margin-right: auto;
   z-index: 1;
   position: relative;
 }
-img.header {
-  width: 100%;
+.header {
+  width: 98%;
+  margin-left:auto;
+  margin-right: auto;
   padding-top: 5px;
   position: absolute;
   z-index: -1;
@@ -23,22 +36,28 @@ img.header {
 .header-md:after {
   content: 0;
   height: 0;
+} /* => balken nach Header*/
+ion-header.md.header-md.header-collapse-none.hydrated{
+  margin: 0;
 }
 ion-searchbar {
   border: 5px solid #182f30;
   border-radius: 0.5em;
-  font-size: 14pt !important;
-  width: 70%;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 35%;
-  transition: width 0.5s ease-in-out;
   box-shadow: 5px 5px 5px #182f30;
   z-index: 3;
   padding: 0;
 }
-ion-searchbar:focus {
-  width: 80%;
+.searchbar-input.sc-ion-searchbar-md{
+  -webkit-padding-start: 40px;
+    padding-inline-start: 40px;
+    -webkit-padding-end: 40px;
+    padding-inline-end: 40px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 30pt;
 }
 #gallery {
   width: 94%;
@@ -105,12 +124,13 @@ ion-searchbar:focus {
   object-fit: cover;
   margin-right: 5px;
 }
-.travelTime {
+#travelTime {
   display: flex;
   flex-direction: row;
 }
-.timeIcon{
-	margin-right: 5px;
+#timeIcon{
+  margin-right: 5px;
+  color: #7ba9a9;
 }
 ion-label {
   margin: 0;
@@ -123,8 +143,20 @@ ion-item {
 ion-list{
 	padding:0;
 }
-.pfeilOben {
+#start {
   position: fixed;
+  width: 20px;
+  height:20px;
+  border-radius: 0.2em;
+  background-color: #415f4b;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  color: #d68900;
   bottom: 0;
   right: 0;
+}
+#arrowUp{
+  font-size: 16pt;
+  text-align: justify;
+  font-weight: bolder;
 }
