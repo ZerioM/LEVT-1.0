@@ -9,6 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+
+
 //import { HideHeaderDirective } from './directives/hide-header.directive'; 
 //import {ScrollingHeaderModule} from 'ionic-scrolling-header';
 

@@ -1,0 +1,44 @@
+{"transports":[
+    {
+        "transportID": 1,
+        "transportType": "Plane"
+    },
+
+    {
+        "transportID": 2,
+        "transportType": "Car"
+    },
+
+    {
+        "transportID": 3,
+        "transportType":"Bus"
+    },
+
+    {
+        "transportID": 4,
+        "transportType": "Train"
+    },
+    {
+        "transportID": 5,
+        "transportType": "Ship"
+    },
+    {
+        "transportID": 6,
+        "transportType": "Motor Bike"
+    },
+
+    {
+        "transportID": 7,
+        "transportType": "Camping Trailer"
+    },
+    {
+        "transportID": 8,
+        "transportType": "Hiking"
+    },
+    {
+        "transportID": 9,
+        "transportType": "Bicycle"
+    }
+       
+    ]
+}

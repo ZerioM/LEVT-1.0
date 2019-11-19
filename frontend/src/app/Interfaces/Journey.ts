@@ -10,15 +10,25 @@ export interface Journey{
     season: string;
     year: number;
     duration: number;
+    journeyCategory: string;
     companionship: string;
     detail: string;
     totalCosts: number;
-    activityCosts: number;
-    accommodationgCosts: number;
-    foodCosts: number;
-    transportCosts: number;
+    leisureCosts: number;
+    accommodationCosts: number;
+    mealsanddrinkCosts: number;
+    transportationCosts: number;
     otherCosts: number
     places: Place[];
     thumbnailSrc: string;
+    plane: boolean;
+    car: boolean;
+    bus: boolean;
+    train: boolean;
+    ship: boolean;
+    motorBike:boolean;
+    campingTrailer: boolean;
+    hiking:boolean;
+    bicycle: boolean;
     
 }

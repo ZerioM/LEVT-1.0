@@ -1,4 +1,97 @@
-ion-input{
-    background: #EEEEEE;
-    padding: 0px;
-  }
+button.button-native{
+  padding:0;
+}
+.journeythumbnail {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+hr {
+  color: #182f30;
+}
+#journeyName{
+  //border: 1px solid #16161650;
+  border-bottom: 1px solid #16161650;
+  max-height: 30pt;
+  vertical-align: middle;
+  margin-top: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12pt;
+  padding-left: 10px;
+  margin-bottom: 5px;
+}
+.seasonYear{
+  display: flex;
+  flex-direction: row;
+  background-color: darkolivegreen;
+  justify-content: space-between;
+}// Jahreszeiten & Jahr
+#seasons{
+  min-width: 80%;
+  width: 80%;
+  padding:0;
+} // alle Jahreszeiten
+#seasons ion-segment-button{
+  width: 20%;
+  min-width:20%;
+}//einzelne Elemente in Seasons & Jahr
+#journeyYear{
+  justify-content: right;
+  text-align: right;
+}
+.journeyCategories{
+  min-width: 25%;
+  padding:0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+#transport{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.gridContainer {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  //flex-wrap: wrap;
+  flex-flow:row wrap;
+  justify-content: space-between;
+}
+.grid-item {
+  width: 100px;
+  margin-bottom: 30px;
+} //=> Bild & Text
+.grid-item .addPlace {
+  width: 100px;
+  height: 100px;
+  background-color: #7ba9a9bf;
+  vertical-align: middle;
+  text-align: center;
+  color: #182f30;
+  font-size: 70pt;
+  font-weight: bolder;
+}
+.pictureGrid {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}//=> Bild alleine
+#visitedPlaceName {
+  width: 100%;
+  margin-top: -30px;
+  background-color: #eceeefbf;
+  vertical-align: middle;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  text-align: center;
+  position: relative;
+}
+.costcategories{
+  justify-content: right;
+  text-align: right;
+  margin-right: 2px;
+}

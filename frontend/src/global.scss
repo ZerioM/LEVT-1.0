@@ -27,10 +27,52 @@
 
     ion-item {
       font-size: 10pt;
-      margin: -5px;
+      --inner-padding-end: 0;
     };
-
+div.tabs-inner {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+} // => Content auf allen Seiten
+ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
+  background:0;
+} //macht linie nach Header weg
+.tabHeader {
+  height: 60px;
+      margin: -10px auto 0 auto; // top-right-bottom-left
+      padding-top: 5px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+} // Header auf allen Seiten
+.cancel {
+  justify-content: left;
+  color: #d68900;
+  font-size: 50pt;
+  vertical-align: middle;
+  position: absolute;
+} // X auf Unterseiten
+.back {
+  justify-content: left;
+  color: #7ba9a9;
+  font-size: 50pt;
+  vertical-align: middle;
+  position: absolute;
+} // < auf Unterseiten
+.tabHeading {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20pt;
+  text-align: center;
+  font-variant: small-caps;
+  vertical-align: middle;
+}// Headerüberschrift auf allen Seiten
+#headerLogo {
+  height: 50px;
+  vertical-align: middle;
+}// Logo im Header auf allen Seiten
 .alignright{
-
   float:right !important;
 }
+

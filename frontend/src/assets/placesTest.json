@@ -1,0 +1,59 @@
+
+    {
+        "journeyID": 1,
+        "name": "Côte d'Azure",
+        "username": "sandra2401",
+        "userImgSrc": "/assets/images/sandra2401.jpg",
+        "bookmarks": 10,
+        "season": "Spring",
+        "year": "2019",
+        "duration":10,
+        "companionship":"Friends",
+        "detail":"Es war sehr schön",
+        "totalCosts":1000,
+        "activityCosts":200,
+        "accomodationCosts":200,
+        "foodCosts":200,
+        "transportCosts":200,
+        "otherCosts":200,
+        "thumbnailSrc": "/assets/images/01.jpg",
+        "places":[
+            {
+                "PlaceID": 1,
+                "name": "Antibes",
+                "CoordinatesX": 43.579245,
+                "CoordinatesY": 7.118339,
+                "thumbnailSrc": "/assets/images/07.jpg"
+
+            },
+            {
+                "PlaceID": 2,
+                "name": "Nice",
+                "CoordinatesX": 43.697000,
+                "CoordinatesY": 7.270303,
+                 "thumbnailSrc": "/assets/images/09.jpg"
+                
+                
+            },
+
+            {
+                "PlaceID": 3,
+                "name": "Roma",
+                "CoordinatesX": 43.697000,
+                "CoordinatesY": 7.270303,
+                 "thumbnailSrc": "/assets/images/04.jpg"
+                
+                
+            },
+
+            {
+                "PlaceID": 4,
+                "name": "Paris",
+                "CoordinatesX": 43.697000,
+                "CoordinatesY": 7.270303,
+                 "thumbnailSrc": "/assets/images/01.jpg"
+                
+                
+            }
+        ]
+        }

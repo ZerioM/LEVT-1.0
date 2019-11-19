@@ -1,0 +1,43 @@
+<ion-header class="tabHeader">
+  <ion-buttons>
+    <ion-button icon-only>
+      <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title class="tabHeading" no-padding>Add a place</ion-title>
+  <img id="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
+</ion-header>
+
+<ion-content>
+  <form (submit)="safePlace()">
+    <ion-item>
+      <ion-label><b>General</b></ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Place" background="light"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-select placeholder="Country">
+        <ion-select-option> Länder </ion-select-option>
+        <!--*ngFor="let j of"-->
+      </ion-select>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-button class="middlebutton" color="light" (click)="goToAddPost()">
+        <ion-icon slot="start" name="add"></ion-icon>
+        Add a post to your place
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label><b>Place Details</b></ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-textarea placeholder="Tell us what you experienced here!" rows="8" background="light"></ion-textarea>
+    </ion-item>
+    <ion-button color="primary" expand="full" type="submit">
+      Finish
+    </ion-button>
+  </form>
+</ion-content>
