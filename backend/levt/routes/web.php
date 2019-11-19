@@ -43,9 +43,9 @@ $router->get('/allTransports','ReadController@selectTransports');
 
 $router->get('/allActivities','ReadController@selectActivities');
 
-$router->get('/oneJourney','ReadController@selectOneJourney');
+$router->post('/oneJourney','ReadController@selectOneJourney');
 
-$router->get('/onePlace','ReadController@selectOnePlace');
+$router->post('/onePlace','ReadController@selectOnePlace');
 
 
 
