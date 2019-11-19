@@ -10,7 +10,6 @@ hr {
   color: #182f30;
 }
 #journeyName{
-  //border: 1px solid #16161650;
   border-bottom: 1px solid #16161650;
   max-height: 30pt;
   vertical-align: middle;
@@ -21,37 +20,53 @@ hr {
   margin-bottom: 5px;
 }
 .seasonYear{
+  padding-left: 10px;
   display: flex;
   flex-direction: row;
-  background-color: darkolivegreen;
   justify-content: space-between;
+  z-index: 1;
 }// Jahreszeiten & Jahr
-#seasons{
-  min-width: 80%;
-  width: 80%;
-  padding:0;
-} // alle Jahreszeiten
-#seasons ion-segment-button{
-  width: 20%;
-  min-width:20%;
-}//einzelne Elemente in Seasons & Jahr
-#journeyYear{
-  justify-content: right;
-  text-align: right;
-}
-.journeyCategories{
-  min-width: 25%;
-  padding:0;
+.season{
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: row;
+  background-color: orange;
+  color: #161616;
+  --box-shadow: none;
+}
+.item-native{
+  padding: none;
+}
+ion-checkbox.season:active{
+ background-color: olive;
+}
+#journeyYear{
+  float: right;
+}
+#journeyCategory{
+  
+
+}
+button.journeyCategories{
+  background-color: olive;
+  z-index: 1;
+  margin-right: 5px;
+  color: #161616;
+  --box-shadow: 0;
+  z-index: 99;
 }
 #transport{
-  display:flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+
 }
+.radioButtons ion-radio{
+  border: none;
+}
+/*ion-chip{
+  --chip-button-border-radius: 100px;
+  border-radius: none;
+  background-color: greenyellow;
+  padding: none;
+  margin: none;
+}*/
 .gridContainer {
   width: 100%;
   margin-left: auto;

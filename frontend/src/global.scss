@@ -25,10 +25,14 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-    ion-item {
+ion-item {
       font-size: 10pt;
-      --inner-padding-end: 0;
-    };
+      --inner-padding-end: none;
+      background-color: none;
+};
+input{
+  background-color: none;
+}
 div.tabs-inner {
   width: 90%;
   margin-left: auto;
@@ -57,10 +61,14 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
 .back {
   justify-content: left;
   color: #7ba9a9;
-  font-size: 50pt;
+  font-size: 30pt;
   vertical-align: middle;
   position: absolute;
 } // < auf Unterseiten
+.sc-ion-buttons-md-s ion-button{
+  --padding-start: 20px;
+  --padding-end: 20px;
+}
 .tabHeading {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 20pt;
@@ -75,4 +83,9 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
 .alignright{
   float:right !important;
 }
+input {
+  background-color:none;
+  border: none;
+  padding:none;
+} // Kategorien
 
