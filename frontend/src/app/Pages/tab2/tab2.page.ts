@@ -17,7 +17,7 @@ export class Tab2Page {
   noPlace: Boolean = true;
 
   //General
-  journeyTitle: string;
+ public journeyTitle: string;
   journeyYear:number;
   journeySeason:string;
   journeyCategoryID:number;
@@ -85,9 +85,11 @@ export class Tab2Page {
 
     //Segment auslesen
     segments.forEach(segment=>{
+
+      console.log (this.journeyTitle);
      
 
-      if (segment.id.toString() == "season") {
+      if (segment.id.toString() == "seasons") {
         for(let i=0; i< segment.getAttribute.length;i++){
           let sb=segment.value;
           if(sb=="ion-sb-"+i){

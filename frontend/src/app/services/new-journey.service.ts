@@ -212,10 +212,11 @@ export class NewJourneyService {
       "companionshipID": this.journeyCompanionshipID,
       "year": this.journeyYear,
       "detail": this.journeyDetails,
-      "cost": this.totalCosts
+      "cost": this.totalCosts,
+      "thumbnailSrc":"assets/images/01.jpg"
     }
 
-    this.http.post("http://levt.test/request", this.data).subscribe((loadedData: any) => {
+    this.http.post("http://levt.test/newJourney", this.data).subscribe((loadedData: any) => {
       console.log(loadedData);
       console.log("Post funktioniert");
     }, error => {
@@ -224,3 +225,4 @@ export class NewJourneyService {
 
   }
 }
+

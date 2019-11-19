@@ -9,15 +9,15 @@
 </ion-header>
 
 <ion-content class="tabsContent">
-  <form (submit)="safeJourney()">
+  <!--<form (submit)="safeJourney()">-->
     <div id="journeythumbnail">
       <img class="journeythumbnail" src="/assets/images/01.jpg" alt="Journeycover" />
     </div>
     <ion-item no-padding no-margin lines="none" color="none">
-      <ion-input id="journeyName" type="text" placeholder="Give your journey a name" no-padding no-margin maxlength="50"></ion-input>
+      <ion-input id="journeyName" [(ngModel)]="journeyTitle" type="text" placeholder="Give your journey a name" no-padding no-margin maxlength="50"></ion-input>
     </ion-item>
     <ion-item class="seasonYear" lines="none" no-padding color="none">
-      <ion-segment clear id="seasons">
+      <ion-segment id="seasons">
         <ion-segment-button clear value="Spring">Spring |</ion-segment-button>
         <ion-segment-button clear value="Summer">Summer |</ion-segment-button>
         <ion-segment-button clear value="Fall">Fall |</ion-segment-button>
@@ -108,8 +108,8 @@
       </div>
     </div>
 
-    <ion-button color="primary" expand="full" type="submit">
+    <ion-button color="primary" expand="full" (click)="safeJourney()">
       Finish
     </ion-button>
-  </form>
+ <!---- </form> -->
 </ion-content>
