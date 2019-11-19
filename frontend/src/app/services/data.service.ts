@@ -26,7 +26,7 @@ export class DataService {
 
   private locale : string;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private sanitizer:DomSanitizer) { 
       
     /*
     //for german Date:
@@ -80,7 +80,6 @@ export class DataService {
     // http://levt.test/top100 liefert die Daten aus der DB 
     
     this.http.get("http://levt.test/top100").subscribe( (loadedData: Journeys)=> {
-
       if(loadedData!=null){
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
