@@ -6,8 +6,13 @@ body {
   color: #182f30;
   position: fixed;
   z-index: 2;
+  padding: 0;
   right: 0;
   margin-top: 5px;
+}
+#setup ion-button{
+  --padding-start: 0;
+  --padding-end: 0;
 }
 
 div.tabs-inner {
