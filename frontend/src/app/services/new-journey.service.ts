@@ -7,64 +7,19 @@ import { Transports } from '../Interfaces/Transports';
 import { Activities } from '../Interfaces/Activities';
 import { Place } from '../Interfaces/Place';
 import { TouchSequence } from 'selenium-webdriver';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewJourneyService {
 
-  public currentJourney: Journey = {
-    journeyID: null, name: "", username: "", userImgSrc: "", bookmarks: null, season: "", year: null,
-    duration: null, journeyCategory: "", companionship: "", detail: "", totalCosts: null, accommodationCosts: null, leisureCosts: null,
-    transportationCosts: null, mealsanddrinkCosts: null, otherCosts: null, places: [], thumbnailSrc: "", plane: true, car: false, bus: false,
-    train: false, ship: false, motorBike: false, campingTrailer: false, hiking: false, bicycle: false
-  }
 
-  public currentPlace: Place = { placeID: null, name: "",text: "", coordinateX: null, coordinateY: null, posts: null, thumbnailSrc: "" }
-
-  public journeyCategories: JourneyCategories = { journeyCategories: [] };
-  public companionships: Companionships = { companionships: [] };
-  public transports: Transports = { transports: [] };
-  public activities: Activities = { activities: [] };
-
-  //General
-  journeyTitle: string;
-  journeyYear: number;
-  journeySeason: string;
-  journeyCategoryID: number;
-  journeyCompanionshipID: number;
-  journeyDuration: number;
-  username: string;
-  thumbnailSrc: string;
-
-  //Costs
-  leisureCosts: number;
-  accommondationCosts: number;
-  mealsanddrinksCosts: number;
-  transportCosts: number;
-  otherCosts: number;
-  totalCosts: number;
-
-  //Journey Details
-  journeyDetails: string;
-
-  //Transports
-  plane: boolean;
-  car: boolean;
-  bus: boolean;
-  train: boolean;
-  ship: boolean;
-  motorBike:boolean;
-  campingTrailer: boolean;
-  hiking:boolean;
-  bicycle: boolean;
-
-
-  data: any;
+  postData: any;
 
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private data:DataService) { }
 
 
 
@@ -75,13 +30,13 @@ export class NewJourneyService {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
-        this.currentJourney = loadedData;
+        this.data.currentJourney = loadedData;
 
         console.log("currentJourney wurde überschrieben");
 
         // console.log(loadedData);
 
-        console.log(this.currentJourney);
+        console.log(this.data.currentJourney);
       } else {
 
         console.log("null per http geladen");
@@ -98,13 +53,13 @@ export class NewJourneyService {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
-        this.journeyCategories = loadedData;
+        this.data.journeyCategories = loadedData;
 
         console.log("journeyCategories wurden überschrieben");
 
         //console.log(loadedData);
 
-        console.log(this.journeyCategories);
+        console.log(this.data.journeyCategories);
       } else {
 
         console.log("null per http geladen");
@@ -122,13 +77,13 @@ export class NewJourneyService {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
-        this.companionships = loadedData;
+        this.data.companionships = loadedData;
 
         console.log("Companionships wurden überschrieben");
 
         //console.log(loadedData);
 
-        console.log(this.companionships);
+        console.log(this.data.companionships);
       } else {
 
         console.log("null per http geladen");
@@ -145,13 +100,13 @@ export class NewJourneyService {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
-        this.transports = loadedData;
+        this.data.transports = loadedData;
 
         console.log("Transports wurden überschrieben");
 
         //console.log(loadedData);
 
-        console.log(this.transports);
+        console.log(this.data.transports);
       } else {
 
         console.log("null per http geladen");
@@ -165,13 +120,13 @@ export class NewJourneyService {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
-        this.activities = loadedData;
+        this.data.activities = loadedData;
 
         console.log("Transports wurden überschrieben");
 
         //console.log(loadedData);
 
-        console.log(this.activities);
+        console.log(this.data.activities);
       } else {
 
         console.log("null per http geladen");
@@ -180,41 +135,12 @@ export class NewJourneyService {
   }
 
 
-  setInputs(leisureCosts: number, transportCosts: number, accommodationCosts: number, mealsanddrinkCosts: number, otherCosts: number, totalCosts: number, journeyTitle: string, journeyDetails: string, journeyYear: number, journeySeason: string, journeyCategoryID: number, journeyCompanionshipID: number, journeyDuration: number) {
-    this.leisureCosts = leisureCosts;
-    this.transportCosts = transportCosts;
-    this.accommondationCosts = accommodationCosts;
-    this.mealsanddrinksCosts = mealsanddrinkCosts;
-    this.otherCosts = otherCosts;
-    this.totalCosts = totalCosts;
-    this.journeyTitle = journeyTitle;
-    this.journeyDetails = journeyDetails;
-    this.journeyYear = journeyYear;
-    this.journeySeason = journeySeason;
-    this.journeyCategoryID = journeyCategoryID;
-    this.journeyCompanionshipID = journeyCompanionshipID;
-    this.journeyDuration = journeyDuration;
 
-    console.log(this.journeyTitle + "Dies ist von Dataservice");
-
-    this.sendPostRequest();
-
-  }
 
   sendPostRequest() {
 
-    this.data = {
-      "username": "Amir Conn",
-      "duration": 10,
-      "journeyName": this.journeyTitle,
-      "seasonName": this.journeySeason,
-      "journeyCategoryID": this.journeyCategoryID,
-      "companionshipID": this.journeyCompanionshipID,
-      "year": this.journeyYear,
-      "detail": this.journeyDetails,
-      "cost": this.totalCosts,
-      "thumbnailSrc":"assets/images/01.jpg"
-    }
+    this.postData = this.data.currentJourney;
+  
 
     this.http.post("http://levt.test/newJourney", this.data).subscribe((loadedData: any) => {
       console.log(loadedData);

@@ -2,15 +2,16 @@ button.button-native{
   padding:0;
 }
 .journeythumbnail {
-  width: 100%;
+  width: 95%;
   margin-left: auto;
   margin-right: auto;
+  margin-top: -20px;
+  margin-bottom: -20px;
 }
 hr {
   color: #182f30;
 }
 #journeyName{
-  //border: 1px solid #16161650;
   border-bottom: 1px solid #16161650;
   max-height: 30pt;
   vertical-align: middle;
@@ -21,36 +22,38 @@ hr {
   margin-bottom: 5px;
 }
 .seasonYear{
+  width:100%;
   display: flex;
   flex-direction: row;
-  background-color: darkolivegreen;
   justify-content: space-between;
+  z-index: 1;
 }// Jahreszeiten & Jahr
-#seasons{
-  min-width: 80%;
-  width: 80%;
-  padding:0;
-} // alle Jahreszeiten
-#seasons ion-segment-button{
-  width: 20%;
-  min-width:20%;
-}//einzelne Elemente in Seasons & Jahr
+.season{
+  color: #161616;
+}
 #journeyYear{
-  justify-content: right;
-  text-align: right;
+  
 }
-.journeyCategories{
-  min-width: 25%;
-  padding:0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+#journeyCategory{
+  
+
 }
+
 #transport{
-  display:flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+
+}
+.radioButtons ion-radio{
+  border: none;
+}
+.categoriesHeading{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+}// Überschrift bei den Kategorien
+.labelsCategories{
+  margin-left: 2px;
+}// alle Labels bei den jeweiligen Kategorien
+div.item-native :host{
+  --padding-start: 20px;
 }
 .gridContainer {
   width: 100%;

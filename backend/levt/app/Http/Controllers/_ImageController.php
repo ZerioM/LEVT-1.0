@@ -26,6 +26,10 @@ class _ImageController extends BaseController
         return DB::table('images')->where('imageID',$id)->value('src');
     }
 
+    public function selectByPostID($postID){
+        return DB::table('images')->where('_postID', $postID);
+    }
+
     public function insertOne(Request $request){
 
         $requestArray = $request->all();

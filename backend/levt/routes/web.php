@@ -27,9 +27,6 @@ $router->post('/newPost','CreateController@insertPost');
 
 $router->post('/newImage','CreateController@insertImage');
 
-$router->post('/request','CreateController@returnRequest');
-
-
 
 //READ
 
@@ -46,6 +43,8 @@ $router->get('/allActivities','ReadController@selectActivities');
 $router->post('/oneJourney','ReadController@selectOneJourney');
 
 $router->post('/onePlace','ReadController@selectOnePlace');
+
+$router->post('/onePost','ReadController@selectOnePost');
 
 
 

@@ -3,8 +3,11 @@ import { Image } from './Image';
 
 export interface Post{
     postID: number;
-    activity: string;
-    text: string;
+    _activityID:number;
+    _placeID:number;
+    detail:string;
+
+    activityName: string;
     place: Place;
     images: Image[];
 }

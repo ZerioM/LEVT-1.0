@@ -40,4 +40,45 @@ class _PostController extends BaseController
     public function selectByPlaceIDWithoutChildren($placeID){
         return DB::table('posts')->where('_placeID', $placeID);
     }
+
+    public function selectOne(Request $request){
+        $imageController = new _ImageController;
+        $activityController = new _ActivityController;
+        $placeController = new _PlaceController;
+
+        $requestArray = $request->all();
+
+        $id = $requestArray['postID'];
+
+        $postsArray = json_decode(json_encode(DB::table('posts')->where('postID',$id)->get()),true);
+        $postArray = $postsArray[0];
+
+        $imagesArray = json_decode(json_encode($imageController->selectByPostID($id)->get()),true);
+
+        $placesArray = json_decode(json_encode($placeController->selectByIDWithoutChildren($postArray['_placeID'])->get()),true);
+        $placeArray = $placesArray[0];
+
+        $outputImagesArray = array();
+        foreach ($imagesArray as $imageArray) {
+            $outputImageArray = array();
+            $outputImageArray = [
+                'imageID' => $imageArray['imageID'],
+                'imgSrc' => $imageArray['src'],
+                'date' => $imageArray['date'],
+                'coordinateX' => $imageArray['coordinateX'],
+                'coordinateY' => $imageArray['coordinateY']
+            ];
+            array_push($outputImagesArray,$outputImageArray);
+        }
+
+        $outputArray = [
+            'postID' => $postArray['postID'],
+            'activity' => $activityController->selectNameByID($postArray['_activityID']),
+            'text' => $postArray['text'],
+            'place' => $placeArray,
+            'images' => $outputImagesArray
+        ];
+
+        return json_encode($outputArray,JSON_PRETTY_PRINT);
+    }
 }
