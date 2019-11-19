@@ -31,7 +31,7 @@ ion-item {
       background-color: none;
 };
 .item-native{
-  padding: 0px;
+  padding-left: 0px;
 }
 input{
   background-color: none;
@@ -129,5 +129,6 @@ button{
 ion-chip{
   padding: 0px;
   background: 0;
+  margin-right: 5px;
 }
 
