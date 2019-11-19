@@ -26,8 +26,6 @@ hr {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  
-  background-color: orange;
   z-index: 1;
 }// Jahreszeiten & Jahr
 .season{
@@ -52,8 +50,11 @@ hr {
   font-size: 10pt;
 }// Überschrift bei den Kategorien
 .labelsCategories{
-  margin-left: 5px;
+  margin-left: 2px;
 }// alle Labels bei den jeweiligen Kategorien
+div.item-native :host{
+  --padding-start: 20px;
+}
 .gridContainer {
   width: 100%;
   margin-left: auto;
