@@ -50,7 +50,10 @@ hr {
 .categoriesHeading{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 10pt;
-}
+}// Überschrift bei den Kategorien
+.labelsCategories{
+  margin-left: 5px;
+}// alle Labels bei den jeweiligen Kategorien
 .gridContainer {
   width: 100%;
   margin-left: auto;

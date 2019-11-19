@@ -28,25 +28,25 @@
     <ion-radio-group class="season">
       <ion-chip>
         <ion-radio></ion-radio>
-        <ion-label>
+        <ion-label class="labelsCategories">
          Spring
         </ion-label>
       </ion-chip>
       <ion-chip>
         <ion-radio></ion-radio>
-        <ion-label>
+        <ion-label class="labelsCategories">
          Summer
         </ion-label>
       </ion-chip>
       <ion-chip>
         <ion-radio></ion-radio>
-        <ion-label>
+        <ion-label class="labelsCategories">
          Fall
-        </ion-label>
+        </ion-label >
       </ion-chip>
       <ion-chip>
         <ion-radio></ion-radio>
-        <ion-label>
+        <ion-label class="labelsCategories">
          Winter
         </ion-label>
       </ion-chip>
@@ -66,7 +66,7 @@
     <ion-radio-group>
       <ion-chip *ngFor="let c of data.journeyCategories.journeyCategories">
         <ion-radio id={{c.journeyCategoryID}}></ion-radio>
-        <ion-label>
+        <ion-label class="labelsCategories">
           {{c.journeyCategoryName}}
         </ion-label>
       </ion-chip>
@@ -78,7 +78,7 @@
     <ion-radio-group class="radioButtons">
       <ion-chip *ngFor="let cs of data.companionships.companionships">
         <ion-radio id={{cs.companionshipID}}></ion-radio>
-        <ion-label>
+        <ion-label class="labelsCategories">
           {{cs.companionshipType}}
         </ion-label>
       </ion-chip>
@@ -89,7 +89,7 @@
   <div id="transport">
     <ion-chip *ngFor="let t of data.transports.transports">
       <ion-checkbox id={{t.transportID}}></ion-checkbox>
-      <ion-label>
+      <ion-label class="labelsCategories">
           {{t.transportType}}
       </ion-label>
     </ion-chip>
