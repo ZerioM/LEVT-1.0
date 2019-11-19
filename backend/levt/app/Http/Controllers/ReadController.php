@@ -28,6 +28,11 @@ class ReadController extends BaseController
         return $pc->selectOne($request);
     }
 
+    public function selectOnePost(Request $request){
+        $poc = new _PostController;
+        return $poc->selectOne($request);
+    }
+
     public function selectJourneyCategories(){
         $jcc = new _JourneyCategoryController;
         return $jcc->selectAll();

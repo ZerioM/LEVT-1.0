@@ -52,6 +52,10 @@ class _PlaceController extends BaseController
         return DB::table('places')->where('_journeyID', $journeyID);
     }
 
+    public function selectByIDWithoutChildren($id){
+        return DB::table('places')->where('placeID', $id);
+    }
+
     public function selectOne(Request $request){
         $postController = new _PostController;
         $activityController = new _ActivityController;
