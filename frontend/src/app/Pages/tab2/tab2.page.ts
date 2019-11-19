@@ -73,7 +73,7 @@ export class Tab2Page {
 
   }
 
-  safeJourney() { 
+  saveJourney() { 
 
     let inputs = document.querySelectorAll('ion-input');
     let textAreas = document.querySelectorAll('ion-textarea');

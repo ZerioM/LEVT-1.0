@@ -81,37 +81,6 @@ ion-searchbar {
 ion-searchbar:focus {
   width: 80%;
 }
-#gallery {
-  width: 94%;
-  margin: 10px auto;
-}
-.frameLeft .frameRight {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-}
-.pictureFrame {
-  width: 100%;
-  margin-bottom: 50px;
-  position: relative;
-}
-.frameLeft {
-  width: 30px;
-  height: 30px;
-  top: 0;
-  left: 0;
-  border-top: 4px solid #182f30;
-  border-left: 4px solid #182f30;
-}
-.frameRight {
-  float: right;
-  width: 30px;
-  height: 30px;
-  bottom: 0;
-  right: 0;
-  border-bottom: 4px solid #182f30;
-  border-right: 4px solid #182f30;
-}
 .imgAndInfo {
   width: 95%;
   display: block;
