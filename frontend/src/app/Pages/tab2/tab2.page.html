@@ -19,7 +19,7 @@
   </div>
 
     <ion-item no-padding no-margin lines="none" color="none">
-      <ion-input id="journeyName" type="text" placeholder="Give your journey a name" no-padding no-margin
+      <ion-input id="journeyName" [(ngModel)]="data.currentJourney.journeyName" type="text" placeholder="Give your journey a name" no-padding no-margin
         maxlength="25"></ion-input>
     </ion-item>
 
@@ -63,9 +63,9 @@
 
     <ion-label class="categoriesHeading">Journey categories</ion-label>
     <ion-item id="journeyCategory">
-    <ion-radio-group>
+    <ion-radio-group [(ngModel)]="data.currentJourney._journeyCategoryID">
       <ion-chip *ngFor="let c of data.journeyCategories.journeyCategories">
-        <ion-radio id={{c.journeyCategoryID}}></ion-radio>
+        <ion-radio value={{c.journeyCategoryID}}></ion-radio>
         <ion-label class="labelsCategories">
           {{c.journeyCategoryName}}
         </ion-label>
@@ -75,9 +75,9 @@
 
   <ion-label class="categoriesHeading">Companionships</ion-label>
     <ion-item id="companionshipsCategory">
-    <ion-radio-group class="radioButtons">
+    <ion-radio-group [(ngModel)]="data.currentJourney._companionshipID" class="radioButtons">
       <ion-chip *ngFor="let cs of data.companionships.companionships">
-        <ion-radio id={{cs.companionshipID}}></ion-radio>
+        <ion-radio value={{cs.companionshipID}}></ion-radio>
         <ion-label class="labelsCategories">
           {{cs.companionshipType}}
         </ion-label>

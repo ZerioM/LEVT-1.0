@@ -12,7 +12,7 @@ export interface Journey{
     year:number;
     duration:number;
     detail:string;
-    cost:number;
+    totalCosts:number;
     leisureCosts: number;
     accommodationCosts:number;
     mealsanddrinkCosts: number;
