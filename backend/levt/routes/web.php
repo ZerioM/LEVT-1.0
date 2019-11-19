@@ -17,7 +17,7 @@ $router->get('/', function () use ($router) {
 
 //$router->get('/JSONData','JSONController@returnJSON');
 
-$router->get('/top100','ReadController@selectTopJourneys');
+//CREATE
 
 $router->post('/newJourney','CreateController@insertJourney');
 
@@ -26,6 +26,14 @@ $router->post('/newPlace','CreateController@insertPlace');
 $router->post('/newPost','CreateController@insertPost');
 
 $router->post('/newImage','CreateController@insertImage');
+
+$router->post('/request','CreateController@returnRequest');
+
+
+
+//READ
+
+$router->get('/top100','ReadController@selectTopJourneys');
 
 $router->get('/allJourneyCategories','ReadController@selectJourneyCategories');
 
@@ -39,4 +47,9 @@ $router->get('/oneJourney','ReadController@selectOneJourney');
 
 $router->get('/onePlace','ReadController@selectOnePlace');
 
-$router->post('/request','CreateController@returnRequest');
+
+
+//UPDATE
+
+
+
