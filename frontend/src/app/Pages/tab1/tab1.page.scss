@@ -134,6 +134,20 @@ ion-item {
 ion-list{
 	padding:0;
 }
+
+#start {
+  position: fixed;
+  width: 20px;
+  height:20px;
+  border-radius: 0.2em;
+  background-color: #415f4b;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  color: #d68900;
+  bottom: 0;
+  right: 0;
+}
+
 .pfeilOben {
   position: fixed;
   bottom: 0;

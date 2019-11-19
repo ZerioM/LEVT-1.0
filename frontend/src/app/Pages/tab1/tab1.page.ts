@@ -21,4 +21,11 @@ export class Tab1Page {
 
     this.data.loadTopPosts();
   }
+
+  smoothScrollJS(){
+    let content = document.querySelector('ion-content');
+    let timeInMilli = 500;
+    console.log("Try to animate...");
+    content.scrollToTop(timeInMilli);
+  }
 }
