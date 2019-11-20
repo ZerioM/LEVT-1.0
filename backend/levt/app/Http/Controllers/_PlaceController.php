@@ -99,11 +99,6 @@ class _PlaceController extends BaseController
     public function updateOne(Request $request){
 
         $requestArray = $request->all();
-
-        // $id = $requestArray['journeyID'];
-
-        // $journeysArray = json_decode(json_encode(DB::table('journeys')->where('journeyID',$id)->get()), true);
-        // $journeyArray = $journeysArray[0];
        
         $place = Place::find($requestArray['placeID']);
 
