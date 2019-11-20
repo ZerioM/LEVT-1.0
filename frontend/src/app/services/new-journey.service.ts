@@ -5,6 +5,7 @@ import { JourneyCategories } from '../Interfaces/JourneyCategories';
 import { Companionships } from '../Interfaces/Companionships';
 import { Transports } from '../Interfaces/Transports';
 import { Activities } from '../Interfaces/Activities';
+import { Seasons } from '../Interfaces/Seasons';
 import { Place } from '../Interfaces/Place';
 import { TouchSequence } from 'selenium-webdriver';
 import { DataService } from './data.service';
@@ -134,6 +135,25 @@ export class NewJourneyService {
     });
   }
 
+
+  loadSeasons() {
+    this.http.get("http://levt.test/allSeasons").subscribe((loadedData: Seasons) => {
+      if (loadedData != null) {
+        console.log("Json file wurde geladen");
+        //console.log(JSON.stringify(loadedData));
+        this.data.seasons = loadedData;
+
+        console.log("Transports wurden überschrieben");
+
+        //console.log(loadedData);
+
+        console.log(this.data.seasons);
+      } else {
+
+        console.log("null per http geladen");
+      }
+    });
+  }
 
 
 

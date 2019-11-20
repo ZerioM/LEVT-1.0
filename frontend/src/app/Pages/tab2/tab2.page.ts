@@ -16,15 +16,15 @@ export class Tab2Page {
   divideC: Boolean = false;
   noPlace: Boolean = true;
 
-  test:any;
+  test: any;
 
 
-  constructor(private journeyService: NewJourneyService, private data:DataService, private navCtrl: NavController, private router: Router) {
+  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router) {
 
     this.loadJSON();
   }
 
-//Daten laden
+  //Daten laden
   loadJSON() {
 
     this.journeyService.loadCurrentJourney();
@@ -32,6 +32,7 @@ export class Tab2Page {
     this.journeyService.loadCompanionships();
     this.journeyService.loadTransports();
     this.journeyService.loadActivities();
+    this.journeyService.loadSeasons();
   }
 
   //Naviagation 
@@ -40,8 +41,8 @@ export class Tab2Page {
   }
 
 
- 
-//Toggles
+
+  //Toggles
   showCosts() {
     this.showC = !this.showC;
   }
@@ -55,12 +56,24 @@ export class Tab2Page {
       this.noPlace = false;
     }
 
-
   }
 
-  saveJourney() { 
+  saveJourney() {
+    //Data binding testen
+    console.log("journeyName: " + this.data.currentJourney.journeyName);
+    console.log("Season: " + this.data.currentJourney.seasonName);
+    console.log("Year: " + this.data.currentJourney.year);
+    console.log("Duration: " + this.data.currentJourney.duration);
+    console.log("CategoryID: " + this.data.currentJourney._journeyCategoryID);
+    console.log("CompanionshipID: " + this.data.currentJourney._companionshipID);
+    console.log("JourneyDetail: " + this.data.currentJourney.detail);
+    console.log("Leisure Costs: " + this.data.currentJourney.leisureCosts);
+    console.log("Accommodation Costs: " + this.data.currentJourney.accommodationCosts);
+    console.log("Meals and Drinks Costs: " + this.data.currentJourney.mealsanddrinkCosts);
+    console.log("Transport Costs: " + this.data.currentJourney.transportationCosts);
+    console.log("Other Costs: " + this.data.currentJourney.otherCosts);
+    console.log("Total Costs: " + this.data.currentJourney.totalCosts);
 
-    console.log(this.data.currentJourney._companionshipID);
 
     this.journeyService.sendPostRequest();
 

@@ -14,6 +14,8 @@ import { JourneyCategories } from '../Interfaces/JourneyCategories';
 import { Companionships } from '../Interfaces/Companionships';
 import { Transports } from '../Interfaces/Transports';
 import { Activities } from '../Interfaces/Activities';
+import { Seasons } from '../Interfaces/Seasons';
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +34,7 @@ export class DataService {
   public companionships: Companionships = { companionships: [] };
   public transports: Transports = { transports: [] };
   public activities: Activities = { activities: [] };
+  public seasons: Seasons = { seasons: [] };
 
   
 

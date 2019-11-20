@@ -1,7 +1,7 @@
 
     {
         "journeyID": 1,
-        "name": "Côte d'Azure",
+        "journeyName": "Côte d'Azure",
         "username": "sandra2401",
         "userImgSrc": "/assets/images/sandra2401.jpg",
         "bookmarks": 10,
