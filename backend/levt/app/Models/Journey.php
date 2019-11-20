@@ -10,4 +10,6 @@ class Journey extends Model
     //es sucht nach "created_at" wir haben es aber umbenannt auf "created"
     const CREATED_AT = 'created';
     const UPDATED_AT = 'updated';
+
+    protected $primaryKey = 'journeyID';
 }

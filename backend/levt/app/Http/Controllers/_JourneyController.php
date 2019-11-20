@@ -189,7 +189,9 @@ class _JourneyController extends BaseController
         $placeController = new _PlaceController;
         $journeyTransportController = new _journeyTransportController;
 
-        $id = $request->input('journeyID');
+        $requestArray = $request->all();
+
+        $id = $requestArray['journeyID'];
 
         $journeysArray = json_decode(json_encode(DB::table('journeys')->where('journeyID',$id)->get()), true);
         $journeyArray = $journeysArray[0];
@@ -243,5 +245,28 @@ class _JourneyController extends BaseController
         ];
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
+    }
+
+    public function updateOne(Request $request){
+
+        $requestArray = $request->all();
+
+        // $id = $requestArray['journeyID'];
+
+        // $journeysArray = json_decode(json_encode(DB::table('journeys')->where('journeyID',$id)->get()), true);
+        // $journeyArray = $journeysArray[0];
+       
+        $journey = Journey::find($requestArray['journeyID']);
+
+        $journey->_thumbnailID = $requestArray['_thumbnailID'];
+        $journey->_seasonID = $requestArray['_seasonID'];
+        $journey->_journeyCategoryID = $requestArray['_journeyCategoryID'];
+        $journey->_companionshipID = $requestArray['_companionshipID'];
+        $journey->year = $requestArray['year'];
+        $journey->detail = $requestArray['detail'];
+        $journey->duration = $requestArray['duration'];
+        $journey->cost = $requestArray['cost'];
+
+        $journey->save();
     }
 }

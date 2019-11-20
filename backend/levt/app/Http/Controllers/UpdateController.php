@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Controller;
 
-use App\Models\Journey as Journey;
-use App\Models\User as User;
-
 class UpdateController extends BaseController
 {
-    
+    public function updateOneJourney(Request $request){
+        $jc = new _JourneyController;
+        return $jc->updateOne($request);
+    }
 }

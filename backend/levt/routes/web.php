@@ -50,5 +50,7 @@ $router->post('/onePost','ReadController@selectOnePost');
 
 //UPDATE
 
+$router->post('/updateJourney','UpdateController@updateOneJourney');
+
 
 
