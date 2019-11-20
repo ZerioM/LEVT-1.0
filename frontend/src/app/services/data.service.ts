@@ -52,6 +52,111 @@ export class DataService {
     this.locale = 'en';
   }
 
+  loadJourneyCategories() {
+    //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
+    this.http.get("http://levt.test/allJourneyCategories").subscribe((loadedData: JourneyCategories) => {
+      if (loadedData != null) {
+        console.log("Json file wurde geladen");
+        //console.log(JSON.stringify(loadedData));
+        this.journeyCategories = loadedData;
+
+        console.log("journeyCategories wurden überschrieben");
+
+        //console.log(loadedData);
+
+        console.log(this.journeyCategories);
+      } else {
+
+        console.log("null per http geladen");
+      }
+    });
+
+
+
+  }
+
+
+  loadCompanionships() {
+    //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
+    this.http.get("http://levt.test/allCompanionships").subscribe((loadedData: Companionships) => {
+      if (loadedData != null) {
+        console.log("Json file wurde geladen");
+        //console.log(JSON.stringify(loadedData));
+        this.companionships = loadedData;
+
+        console.log("Companionships wurden überschrieben");
+
+        //console.log(loadedData);
+
+        console.log(this.companionships);
+      } else {
+
+        console.log("null per http geladen");
+      }
+    });
+
+
+
+  }
+
+  loadTransports() {
+    //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
+    this.http.get("http://levt.test/allTransports").subscribe((loadedData: Transports) => {
+      if (loadedData != null) {
+        console.log("Json file wurde geladen");
+        //console.log(JSON.stringify(loadedData));
+        this.transports = loadedData;
+
+        console.log("Transports wurden überschrieben");
+
+        //console.log(loadedData);
+
+        console.log(this.transports);
+      } else {
+
+        console.log("null per http geladen");
+      }
+    });
+
+
+  }
+  loadActivities() {
+    this.http.get("http://levt.test/allActivities").subscribe((loadedData: Activities) => {
+      if (loadedData != null) {
+        console.log("Json file wurde geladen");
+        //console.log(JSON.stringify(loadedData));
+        this.activities = loadedData;
+
+        
+
+        console.log(this.activities);
+      } else {
+
+        console.log("null per http geladen");
+      }
+    });
+  }
+
+
+  loadSeasons() {
+    this.http.get("http://levt.test/allSeasons").subscribe((loadedData: Seasons) => {
+      if (loadedData != null) {
+        console.log("Json file wurde geladen");
+        //console.log(JSON.stringify(loadedData));
+        this.seasons = loadedData;
+
+        console.log("Transports wurden überschrieben");
+
+        //console.log(loadedData);
+
+        console.log(this.seasons);
+      } else {
+
+        console.log("null per http geladen");
+      }
+    });
+  }
+
   loadTestJSON(){
 //ladet das JSON File mit den Testdaten aus den assets
     this.http.get("/assets/journeys.json").subscribe( (loadedData: Journeys)=> {

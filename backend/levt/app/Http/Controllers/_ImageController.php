@@ -70,4 +70,13 @@ class _ImageController extends BaseController
         $image->save();
     }
 
+    public function deleteOne(Request $request){
+
+        $requestArray = $request->all();
+
+        $image = Image::find($requestArray['imageID']);
+
+        $image->delete();
+    }
+
 }

@@ -70,3 +70,5 @@ $router->post('/deletePlace','DeleteController@deleteOnePlace');
 
 $router->post('/deletePost','DeleteController@deleteOnePost');
 
+$router->post('/deleteImage','DeleteController@deleteOneImage');
+

@@ -4,6 +4,8 @@ import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NewJourneyService } from 'src/app/services/new-journey.service';
 import { equal } from 'assert';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+import { compileNgModule } from '@angular/compiler';
 
 @Component({
   selector: 'app-tab2',
@@ -12,9 +14,14 @@ import { equal } from 'assert';
 })
 export class Tab2Page {
 
-  showC: Boolean = false;
-  divideC: Boolean = false;
-  noPlace: Boolean = true;
+  public showC: Boolean = false;
+  public divideC: Boolean = false;
+  public noPlace: Boolean = true;
+
+
+ public costs=[0,0,0,0,0];
+ public transports=[false,false,false,false,false,false,false,false,false];
+
 
   test: any;
 
@@ -27,12 +34,12 @@ export class Tab2Page {
   //Daten laden
   loadJSON() {
 
-    this.journeyService.loadCurrentJourney();
-    this.journeyService.loadJourneyCategories();
-    this.journeyService.loadCompanionships();
-    this.journeyService.loadTransports();
-    this.journeyService.loadActivities();
-    this.journeyService.loadSeasons();
+   
+    this.data.loadJourneyCategories();
+    this.data.loadCompanionships();
+    this.data.loadTransports();
+    this.data.loadActivities();
+    this.data.loadSeasons();
   }
 
   //Naviagation 
@@ -40,7 +47,11 @@ export class Tab2Page {
     this.router.navigateByUrl('/tabs/tab2/add-place');
   }
 
+  cancel(){
+    this.journeyService.loadNewJourney();
+    this.router.navigateByUrl('/tabs/tab1');
 
+  }
 
   //Toggles
   showCosts() {
@@ -60,6 +71,23 @@ export class Tab2Page {
 
   saveJourney() {
     //Data binding testen
+  
+    this.data.currentJourney.leisureCosts=this.costs[0];
+    this.data.currentJourney.accommodationCosts=this.costs[1];
+    this.data.currentJourney.mealsanddrinkCosts=this.costs[2];
+    this.data.currentJourney.transportationCosts=this.costs[3];
+    this.data.currentJourney.otherCosts=this.costs[4];
+
+    this.data.currentJourney.plane=this.transports[0];
+    this.data.currentJourney.car=this.transports[1];
+    this.data.currentJourney.bus=this.transports[2];
+    this.data.currentJourney.train=this.transports[3];
+    this.data.currentJourney.ship=this.transports[4];
+    this.data.currentJourney.motorBike=this.transports[5];
+    this.data.currentJourney.campingTrailer=this.transports[6];
+    this.data.currentJourney.hiking=this.transports[7];
+    this.data.currentJourney.bicycle=this.transports[8];
+
     console.log("journeyName: " + this.data.currentJourney.journeyName);
     console.log("Season: " + this.data.currentJourney.seasonName);
     console.log("Year: " + this.data.currentJourney.year);
@@ -73,10 +101,18 @@ export class Tab2Page {
     console.log("Transport Costs: " + this.data.currentJourney.transportationCosts);
     console.log("Other Costs: " + this.data.currentJourney.otherCosts);
     console.log("Total Costs: " + this.data.currentJourney.totalCosts);
+    console.log("Plane = "+this.data.currentJourney.plane);
+    
+    
 
-
+    console.log("Tab2: ");
+    console.log(this.data.currentJourney);
+    
+    console.log("Plane = "+this.data.currentJourney.plane);
+    
     this.journeyService.sendPostRequest();
-
+    
+    this.journeyService.loadNewJourney();
     this.router.navigateByUrl('/tabs/tab1');
   }
 

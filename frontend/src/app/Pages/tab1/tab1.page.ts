@@ -16,11 +16,12 @@ export class Tab1Page {
     this.loadJSON();
   }
 
+    //Daten laden
+    loadJSON(){
 
-  loadJSON(){
-
-    this.data.loadTopPosts();
-  }
+      this.data.loadTopPosts();
+  
+   }
 
   smoothScrollJS(){
     let content = document.querySelector('ion-content');

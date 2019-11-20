@@ -1,6 +1,6 @@
 <ion-header class="tabHeader">
   <ion-buttons>
-    <ion-button icon-only>
+    <ion-button icon-only (click)="cancel()">
       <ion-icon class="cancel" name="ios-close"></ion-icon>
     </ion-button>
   </ion-buttons>
@@ -69,8 +69,8 @@
 
   <ion-label class="categoriesHeading">Transportation</ion-label>
   <div id="transport">
-    <ion-chip *ngFor="let t of data.transports.transports">
-      <ion-checkbox aria-checked="false" id={{t.transportID}}></ion-checkbox> <!--[(ngModel)]="t.transportID"-->
+    <ion-chip *ngFor="let t of data.transports.transports; let in=index">
+      <ion-checkbox aria-checked="false" [(ngModel)]="transports[in]" id={{t.transportID}}></ion-checkbox> <!--[(ngModel)]="t.transportID"-->
       <ion-label class="labelsCategories">
           {{t.transportType}}
       </ion-label>
@@ -113,10 +113,9 @@
         <ion-label>divide costs by category</ion-label>
       </ion-item>
       <div *ngIf="divideC" id="journeycostsCategories">
-        <ion-item *ngFor="let a of data.activities.activities">
+        <ion-item *ngFor="let a of data.activities.activities; let in=index" >
           <ion-label>{{a.activityName}}</ion-label>
-          <ion-input id="{{a.activityName}}" class="costcategories" inputmode="decimal" type="number" placeholder="0"
-            name="{{a.activityName}}"></ion-input>
+          <ion-input id="{{a.activityName}}" [(ngModel)]="costs[in]" class="costcategories" inputmode="decimal" type="number" placeholder="0"name="{{a.activityName}}"></ion-input>
           <ion-label>€</ion-label>
         </ion-item>
 
@@ -131,7 +130,7 @@
       </div>
     </div>
 
-    <ion-button color="primary" expand="full" type="submit" (click)="saveJourney()">
+    <ion-button color="primary" expand="full"  (click)="saveJourney()">
       Finish
     </ion-button>
 </ion-content>
