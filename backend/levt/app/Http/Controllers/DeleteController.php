@@ -15,4 +15,9 @@ class DeleteController extends BaseController
         $jc = new _JourneyController;
         return $jc->deleteOne($request);
     }
+
+    public function deleteOnePlace(Request $request){
+        $pc = new _PlaceController;
+        return $pc->deleteOne($request);
+    }
 }

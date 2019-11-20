@@ -112,4 +112,13 @@ class _PlaceController extends BaseController
         $place->save();
     }
 
+    public function deleteOne(Request $request){
+
+        $requestArray = $request->all();
+
+        $place = Place::find($requestArray['placeID']);
+
+        $place->delete();
+    }
+
 }
