@@ -19,13 +19,14 @@ export class NewJourneyService {
   postData: any;
 
 
+ 
 
   constructor(private http: HttpClient, private data:DataService) { }
 
 
 
-
-  loadCurrentJourney() {
+//Test Journey mit Places
+ /* loadCurrentJourney() {
     //ladet das JSON File mit den Testdaten aus den assets
     this.http.get("/assets/placesTest.json").subscribe((loadedData: Journey) => {
       if (loadedData != null) {
@@ -46,129 +47,65 @@ export class NewJourneyService {
 
 
 
-  }
+  }*/
 
-  loadJourneyCategories() {
-    //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
-    this.http.get("http://levt.test/allJourneyCategories").subscribe((loadedData: JourneyCategories) => {
-      if (loadedData != null) {
-        console.log("Json file wurde geladen");
-        //console.log(JSON.stringify(loadedData));
-        this.data.journeyCategories = loadedData;
-
-        console.log("journeyCategories wurden überschrieben");
-
-        //console.log(loadedData);
-
-        console.log(this.data.journeyCategories);
-      } else {
-
-        console.log("null per http geladen");
-      }
-    });
-
-
-
-  }
-
-
-  loadCompanionships() {
-    //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
-    this.http.get("http://levt.test/allCompanionships").subscribe((loadedData: Companionships) => {
-      if (loadedData != null) {
-        console.log("Json file wurde geladen");
-        //console.log(JSON.stringify(loadedData));
-        this.data.companionships = loadedData;
-
-        console.log("Companionships wurden überschrieben");
-
-        //console.log(loadedData);
-
-        console.log(this.data.companionships);
-      } else {
-
-        console.log("null per http geladen");
-      }
-    });
-
-
-
-  }
-
-  loadTransports() {
-    //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
-    this.http.get("http://levt.test/allTransports").subscribe((loadedData: Transports) => {
-      if (loadedData != null) {
-        console.log("Json file wurde geladen");
-        //console.log(JSON.stringify(loadedData));
-        this.data.transports = loadedData;
-
-        console.log("Transports wurden überschrieben");
-
-        //console.log(loadedData);
-
-        console.log(this.data.transports);
-      } else {
-
-        console.log("null per http geladen");
-      }
-    });
-
-
-  }
-  loadActivities() {
-    this.http.get("http://levt.test/allActivities").subscribe((loadedData: Activities) => {
-      if (loadedData != null) {
-        console.log("Json file wurde geladen");
-        //console.log(JSON.stringify(loadedData));
-        this.data.activities = loadedData;
-
-        console.log("Transports wurden überschrieben");
-
-        //console.log(loadedData);
-
-        console.log(this.data.activities);
-      } else {
-
-        console.log("null per http geladen");
-      }
-    });
-  }
-
-
-  loadSeasons() {
-    this.http.get("http://levt.test/allSeasons").subscribe((loadedData: Seasons) => {
-      if (loadedData != null) {
-        console.log("Json file wurde geladen");
-        //console.log(JSON.stringify(loadedData));
-        this.data.seasons = loadedData;
-
-        console.log("Transports wurden überschrieben");
-
-        //console.log(loadedData);
-
-        console.log(this.data.seasons);
-      } else {
-
-        console.log("null per http geladen");
-      }
-    });
-  }
-
-
-
-  sendPostRequest() {
-
-    this.postData = this.data.currentJourney;
   
-
-    this.http.post("http://levt.test/newJourney", this.data).subscribe((loadedData: any) => {
+  
+  
+  sendPostRequest() {
+    
+    // this.postData = this.data.currentJourney;
+    console.log("Journey Service: ");
+    console.log(this.data.currentJourney)
+    
+    
+    this.http.post("http://levt.test/newJourney", this.data.currentJourney).subscribe((loadedData: any) => {
       console.log(loadedData);
       console.log("Post funktioniert");
     }, error => {
       console.log(error);
     });
-
+    
+  }
+  
+  loadNewJourney(){
+  
+   this.data.currentJourney.journeyID=null;
+   this.data.currentJourney._userID=null;
+   this.data.currentJourney._thumbnailID=null;
+   this.data.currentJourney. _seasonID=null;
+   this.data.currentJourney._journeyCategoryID=null;
+   this.data.currentJourney. _companionshipID=null;
+   this.data.currentJourney. journeyName="";
+   this.data.currentJourney. year=null;
+   this.data.currentJourney. duration=null;
+   this.data.currentJourney.detail="";
+   this.data.currentJourney. totalCosts=null;
+   this.data.currentJourney.leisureCosts=null;
+   this.data.currentJourney. accommodationCosts=null;
+   this.data.currentJourney. mealsanddrinkCosts=null;
+   this.data.currentJourney. transportationCosts=null;
+   this.data.currentJourney. otherCosts=null
+   this.data.currentJourney. plane=false;
+   this.data.currentJourney. car=false;
+   this.data.currentJourney. bus=false;
+   this.data.currentJourney.train=false;
+   this.data.currentJourney.ship=false;
+   this.data.currentJourney.motorBike=false;
+   this.data.currentJourney.campingTrailer=false;
+   this.data.currentJourney.hiking=false;
+   this.data.currentJourney.bicycle=false;
+  
+   this.data.currentJourney.places=null;
+   this.data.currentJourney.thumbnailSrc="";
+   this.data.currentJourney.username="";
+   this.data.currentJourney.userImgSrc="";
+   this.data.currentJourney.seasonName="";
+   this.data.currentJourney.journeyCategoryName="";
+   this.data.currentJourney.companionshipType="";
+   this.data.currentJourney.bookmarks=null;
+  
+   console.log("new Journey");
   }
 }
 
