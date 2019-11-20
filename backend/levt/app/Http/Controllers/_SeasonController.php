@@ -20,4 +20,8 @@ class _SeasonController extends BaseController
     public function selectNameByID($id){
         return DB::table('seasons')->where('seasonID',$id)->value('seasonName');
     }
+
+    public function selectAll(){
+        return '{"seasons": '.json_encode(Season::all(), JSON_PRETTY_PRINT)." \n}";
+    }
 }

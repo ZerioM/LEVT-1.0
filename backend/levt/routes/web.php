@@ -40,6 +40,8 @@ $router->get('/allTransports','ReadController@selectTransports');
 
 $router->get('/allActivities','ReadController@selectActivities');
 
+$router->get('/allSeasons','ReadController@selectSeasons');
+
 $router->post('/oneJourney','ReadController@selectOneJourney');
 
 $router->post('/onePlace','ReadController@selectOnePlace');
