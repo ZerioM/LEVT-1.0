@@ -67,11 +67,11 @@ export class NewJourneyService {
     });
     
   }
-  
+
   loadNewJourney(){
   
    this.data.currentJourney.journeyID=null;
-   this.data.currentJourney._userID=null;
+   this.data.currentJourney._userID=1;
    this.data.currentJourney._thumbnailID=null;
    this.data.currentJourney. _seasonID=null;
    this.data.currentJourney._journeyCategoryID=null;

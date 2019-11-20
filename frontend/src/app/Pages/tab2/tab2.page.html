@@ -27,14 +27,14 @@
     <ion-item class="seasonYear">
     <ion-radio-group class="season" [(ngModel)]="data.currentJourney._seasonID">
       <ion-chip *ngFor="let s of data.seasons.seasons" >
-        <ion-radio></ion-radio>
+        <ion-radio value={{s.seasonID}}></ion-radio>
         <ion-label class="labelsCategories">
          {{s.seasonName}}
         </ion-label>
       </ion-chip>
     </ion-radio-group>
     <div id="journeyYear">
-      <ion-datetime [(ngModel)]="data.currentJourney.year" placeholder="Year" displayFormat="YYYY" id="journeyYear"></ion-datetime>
+      <ion-datetime [(ngModel)]="data.currentJourney.year" value="2019" placeholder="Year" displayFormat="YYYY" id="journeyYear"></ion-datetime>
     </div>
   </ion-item>
 
@@ -115,7 +115,7 @@
       <div *ngIf="divideC" id="journeycostsCategories">
         <ion-item *ngFor="let a of data.activities.activities; let in=index" >
           <ion-label>{{a.activityName}}</ion-label>
-          <ion-input id="{{a.activityName}}" [(ngModel)]="costs[in]" class="costcategories" inputmode="decimal" type="number" placeholder="0"name="{{a.activityName}}"></ion-input>
+          <ion-input id="{{a.activityName}}" [(ngModel)]="costs[in]" class="costcategories" inputmode="decimal" type="number" placeholder="0"></ion-input>
           <ion-label>€</ion-label>
         </ion-item>
 

@@ -4,7 +4,7 @@ import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NewJourneyService } from 'src/app/services/new-journey.service';
 import { equal } from 'assert';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+
 import { compileNgModule } from '@angular/compiler';
 
 @Component({
