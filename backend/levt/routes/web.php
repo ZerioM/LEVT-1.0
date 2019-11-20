@@ -40,6 +40,8 @@ $router->get('/allTransports','ReadController@selectTransports');
 
 $router->get('/allActivities','ReadController@selectActivities');
 
+$router->get('/allSeasons','ReadController@selectSeasons');
+
 $router->post('/oneJourney','ReadController@selectOneJourney');
 
 $router->post('/onePlace','ReadController@selectOnePlace');
@@ -50,5 +52,23 @@ $router->post('/onePost','ReadController@selectOnePost');
 
 //UPDATE
 
+$router->post('/updateJourney','UpdateController@updateOneJourney');
 
+$router->post('/updatePlace','UpdateController@updateOnePlace');
+
+$router->post('/updatePost','UpdateController@updateOnePost');
+
+$router->post('/updateImage','UpdateController@updateOneImage');
+
+
+
+//DELETE
+
+$router->post('/deleteJourney','DeleteController@deleteOneJourney');
+
+$router->post('/deletePlace','DeleteController@deleteOnePlace');
+
+$router->post('/deletePost','DeleteController@deleteOnePost');
+
+$router->post('/deleteImage','DeleteController@deleteOneImage');
 

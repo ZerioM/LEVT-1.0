@@ -52,4 +52,9 @@ class ReadController extends BaseController
         $acc = new _ActivityController;
         return $acc->selectAll();
     }
+
+    public function selectSeasons(){
+        $sc = new _SeasonController;
+        return $sc->selectAll();
+    }
 }

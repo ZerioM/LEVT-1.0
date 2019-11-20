@@ -56,4 +56,27 @@ class _ImageController extends BaseController
 
     }
 
+    public function updateOne(Request $request){
+
+        $requestArray = $request->all();
+       
+        $image = Image::find($requestArray['imageID']);
+
+        $image->src = $requestArray['imgSrc'];
+        $image->coordinateX = $requestArray['coordinateX'];
+        $image->coordinateY = $requestArray['coordinateY'];
+        $image->date = $requestArray['date'];
+        
+        $image->save();
+    }
+
+    public function deleteOne(Request $request){
+
+        $requestArray = $request->all();
+
+        $image = Image::find($requestArray['imageID']);
+
+        $image->delete();
+    }
+
 }

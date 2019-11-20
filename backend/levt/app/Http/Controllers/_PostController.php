@@ -81,4 +81,25 @@ class _PostController extends BaseController
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
+
+    public function updateOne(Request $request){
+
+        $requestArray = $request->all();
+       
+        $post = Post::find($requestArray['postID']);
+
+        $post->_activityID = $requestArray['_activityID'];
+        $post->text = $requestArray['text'];
+
+        $post->save();
+    }
+
+    public function deleteOne(Request $request){
+
+        $requestArray = $request->all();
+
+        $post = Post::find($requestArray['postID']);
+
+        $post->delete();
+    }
 }
