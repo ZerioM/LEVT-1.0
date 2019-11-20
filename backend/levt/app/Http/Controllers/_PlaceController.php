@@ -96,4 +96,25 @@ class _PlaceController extends BaseController
         return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 
+    public function updateOne(Request $request){
+
+        $requestArray = $request->all();
+
+        // $id = $requestArray['journeyID'];
+
+        // $journeysArray = json_decode(json_encode(DB::table('journeys')->where('journeyID',$id)->get()), true);
+        // $journeyArray = $journeysArray[0];
+       
+        $place = Place::find($requestArray['placeID']);
+
+        $place->_thumbnailID = $requestArray['_thumbnailID'];
+        $place->_countryID = $requestArray['_countryID'];
+        $place->placeName = $requestArray['placeName'];
+        $place->coordinateX = $requestArray['coordinateX'];
+        $place->coordinateY = $requestArray['coordinateY'];
+        $place->text = $requestArray['text'];
+
+        $place->save();
+    }
+
 }

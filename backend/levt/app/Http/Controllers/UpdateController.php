@@ -14,4 +14,9 @@ class UpdateController extends BaseController
         $jc = new _JourneyController;
         return $jc->updateOne($request);
     }
+
+    public function updateOnePlace(Request $request){
+        $pc = new _PlaceController;
+        return $pc->updateOne($request);
+    }
 }
