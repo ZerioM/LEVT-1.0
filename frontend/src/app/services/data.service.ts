@@ -159,6 +159,24 @@ export class DataService {
     });
   }
 
+  loadOneJourney(journeyID:number){
+    
+    let postData={
+
+      "journeyID": journeyID
+    }
+
+    this.http.post("http://levt.test/oneJourney", postData).subscribe((loadedData: Journey) => {
+      console.log(loadedData);
+      this.currentJourney=loadedData;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+    
+
+  }
+
   loadTestJSON(){
 //ladet das JSON File mit den Testdaten aus den assets
     this.http.get("/assets/journeys.json").subscribe( (loadedData: Journeys)=> {

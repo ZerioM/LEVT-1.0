@@ -7,6 +7,7 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   { path: 'add-place', loadChildren: './Pages/add-place/add-place.module#AddPlacePageModule' },  { path: 'add-post', loadChildren: './Pages/add-post/add-post.module#AddPostPageModule' },
+  { path: 'journey-detail', loadChildren: './Pages/journey-detail/journey-detail.module#JourneyDetailPageModule' },
 
 
  

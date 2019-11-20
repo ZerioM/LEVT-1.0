@@ -14,9 +14,18 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../Pages/tab1/tab1.module').then(m => m.Tab1PageModule)
-          }
+          },{
+            path: 'journey-detail',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/journey-detail/journey-detail.module').then (m => m.JourneyDetailPageModule)}
+            ]
+          },
         ]
       },
+      
       {
         path: 'tab2',
         children: [

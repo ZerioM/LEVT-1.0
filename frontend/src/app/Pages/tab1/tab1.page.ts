@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -11,7 +12,7 @@ export class Tab1Page {
 
 //@ViewChild (Content) content: Content;
 
-  constructor(private data: DataService, private navCtrl:NavController) {
+  constructor(private data: DataService, private navCtrl:NavController, private router: Router) {
 
     this.loadJSON();
   }
@@ -21,6 +22,15 @@ export class Tab1Page {
 
       this.data.loadTopPosts();
       
+  
+   }
+
+   showJourney(journeyID: number){
+
+    this.data.loadOneJourney(journeyID);
+      
+    //go To Journey Detail 
+    this.router.navigateByUrl('/tabs/tab1/journey-detail');
   
    }
 
