@@ -264,4 +264,13 @@ class _JourneyController extends BaseController
 
         $journey->save();
     }
+
+    public function deleteOne(Request $request){
+
+        $requestArray = $request->all();
+
+        $journey = Journey::find($requestArray['journeyID']);
+
+        $journey->delete();
+    }
 }

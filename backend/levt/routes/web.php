@@ -60,3 +60,11 @@ $router->post('/updatePost','UpdateController@updateOnePost');
 
 $router->post('/updateImage','UpdateController@updateOneImage');
 
+
+
+//DELETE
+
+$router->post('/deleteJourney','DeleteController@deleteOneJourney');
+
+$router->post('/deletePlace','DeleteController@deleteOnePlace');
+
