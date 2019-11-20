@@ -15,7 +15,7 @@ export interface Journey{
     totalCosts:number;
     leisureCosts: number;
     accommodationCosts:number;
-    mealsanddrinkCosts: number;
+    mealsanddrinksCosts: number;
     transportationCosts: number;
     otherCosts: number
     plane: boolean;
@@ -23,8 +23,8 @@ export interface Journey{
     bus: boolean;
     train: boolean;
     ship: boolean;
-    motorBike:boolean;
-    campingTrailer: boolean;
+    motorbike:boolean;
+    campingtrailer: boolean;
     hiking:boolean;
     bicycle: boolean;
 

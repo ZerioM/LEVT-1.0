@@ -54,12 +54,14 @@ export class NewJourneyService {
   
   sendPostRequest() {
     
+    this.data.currentJourney.year = parseInt(this.data.currentJourney.year.toString().substring(0,4));
+
     // this.postData = this.data.currentJourney;
     console.log("Journey Service: ");
     console.log(this.data.currentJourney)
     
     
-    this.http.post("http://levt.test/newJourney", this.data.currentJourney).subscribe((loadedData: any) => {
+    this.http.post("http://levt.test/newJourney", this.data.currentJourney).subscribe((loadedData: Journey) => {
       console.log(loadedData);
       console.log("Post funktioniert");
     }, error => {
@@ -72,7 +74,7 @@ export class NewJourneyService {
   
    this.data.currentJourney.journeyID=null;
    this.data.currentJourney._userID=1;
-   this.data.currentJourney._thumbnailID=null;
+   this.data.currentJourney._thumbnailID=2;
    this.data.currentJourney. _seasonID=null;
    this.data.currentJourney._journeyCategoryID=null;
    this.data.currentJourney. _companionshipID=null;
@@ -83,7 +85,7 @@ export class NewJourneyService {
    this.data.currentJourney. totalCosts=null;
    this.data.currentJourney.leisureCosts=null;
    this.data.currentJourney. accommodationCosts=null;
-   this.data.currentJourney. mealsanddrinkCosts=null;
+   this.data.currentJourney. mealsanddrinksCosts=null;
    this.data.currentJourney. transportationCosts=null;
    this.data.currentJourney. otherCosts=null
    this.data.currentJourney. plane=false;
@@ -91,8 +93,8 @@ export class NewJourneyService {
    this.data.currentJourney. bus=false;
    this.data.currentJourney.train=false;
    this.data.currentJourney.ship=false;
-   this.data.currentJourney.motorBike=false;
-   this.data.currentJourney.campingTrailer=false;
+   this.data.currentJourney.motorbike=false;
+   this.data.currentJourney.campingtrailer=false;
    this.data.currentJourney.hiking=false;
    this.data.currentJourney.bicycle=false;
   

@@ -50,7 +50,7 @@ class _JourneyController extends BaseController
 
 
 
-            if($requestArray['cost'] == null){
+            if($requestArray['totalCosts'] == null){
                 if($requestArray['leisureCosts'] != null)
                     $costcontroller->insertOne($id,'leisure',$requestArray['leisureCosts']); //nullable
                 if($requestArray['accommodationCosts'] != null)
@@ -94,9 +94,9 @@ class _JourneyController extends BaseController
 
         //build an business layer object as per interface
             $username = $userController->selectUsernamePerID($requestArray['_userID']);
-            $userImgSrc = $imageController->selectSrcPerUserID($userID);
-            $companionship = $companionshipController->selectTypePerID($requestArray['companionshipID']);
-            $journeyCategory = $journeyCategoryController->selectNamePerID($requestArray['journeyCategoryID']);
+            $userImgSrc = $imageController->selectSrcPerUserID($requestArray['_userID']);
+            $companionship = $companionshipController->selectTypePerID($requestArray['_companionshipID']);
+            $journeyCategory = $journeyCategoryController->selectNamePerID($requestArray['_journeyCategoryID']);
 
             $outputArray = [
                 'journeyID' => $id,

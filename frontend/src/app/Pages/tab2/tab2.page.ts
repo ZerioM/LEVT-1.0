@@ -19,7 +19,7 @@ export class Tab2Page {
   public noPlace: Boolean = true;
 
 
- public costs=[0,0,0,0,0];
+ public costs=[null,null,null,null,null];
  public transports=[false,false,false,false,false,false,false,false,false];
 
 
@@ -83,7 +83,7 @@ export class Tab2Page {
     this.data.currentJourney.bus=this.transports[2];
     this.data.currentJourney.train=this.transports[3];
     this.data.currentJourney.ship=this.transports[4];
-    this.data.currentJourney.motorBike=this.transports[5];
+    this.data.currentJourney.motorbike=this.transports[5];
     this.data.currentJourney.campingTrailer=this.transports[6];
     this.data.currentJourney.hiking=this.transports[7];
     this.data.currentJourney.bicycle=this.transports[8];

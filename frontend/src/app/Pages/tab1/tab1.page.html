@@ -16,7 +16,7 @@
       <div class="pictureFrame">
         <div class="frameLeft"></div>
         <div class="imgAndInfo">
-          <ion-item class="thumbnailImg" color="none">
+          <ion-item class="thumbnailImg" color="none" (click)="showJourney(j.journeyID)">
             <img src="{{j.thumbnailSrc}}" alt="Reise" />
             <div id="travelTitle">{{j.journeyName}}</div>
           </ion-item>

@@ -22,7 +22,7 @@ import { Seasons } from '../Interfaces/Seasons';
 })
 export class DataService {
 
-  public currentJourney:Journey={journeyID:null, _userID:1,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts:null,leisureCosts:null,transportationCosts:null,mealsanddrinkCosts:null,otherCosts:null,plane:true, car:false, bus:false, train:false,ship:false,motorBike:false,campingTrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
+  public currentJourney:Journey={journeyID:null, _userID:1,_thumbnailID:2,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
 
   public currentPlace: Place = { placeID: null,_journeyID:null,_thumbnailID: null,_countryID:"",detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
 
@@ -204,7 +204,9 @@ export class DataService {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
+        console.log(loadedData);
         this.currentJourneys=loadedData;
+        
         this.currentJourneys.journeys = this.shuffleArray(this.currentJourneys.journeys);
         /*this.currentJourneys.journeys.forEach(journey => {
           //MZ: Change date format
