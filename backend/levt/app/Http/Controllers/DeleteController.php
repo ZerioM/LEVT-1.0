@@ -20,4 +20,9 @@ class DeleteController extends BaseController
         $pc = new _PlaceController;
         return $pc->deleteOne($request);
     }
+
+    public function deleteOnePost(Request $request){
+        $poc = new _PostController;
+        return $poc->deleteOne($request);
+    }
 }

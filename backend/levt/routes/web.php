@@ -68,3 +68,5 @@ $router->post('/deleteJourney','DeleteController@deleteOneJourney');
 
 $router->post('/deletePlace','DeleteController@deleteOnePlace');
 
+$router->post('/deletePost','DeleteController@deleteOnePost');
+

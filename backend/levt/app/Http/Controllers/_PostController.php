@@ -93,4 +93,13 @@ class _PostController extends BaseController
 
         $post->save();
     }
+
+    public function deleteOne(Request $request){
+
+        $requestArray = $request->all();
+
+        $post = Post::find($requestArray['postID']);
+
+        $post->delete();
+    }
 }
