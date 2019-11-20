@@ -182,11 +182,11 @@ class _JourneyController extends BaseController
 
             ////TO BE CHECKED, IF STILL WORKING
 
-        $result = DB::select('SELECT journeys.journeyID,journeys.journeyName as name,users.username,
+        $result = DB::select('SELECT journeys.journeyID,journeys.journeyName as journeyName,users.username,
                     profileImage.src as userImgSrc, COUNT(bookmarks.bookmarkID) AS bookmarks,
-                    seasons.seasonName as season, journeys.year,
+                    seasons.seasonName as seasonName, journeys.year,
                     null as duration, null as companionship, null as detail, null as totalCosts,
-                    null as activityCosts, null as accommodationgCosts, null as foodCosts,
+                    null as activityCosts, null as accommodationCosts, null as mealsanddrinksCosts,
                     null as transportCosts, null as otherCosts,
                     null as places,thumbnailImage.src as thumbnailSrc
                     FROM journeys
@@ -304,7 +304,7 @@ class _JourneyController extends BaseController
     public function updateOne(Request $request){
 
         $requestArray = $request->all();
-       
+
         $journey = Journey::find($requestArray['journeyID']);
 
         $journey->_thumbnailID = $requestArray['_thumbnailID'];
