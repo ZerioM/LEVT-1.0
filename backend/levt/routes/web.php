@@ -56,3 +56,5 @@ $router->post('/updatePlace','UpdateController@updateOnePlace');
 
 $router->post('/updatePost','UpdateController@updateOnePost');
 
+$router->post('/updateImage','UpdateController@updateOneImage');
+

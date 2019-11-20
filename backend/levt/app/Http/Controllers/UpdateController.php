@@ -24,4 +24,9 @@ class UpdateController extends BaseController
         $poc = new _PostController;
         return $poc->updateOne($request);
     }
+
+    public function updateOneImage(Request $request){
+        $ic = new _ImageController;
+        return $ic->updateOne($request);
+    }
 }

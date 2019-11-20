@@ -56,4 +56,23 @@ class _ImageController extends BaseController
 
     }
 
+    public function updateOne(Request $request){
+
+        $requestArray = $request->all();
+
+        // $id = $requestArray['journeyID'];
+
+        // $journeysArray = json_decode(json_encode(DB::table('journeys')->where('journeyID',$id)->get()), true);
+        // $journeyArray = $journeysArray[0];
+       
+        $image = Image::find($requestArray['imageID']);
+
+        $image->src = $requestArray['imgSrc'];
+        $image->coordinateX = $requestArray['coordinateX'];
+        $image->coordinateY = $requestArray['coordinateY'];
+        $image->date = $requestArray['date'];
+        
+        $image->save();
+    }
+
 }
