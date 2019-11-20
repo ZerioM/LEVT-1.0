@@ -25,4 +25,9 @@ class DeleteController extends BaseController
         $poc = new _PostController;
         return $poc->deleteOne($request);
     }
+
+    public function deleteOneImage(Request $request){
+        $ic = new _ImageController;
+        return $ic->deleteOne($request);
+    }
 }
