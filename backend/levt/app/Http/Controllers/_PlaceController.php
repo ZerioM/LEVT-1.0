@@ -31,7 +31,8 @@ class _PlaceController extends BaseController
             '_countryID' => $countryID,
             'placeName' => $requestArray['name'],
             'coordinateX' => $requestArray['coordinateX'],
-            'coordinateY' => $requestArray['coordinateY']
+            'coordinateY' => $requestArray['coordinateY'],
+            'text' => $requestArray['detail']
         ];
 
         $id = DB::table('places')->insertGetId($insertPlacesArray);

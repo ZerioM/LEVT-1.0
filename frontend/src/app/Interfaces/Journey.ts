@@ -3,24 +3,21 @@ import {Image} from './Image';
 
 export interface Journey{
     journeyID: number;
-    name: string;
-    username: string;
-    userImgSrc:string;
-    bookmarks: number;
-    season: string;
-    year: number;
-    duration: number;
-    journeyCategory: string;
-    companionship: string;
-    detail: string;
-    totalCosts: number;
+    _userID:number;
+    _thumbnailID:number;
+    _seasonID:number;
+    _journeyCategoryID:number;
+    _companionshipID:number;
+    journeyName:string;
+    year:number;
+    duration:number;
+    detail:string;
+    totalCosts:number;
     leisureCosts: number;
-    accommodationCosts: number;
+    accommodationCosts:number;
     mealsanddrinkCosts: number;
     transportationCosts: number;
     otherCosts: number
-    places: Place[];
-    thumbnailSrc: string;
     plane: boolean;
     car: boolean;
     bus: boolean;
@@ -30,5 +27,18 @@ export interface Journey{
     campingTrailer: boolean;
     hiking:boolean;
     bicycle: boolean;
+
+
+    
+    places: Place[];
+    thumbnailSrc: string;
+    username: string;
+    userImgSrc:string;
+    seasonName: string;
+    journeyCategoryName: string;
+    companionshipType: string;
+    bookmarks: number;
+    
+    
     
 }

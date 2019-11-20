@@ -21,7 +21,7 @@ class _PostController extends BaseController
         $insertPostArray = [
             '_activityID' => $requestArray['activityID'],
             '_placeID' => $requestArray['placeID'],
-            'text' => $requestArray['text']
+            'text' => $requestArray['detail']
         ];
 
         $id = DB::table('posts')->insertGetId($insertPostArray);

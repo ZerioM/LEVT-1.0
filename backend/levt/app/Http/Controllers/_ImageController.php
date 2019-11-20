@@ -35,7 +35,7 @@ class _ImageController extends BaseController
         $requestArray = $request->all();
 
         $insertImagesArray = [
-            'src' => $requestArray['src'],
+            'src' => $requestArray['imgSrc'],
             'coordinateX' => $requestArray['coordinateX'],
             'coordinateY' => $requestArray['coordinateY'],
             'date' => $requestArray['date'],

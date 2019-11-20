@@ -9,20 +9,34 @@ import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
 import localeEN from '@angular/common/locales/en';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Place } from '../Interfaces/Place';
+import { JourneyCategories } from '../Interfaces/JourneyCategories';
+import { Companionships } from '../Interfaces/Companionships';
+import { Transports } from '../Interfaces/Transports';
+import { Activities } from '../Interfaces/Activities';
+import { Seasons } from '../Interfaces/Seasons';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  public currentJourney:Journey={journeyID:null,name:"",username:"",userImgSrc:"",bookmarks:null,season:"",year:null,duration:null,journeyCategory:"",companionship:"",detail:"",totalCosts: null,accommodationCosts:null,leisureCosts:null,transportationCosts:null,mealsanddrinkCosts:null,otherCosts:null,places:[],thumbnailSrc:"",plane:true, car:false, bus:false, train:false,ship:false,motorBike:false,campingTrailer:false,hiking:false,bicycle:false}
+  public currentJourney:Journey={journeyID:null, _userID:null,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts:null,leisureCosts:null,transportationCosts:null,mealsanddrinkCosts:null,otherCosts:null,plane:true, car:false, bus:false, train:false,ship:false,motorBike:false,campingTrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
+
+  public currentPlace: Place = { placeID: null,_journeyID:null,_thumbnailID: null,_countryID:"",detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
 
   public currentJourneys:Journeys={journeys:[]}
 
-  public arrivalDateString: string;
-  public departureDateString: string;
 
-  public thumbnailSrcString:string;
+  //Zentrale Daten laden 
+  public journeyCategories: JourneyCategories = { journeyCategories: [] };
+  public companionships: Companionships = { companionships: [] };
+  public transports: Transports = { transports: [] };
+  public activities: Activities = { activities: [] };
+  public seasons: Seasons = { seasons: [] };
+
+  
 
   private locale : string;
 

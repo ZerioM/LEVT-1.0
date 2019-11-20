@@ -10,7 +10,10 @@ import { Router } from '@angular/router';
 })
 export class AddPlacePage implements OnInit {
 
-  constructor(private data: NewJourneyService, private navCtrl:NavController,  private router: Router) { }
+  constructor(private journeyService: NewJourneyService, private navCtrl:NavController,  private router: Router) {
+    
+  
+  }
 
   ngOnInit() {
   }
