@@ -81,4 +81,21 @@ class _PostController extends BaseController
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
+
+    public function updateOne(Request $request){
+
+        $requestArray = $request->all();
+
+        // $id = $requestArray['journeyID'];
+
+        // $journeysArray = json_decode(json_encode(DB::table('journeys')->where('journeyID',$id)->get()), true);
+        // $journeyArray = $journeysArray[0];
+       
+        $post = Post::find($requestArray['postID']);
+
+        $post->_activityID = $requestArray['_activityID'];
+        $post->text = $requestArray['text'];
+
+        $post->save();
+    }
 }

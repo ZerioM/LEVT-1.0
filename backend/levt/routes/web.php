@@ -54,3 +54,5 @@ $router->post('/updateJourney','UpdateController@updateOneJourney');
 
 $router->post('/updatePlace','UpdateController@updateOnePlace');
 
+$router->post('/updatePost','UpdateController@updateOnePost');
+

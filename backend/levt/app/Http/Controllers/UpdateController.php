@@ -19,4 +19,9 @@ class UpdateController extends BaseController
         $pc = new _PlaceController;
         return $pc->updateOne($request);
     }
+
+    public function updateOnePost(Request $request){
+        $poc = new _PostController;
+        return $poc->updateOne($request);
+    }
 }
