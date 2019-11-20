@@ -1,0 +1,54 @@
+.imgAndInfo {
+    width: 95%;
+    display: block;
+    margin-top: -20px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .thumbnailImg {
+    margin-top: -10px;
+    padding: 0px !important;
+  }
+
+  .picInformations {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: -35px;
+    margin-top: -5px;
+  }
+  .item.sc-ion-label-ios-h,
+  .item .sc-ion-label-ios-h {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 8pt;
+  }
+  .userpicAndName {
+    display: flex;
+    flex-direction: row;
+  }
+  .userpic {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-right: 5px;
+  }
+  .travelTime {
+    display: flex;
+    flex-direction: row;
+  }
+  .timeIcon{
+      margin-right: 5px;
+  }
+  ion-label {
+    margin: 0;
+  }
+  ion-item {
+    margin: 0;
+    --ion-safe-area-right: 0;
+    --ion-safe-area-left: 0;
+  }
+  ion-list{
+      padding:0;
+  }
+  
