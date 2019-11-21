@@ -26,19 +26,19 @@ export class NewJourneyService {
 
 
 //Test Journey mit Places
- /* loadCurrentJourney() {
+ /* loadnewJourney() {
     //ladet das JSON File mit den Testdaten aus den assets
     this.http.get("/assets/placesTest.json").subscribe((loadedData: Journey) => {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
-        this.data.currentJourney = loadedData;
+        this.data.newJourney = loadedData;
 
-        console.log("currentJourney wurde überschrieben");
+        console.log("newJourney wurde überschrieben");
 
         // console.log(loadedData);
 
-        console.log(this.data.currentJourney);
+        console.log(this.data.newJourney);
       } else {
 
         console.log("null per http geladen");
@@ -52,16 +52,16 @@ export class NewJourneyService {
   
   
   
-  sendPostRequest() {
+  saveJourney() {
     
-    this.data.currentJourney.year = parseInt(this.data.currentJourney.year.toString().substring(0,4));
+    this.data.newJourney.year = parseInt(this.data.newJourney.year.toString().substring(0,4));
 
-    // this.postData = this.data.currentJourney;
+    // this.postData = this.data.newJourney;
     console.log("Journey Service: ");
-    console.log(this.data.currentJourney)
+    console.log(this.data.newJourney)
     
     
-    this.http.post("http://levt.test/newJourney", this.data.currentJourney).subscribe((loadedData: Journey) => {
+    this.http.post("http://levt.test/newJourney", this.data.newJourney).subscribe((loadedData: Journey) => {
       console.log(loadedData);
       console.log("Post funktioniert");
     }, error => {
@@ -72,40 +72,40 @@ export class NewJourneyService {
 
   loadNewJourney(){
   
-   this.data.currentJourney.journeyID=null;
-   this.data.currentJourney._userID=1;
-   this.data.currentJourney._thumbnailID=2;
-   this.data.currentJourney. _seasonID=null;
-   this.data.currentJourney._journeyCategoryID=null;
-   this.data.currentJourney. _companionshipID=null;
-   this.data.currentJourney. journeyName="";
-   this.data.currentJourney. year=null;
-   this.data.currentJourney. duration=null;
-   this.data.currentJourney.detail="";
-   this.data.currentJourney. totalCosts=null;
-   this.data.currentJourney.leisureCosts=null;
-   this.data.currentJourney. accommodationCosts=null;
-   this.data.currentJourney. mealsanddrinksCosts=null;
-   this.data.currentJourney. transportationCosts=null;
-   this.data.currentJourney. otherCosts=null
-   this.data.currentJourney. plane=false;
-   this.data.currentJourney. car=false;
-   this.data.currentJourney. bus=false;
-   this.data.currentJourney.train=false;
-   this.data.currentJourney.ship=false;
-   this.data.currentJourney.motorbike=false;
-   this.data.currentJourney.campingtrailer=false;
-   this.data.currentJourney.hiking=false;
-   this.data.currentJourney.bicycle=false;
+   this.data.newJourney.journeyID=null;
+   this.data.newJourney._userID=1;
+   this.data.newJourney._thumbnailID=2;
+   this.data.newJourney. _seasonID=null;
+   this.data.newJourney._journeyCategoryID=null;
+   this.data.newJourney. _companionshipID=null;
+   this.data.newJourney. journeyName="";
+   this.data.newJourney. year=null;
+   this.data.newJourney. duration=null;
+   this.data.newJourney.detail="";
+   this.data.newJourney. totalCosts=null;
+   this.data.newJourney.leisureCosts=null;
+   this.data.newJourney. accommodationCosts=null;
+   this.data.newJourney. mealsanddrinksCosts=null;
+   this.data.newJourney. transportationCosts=null;
+   this.data.newJourney. otherCosts=null
+   this.data.newJourney. plane=false;
+   this.data.newJourney. car=false;
+   this.data.newJourney. bus=false;
+   this.data.newJourney.train=false;
+   this.data.newJourney.ship=false;
+   this.data.newJourney.motorbike=false;
+   this.data.newJourney.campingtrailer=false;
+   this.data.newJourney.hiking=false;
+   this.data.newJourney.bicycle=false;
   
-   this.data.currentJourney.places=null;
-   this.data.currentJourney.thumbnailSrc="";
-   this.data.currentJourney.username="";
-   this.data.currentJourney.userImgSrc="";
-   this.data.currentJourney.seasonName="";
-   this.data.currentJourney.journeyCategoryName="";
-   this.data.currentJourney.companionshipType="";
-   this.data.currentJourney.bookmarks=null;
+   this.data.newJourney.places=null;
+   this.data.newJourney.thumbnailSrc="";
+   this.data.newJourney.username="";
+   this.data.newJourney.userImgSrc="";
+   this.data.newJourney.seasonName="";
+   this.data.newJourney.journeyCategoryName="";
+   this.data.newJourney.companionshipType="";
+   this.data.newJourney.bookmarks=null;
   
    console.log("new Journey");
   }
