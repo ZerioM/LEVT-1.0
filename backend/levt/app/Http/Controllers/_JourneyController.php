@@ -49,7 +49,7 @@ class _JourneyController extends BaseController
             $id = DB::table('journeys')->insertGetId($insertJourneyArray);
 
 
-
+        //insert data in costs table
             if($requestArray['totalCosts'] == null){
                 if($requestArray['leisureCosts'] != null)
                     $costcontroller->insertOne($id,'leisure',$requestArray['leisureCosts']); //nullable
@@ -63,6 +63,7 @@ class _JourneyController extends BaseController
                     $costcontroller->insertOne($id,'other',$requestArray['otherCosts']); //nullable
             }
 
+        //insert data in journeyTransports table
             if($requestArray['plane']){
                 $journeyTransportController->insertOne($id,'plane'); //nullable
             }
@@ -91,50 +92,7 @@ class _JourneyController extends BaseController
                 $journeyTransportController->insertOne($id,'bicycle'); //nullable
             }
 
-
-        //build an business layer object as per interface
-            $username = $userController->selectUsernamePerID($requestArray['_userID']);
-            $userImgSrc = $imageController->selectSrcPerUserID($requestArray['_userID']);
-            $companionship = $companionshipController->selectTypePerID($requestArray['_companionshipID']);
-            $journeyCategory = $journeyCategoryController->selectNamePerID($requestArray['_journeyCategoryID']);
-
-            $outputArray = [
-                'journeyID' => $id,
-                '_userID' => $requestArray['_userID'],
-                '_thumbnailID' => $requestArray['_thumbnailID'],
-                '_seasonID' => $requestArray['_seasonID'],
-                '_journeyCategoryID' => $requestArray['_journeyCategoryID'],
-                '_companionshipID' => $requestArray['_companionshipID'],
-                'journeyName' => $requestArray['journeyName'],
-                'year' => $requestArray['year'],
-                'duration' => $requestArray['duration'],
-                'detail' => $requestArray['detail'],
-                'totalCosts' => $requestArray['totalCosts'],
-                'leisureCosts' => $requestArray['leisureCosts'],
-                'accommodationCosts' => $requestArray['accommodationCosts'],
-                'mealsanddrinksCosts' => $requestArray['mealsanddrinksCosts'],
-                'transportationCosts' => $requestArray['transportationCosts'],
-                'otherCosts' => $requestArray['otherCosts'],
-                'plane' => $requestArray['plane'],
-                'car' => $requestArray['car'],
-                'bus' => $requestArray['bus'],
-                'train' => $requestArray['train'],
-                'ship' => $requestArray['ship'],
-                'motorbike' => $requestArray['motorbike'],
-                'campingtrailer' => $requestArray['campingtrailer'],
-                'hiking' => $requestArray['hiking'],
-                'bicycle' => $requestArray['bicycle'],
-                'places' => null,
-                'thumbnailSrc' => $requestArray['thumbnailSrc'],
-                'username' => $username,
-                'userImgSRC' => $userImgSrc,
-                'seasonName' => $requestArray['seasonName'],
-                'journeyCategoryName' => $requestArray['journeyCategoryName'],
-                'companionshipType' => $requestArray['companionshipType'],
-                'bookmarks' => null
-            ];
-
-           /* Maybe we use a transaction
+           /* Maybe we should use a transaction
 
             in case of an error, at the moment some data would be inserted, some wouldn't
             a transaction would prevent this by executing all statements together and rollbacking it
@@ -153,34 +111,82 @@ class _JourneyController extends BaseController
             });*/
 
         //return the business layer object as pretty json
-        return json_encode($outputArray,JSON_PRETTY_PRINT);
+        return $this->selectOne($id);
     }
 
     public function selectAllLimit(){
-        //Abfrage Users mit Journeys und Images und Likes und Places und Countries joinen,
-        //dann TOP 100 vong Bookmarks her
+        /**
+         * Abfrage Users mit Journeys und Images und Likes und Places und Countries joinen,
+         * dann TOP 100 vong Bookmarks her
+        */
 
-        // $journeysArray = json_decode(json_encode($postController->selectByPlaceIDWithoutChildren($id)->get()),true);
+        //Umbau-Möglichkeit:
+        // $journeysArray = json_decode(json_encode($this->selectOne($id)->get()),true);
 
-        // $outputPostsArray = array();
-        // foreach ($postsArray as $postArray) {
-        //      $outputPostArray = array();
-        //      $outputPostArray = [
-        //          'postID' => $postArray['postID'],
-        //          'activity' => $activityController->selectNameByID($postArray['_activityID']),
-        //          'text' => null,
-        //          'place' => null,
-        //          'images' => null
-        //      ];
-        //      array_push($outputPostsArray,$outputPostArray);
-        //  }
+        // $outputJourneysArray = array();
+        // foreach ($journeysArray as $journeyArray) {
+        //     $outputJourneyArray = array();
+        //     $outputJourneyArray = [
+        //             'journeyID' => $id,
+        //             '_userID' => $journeyArray['_userID'],
+        //             '_thumbnailID' => $journeyArray['_thumbnailID'],
+        //             '_seasonID' => $journeyArray['_seasonID'],
+        //             '_journeyCategoryID' => $journeyArray['_journeyCategoryID'],
+        //             '_companionshipID' => $journeyArray['_companionshipID'],
+        //             'journeyName' => $journeyArray['journeyName'],
+        //             'year' => $journeyArray['year'],
+        //             'duration' => null,
+        //             'detail' => null,
+        //             'totalCosts' => null,
+
+        //             //all from Costs table
+        //             'leisureCosts' => null,
+        //             'accommodationCosts' => null,
+        //             'mealsanddrinkCosts' => null,
+        //             'transportationCosts' => null,
+        //             'otherCosts' => null,
+
+        //             //all from transport table
+        //             'plane' => null,
+        //             'car' => null,
+        //             'bus' => null,
+        //             'train' => null,
+        //             'ship' => null,
+        //             'motorBike' => null,
+        //             'campingTrailer' => null,
+        //             'hiking' => null,
+        //             'bicycle' => null,
+
+        //             //from places table
+        //             'places' => null,
+
+        //             //all from images table
+        //             'thumbnailSrc' => $imageController->selectSrcPerImageID($journeyArray['_thumbnailID']),
+        //             'userImgSrc' => $imageController->selectSrcPerUserID($journeyArray['_userID']),
+
+        //             //from user table
+        //             'username' => $userController->selectUsernamePerID($journeyArray['_userID']),
+
+        //             //from season table
+        //             'seasonName' => $seasonController->selectNameByID($journeyArray['_seasonID']),
+
+        //             //from journeycategory table
+        //             'journeyCategoryName' => null,
+
+        //             //from companionship table
+        //             'companionshipType' => null,
+
+        //             //from bookmarks table
+        //             'bookmarks' => $bookmarkController->selectCountBookmarksPerJourneyID($id),
+        //       ];
+
+        //     //FEHLT: in richtiger Reihenfolge nach Bookmarks sortieren:
+        //       array_push($outputJourneysArray,$outputJourneyArray);
+        // }
 
 
 
-        // array_push($outputJourneysArray,$outputJourneyArray);
 
-
-            ////TO BE CHECKED, IF STILL WORKING
 
         $result = DB::select('SELECT journeys.journeyID,journeys.journeyName as journeyName,users.username,
                     profileImage.src as userImgSrc, COUNT(bookmarks.bookmarkID) AS bookmarks,
@@ -203,7 +209,7 @@ class _JourneyController extends BaseController
 
     }
 
-    public function selectOne(Request $request){
+    public function selectOne($id){
         $userController = new _UserController;
         $imageController = new _ImageController;
         $bookmarkController = new _BookmarkController;
@@ -214,10 +220,6 @@ class _JourneyController extends BaseController
         $placeController = new _PlaceController;
         $journeyTransportController = new _journeyTransportController;
         $countryController = new _CountryController;
-
-        $requestArray = $request->all();
-
-        $id = $requestArray['journeyID'];
 
         $journeysArray = json_decode(json_encode(DB::table('journeys')->where('journeyID',$id)->get()), true);
         $journeyArray = $journeysArray[0];
