@@ -3,7 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NewJourneyService } from 'src/app/services/new-journey.service';
-import { equal } from 'assert';
+
 
 import { compileNgModule } from '@angular/compiler';
 
@@ -74,7 +74,7 @@ export class Tab2Page {
   
     this.data.currentJourney.leisureCosts=this.costs[0];
     this.data.currentJourney.accommodationCosts=this.costs[1];
-    this.data.currentJourney.mealsanddrinkCosts=this.costs[2];
+    this.data.currentJourney.mealsanddrinksCosts=this.costs[2];
     this.data.currentJourney.transportationCosts=this.costs[3];
     this.data.currentJourney.otherCosts=this.costs[4];
 
@@ -84,7 +84,7 @@ export class Tab2Page {
     this.data.currentJourney.train=this.transports[3];
     this.data.currentJourney.ship=this.transports[4];
     this.data.currentJourney.motorbike=this.transports[5];
-    this.data.currentJourney.campingTrailer=this.transports[6];
+    this.data.currentJourney.campingtrailer=this.transports[6];
     this.data.currentJourney.hiking=this.transports[7];
     this.data.currentJourney.bicycle=this.transports[8];
 
@@ -97,7 +97,7 @@ export class Tab2Page {
     console.log("JourneyDetail: " + this.data.currentJourney.detail);
     console.log("Leisure Costs: " + this.data.currentJourney.leisureCosts);
     console.log("Accommodation Costs: " + this.data.currentJourney.accommodationCosts);
-    console.log("Meals and Drinks Costs: " + this.data.currentJourney.mealsanddrinkCosts);
+    console.log("Meals and Drinks Costs: " + this.data.currentJourney.mealsanddrinksCosts);
     console.log("Transport Costs: " + this.data.currentJourney.transportationCosts);
     console.log("Other Costs: " + this.data.currentJourney.otherCosts);
     console.log("Total Costs: " + this.data.currentJourney.totalCosts);
