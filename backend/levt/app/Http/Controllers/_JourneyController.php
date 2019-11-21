@@ -319,6 +319,8 @@ class _JourneyController extends BaseController
         $journey->cost = $requestArray['cost'];
 
         $journey->save();
+
+        return $this->selectOne($requestArray['journeyID']);
     }
 
     public function deleteOne(Request $request){
@@ -328,5 +330,11 @@ class _JourneyController extends BaseController
         $journey = Journey::find($requestArray['journeyID']);
 
         $journey->delete();
+
+        $outputArray = [
+            "deleted" => true
+        ];
+
+        return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 }

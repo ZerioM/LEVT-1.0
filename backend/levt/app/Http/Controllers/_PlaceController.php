@@ -108,7 +108,7 @@ class _PlaceController extends BaseController
 
         $place->save();
 
-        return $this->selectOne($id);
+        return $this->selectOne($requestArray['placeID']);
     }
 
     public function deleteOne(Request $request){
@@ -118,6 +118,12 @@ class _PlaceController extends BaseController
         $place = Place::find($requestArray['placeID']);
 
         $place->delete();
+
+        $outputArray = [
+            "deleted" => true
+        ];
+
+        return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 
     public function selectImagesByPostID($postID){
