@@ -10,9 +10,25 @@ import { Router } from '@angular/router';
 })
 export class JourneyDetailPage implements OnInit {
 
+  public bookmarkUnsaved:string="assets/icon/bookmark_unsaved_icon.svg";
+  public bookmarkSaved:string="assets/icon/bookmark_saved_icon.svg";
+
+  public bookmarkIcon:string="assets/icon/bookmark_unsaved_icon.svg"
+
   constructor(private data: DataService, private navCtrl:NavController, private router: Router) { }
 
   ngOnInit() {
+  }
+
+  bookmarken(){
+
+    if(this.bookmarkIcon==this.bookmarkUnsaved){
+      this.bookmarkIcon=this.bookmarkSaved;
+    }else{
+      this.bookmarkIcon=this.bookmarkUnsaved;
+    }
+
+
   }
 
 }

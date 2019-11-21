@@ -1,10 +1,15 @@
-<ion-header>
+<ion-header class="tabHeader">
     <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-  <ion-toolbar>
-    <ion-title>{{data.currentJourney.journeyName}}</ion-title>
-  </ion-toolbar>
+ 
+    <ion-title class="tabHeading">{{data.currentJourney.journeyName}}</ion-title>
+    <ion-item color="none">
+        <img src={{data.currentJourney.userImgSrc}} alt="User" class="userpic" />
+      </ion-item>
+  
+
+  
 </ion-header>
 
 <ion-content>
@@ -12,7 +17,6 @@
     <ion-list lines="none">
         <div id="gallery">
           <div class="pictureFrame">
-            <div class="frameLeft"></div>
             <div class="imgAndInfo">
               <ion-item class="thumbnailImg" color="none">
                 <img src="{{data.currentJourney.thumbnailSrc}}" alt="Reise" />
@@ -20,10 +24,7 @@
               <div class="picInformations">
                 <div class="userpicAndName">
                   <ion-item color="none">
-                    <img src={{data.currentJourney.userImgSrc}} alt="User" class="userpic" />
-                  </ion-item>
-                  <ion-item color="none">
-                    <ion-label>{{data.currentJourney.username}}</ion-label>
+                    <img src="{{bookmarkIcon}}" alt="Bookmark" class="userpic" (click)="bookmarken()" />
                   </ion-item>
                 </div>
                 <ion-item color="none" id="travelTime">
@@ -32,7 +33,6 @@
                 </ion-item>
               </div>
             </div>
-            <div class="frameRight"></div>
           </div>
         </div>
       </ion-list>
@@ -49,7 +49,7 @@
     </ion-item>
     <ion-item>
       <div id="alreadyAddedPlaces" class="gridContainer">
-        <div class="grid-item" *ngFor="let p of data.newJourney.places">
+        <div class="grid-item" *ngFor="let p of data.currentJourney.places">
           <img class="pictureGrid" src="{{p.thumbnailSrc}}" alt="" />
           <div id="visitedPlaceName">{{p.placeName}}</div>
         </div>
