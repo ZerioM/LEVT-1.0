@@ -26,10 +26,10 @@ class _PlaceController extends BaseController
 
         //Create DB table object
         $insertPlacesArray = [
-            '_journeyID' => $requestArray['journeyID'],
-            '_thumbnailID' => $thumbnailID,
-            '_countryID' => $countryID,
-            'placeName' => $requestArray['name'],
+            '_journeyID' => $requestArray['_journeyID'],
+            '_thumbnailID' => $requestArray['_thumbnailID'],
+            '_countryID' => $requestArray['_countryID'],
+            'placeName' => $requestArray['placeName'],
             'coordinateX' => $requestArray['coordinateX'],
             'coordinateY' => $requestArray['coordinateY'],
             'text' => $requestArray['detail']
@@ -37,16 +37,7 @@ class _PlaceController extends BaseController
 
         $id = DB::table('places')->insertGetId($insertPlacesArray);
 
-        $outputArray = [
-            'placeID' => $id,
-            'name' => $requestArray['name'],
-            'coordinateX' => $requestArray['coordinateX'],
-            'coordinateY' => $requestArray['coordinateY'],
-            'posts' => null,
-            'thumbnailSrc' => $requestArray['thumbnailSrc']
-        ];
-
-        return json_encode($outputArray,JSON_PRETTY_PRINT);
+        return $this->selectOne($id);
     }
 
     public function selectByJourneyIDWithoutChildren($journeyID){
@@ -57,14 +48,11 @@ class _PlaceController extends BaseController
         return DB::table('places')->where('placeID', $id);
     }
 
-    public function selectOne(Request $request){
+    public function selectOne($id){
         $postController = new _PostController;
         $activityController = new _ActivityController;
         $imageController = new _ImageController;
-
-        $requestArray = $request->all();
-
-        $id = $requestArray['placeID'];
+        $countryController = new _CountryController;
 
         $placesArray = json_decode(json_encode(DB::table('places')->where('placeID',$id)->get()),true);
         $placeArray = $placesArray[0];
@@ -76,22 +64,30 @@ class _PlaceController extends BaseController
             $outputPostArray = array();
             $outputPostArray = [
                 'postID' => $postArray['postID'],
-                'activity' => $activityController->selectNameByID($postArray['_activityID']),
-                'text' => null,
+                '_activityID' => $postArray['_activityID'],
+                '_placeID' => $postArray['_placeID'],
+                'detail' => null,
+
+                'activityName' => $activityController->selectNameByID($postArray['_activityID']),
                 'place' => null,
-                'images' => null
+                'images' => $this->selectImagesByPostID($postArray['postID'])
             ];
             array_push($outputPostsArray,$outputPostArray);
         }
 
         $outputArray = [
             'placeID' => $placeArray['placeID'],
-            'name' => $placeArray['placeName'],
-            'text' => $placeArray['text'],
+            '_journeyID' => $placeArray['_journeyID'],
+            '_thumbnailID' => $placeArray['_thumbnailID'],
+            '_countryID' => $placeArray['_countryID'],
+            'placeName' => $placeArray['placeName'],
             'coordinateX' => $placeArray['coordinateX'],
             'coordinateY' => $placeArray['coordinateY'],
+            'detail' => $placeArray['text'],
+
             'posts' => $outputPostsArray,
-            'thumbnailSrc' => $imageController->selectSrcPerImageID($placeArray['_thumbnailID'])
+            'thumbnailSrc' => $imageController->selectSrcPerImageID($placeArray['_thumbnailID']),
+            'countryName' => $countryController->selectNamePerID($placeArray['_countryID'])
         ];
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
@@ -100,7 +96,7 @@ class _PlaceController extends BaseController
     public function updateOne(Request $request){
 
         $requestArray = $request->all();
-       
+
         $place = Place::find($requestArray['placeID']);
 
         $place->_thumbnailID = $requestArray['_thumbnailID'];
@@ -111,6 +107,8 @@ class _PlaceController extends BaseController
         $place->text = $requestArray['text'];
 
         $place->save();
+
+        return $this->selectOne($id);
     }
 
     public function deleteOne(Request $request){
@@ -120,6 +118,28 @@ class _PlaceController extends BaseController
         $place = Place::find($requestArray['placeID']);
 
         $place->delete();
+    }
+
+    public function selectImagesByPostID($postID){
+        $imageController = new _ImageController;
+
+        $imagesArray = json_decode(json_encode($imageController->selectByPostID($postID)->get()),true);
+
+        $outputImagesArray = array();
+        foreach ($imagesArray as $imageArray) {
+            $outputImageArray = array();
+            $outputImageArray = [
+                'imageID' => $imageArray['imageID'],
+                '_postID' => $imageArray['_postID'],
+                'imgSrc' => $postArray['src'],
+                'date' => $imageArray['date'],
+                'coordinateX' => $imageArray['coordinateX'],
+                'coordinateY' => $imageArray['coordinateY']
+            ];
+            array_push($outputImagesArray,$outputImageArray);
+        }
+
+        return $outputImagesArray;
     }
 
 }
