@@ -23,6 +23,15 @@ const routes: Routes = [
                 import('../Pages/journey-detail/journey-detail.module').then (m => m.JourneyDetailPageModule)}
             ]
           },
+          {
+            path: 'place-detail',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/place-detail/place-detail.module').then (m => m.PlaceDetailPageModule)}
+            ]
+          }
         ]
       },
       

@@ -3,15 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
-
 import { IonicModule } from '@ionic/angular';
 
-import { JourneyDetailPage } from './journey-detail.page';
+import { PlaceDetailPage } from './place-detail.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: JourneyDetailPage
+    component: PlaceDetailPage
   }
 ];
 
@@ -22,7 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [JourneyDetailPage],
-  
+  declarations: [PlaceDetailPage]
 })
-export class JourneyDetailPageModule {}
+export class PlaceDetailPageModule {}
