@@ -44,30 +44,43 @@ class _ImageController extends BaseController
 
         $id = DB::table('images')->insertGetId($insertImagesArray);
 
+
+
+        return $this->selectOne($id);
+
+    }
+
+    public function selectOne($id){
+
+        $imagesArray = json_decode(json_encode(DB::table('images')->where('imageID',$id)->get()),true);
+        $imageArray = $imagesArray[0];
+
         $outputArray = [
             'imageID' => $id,
-            'imageSrc' => $requestArray['src'],
-            'date' => $requestArray['date'],
-            'coordinateX' => $requestArray['coordinateX'],
-            'coordinateY' => $requestArray['coordinateY']
+            '_postID' => $imageArray['_postID'],
+            'imgSrc' => $imageArray['src'],
+            'date' => $imageArray['date'],
+            'coordinateX' => $imageArray['coordinateX'],
+            'coordinateY' => $imageArray['coordinateY']
         ];
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
-
     }
 
     public function updateOne(Request $request){
 
         $requestArray = $request->all();
-       
+
         $image = Image::find($requestArray['imageID']);
 
         $image->src = $requestArray['imgSrc'];
         $image->coordinateX = $requestArray['coordinateX'];
         $image->coordinateY = $requestArray['coordinateY'];
         $image->date = $requestArray['date'];
-        
+
         $image->save();
+
+        return $this->selectOne($requestArray['imageID']);
     }
 
     public function deleteOne(Request $request){
@@ -77,6 +90,12 @@ class _ImageController extends BaseController
         $image = Image::find($requestArray['imageID']);
 
         $image->delete();
+
+        $outputArray = [
+            "deleted" => true
+        ];
+
+        return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 
 }

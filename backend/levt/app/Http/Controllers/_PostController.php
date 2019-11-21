@@ -14,41 +14,28 @@ class _PostController extends BaseController
 {
     public function insertOne(Request $request){
 
-        $activityController = new _ActivityController;
-
         $requestArray = $request->all();
 
         $insertPostArray = [
-            '_activityID' => $requestArray['activityID'],
-            '_placeID' => $requestArray['placeID'],
+            '_activityID' => $requestArray['_activityID'],
+            '_placeID' => $requestArray['_placeID'],
             'text' => $requestArray['detail']
         ];
 
         $id = DB::table('posts')->insertGetId($insertPostArray);
 
-        $outputArray = [
-            'postID' => $id,
-            'activity' => $activityController->selectNameByID($requestArray['activityID']),
-            'text' => $requestArray['text'],
-            'place' => null,
-            'images' => null
-        ];
-
-        return json_encode($outputArray,JSON_PRETTY_PRINT);
+        return $this->selectOne($id);
     }
 
     public function selectByPlaceIDWithoutChildren($placeID){
         return DB::table('posts')->where('_placeID', $placeID);
     }
 
-    public function selectOne(Request $request){
+    public function selectOne($id){
         $imageController = new _ImageController;
         $activityController = new _ActivityController;
         $placeController = new _PlaceController;
-
-        $requestArray = $request->all();
-
-        $id = $requestArray['postID'];
+        $countryController = new _CountryController;
 
         $postsArray = json_decode(json_encode(DB::table('posts')->where('postID',$id)->get()),true);
         $postArray = $postsArray[0];
@@ -57,12 +44,28 @@ class _PostController extends BaseController
 
         $placesArray = json_decode(json_encode($placeController->selectByIDWithoutChildren($postArray['_placeID'])->get()),true);
         $placeArray = $placesArray[0];
+        $outputPlaceArray = array();
+        $outputPlaceArray = [
+            'placeID' => $placeArray['placeID'],
+            '_journeyID' => $placeArray['_journeyID'],
+            '_thumbnailID' => $placeArray['_thumbnailID'],
+            '_countryID' => $placeArray['_countryID'],
+            'placeName' => $placeArray['placeName'],
+            'coordinateX' => $placeArray['coordinateX'],
+            'coordinateY' => $placeArray['coordinateY'],
+            'detail' => $placeArray['text'],
+
+            'posts' => null,
+            'thumbnailSrc' => null,
+            'countryName' => $countryController->selectNamePerID($placeArray['_countryID'])
+        ];
 
         $outputImagesArray = array();
         foreach ($imagesArray as $imageArray) {
             $outputImageArray = array();
             $outputImageArray = [
                 'imageID' => $imageArray['imageID'],
+                '_postID' => $imageArray['_postID'],
                 'imgSrc' => $imageArray['src'],
                 'date' => $imageArray['date'],
                 'coordinateX' => $imageArray['coordinateX'],
@@ -73,9 +76,12 @@ class _PostController extends BaseController
 
         $outputArray = [
             'postID' => $postArray['postID'],
-            'activity' => $activityController->selectNameByID($postArray['_activityID']),
-            'text' => $postArray['text'],
-            'place' => $placeArray,
+            '_activityID' => $postArray['_activityID'],
+            '_placeID' => $postArray['_placeID'],
+            'detail' => $postArray['text'],
+
+            'activityName' => $activityController->selectNameByID($postArray['_activityID']),
+            'place' => $outputPlaceArray,
             'images' => $outputImagesArray
         ];
 
@@ -85,13 +91,15 @@ class _PostController extends BaseController
     public function updateOne(Request $request){
 
         $requestArray = $request->all();
-       
+
         $post = Post::find($requestArray['postID']);
 
         $post->_activityID = $requestArray['_activityID'];
         $post->text = $requestArray['text'];
 
         $post->save();
+
+        return $this->selectOne($requestArray['postID']);
     }
 
     public function deleteOne(Request $request){
@@ -101,5 +109,11 @@ class _PostController extends BaseController
         $post = Post::find($requestArray['postID']);
 
         $post->delete();
+
+        $outputArray = [
+            "deleted" => true
+        ];
+
+        return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 }

@@ -20,17 +20,20 @@ class ReadController extends BaseController
 
     public function selectOneJourney(Request $request){
         $jc = new _JourneyController;
-        return $jc->selectOne($request);
+        $requestArray = $request->all();
+        return $jc->selectOne($requestArray['journeyID']);
     }
 
     public function selectOnePlace(Request $request){
         $pc = new _PlaceController;
-        return $pc->selectOne($request);
+        $requestArray = $request->all();
+        return $pc->selectOne($requestArray['placeID']);
     }
 
     public function selectOnePost(Request $request){
         $poc = new _PostController;
-        return $poc->selectOne($request);
+        $requestArray = $request->all();
+        return $poc->selectOne($requestArray['postID']);
     }
 
     public function selectJourneyCategories(){
