@@ -132,3 +132,42 @@ ion-chip{
   margin-right: 5px;
 }
 
+
+.gridContainer {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  //flex-wrap: wrap;
+  flex-flow:row wrap;
+  justify-content: space-between;
+}
+.grid-item {
+  width: 100px;
+  margin-bottom: 30px;
+} //=> Bild & Text
+.grid-item .addPlace {
+  width: 100px;
+  height: 100px;
+  background-color: #7ba9a9bf;
+  vertical-align: middle;
+  text-align: center;
+  color: #182f30;
+  font-size: 70pt;
+  font-weight: bolder;
+}
+.pictureGrid {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}//=> Bild alleine
+#visitedPlaceName {
+  width: 100%;
+  margin-top: -30px;
+  background-color: #eceeefbf;
+  vertical-align: middle;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  text-align: center;
+  position: relative;
+}

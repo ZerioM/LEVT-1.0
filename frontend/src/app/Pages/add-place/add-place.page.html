@@ -1,31 +1,35 @@
 <ion-header class="tabHeader">
   <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
+    <ion-back-button></ion-back-button>
+  </ion-buttons>
   <ion-title class="tabHeading" no-padding>Add a place</ion-title>
   <img id="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
 
 <ion-content>
-  <form (submit)="safePlace()">
     <ion-item>
       <ion-label><b>General</b></ion-label>
     </ion-item>
     <ion-item>
       <ion-input placeholder="Place" background="light"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-select placeholder="Country">
-        <ion-select-option> Brauchen wir das jetzt? </ion-select-option>
-        <ion-select-option> oder nicht? </ion-select-option>
-      </ion-select>
-    </ion-item>
+    
 
     <ion-item>
-      <ion-button class="middlebutton" color="light" (click)="goToAddPost()">
-        <ion-icon slot="start" name="add"></ion-icon>
-        Add a post to your place
-      </ion-button>
+      <ion-label><b>Posts</b></ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label color="warning" id="NoPlace"> You haven't added any posts to your place!</ion-label>
+    </ion-item>
+    <ion-item>
+      <div id="alreadyAddedPlaces" class="gridContainer">
+        <div class="grid-item" *ngFor="let po of data.newJourney.places"> <!--muss noch auf posts geändert werden-->
+          <img class="pictureGrid" alt="" src="{{po.thumbnailSrc}}"/>
+        </div>
+        <div class="grid-item" (click)="goToAddPost()">
+          <ion-icon name="ios-add" class="addPlace"></ion-icon>
+        </div>
+      </div>
     </ion-item>
     <ion-item>
       <ion-label><b>Place Details</b></ion-label>
@@ -33,8 +37,7 @@
     <ion-item>
       <ion-textarea placeholder="Tell us what you experienced here!" rows="8" background="light"></ion-textarea>
     </ion-item>
-    <ion-button color="primary" expand="full" type="submit">
+    <ion-button (click)="savePlace()" color="primary" expand="full">
       Finish
     </ion-button>
-  </form>
 </ion-content>

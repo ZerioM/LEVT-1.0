@@ -16,12 +16,9 @@ export class Tab2Page {
 
   public showC: Boolean = false;
   public divideC: Boolean = false;
-  public noPlace: Boolean = true;
-
 
  public costs=[null,null,null,null,null];
  public transports=[false,false,false,false,false,false,false,false,false];
-
 
   test: any;
 
@@ -64,7 +61,9 @@ export class Tab2Page {
 
   showNoPlaceWarning() {
     if (this.data.newJourney.places != null) {
-      this.noPlace = false;
+      return true;
+    } else {
+      return false;
     }
 
   }

@@ -51,32 +51,4 @@
   ion-list{
       padding:0;
   }
-  .gridContainer {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    //flex-wrap: wrap;
-    flex-flow:row wrap;
-    justify-content: space-between;
-  }
-  .grid-item {
-    width: 100px;
-    margin-bottom: 30px;
-  } //=> Bild & Text
-  .pictureGrid {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-  }//=> Bild alleine
-  #visitedPlaceName {
-    width: 100%;
-    margin-top: -30px;
-    background-color: #eceeefbf;
-    vertical-align: middle;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 10pt;
-    text-align: center;
-    position: relative;
-  }
-  
+ 
