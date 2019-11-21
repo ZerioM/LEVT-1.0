@@ -51,4 +51,13 @@ export class JourneyDetailPage implements OnInit, AfterViewInit {
 
   }
 
+  showPlace(placeID: number){
+
+    this.data.loadOnePlace(placeID);
+      
+    //go To Journey Detail 
+    this.router.navigateByUrl('/tabs/tab1/place-detail');
+  
+   }
+
 }

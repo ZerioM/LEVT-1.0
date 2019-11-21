@@ -179,6 +179,24 @@ export class DataService {
 
   }
 
+  loadOnePlace(placeID:number){
+    
+    let postData={
+
+      "placeID": placeID
+    }
+
+    this.http.post("http://levt.test/onePlace", postData).subscribe((loadedData: Place) => {
+      console.log(loadedData);
+      this.currentPlace=loadedData;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+    
+
+  }
+
   loadTestJSON(){
 //ladet das JSON File mit den Testdaten aus den assets
     this.http.get("/assets/journeys.json").subscribe( (loadedData: Journeys)=> {

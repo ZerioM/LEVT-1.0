@@ -58,7 +58,7 @@
     <ion-item>
       <div id="alreadyAddedPlaces" class="gridContainer">
         <div class="grid-item" *ngFor="let p of data.currentJourney.places">
-          <img class="pictureGrid" src="{{p.thumbnailSrc}}" alt="" />
+          <img class="pictureGrid" src="{{p.thumbnailSrc}}" alt="" (click)="showPlace(p.placeID)"/>
           <div id="visitedPlaceName">{{p.placeName}}</div>
         </div>
       </div>

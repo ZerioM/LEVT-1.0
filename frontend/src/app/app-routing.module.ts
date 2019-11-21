@@ -8,6 +8,7 @@ const routes: Routes = [
   },
   { path: 'add-place', loadChildren: './Pages/add-place/add-place.module#AddPlacePageModule' },  { path: 'add-post', loadChildren: './Pages/add-post/add-post.module#AddPostPageModule' },
   { path: 'journey-detail', loadChildren: './Pages/journey-detail/journey-detail.module#JourneyDetailPageModule' },
+  { path: 'place-detail', loadChildren: './Pages/place-detail/place-detail.module#PlaceDetailPageModule' },
 
 
  
