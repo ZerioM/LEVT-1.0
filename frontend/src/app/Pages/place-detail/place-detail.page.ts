@@ -15,4 +15,13 @@ export class PlaceDetailPage implements OnInit {
   ngOnInit() {
   }
 
+  showPost(postID: number){
+
+    this.data.loadOnePlace(postID);
+      
+    //go To Journey Detail 
+    this.router.navigateByUrl('/tabs/tab1/post-detail');
+  
+   }
+
 }
