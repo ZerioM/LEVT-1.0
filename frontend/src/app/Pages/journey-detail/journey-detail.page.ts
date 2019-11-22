@@ -4,7 +4,7 @@ import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 //import {Geolocation}from '@ionic-native/geolocation/ngx';
 
-declare var google: { maps: { Map: new (arg0: any, arg1: { center: { lat: number; lng: number; }; zoom: number; }) => void; }; };
+//declare var google: { maps: { Map: new (arg0: any, arg1: { center: { lat: number; lng: number; }; zoom: number; }) => void; }; };
 
 
 @Component({
@@ -28,7 +28,7 @@ export class JourneyDetailPage implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit(): void {
+ /* ngAfterViewInit(): void {
     console.log("Map geladen");
     //throw new Error("Method not implemented.");
     this.map=new google.maps.Map(
@@ -38,7 +38,7 @@ export class JourneyDetailPage implements OnInit, AfterViewInit {
         zoom:8
       });
       
-  }
+  }*/
 
   bookmarken(){
 
