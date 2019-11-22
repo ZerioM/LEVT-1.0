@@ -262,7 +262,7 @@ class _JourneyController extends BaseController
             //all from Costs table
             'leisureCosts' => $costController->selectAllCostsByJourneyIDAndType($id, 'leisure'),
             'accommodationCosts' => $costController->selectAllCostsByJourneyIDAndType($id, 'accommodation'),
-            'mealsanddrinkCosts' => $costController->selectAllCostsByJourneyIDAndType($id, 'mealsanddrinks'),
+            'mealsanddrinksCosts' => $costController->selectAllCostsByJourneyIDAndType($id, 'mealsanddrinks'),
             'transportationCosts' => $costController->selectAllCostsByJourneyIDAndType($id, 'transport'),
             'otherCosts' => $costController->selectAllCostsByJourneyIDAndType($id, 'other'),
 
@@ -272,8 +272,8 @@ class _JourneyController extends BaseController
             'bus' => $journeyTransportController->selectByJourneyIDAndType($id, 'bus'),
             'train' => $journeyTransportController->selectByJourneyIDAndType($id, 'train'),
             'ship' => $journeyTransportController->selectByJourneyIDAndType($id, 'ship'),
-            'motorBike' => $journeyTransportController->selectByJourneyIDAndType($id, 'motorbike'),
-            'campingTrailer' => $journeyTransportController->selectByJourneyIDAndType($id, 'campingTrailer'),
+            'motorbike' => $journeyTransportController->selectByJourneyIDAndType($id, 'motorbike'),
+            'campingtrailer' => $journeyTransportController->selectByJourneyIDAndType($id, 'campingtrailer'),
             'hiking' => $journeyTransportController->selectByJourneyIDAndType($id, 'hiking'),
             'bicycle' => $journeyTransportController->selectByJourneyIDAndType($id, 'bicycle'),
 
@@ -305,6 +305,9 @@ class _JourneyController extends BaseController
 
     public function updateOne(Request $request){
 
+        $costController = new _CostController;
+        $journeyTransportController = new _JourneyTransportController;
+
         $requestArray = $request->all();
 
         $journey = Journey::find($requestArray['journeyID']);
@@ -316,14 +319,70 @@ class _JourneyController extends BaseController
         $journey->year = $requestArray['year'];
         $journey->detail = $requestArray['detail'];
         $journey->duration = $requestArray['duration'];
-        $journey->cost = $requestArray['cost'];
+        $journey->cost = $requestArray['totalCosts'];
+
+        //update data in costs table
+        $costController->updateOne($requestArray['journeyID'],'leisure',$requestArray['leisureCosts']); //nullable
+        $costController->updateOne($requestArray['journeyID'],'accommodation',$requestArray['accommodationCosts']); //nullable
+        $costController->updateOne($requestArray['journeyID'],'mealsanddrinks',$request['mealsanddrinksCosts']); //nullable
+        $costController->updateOne($requestArray['journeyID'],'transportation',$requestArray['transportationCosts']); //nullable
+        $costController->updateOne($requestArray['journeyID'],'other',$requestArray['otherCosts']); //nullable
+
+        //update data in journeyTransports table
+
+        if($requestArray['plane']){
+            $journeyTransportController->ifNotExistsInsertOne($requestArray['journeyID'],'plane'); //nullable
+        } else {
+            $journeyTransportController->ifExistsDeleteOne($requestArray['journeyID'],'plane');
+        }
+        if($requestArray['car']){
+            $journeyTransportController->ifNotExistsInsertOne($requestArray['journeyID'],'car'); //nullable
+        } else {
+            $journeyTransportController->ifExistsDeleteOne($requestArray['journeyID'],'car');
+        }
+        if($requestArray['bus']){
+            $journeyTransportController->ifNotExistsInsertOne($requestArray['journeyID'],'bus'); //nullable
+        } else {
+            $journeyTransportController->ifExistsDeleteOne($requestArray['journeyID'],'bus');
+        }
+        if($requestArray['train']){
+            $journeyTransportController->ifNotExistsInsertOne($requestArray['journeyID'],'train'); //nullable
+        } else {
+            $journeyTransportController->ifExistsDeleteOne($requestArray['journeyID'],'train');
+        }
+        if($requestArray['ship']){
+            $journeyTransportController->ifNotExistsInsertOne($requestArray['journeyID'],'ship'); //nullable
+        } else {
+            $journeyTransportController->ifExistsDeleteOne($requestArray['journeyID'],'ship');
+        }
+        if($requestArray['motorbike']){
+            $journeyTransportController->ifNotExistsInsertOne($requestArray['journeyID'],'motorbike'); //nullable
+        } else {
+            $journeyTransportController->ifExistsDeleteOne($requestArray['journeyID'],'motorbike');
+        }
+        if($requestArray['campingtrailer']){
+            $journeyTransportController->ifNotExistsInsertOne($requestArray['journeyID'],'campingtrailer'); //nullable
+        } else {
+            $journeyTransportController->ifExistsDeleteOne($requestArray['journeyID'],'campingtrailer');
+        }
+        if($requestArray['hiking']){
+            $journeyTransportController->ifNotExistsInsertOne($requestArray['journeyID'],'hiking'); //nullable
+        } else {
+            $journeyTransportController->ifExistsDeleteOne($requestArray['journeyID'],'hiking');
+        }
+        if($requestArray['bicycle']){
+            $journeyTransportController->ifNotExistsInsertOne($requestArray['journeyID'],'bicycle'); //nullable
+        } else {
+            $journeyTransportController->ifExistsDeleteOne($requestArray['journeyID'],'bicycle');
+        }
+
 
         $journey->save();
 
         return $this->selectOne($requestArray['journeyID']);
     }
 
-    public function deleteOne(Request $request){
+    public function ifExistsDeleteOne(Request $request){
 
         $requestArray = $request->all();
 

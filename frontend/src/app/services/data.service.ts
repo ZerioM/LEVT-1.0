@@ -15,12 +15,14 @@ import { Companionships } from '../Interfaces/Companionships';
 import { Transports } from '../Interfaces/Transports';
 import { Activities } from '../Interfaces/Activities';
 import { Seasons } from '../Interfaces/Seasons';
-
+import { Post } from '../Interfaces/Post';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+
+  public currentPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", place:null, images:[]}
 
   public currentPlace: Place = { placeID: null,_journeyID:null,_thumbnailID: null,_countryID:"",detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
 
@@ -193,9 +195,28 @@ export class DataService {
     }, error => {
       console.log(error);
     });
+
+  }
+
+  loadOnePost(postID:number){
+    
+    let postData={
+
+      "postID": postID
+    }
+
+    this.http.post("http://levt.test/onePost", postData).subscribe((loadedData: Post) => {
+      console.log(loadedData);
+      this.currentPost=loadedData;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
     
 
   }
+
+
 
   loadTestJSON(){
 //ladet das JSON File mit den Testdaten aus den assets
