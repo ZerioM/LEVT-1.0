@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './journey-detail.page.html',
   styleUrls: ['./journey-detail.page.scss'],
 })
-export class JourneyDetailPage implements OnInit, AfterViewInit {
+export class JourneyDetailPage implements OnInit {
   map;
   @ViewChild('mapElement', {static:false}) mapElement:ElementRef;
   
