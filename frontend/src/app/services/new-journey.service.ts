@@ -9,6 +9,8 @@ import { Seasons } from '../Interfaces/Seasons';
 import { Place } from '../Interfaces/Place';
 import { TouchSequence } from 'selenium-webdriver';
 import { DataService } from './data.service';
+import { User } from '../Interfaces/User';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,7 @@ export class NewJourneyService {
 
  
 
-  constructor(private http: HttpClient, private data:DataService) { }
+  constructor(private http: HttpClient) { }
 
 
 
@@ -52,16 +54,16 @@ export class NewJourneyService {
   
   
   
-  saveJourney() {
+  saveJourney(journey:Journey) {// als Übergabeparameter eine Journey Übergeben
     
-    this.data.newJourney.year = parseInt(this.data.newJourney.year.toString().substring(0,4));
+    journey.year = parseInt(journey.year.toString().substring(0,4));
 
     // this.postData = this.data.newJourney;
     console.log("Journey Service: ");
-    console.log(this.data.newJourney)
+    console.log(journey)
     
     
-    this.http.post("http://levt.test/newJourney", this.data.newJourney).subscribe((loadedData: Journey) => {
+    this.http.post("http://levt.test/newJourney", journey).subscribe((loadedData: Journey) => {
       console.log(loadedData);
       console.log("Post funktioniert");
     }, error => {
@@ -70,44 +72,14 @@ export class NewJourneyService {
     
   }
 
-  loadNewJourney(){
+  newJourney(currentUser:User){
   
-   this.data.newJourney.journeyID=null;
-   this.data.newJourney._userID=1;
-   this.data.newJourney._thumbnailID=2;
-   this.data.newJourney. _seasonID=null;
-   this.data.newJourney._journeyCategoryID=null;
-   this.data.newJourney. _companionshipID=null;
-   this.data.newJourney. journeyName="";
-   this.data.newJourney. year=null;
-   this.data.newJourney. duration=null;
-   this.data.newJourney.detail="";
-   this.data.newJourney. totalCosts=null;
-   this.data.newJourney.leisureCosts=null;
-   this.data.newJourney. accommodationCosts=null;
-   this.data.newJourney. mealsanddrinksCosts=null;
-   this.data.newJourney. transportationCosts=null;
-   this.data.newJourney. otherCosts=null
-   this.data.newJourney. plane=false;
-   this.data.newJourney. car=false;
-   this.data.newJourney. bus=false;
-   this.data.newJourney.train=false;
-   this.data.newJourney.ship=false;
-   this.data.newJourney.motorbike=false;
-   this.data.newJourney.campingtrailer=false;
-   this.data.newJourney.hiking=false;
-   this.data.newJourney.bicycle=false;
-  
-   this.data.newJourney.places=null;
-   this.data.newJourney.thumbnailSrc="";
-   this.data.newJourney.username="";
-   this.data.newJourney.userImgSrc="";
-   this.data.newJourney.seasonName="";
-   this.data.newJourney.journeyCategoryName="";
-   this.data.newJourney.companionshipType="";
-   this.data.newJourney.bookmarks=null;
-  
-   console.log("new Journey");
+    let myJourney:Journey={journeyID:null, _userID:currentUser.userID,_thumbnailID:2,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
+
+    console.log("new Journey");
+    return myJourney;
+    
+    
   }
 }
 

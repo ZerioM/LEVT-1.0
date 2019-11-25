@@ -45,7 +45,7 @@ export class Tab2Page {
   }
 
   cancel(){
-    this.journeyService.loadNewJourney();
+    this.data.newJourney=this.journeyService.newJourney(this.data.currentUser);
     this.router.navigateByUrl('/tabs/tab1');
 
   }
@@ -109,9 +109,9 @@ export class Tab2Page {
     
     console.log("Plane = "+this.data.newJourney.plane);
     
-    this.journeyService.saveJourney();
+    this.journeyService.saveJourney(this.data.newJourney);
     
-    this.journeyService.loadNewJourney();
+    this.data.newJourney=this.journeyService.newJourney(this.data.currentUser);
     this.router.navigateByUrl('/tabs/tab1');
   }
 

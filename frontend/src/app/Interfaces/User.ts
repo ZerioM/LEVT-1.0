@@ -1,5 +1,6 @@
 export interface User{
+    userID:number;
     username:string;
-    userImgSrc:string;
+   _profileImageID:number;
 
 }
