@@ -30,4 +30,9 @@ class DeleteController extends BaseController
         $ic = new _ImageController;
         return $ic->deleteOne($request);
     }
+
+    public function deleteOneBookmark (Request $request){
+        $bc = new _BookmarkController;
+        return $bc->deleteOne($request);
+    }
 }
