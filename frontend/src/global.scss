@@ -30,8 +30,10 @@ ion-item {
       --inner-padding-end: none;
       background-color: none;
 };
+
 .item-native{
   padding-left: 0px;
+  padding:0;
 }
 input{
   background-color: none;
@@ -44,7 +46,8 @@ div.tabs-inner {
   flex-direction: column;
 } // => Content auf allen Seiten
 ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
-  background:0;
+  background:#182f30;
+  height: 1px;
 } //macht linie nach Header weg
 .tabHeader {
   height: 60px;
@@ -86,13 +89,12 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
 
 .frameLeft .frameRight {
   position: absolute;
-  width: 30px;
-  height: 30px;
-}
+} // Bilderrahmen link und rechts
 .pictureFrame {
   width: 100%;
   position: relative;
-}
+  margin-bottom: 20px;
+}// Bilderrahmen => Rahmen & Bild 
 .frameLeft {
   width: 30px;
   height: 30px;

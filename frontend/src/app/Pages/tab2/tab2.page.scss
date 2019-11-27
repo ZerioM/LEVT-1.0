@@ -3,13 +3,12 @@ button.button-native{
 }
 .journeythumbnail {
   width: 95%;
+  display: block;
   margin-left: auto;
   margin-right: auto;
   margin-top: -20px;
   margin-bottom: -20px;
-}
-hr {
-  color: #182f30;
+  padding: 0px !important;
 }
 #journeyName{
   border-bottom: 1px solid #16161650;
