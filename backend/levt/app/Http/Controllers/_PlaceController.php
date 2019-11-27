@@ -14,11 +14,10 @@ class _PlaceController extends BaseController
 {
 
     public function insertOne(Request $request){
-
-        $requestArray = $request->all();
-
         $countryController = new _CountryController;
         $imageController = new _ImageController;
+
+        $requestArray = $request->all();
 
         $thumbnailID = $imageController->selectIDPerSrc($requestArray['thumbnailSrc']);
 
@@ -32,7 +31,7 @@ class _PlaceController extends BaseController
             'placeName' => $requestArray['placeName'],
             'coordinateX' => $requestArray['coordinateX'],
             'coordinateY' => $requestArray['coordinateY'],
-            'text' => $requestArray['detail']
+            'detail' => $requestArray['detail']
         ];
 
         $id = DB::table('places')->insertGetId($insertPlacesArray);
@@ -83,7 +82,7 @@ class _PlaceController extends BaseController
             'placeName' => $placeArray['placeName'],
             'coordinateX' => $placeArray['coordinateX'],
             'coordinateY' => $placeArray['coordinateY'],
-            'detail' => $placeArray['text'],
+            'detail' => $placeArray['detail'],
 
             'posts' => $outputPostsArray,
             'thumbnailSrc' => $imageController->selectSrcPerImageID($placeArray['_thumbnailID']),
@@ -104,7 +103,7 @@ class _PlaceController extends BaseController
         $place->placeName = $requestArray['placeName'];
         $place->coordinateX = $requestArray['coordinateX'];
         $place->coordinateY = $requestArray['coordinateY'];
-        $place->text = $requestArray['text'];
+        $place->detail = $requestArray['detail'];
 
         $place->save();
 
@@ -146,6 +145,14 @@ class _PlaceController extends BaseController
         }
 
         return $outputImagesArray;
+    }
+
+    public function validatePlaceName($placeName){
+
+        //Implement Google Api and check if Place available
+
+
+        return true;
     }
 
 }

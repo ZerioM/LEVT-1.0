@@ -19,7 +19,7 @@ class _PostController extends BaseController
         $insertPostArray = [
             '_activityID' => $requestArray['_activityID'],
             '_placeID' => $requestArray['_placeID'],
-            'text' => $requestArray['detail']
+            'detail' => $requestArray['detail']
         ];
 
         $id = DB::table('posts')->insertGetId($insertPostArray);
@@ -53,7 +53,7 @@ class _PostController extends BaseController
             'placeName' => $placeArray['placeName'],
             'coordinateX' => $placeArray['coordinateX'],
             'coordinateY' => $placeArray['coordinateY'],
-            'detail' => $placeArray['text'],
+            'detail' => $placeArray['detail'],
 
             'posts' => null,
             'thumbnailSrc' => null,
@@ -78,7 +78,7 @@ class _PostController extends BaseController
             'postID' => $postArray['postID'],
             '_activityID' => $postArray['_activityID'],
             '_placeID' => $postArray['_placeID'],
-            'detail' => $postArray['text'],
+            'detail' => $postArray['detail'],
 
             'activityName' => $activityController->selectNameByID($postArray['_activityID']),
             'place' => $outputPlaceArray,
@@ -95,7 +95,7 @@ class _PostController extends BaseController
         $post = Post::find($requestArray['postID']);
 
         $post->_activityID = $requestArray['_activityID'];
-        $post->text = $requestArray['text'];
+        $post->detail = $requestArray['detail'];
 
         $post->save();
 
