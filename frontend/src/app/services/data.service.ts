@@ -16,6 +16,9 @@ import { Transports } from '../Interfaces/Transports';
 import { Activities } from '../Interfaces/Activities';
 import { Seasons } from '../Interfaces/Seasons';
 import { Post } from '../Interfaces/Post';
+import { JourneyDetailPage } from '../Pages/journey-detail/journey-detail.page';
+import { NewJourneyService } from './new-journey.service';
+import { User } from '../Interfaces/User';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +31,9 @@ export class DataService {
 
   public currentJourney:Journey={journeyID:null, _userID:null,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
 
-  public newJourney:Journey={journeyID:null, _userID:1,_thumbnailID:2,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
+  public currentUser:User={userID:11, username:"Sallie Johns",_profileImageID:6}
+
+public newJourney: Journey;
 
   public currentJourneys:Journeys={journeys:[]}
 
@@ -46,7 +51,8 @@ export class DataService {
 
   private locale : string;
 
-  constructor(private http: HttpClient, private sanitizer:DomSanitizer) { 
+  constructor(private http: HttpClient, private journeyService: NewJourneyService) { 
+    this.newJourney= this.journeyService.newJourney(this.currentUser);
       
     /*
     //for german Date:
