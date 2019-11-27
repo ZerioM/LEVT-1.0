@@ -23,7 +23,7 @@ export class NewJourneyService {
 
  
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
 
 
@@ -54,7 +54,7 @@ export class NewJourneyService {
   
   
   
-  saveJourney(journey:Journey) {// als Übergabeparameter eine Journey Übergeben
+  async saveJourney(journey:Journey): Journey {// als Übergabeparameter eine Journey Übergeben
     
     journey.year = parseInt(journey.year.toString().substring(0,4));
 
@@ -62,19 +62,33 @@ export class NewJourneyService {
     console.log("Journey Service: ");
     console.log(journey)
     
+    //Abfragen, ob journeyID == null, dann newJourney aufrufen, sonst updateJourney aufrufen
     
-    this.http.post("http://levt.test/newJourney", journey).subscribe((loadedData: Journey) => {
+    /*this.http.post("http://levt.test/newJourney", journey).subscribe((loadedData: Journey) => {
       console.log(loadedData);
       console.log("Post funktioniert");
+      journey = loadedData; 
+    }, error => {
+      console.log(error);
+    });*/
+
+    await this.http.post("http://levt.test/newJourney", journey).toPromise().then((loadedData: Journey) => {
+      console.log(loadedData);
+      console.log("Daten sind da");
+      journey = loadedData;
     }, error => {
       console.log(error);
     });
+
+    return journey;
     
   }
 
+
+
   newJourney(currentUser:User){
   
-    let myJourney:Journey={journeyID:null, _userID:currentUser.userID,_thumbnailID:2,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
+    let myJourney:Journey={journeyID:null, _userID:currentUser.userID,_thumbnailID:2,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:2019,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
 
     console.log("new Journey");
     return myJourney;

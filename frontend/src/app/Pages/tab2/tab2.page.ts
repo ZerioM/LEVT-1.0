@@ -6,6 +6,7 @@ import { NewJourneyService } from 'src/app/services/new-journey.service';
 
 
 import { compileNgModule } from '@angular/compiler';
+import { PlaceService } from 'src/app/services/place.service';
 
 @Component({
   selector: 'app-tab2',
@@ -23,7 +24,7 @@ export class Tab2Page {
   test: any;
 
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router) {
+  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService) {
 
     this.loadJSON();
   }
@@ -40,8 +41,17 @@ export class Tab2Page {
   }
 
   //Naviagation 
-  goToAddPlace() {
-    this.router.navigateByUrl('/tabs/tab2/add-place');
+  async goToAddPlace() {
+    this.readCostsAndTransports();
+    this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
+    if(this.data.newJourney.journeyID != null){
+      this.placeService.newPlace(this.data.newJourney);
+      this.router.navigateByUrl('/tabs/tab2/add-place');
+    } else {
+      //TO DO: Toast ausgeben: "Das Speichern hat nicht funktioniert"
+      console.log("Das Speichern hat nicht funktioniert.");
+    }
+
   }
 
   cancel(){
@@ -71,21 +81,7 @@ export class Tab2Page {
   finishJourney() {
     //Data binding testen
   
-    this.data.newJourney.leisureCosts=this.costs[0];
-    this.data.newJourney.accommodationCosts=this.costs[1];
-    this.data.newJourney.mealsanddrinksCosts=this.costs[2];
-    this.data.newJourney.transportationCosts=this.costs[3];
-    this.data.newJourney.otherCosts=this.costs[4];
-
-    this.data.newJourney.plane=this.transports[0];
-    this.data.newJourney.car=this.transports[1];
-    this.data.newJourney.bus=this.transports[2];
-    this.data.newJourney.train=this.transports[3];
-    this.data.newJourney.ship=this.transports[4];
-    this.data.newJourney.motorbike=this.transports[5];
-    this.data.newJourney.campingtrailer=this.transports[6];
-    this.data.newJourney.hiking=this.transports[7];
-    this.data.newJourney.bicycle=this.transports[8];
+    this.readCostsAndTransports();
 
     console.log("journeyName: " + this.data.newJourney.journeyName);
     console.log("Season: " + this.data.newJourney.seasonName);
@@ -115,6 +111,22 @@ export class Tab2Page {
     this.router.navigateByUrl('/tabs/tab1');
   }
 
+  readCostsAndTransports(){
+    this.data.newJourney.leisureCosts=this.costs[0];
+    this.data.newJourney.accommodationCosts=this.costs[1];
+    this.data.newJourney.mealsanddrinksCosts=this.costs[2];
+    this.data.newJourney.transportationCosts=this.costs[3];
+    this.data.newJourney.otherCosts=this.costs[4];
 
+    this.data.newJourney.plane=this.transports[0];
+    this.data.newJourney.car=this.transports[1];
+    this.data.newJourney.bus=this.transports[2];
+    this.data.newJourney.train=this.transports[3];
+    this.data.newJourney.ship=this.transports[4];
+    this.data.newJourney.motorbike=this.transports[5];
+    this.data.newJourney.campingtrailer=this.transports[6];
+    this.data.newJourney.hiking=this.transports[7];
+    this.data.newJourney.bicycle=this.transports[8];
+  }
 }
 
