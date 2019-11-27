@@ -83,10 +83,7 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
   height: 50px;
   vertical-align: middle;
 }// Logo im Header auf allen Seiten
-#gallery {
-  width: 94%;
-  margin: 10px auto;
-}
+
 .frameLeft .frameRight {
   position: absolute;
   width: 30px;
@@ -94,7 +91,6 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
 }
 .pictureFrame {
   width: 100%;
-  margin-bottom: 50px;
   position: relative;
 }
 .frameLeft {
@@ -104,7 +100,7 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
   left: 0;
   border-top: 4px solid #182f30;
   border-left: 4px solid #182f30;
-} //Rahmen Links
+} //Rahmen Links 
 .frameRight {
   float: right;
   width: 30px;
@@ -113,7 +109,7 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
   right: 0;
   border-bottom: 4px solid #182f30;
   border-right: 4px solid #182f30;
-} // Rahmen rechts
+} // Rahmen Rechts
 .alignright{
   float:right !important;
 }
