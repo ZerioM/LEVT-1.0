@@ -14,11 +14,10 @@ class _PlaceController extends BaseController
 {
 
     public function insertOne(Request $request){
-
-        $requestArray = $request->all();
-
         $countryController = new _CountryController;
         $imageController = new _ImageController;
+
+        $requestArray = $request->all();
 
         $thumbnailID = $imageController->selectIDPerSrc($requestArray['thumbnailSrc']);
 
@@ -146,6 +145,14 @@ class _PlaceController extends BaseController
         }
 
         return $outputImagesArray;
+    }
+
+    public function validatePlaceName($placeName){
+
+        //Implement Google Api and check if Place available
+
+
+        return true;
     }
 
 }
