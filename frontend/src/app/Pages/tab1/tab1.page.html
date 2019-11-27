@@ -2,10 +2,10 @@
   <ion-list class="headerAll">
     <ion-buttons id="setup" slot="end">
       <ion-button icon-only>
-        <ion-icon name="apps" size="large"></ion-icon>
+        <ion-icon name="md-apps" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <img class="header" id="header" src="/assets/images/LEVT_Header.svg" alt="" />
+    <img id="header" src="/assets/images/LEVT_Header.svg" alt="" />
     <ion-searchbar placeholder="Dream destination"></ion-searchbar>
   </ion-list>
 </ion-header>
@@ -13,7 +13,7 @@
 <ion-content color="none">
   <ion-list lines="none">
     <div id="gallery" *ngFor="let j of data.currentJourneys.journeys">
-      <div class="pictureFrame">
+      <div class="pictureFrameIndex">
         <div class="frameLeft"></div>
         <div class="imgAndInfo">
           <ion-item class="thumbnailImg" color="none" (click)="showJourney(j.journeyID)">

@@ -27,6 +27,8 @@ $router->post('/newPost','CreateController@insertPost');
 
 $router->post('/newImage','CreateController@insertImage');
 
+$router->post('/newBookmark','CreateController@insertBookmark');
+
 
 //READ
 
@@ -72,3 +74,4 @@ $router->post('/deletePost','DeleteController@deleteOnePost');
 
 $router->post('/deleteImage','DeleteController@deleteOneImage');
 
+$router->post('/deleteBookmark','DeleteController@deleteOneBookmark');

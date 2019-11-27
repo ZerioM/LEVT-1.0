@@ -3,15 +3,15 @@ button.button-native{
 }
 .journeythumbnail {
   width: 95%;
+  display: block;
   margin-left: auto;
   margin-right: auto;
   margin-top: -20px;
   margin-bottom: -20px;
-}
-hr {
-  color: #182f30;
+  padding: 0px !important;
 }
 #journeyName{
+  width: 100%;
   border-bottom: 1px solid #16161650;
   max-height: 30pt;
   vertical-align: middle;
@@ -31,17 +31,10 @@ hr {
 .season{
   color: #161616;
 }
-#journeyYear{
-  
-}
-#journeyCategory{
-  
+//#journeyYear{}
+//#journeyCategory{}
+//#transport{}
 
-}
-
-#transport{
-
-}
 .radioButtons ion-radio{
   border: none;
 }
@@ -50,12 +43,8 @@ hr {
   font-size: 10pt;
 }// Überschrift bei den Kategorien
 .labelsCategories{
-  margin-left: 2px;
+  margin-left: 3px;
 }// alle Labels bei den jeweiligen Kategorien
-div.item-native :host{
-  --padding-start: 20px;
-}
-
 .costcategories{
   justify-content: right;
   text-align: right;
