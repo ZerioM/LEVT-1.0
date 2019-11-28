@@ -3,6 +3,8 @@ import { NewJourneyService } from 'src/app/services/new-journey.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { PostService } from 'src/app/services/post.service';
+import { PlaceService } from 'src/app/services/place.service';
 
 @Component({
   selector: 'app-add-post',
@@ -11,15 +13,31 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class AddPostPage implements OnInit {
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router) {
+  constructor(private journeyService: NewJourneyService, private data: DataService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router) {
+    this.data.loadActivities();
+    //only for Test-Phase
+    /*this.data.newJourney = this.journeyService.newJourney(this.data.currentUser);
+    this.data.newPlace = this.placeService.newPlace(this.data.newJourney);*/
+    this.data.newPost = this.postService.newPost(this.data.newPlace);
   }
 
   ngOnInit() {
+
   }
 
-  savePost(){
-    console.log("Post saved");
-    this.router.navigateByUrl('/tabs/tab2/add-place');
+  async savePost(){
+    console.log(this.data.newPost._activityID);
+    this.data.newPost = await this.postService.savePost(this.data.newPost);
+    
+    if(this.data.newPost.postID != null){
+      console.log("Post saved");
+      this.data.newPlace.posts.push(this.data.newPost);
+      this.router.navigateByUrl('/tabs/tab2/add-place');
+    } else {
+      //Toast ausgeben: Error
+      console.log("Das Speichern hat nicht funktioniert.");
+    }
+    
   }  
 
 }
