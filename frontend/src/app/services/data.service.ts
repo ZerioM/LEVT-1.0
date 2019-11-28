@@ -19,6 +19,8 @@ import { Post } from '../Interfaces/Post';
 import { JourneyDetailPage } from '../Pages/journey-detail/journey-detail.page';
 import { NewJourneyService } from './new-journey.service';
 import { User } from '../Interfaces/User';
+import { PlaceService } from './place.service';
+import { PostService } from './post.service';
 
 @Injectable({
   providedIn: 'root'
@@ -37,12 +39,12 @@ export class DataService {
 
   public currentUser:User={userID:11, username:"Sallie Johns",_profileImageID:6}
 
-public newJourney: Journey;
+  public newJourney: Journey;
 
   public currentJourneys:Journeys={journeys:[]}
 
-
-
+  public placeInJourney: number;
+  public postInPlace: number;
 
   //Zentrale Daten laden 
   public journeyCategories: JourneyCategories = { journeyCategories: [] };
@@ -55,8 +57,9 @@ public newJourney: Journey;
 
   private locale : string;
 
-  constructor(private http: HttpClient, private journeyService: NewJourneyService) { 
+  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService) { 
     this.newJourney= this.journeyService.newJourney(this.currentUser);
+
       
     /*
     //for german Date:

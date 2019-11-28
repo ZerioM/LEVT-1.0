@@ -13,16 +13,24 @@ import { PlaceService } from 'src/app/services/place.service';
 })
 export class AddPostPage implements OnInit {
 
+  private inserted: boolean = false;;
+
   constructor(private journeyService: NewJourneyService, private data: DataService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router) {
     this.data.loadActivities();
-    //only for Test-Phase
-    /*this.data.newJourney = this.journeyService.newJourney(this.data.currentUser);
-    this.data.newPlace = this.placeService.newPlace(this.data.newJourney);*/
-    this.data.newPost = this.postService.newPost(this.data.newPlace);
+    if(this.data.newPost == null){
+      this.data.newPost = this.postService.newPost(this.data.newPlace);
+      this.inserted = false;
+    } else {
+      this.inserted = true;
+    }
   }
 
   ngOnInit() {
 
+  }
+
+  goBackToPlace(){
+    this.savePost();
   }
 
   async savePost(){
@@ -31,7 +39,12 @@ export class AddPostPage implements OnInit {
     
     if(this.data.newPost.postID != null){
       console.log("Post saved");
-      this.data.newPlace.posts.push(this.data.newPost);
+      if(this.inserted){
+        this.data.newPlace.posts[this.data.postInPlace] = this.data.newPost;
+      } else {
+        this.data.newPlace.posts.push(this.data.newPost);
+      }
+      this.data.newPost = this.postService.newPost(this.data.newPlace);
       this.router.navigateByUrl('/tabs/tab2/add-place');
     } else {
       //Toast ausgeben: Error

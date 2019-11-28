@@ -7,6 +7,7 @@ import { NewJourneyService } from 'src/app/services/new-journey.service';
 
 import { compileNgModule } from '@angular/compiler';
 import { PlaceService } from 'src/app/services/place.service';
+import { Place } from 'src/app/Interfaces/Place';
 
 @Component({
   selector: 'app-tab2',
@@ -41,7 +42,7 @@ export class Tab2Page {
   }
 
   //Naviagation 
-  async goToAddPlace() {
+  async goToAddNewPlace() {
     this.readCostsAndTransports();
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
     if(this.data.newJourney.journeyID != null){
@@ -54,7 +55,22 @@ export class Tab2Page {
 
   }
 
+  async goToEditPlace(place: Place, index: number){
+    this.readCostsAndTransports();
+    this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
+    if(this.data.newJourney.journeyID != null){
+      console.log(place);
+      this.data.placeInJourney = index;
+      this.data.newPlace = place;
+      this.router.navigateByUrl('/tabs/tab2/add-place');
+    } else {
+      //TO DO: Toast ausgeben: "Das Speichern hat nicht funktioniert"
+      console.log("Das Speichern hat nicht funktioniert.");
+    }
+  }
+
   cancel(){
+    
     this.data.newJourney=this.journeyService.newJourney(this.data.currentUser);
     this.router.navigateByUrl('/tabs/tab1');
 
@@ -70,35 +86,18 @@ export class Tab2Page {
   }
 
   showNoPlaceWarning() {
-    if (this.data.newJourney.places != null) {
+    if (this.data.newJourney.places.length == 0) {
       return true;
     } else {
       return false;
     }
-
+    return true;
   }
 
   async finishJourney() {
     //Data binding testen
   
-    this.readCostsAndTransports();
-
-    console.log("journeyName: " + this.data.newJourney.journeyName);
-    console.log("Season: " + this.data.newJourney.seasonName);
-    console.log("Year: " + this.data.newJourney.year);
-    console.log("Duration: " + this.data.newJourney.duration);
-    console.log("CategoryID: " + this.data.newJourney._journeyCategoryID);
-    console.log("CompanionshipID: " + this.data.newJourney._companionshipID);
-    console.log("JourneyDetail: " + this.data.newJourney.detail);
-    console.log("Leisure Costs: " + this.data.newJourney.leisureCosts);
-    console.log("Accommodation Costs: " + this.data.newJourney.accommodationCosts);
-    console.log("Meals and Drinks Costs: " + this.data.newJourney.mealsanddrinksCosts);
-    console.log("Transport Costs: " + this.data.newJourney.transportationCosts);
-    console.log("Other Costs: " + this.data.newJourney.otherCosts);
-    console.log("Total Costs: " + this.data.newJourney.totalCosts);
-    console.log("Plane = "+this.data.newJourney.plane);
-    
-    
+    this.readCostsAndTransports();  
 
     console.log("Tab2: ");
     console.log(this.data.newJourney);

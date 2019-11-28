@@ -3,7 +3,7 @@
     <ion-back-button></ion-back-button>
   </ion-buttons>-->
   <ion-buttons>
-      <ion-button icon-only (click)="back()">
+      <ion-button icon-only (click)="goBackToJourney()">
         <ion-icon class="back" name="ios-arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -29,10 +29,10 @@
     </ion-item>
     <ion-item no-padding>
       <div id="alreadyAddedPlaces" class="gridContainer">
-        <div class="grid-item" *ngFor="let po of data.newPlace.posts"> <!--muss noch auf posts geändert werden-->
+        <div class="grid-item" *ngFor="let po of data.newPlace.posts; let in of index" (click)="goToEditPost(po,in)"> <!--muss noch auf posts geändert werden-->
           <img class="pictureGrid" alt="" src="{{po.images[0].imgSrc}}"/>
         </div>
-        <div class="grid-item" (click)="goToAddPost()">
+        <div class="grid-item" (click)="goToAddNewPost()">
           <ion-icon name="ios-add" class="addPlace"></ion-icon>
         </div>
       </div>

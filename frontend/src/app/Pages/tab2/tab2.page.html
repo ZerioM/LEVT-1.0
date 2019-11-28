@@ -90,11 +90,11 @@
     </ion-item>
     <ion-item no-padding>
       <div id="alreadyAddedPlaces" class="gridContainer">
-        <div class="grid-item" *ngFor="let p of data.newJourney.places">
+        <div class="grid-item" *ngFor="let p of data.newJourney.places; let in of index" (click)="goToEditPlace(p,in)">
           <img class="pictureGrid" src="{{p.thumbnailSrc}}" alt="" />
           <div id="visitedPlaceName" class="visitedPlaceName">{{p.placeName}}</div>
         </div>
-        <div class="grid-item" (click)="goToAddPlace()">
+        <div class="grid-item" (click)="goToAddNewPlace()">
           <ion-icon name="ios-add" class="addPlace"></ion-icon>
         </div>
       </div>
