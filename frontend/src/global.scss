@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -26,13 +26,16 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 ion-item {
-      font-size: 10pt;
-      --inner-padding-end: none;
-      background-color: none;
-}
-input{
+  font-size: 10pt;
+  --inner-padding-end: none;
   background-color: none;
 }
+input {
+  background-color: none;
+}
+b{
+  color: #161616;
+} // Bold = Fett geschriebene Sachen
 div.tabs-inner {
   width: 90%;
   margin-left: auto;
@@ -40,17 +43,17 @@ div.tabs-inner {
   display: flex;
   flex-direction: column;
 } // => Content auf allen Seiten
-ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
-  background:#182f30;
+ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
+  background: #415f4b66;
   height: 1px;
-} //macht linie nach Header weg
+} //Linie nach Header
 .tabHeader {
   height: 60px;
-      margin: -10px auto 0 auto; // top-right-bottom-left
-      padding-top: 5px;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+  margin: -10px auto 0 auto; // top-right-bottom-left
+  padding-top: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 } // Header auf allen Seiten
 .cancel {
   justify-content: left;
@@ -66,22 +69,27 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
   vertical-align: middle;
   position: absolute;
 } // < auf Unterseiten
-.sc-ion-buttons-md-s ion-button{
+.sc-ion-buttons-md-s ion-button {
   --padding-start: 20px;
   --padding-end: 20px;
-}// buttons x & <
+} // buttons x & <
 .tabHeading {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 15pt;
   text-align: center;
   font-variant: small-caps;
   vertical-align: middle;
-}// Headerüberschrift auf allen Seiten
-#headerLogo {
+} // Headerüberschrift auf allen Seiten
+.headerLogo {
   height: 50px;
   vertical-align: middle;
-}// Logo im Header auf allen Seiten
-
+} // Logo im Header auf allen Seiten
+.headerUserPic {
+  height: 30px;
+  width: 30px;
+  align-self: center;
+  object-fit: cover;
+} // User Pic im Header auf allen Seiten
 .frameLeft .frameRight {
   position: absolute;
 } // Bilderrahmen link und rechts
@@ -89,7 +97,7 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
   width: 100%;
   position: relative;
   margin-bottom: 20px;
-}// Bilderrahmen => Rahmen & Bild 
+} // Bilderrahmen => Rahmen & Bild
 .frameLeft {
   width: 30px;
   height: 30px;
@@ -97,7 +105,7 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
   left: 0;
   border-top: 4px solid #182f30;
   border-left: 4px solid #182f30;
-} //Rahmen Links 
+} //Rahmen Links
 .frameRight {
   float: right;
   width: 30px;
@@ -107,24 +115,31 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after{
   border-bottom: 4px solid #182f30;
   border-right: 4px solid #182f30;
 } // Rahmen Rechts
-.alignright{
-  float:right !important;
+.travelTime {
+  display: flex;
+  flex-direction: row;
+} // Season & Year
+.timeIcon {
+  margin-right: 5px;
+  color: #7ba9a9;
+} // Uhr Icon
+.alignright {
+  float: right !important;
 }
-div .item-native{
+div .item-native {
   padding-left: -16px;
 }
-*{
+* {
   border-radius: 0px;
 } //macht radiobutton eckig
-button{
+button {
   padding: none;
 }
-ion-chip{
+ion-chip {
   padding: 0px;
   background: 0;
   margin-right: 5px;
 }
-
 
 .gridContainer {
   width: 100%;
@@ -132,12 +147,14 @@ ion-chip{
   margin-right: auto;
   display: flex;
   //flex-wrap: wrap;
-  flex-flow:row wrap;
+  flex-flow: row wrap;
   justify-content: space-between;
 }
 .grid-item {
   width: 100px;
+  height: 100px;
   margin-bottom: 30px;
+  background: #7ba9a9bf;
 } //=> Bild & Text
 .grid-item .addPlace {
   width: 100px;
@@ -148,22 +165,26 @@ ion-chip{
   color: #182f30;
   font-size: 70pt;
   font-weight: bolder;
-}
+}// Add a Place
 .pictureGrid {
   width: 100px;
   height: 100px;
   object-fit: cover;
-}//=> Bild alleine
-#visitedPlaceName {
+} //=> Bild alleine
+
+.visitedPlaceName {
   width: 100%;
   margin-top: -30px;
+  align-self: center;
   background-color: #eceeefbf;
   vertical-align: middle;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 10pt;
   text-align: center;
   position: relative;
-}
+  z-index: 100; 
+}//Text auf transparenten Hintergrund
+
 
 //Map
 .map {

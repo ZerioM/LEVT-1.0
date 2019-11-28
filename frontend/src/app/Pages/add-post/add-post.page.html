@@ -1,14 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
+<ion-header class="tabHeader">
+    <!--<ion-buttons slot="start">
       <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Add a Post</ion-title>
-  </ion-toolbar>
+    </ion-buttons>-->
+    <ion-buttons>
+        <ion-button icon-only (click)="back()">
+          <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    <ion-title  class="tabHeading" no-padding>Add a Post</ion-title>
+    <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
-
+<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
-  <ion-item>
+  <ion-item no-padding>
     <ion-label>What is your post about?</ion-label>
     <ion-select placeholder="Post Category" [(ngModel)]="data.newPost._activityID">
       <ion-select-option *ngFor="let a of data.activities.activities" value="{{a.activityID}}">
@@ -16,10 +20,10 @@
       </ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-item>
+  <ion-item no-padding>
     <ion-label><b>Post Details</b></ion-label>
   </ion-item>
-  <ion-item>
+  <ion-item no-padding>
     <ion-textarea [(ngModel)]="data.newPost.detail" placeholder="Tell us what you experienced here!" rows="8" background="light"></ion-textarea>
   </ion-item>
   <ion-button (click)="savePost()" color="primary" expand="full">

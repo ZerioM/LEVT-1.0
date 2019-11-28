@@ -1,54 +1,65 @@
 <ion-header class="tabHeader">
-    <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
- 
-    <ion-title class="tabHeading">{{data.currentJourney.journeyName}}</ion-title>
-    <ion-item color="none">
-        <img src={{data.currentJourney.userImgSrc}} alt="User" class="userpic" />
-      </ion-item>
-  
+  <!--<ion-buttons slot="start">
+        <ion-back-button icon="arrow-back"></ion-back-button>
+      </ion-buttons>-->
+  <ion-buttons>
+    <ion-button icon-only (click)="back()">
+      <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title class="tabHeading" no-padding>{{data.currentJourney.journeyName}}</ion-title>
+    <img class="headerUserPic" src={{data.currentJourney.userImgSrc}} alt="User" />
 </ion-header>
-
+<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
 
-    <ion-list lines="none">
-        <div id="gallery">
-          <div class="pictureFrame">
-            <div class="imgAndInfo">
-              <ion-item class="thumbnailImg" color="none">
-                <img src="{{data.currentJourney.thumbnailSrc}}" alt="Reise" />
-              </ion-item>
-              <div class="picInformations">
-                <div class="userpicAndName">
-                  <ion-item color="none">
-                    <img src="{{bookmarkIcon}}" alt="Bookmark" class="userpic" (click)="bookmarken()" />
-                  </ion-item>
-                </div>
-                <ion-item color="none" id="travelTime">
-                    <ion-icon name="md-time" id="timeIcon"></ion-icon>
-                  <ion-label>{{data.currentJourney.seasonName}} - {{data.currentJourney.year}}</ion-label>
-                </ion-item>
-              </div>
-            </div>
+  <ion-list lines="none">
+    <div class="pictureFrame">
+      <div class="frameLeft"></div>
+      <div class="imgAndInfo">
+        <ion-item class="thumbnailImg" color="none">
+          <img src="{{data.currentJourney.thumbnailSrc}}" alt="Reise" />
+        </ion-item>
+        <div class="picInformations">
+          <div class="bookmarkIcon">
+            <ion-item color="none">
+              <img src="{{bookmarkIcon}}" alt="Bookmark" class="userpic" (click)="bookmarken()" />
+            </ion-item>
           </div>
+          <ion-item color="none" class="travelTime">
+            <ion-icon name="md-time" class="timeIcon"></ion-icon>
+            <ion-label>{{data.currentJourney.seasonName}} - {{data.currentJourney.year}}</ion-label>
+          </ion-item>
         </div>
-      </ion-list>
+      </div>
+      <div class="frameRight"></div>
+    </div>
+  </ion-list>
   <ion-list>
     <!-- <ion-item><ion-label>Journey Name: {{data.currentJourney.journeyName}}</ion-label></ion-item>
     <ion-item><ion-label>Season Name: {{data.currentJourney.seasonName}}</ion-label></ion-item>
     <ion-item><ion-label>Year: {{data.currentJourney.year}}</ion-label></ion-item>-->
-    <ion-item><ion-label>JourneyID: {{data.currentJourney.journeyID}}</ion-label></ion-item>
-    <ion-item><ion-label>Journey Category Name: {{data.currentJourney.journeyCategoryName}}</ion-label></ion-item>
-    <ion-item><ion-label>Companionship: {{data.currentJourney.companionshipType}}</ion-label></ion-item>
-    <ion-item><ion-text>Details: {{data.currentJourney.detail}}</ion-text></ion-item>
+    <ion-item>
+      <ion-label><b>JourneyID:</b> {{data.currentJourney.journeyID}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><b>Journey Category Name:</b> {{data.currentJourney.journeyCategoryName}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><b>Companionship:</b> {{data.currentJourney.companionshipType}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-text><b>Details:</b> {{data.currentJourney.detail}}</ion-text>
+    </ion-item>
 
     <div #mapElement class="map">
-      
-      
+
+
     </div>
 
-    <iframe  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85064.46935152684!2d16.31002052510518!3d48.220778004813376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476d079e5136ca9f%3A0xfdc2e58a51a25b46!2sWien!5e0!3m2!1sde!2sat!4v1574340689609!5m2!1sde!2sat" width="600" height="200" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85064.46935152684!2d16.31002052510518!3d48.220778004813376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476d079e5136ca9f%3A0xfdc2e58a51a25b46!2sWien!5e0!3m2!1sde!2sat!4v1574340689609!5m2!1sde!2sat"
+      width="600" height="200" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 
     <ion-item>
       <ion-label>Visited places:</ion-label>
@@ -56,8 +67,8 @@
     <ion-item>
       <div id="alreadyAddedPlaces" class="gridContainer">
         <div class="grid-item" *ngFor="let p of data.currentJourney.places" (click)="showPlace(p.placeID)">
-          <img class="pictureGrid" src="{{p.thumbnailSrc}}" alt="" />
-          <div id="visitedPlaceName">{{p.placeName}}</div>
+            <img class="pictureGrid" src="{{p.thumbnailSrc}}" alt="" />
+          <div id="visitedPlaceName" class="visitedPlaceName">{{p.placeName}}</div>
         </div>
       </div>
     </ion-item>

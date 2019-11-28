@@ -60,4 +60,9 @@ class ReadController extends BaseController
         $sc = new _SeasonController;
         return $sc->selectAll();
     }
+
+    public function showIfBookmarkExists(Request $request){
+        $bc = new _BookmarkController;
+        return $bc->proveOne($request);
+    }
 }

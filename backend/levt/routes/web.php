@@ -50,6 +50,7 @@ $router->post('/onePlace','ReadController@selectOnePlace');
 
 $router->post('/onePost','ReadController@selectOnePost');
 
+$router->post('/proveBookmarkExists','ReadController@showIfBookmarkExists');
 
 
 //UPDATE
