@@ -78,6 +78,7 @@ ion-searchbar {
   line-height: 26pt;
   text-align:center;
   background-color: #eceeefbf;
+  font-variant: small-caps;
   position:absolute;
 } // Titel der Reise im Bild
 .picInformations {
@@ -98,14 +99,7 @@ ion-searchbar {
   object-fit: cover;
   margin-right: 5px;
 } // Profilbild
-.travelTime {
-  display: flex;
-  flex-direction: row;
-} // Season & Year
-#timeIcon{
-  margin-right: 5px;
-  color: #7ba9a9;
-} // Uhr Icon
+
 ion-label {
   margin: 0;
 }

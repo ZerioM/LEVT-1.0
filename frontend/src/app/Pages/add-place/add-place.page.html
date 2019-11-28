@@ -1,28 +1,33 @@
 <ion-header class="tabHeader">
-  <ion-buttons slot="start">
+  <!--<ion-buttons slot="start">
     <ion-back-button></ion-back-button>
-  </ion-buttons>
+  </ion-buttons>-->
+  <ion-buttons>
+      <ion-button icon-only (click)="back()">
+        <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   <ion-title class="tabHeading" no-padding>Add a place</ion-title>
-  <img id="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
+  <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
-
+<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label><b>General</b></ion-label>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-input [(ngModel)]="data.newPlace.placeName" placeholder="Place" background="light" 
       (keyUp)="keyUpPlaceName()" (focusout)="focusOutPlaceName()" ></ion-input>
     </ion-item>
     
 
-    <ion-item>
+    <ion-item no-padding>
       <ion-label><b>Posts</b></ion-label>
     </ion-item>
-    <ion-item lines="none">
+    <ion-item lines="none" no-padding>
       <ion-label color="warning" id="NoPlace"> You haven't added any posts to your place!</ion-label>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <div id="alreadyAddedPlaces" class="gridContainer">
         <div class="grid-item" *ngFor="let po of data.newPlace.posts"> <!--muss noch auf posts geändert werden-->
           <img class="pictureGrid" alt="" src="{{po.images[0].imgSrc}}"/>
@@ -32,10 +37,10 @@
         </div>
       </div>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-label><b>Place Details</b></ion-label>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding>
       <ion-textarea placeholder="Tell us what you experienced here!" [(ngModel)]="data.newPlace.detail" rows="8" background="light"></ion-textarea>
     </ion-item>
     <ion-button (click)="savePlace()" color="primary" expand="full">
