@@ -9,6 +9,8 @@ import { compileNgModule } from '@angular/compiler';
 import { PlaceService } from 'src/app/services/place.service';
 import { Place } from 'src/app/Interfaces/Place';
 
+import { AlertController } from '@ionic/angular';
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -25,7 +27,7 @@ export class Tab2Page {
   test: any;
 
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService) {
+  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController) {
 
     this.loadJSON();
   }
@@ -69,11 +71,35 @@ export class Tab2Page {
     }
   }
 
-  cancel(){
-    
+  goBacktoHomepageWithoutSaving(){  
     this.data.newJourney=this.journeyService.newJourney(this.data.currentUser);
     this.router.navigateByUrl('/tabs/tab1');
+  }
 
+  async alert() {
+    const alert = await this.alertController.create({
+      header: 'Attention! Your Journey isn´t saved yet!',
+      message: '<strong>Would you like to save your created journey?</strong>',
+      buttons: [
+        {
+          text: 'Continue without saving',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+            this.goBacktoHomepageWithoutSaving();
+          }
+        }, {
+          text: 'Save',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.finishJourney();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   //Toggles

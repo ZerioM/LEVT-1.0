@@ -3,7 +3,6 @@ import { NewJourneyService } from 'src/app/services/new-journey.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
-import { MapsAPILoader } from '@agm/core'; 
 import { Place } from 'src/app/Interfaces/Place';
 import { PlaceService } from 'src/app/services/place.service';
 import { PostService } from 'src/app/services/post.service';
