@@ -78,7 +78,7 @@ export class Tab2Page {
 
   }
 
-  finishJourney() {
+  async finishJourney() {
     //Data binding testen
   
     this.readCostsAndTransports();
@@ -105,10 +105,17 @@ export class Tab2Page {
     
     console.log("Plane = "+this.data.newJourney.plane);
     
-    this.journeyService.saveJourney(this.data.newJourney);
+    this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
     
-    this.data.newJourney=this.journeyService.newJourney(this.data.currentUser);
-    this.router.navigateByUrl('/tabs/tab1');
+    if(this.data.newJourney.journeyID != null){
+      this.data.newJourney=this.journeyService.newJourney(this.data.currentUser);
+      this.router.navigateByUrl('/tabs/tab1');
+    } else {
+      //Toast ausgeben: Das Speichern hat nicht funktioniert.
+      console.log("Das Speichern hat nicht funktioniert.");
+    }
+
+    
   }
 
   readCostsAndTransports(){

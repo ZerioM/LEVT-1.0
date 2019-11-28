@@ -54,31 +54,35 @@ export class NewJourneyService {
   
   
   
-  async saveJourney(journey:Journey): Journey {// als Übergabeparameter eine Journey Übergeben
+  async saveJourney(journey:Journey) {// als Übergabeparameter eine Journey Übergeben
     
     journey.year = parseInt(journey.year.toString().substring(0,4));
 
     // this.postData = this.data.newJourney;
     console.log("Journey Service: ");
-    console.log(journey)
+    console.log(journey);
     
     //Abfragen, ob journeyID == null, dann newJourney aufrufen, sonst updateJourney aufrufen
+    if(journey.journeyID == null){
+      await this.http.post("http://levt.test/newJourney", journey).toPromise().then((loadedData: Journey) => {
+        console.log(loadedData);
+        console.log("New Journey in DB inserted.");
+        journey = loadedData;
+      }, error => {
+        console.log(error);
+      });
+    } else {
+      await this.http.post("http://levt.test/updateJourney", journey).toPromise().then((loadedData: Journey) => {
+        console.log(loadedData);
+        console.log("Journey with ID: ");
+        console.log(journey.journeyID);
+        console.log(" in DB updated.");
+        journey = loadedData;
+      }, error => {
+        console.log(error);
+      });
+    }
     
-    /*this.http.post("http://levt.test/newJourney", journey).subscribe((loadedData: Journey) => {
-      console.log(loadedData);
-      console.log("Post funktioniert");
-      journey = loadedData; 
-    }, error => {
-      console.log(error);
-    });*/
-
-    await this.http.post("http://levt.test/newJourney", journey).toPromise().then((loadedData: Journey) => {
-      console.log(loadedData);
-      console.log("Daten sind da");
-      journey = loadedData;
-    }, error => {
-      console.log(error);
-    });
 
     return journey;
     

@@ -6,6 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 import { MapsAPILoader } from '@agm/core'; 
 import { Place } from 'src/app/Interfaces/Place';
 import { PlaceService } from 'src/app/services/place.service';
+import { PostService } from 'src/app/services/post.service';
 //import { google } from '@agm/core/services/google-maps-types';
 
 
@@ -20,7 +21,7 @@ export class AddPlacePage implements OnInit {
   
   
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService) {
+  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService) {
     
     this.data.newPlace = this.placeService.newPlace(this.data.newJourney);
   
@@ -30,11 +31,17 @@ export class AddPlacePage implements OnInit {
   }
 
   
-  goToAddPost(){
+  async goToAddPost(){
     if(this.data.validatePlaceName()){
-      this.placeService.savePlace(this.data.newPlace);
-      //this.postService.newPost(this.data.newPlace);
-      this.router.navigateByUrl('/tabs/tab2/add-post');
+      this.data.newPlace = await this.placeService.savePlace(this.data.newPlace);
+      if(this.data.newPlace.placeID != null){
+        this.postService.newPost(this.data.newPlace);
+        this.router.navigateByUrl('/tabs/tab2/add-post');
+      } else {
+        //Toast ausgeben: Das Speichern hat nicht funktioniert.
+        console.log("Das Speichern hat nicht funktioniert.");
+      }
+      
     }
     
   }
@@ -50,11 +57,18 @@ export class AddPlacePage implements OnInit {
   }
 
   
-  savePlace(){
+  async savePlace(){
     //console.log("Place saved");
     if(this.data.validatePlaceName()){
-      this.placeService.savePlace(this.data.newPlace);
-      this.router.navigateByUrl('/tabs/tab2');
+      this.data.newPlace = await this.placeService.savePlace(this.data.newPlace);
+      if(this.data.newPlace.placeID != null){
+        this.data.newJourney.places.push(this.data.newPlace);
+        this.router.navigateByUrl('/tabs/tab2');
+      } else {
+        //Toast ausgeben: Speichern hat nicht funktioniert
+        console.log("Speichern hat nicht funktioniert.");
+      }
+      
     }
   }  
 
