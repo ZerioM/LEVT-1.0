@@ -22,6 +22,8 @@ import { User } from '../Interfaces/User';
 import { PlaceService } from './place.service';
 import { PostService } from './post.service';
 
+import { ToastController } from '@ionic/angular';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -57,7 +59,7 @@ export class DataService {
 
   private locale : string;
 
-  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService) { 
+  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService, public toastController: ToastController) { 
     this.newJourney= this.journeyService.newJourney(this.currentUser);
 
       
@@ -267,6 +269,14 @@ export class DataService {
 
     
 
+  }
+
+  async presentNotSavedToast() {
+    const toast = await this.toastController.create({
+      message: 'There was a problem with saving the content to database. Please try again!',
+      duration: 8000
+    });
+    toast.present();
   }
 
   loadTopPosts(){

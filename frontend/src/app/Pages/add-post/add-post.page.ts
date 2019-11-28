@@ -48,6 +48,7 @@ export class AddPostPage implements OnInit {
       this.router.navigateByUrl('/tabs/tab2/add-place');
     } else {
       //Toast ausgeben: Error
+      this.data.presentNotSavedToast();
       console.log("Das Speichern hat nicht funktioniert.");
     }
     

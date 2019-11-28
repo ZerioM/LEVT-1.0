@@ -8,7 +8,7 @@ import { PlaceService } from 'src/app/services/place.service';
 import { PostService } from 'src/app/services/post.service';
 import { isGeneratedFile } from '@angular/compiler/src/aot/util';
 import { Post } from 'src/app/Interfaces/Post';
-//import { google } from '@agm/core/services/google-maps-types';
+
 
 
 
@@ -36,6 +36,8 @@ export class AddPlacePage implements OnInit {
   ngOnInit() {
   }
 
+  
+
   goBackToJourney(){
     this.savePlace();
   }
@@ -48,6 +50,7 @@ export class AddPlacePage implements OnInit {
         this.router.navigateByUrl('/tabs/tab2/add-post');
       } else {
         //Toast ausgeben: Das Speichern hat nicht funktioniert.
+        this.data.presentNotSavedToast();
         console.log("Das Speichern hat nicht funktioniert.");
       }
       
@@ -64,6 +67,7 @@ export class AddPlacePage implements OnInit {
         this.router.navigateByUrl('/tabs/tab2/add-post');
       } else {
         //Toast ausgeben: Das Speichern hat nicht funktioniert.
+        this.data.presentNotSavedToast();
         console.log("Das Speichern hat nicht funktioniert.");
       }
       
@@ -97,6 +101,7 @@ export class AddPlacePage implements OnInit {
         this.router.navigateByUrl('/tabs/tab2');
       } else {
         //Toast ausgeben: Speichern hat nicht funktioniert
+        this.data.presentNotSavedToast();
         console.log("Speichern hat nicht funktioniert.");
       }
       

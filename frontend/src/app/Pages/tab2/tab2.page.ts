@@ -52,6 +52,7 @@ export class Tab2Page {
       this.router.navigateByUrl('/tabs/tab2/add-place');
     } else {
       //TO DO: Toast ausgeben: "Das Speichern hat nicht funktioniert"
+      this.data.presentNotSavedToast();
       console.log("Das Speichern hat nicht funktioniert.");
     }
 
@@ -67,6 +68,7 @@ export class Tab2Page {
       this.router.navigateByUrl('/tabs/tab2/add-place');
     } else {
       //TO DO: Toast ausgeben: "Das Speichern hat nicht funktioniert"
+      this.data.presentNotSavedToast();
       console.log("Das Speichern hat nicht funktioniert.");
     }
   }
@@ -137,6 +139,7 @@ export class Tab2Page {
       this.router.navigateByUrl('/tabs/tab1');
     } else {
       //Toast ausgeben: Das Speichern hat nicht funktioniert.
+      this.data.presentNotSavedToast();
       console.log("Das Speichern hat nicht funktioniert.");
     }
 
