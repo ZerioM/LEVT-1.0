@@ -76,13 +76,11 @@ export class AddPlacePage implements OnInit {
   }
 
   keyUpPlaceName(){
-   this.data.autocompletePlaceName();
+   //let placeSuggestions = await this.data.autocompletePlaceName();
   }
 
   focusOutPlaceName(){
-    if(this.data.validatePlaceName()){
-      
-    }
+    return this.data.validatePlaceName();
   }
 
   

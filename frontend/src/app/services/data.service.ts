@@ -329,11 +329,31 @@ export class DataService {
     return array;
   }
 
-  autocompletePlaceName(){
-    
+  async autocompletePlaceName(){
+    /*let suggestedPlaces: Place[];
+    await this.http.post("http://levt.test/autocompletePlace", this.newPlace.placeName).toPromise().then((loadedData: Place[]) => {
+      console.log(loadedData);
+      console.log("New Place in DB inserted");
+      suggestedPlaces = loadedData;      
+    }, error => {
+      console.log(error);
+    });
+
+    return suggestedPlaces;*/
   }
 
-  validatePlaceName(){
+  async validatePlaceName(){
+    /*let place : Place;
+    await this.http.post("http://levt.test/autocompletePlace", this.newPlace.placeName).toPromise().then((loadedData: Place) => {
+      console.log(loadedData);
+      console.log("New Place in DB inserted");
+      place = loadedData;      
+    }, error => {
+      console.log(error);
+    });
+    if(place.coordinateX == null || place.coordinateY == null){
+      return false;
+    }*/
     return true;
   }
 }
