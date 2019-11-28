@@ -28,11 +28,19 @@ class _BookmarkController extends BaseController
         $userController = new _UserController;
         $journeyController = new _JourneyController;
         $requestArray = $request->all();
+        $journeyID = $requestArray['_journeyID'];
+        $userID = $requestArray['_userID'];
         $insertBookmarkArray = [
             '_userID' => $requestArray['_userID'],
             '_journeyID' => $requestArray['_journeyID']
         ];
-        return $this->existsOne($requestArray);
+        if($this->existsOne($journeyID,$userID)=="false"){
+            DB::table('bookmarks')->insert($insertBookmarkArray);
+        }
+        $outputArray = [
+            "bookmark" => $this->existsOne($journeyID,$userID)
+        ];
+        return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 
     public function deleteOne(Request $request){
@@ -41,20 +49,32 @@ class _BookmarkController extends BaseController
         $userID = $requestArray['_userID'];
         $bookmarks= $this->selectBookmarkIDPerUserIDAndJourneyID($userID,$journeyID);
         $bookmarkID = Bookmark::find($bookmarks);
-        //return json_encode($bookmarks,JSON_PRETTY_PRINT);
-        //var_dump($bookmarks);
-        //print_r($bookmarks);
-        $bookmarkID->delete();
+        if($this->existsOne($journeyID,$userID)=="true"){
+            $bookmarkID->delete();
+        }
         $outputArray = [
-            "deleted" => true
+            "bookmark" => $this->existsOne($journeyID,$userID)
         ];
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 
+    public function proveOne(Request $request){
+        $requestArray = $request->all();
+        $journeyID = $requestArray['_journeyID'];
+        $userID = $requestArray['_userID'];
+        $bookmarks= $this->selectBookmarkIDPerUserIDAndJourneyID($userID,$journeyID);
+        $bookmarkID = Bookmark::find($bookmarks);
+        $outputArray = [
+            "bookmark" => $this->existsOne($journeyID,$userID)
+        ];
+        return json_encode($outputArray,JSON_PRETTY_PRINT);
+    }
+
+
     public function existsOne($journeyID,$userID){
         $bookmark = Bookmark::where([['_journeyID', '=',$journeyID],['_userID', '=',$userID]]);
 
-        return $bookmark->exists();
+        return JSON_ENCODE($bookmark->exists());
     }
 }
