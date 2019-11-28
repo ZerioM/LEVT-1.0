@@ -74,7 +74,26 @@ class _BookmarkController extends BaseController
 
     public function existsOne($journeyID,$userID){
         $bookmark = Bookmark::where([['_journeyID', '=',$journeyID],['_userID', '=',$userID]]);
-
         return JSON_ENCODE($bookmark->exists());
     }
+
+    public function showBookmarkedJourneys(Request $request){
+        $journeyController = new _JourneyController;
+
+        $requestArray = $request->all();
+        $userID = $requestArray['_userID'];
+        $bookmarkedJourneys = json_decode(json_encode($this->selectBookmarksPerUserID($userID)->get()),true);
+        //foreach ($bookmarkedJourneys) {var_dump};
+        //print_r($bookmarkedJourneys);
+        //var_dump ($bookmarkedJourneys);
+        $journeysArray = array();
+        foreach($bookmarkedJourneys as $bookmarkedJourney){
+            $journeyID = $bookmarkedJourney['_journeyID'];
+            $journeyArray = json_decode($journeyController->selectOne($journeyID), true);
+            array_push($journeysArray,$journeyArray);
+        }
+        print_r(json_encode($journeysArray, JSON_PRETTY_PRINT));
+        return json_encode($journeysArray, JSON_PRETTY_PRINT);
+    }
+
 }

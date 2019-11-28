@@ -65,4 +65,9 @@ class ReadController extends BaseController
         $bc = new _BookmarkController;
         return $bc->proveOne($request);
     }
+
+    public function selectBookmarkedJourneys(Request $request){
+        $bc = new _BookmarkController;
+        return $bc->showBookmarkedJourneys($request);
+    }
 }
