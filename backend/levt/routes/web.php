@@ -52,6 +52,8 @@ $router->post('/onePost','ReadController@selectOnePost');
 
 $router->post('/proveBookmarkExists','ReadController@showIfBookmarkExists');
 
+$router->post('/allBookmarkedJourneys','ReadController@selectBookmarkedJourneys');
+
 
 //UPDATE
 
