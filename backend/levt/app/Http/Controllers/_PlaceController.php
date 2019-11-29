@@ -136,7 +136,7 @@ class _PlaceController extends BaseController
             $outputImageArray = [
                 'imageID' => $imageArray['imageID'],
                 '_postID' => $imageArray['_postID'],
-                'imgSrc' => $postArray['src'],
+                'imgSrc' => $imageArray['src'],
                 'date' => $imageArray['date'],
                 'coordinateX' => $imageArray['coordinateX'],
                 'coordinateY' => $imageArray['coordinateY']

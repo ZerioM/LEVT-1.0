@@ -39,7 +39,7 @@ class _ImageController extends BaseController
             'coordinateX' => $requestArray['coordinateX'],
             'coordinateY' => $requestArray['coordinateY'],
             'date' => $requestArray['date'],
-            '_postID' => $requestArray['postID'],
+            '_postID' => $requestArray['_postID']
         ];
 
         $id = DB::table('images')->insertGetId($insertImagesArray);
