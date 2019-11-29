@@ -316,6 +316,7 @@ class _JourneyController extends BaseController
         $journey->_seasonID = $requestArray['_seasonID'];
         $journey->_journeyCategoryID = $requestArray['_journeyCategoryID'];
         $journey->_companionshipID = $requestArray['_companionshipID'];
+        $journey->journeyName = $requestArray['journeyName'];
         $journey->year = $requestArray['year'];
         $journey->detail = $requestArray['detail'];
         $journey->duration = $requestArray['duration'];
