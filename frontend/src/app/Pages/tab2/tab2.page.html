@@ -23,7 +23,7 @@
         maxlength="20"></ion-input>
     </ion-item>
 
-    <ion-label class="categoriesHeading"><b>When did you go there?</b></ion-label>
+    <ion-label><b>When did you go there?</b></ion-label>
     <ion-item class="seasonYear" lines="none" no-padding no-margin>
     <ion-radio-group class="season" [(ngModel)]="data.newJourney._seasonID">
       <ion-chip *ngFor="let s of data.seasons.seasons" >
@@ -40,13 +40,12 @@
     </div>
   </ion-item>
   
-
     <ion-item no-padding no-margin>
       <ion-input id="journeyDuration" [(ngModel)]="data.newJourney.duration" placeholder="How many days did you spend?" inputmode="decimal" type="number">
       </ion-input>
     </ion-item>
 
-    <ion-label class="categoriesHeading">
+    <ion-label>
       <b>Which category does your journey belong to?</b></ion-label>
     <ion-item id="journeyCategory" lines="none" no-padding>
     <ion-radio-group [(ngModel)]="data.newJourney._journeyCategoryID">
@@ -59,7 +58,7 @@
     </ion-radio-group> 
   </ion-item>
 
-  <ion-label class="categoriesHeading"><b>Who did you travel with?</b></ion-label>
+  <ion-label><b>Who did you travel with?</b></ion-label>
     <ion-item id="companionshipsCategory" no-padding lines="none">
     <ion-radio-group [(ngModel)]="data.newJourney._companionshipID" class="radioButtons">
       <ion-chip *ngFor="let cs of data.companionships.companionships">
@@ -71,7 +70,7 @@
     </ion-radio-group>
   </ion-item>
 
-  <ion-label class="categoriesHeading">
+  <ion-label>
     <b>With which means of transport did you travel?</b></ion-label>
   <div id="transport">
     <ion-chip *ngFor="let t of data.transports.transports; let in=index">
@@ -82,11 +81,13 @@
     </ion-chip>
   </div>
 
-    <ion-item no-padding lines="none"> 
+    <!--ion-item no-padding lines="none"> 
       <ion-label><b>Visited places</b></ion-label>
-    </ion-item>
+    </ion-item>-->
     <ion-item *ngIf="showNoPlaceWarning()" lines="none" no-padding>
-      <ion-label color="warning" id="NoPlace"> You haven't added any places to your journey!</ion-label>
+        <ion-label position="floating"><b>Visited places</b></ion-label><br>
+      <!--<ion-label color="warning" id="NoPlace"> You haven't added any places to your journey!</ion-label>-->
+      <br><p  id="NoPlace" no-margin> You haven't added any places to your journey!</p>
     </ion-item>
     <ion-item no-padding>
       <div id="alreadyAddedPlaces" class="gridContainer">
