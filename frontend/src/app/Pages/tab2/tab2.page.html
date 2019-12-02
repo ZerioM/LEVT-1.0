@@ -23,8 +23,8 @@
         maxlength="20"></ion-input>
     </ion-item>
 
-    <ion-label class="categoriesHeading">When did you go there?</ion-label>
-    <ion-item class="seasonYear">
+    <ion-label class="categoriesHeading"><b>When did you go there?</b></ion-label>
+    <ion-item class="seasonYear" lines="none" no-padding no-margin>
     <ion-radio-group class="season" [(ngModel)]="data.newJourney._seasonID">
       <ion-chip *ngFor="let s of data.seasons.seasons" >
         <ion-radio value={{s.seasonID}}></ion-radio>
@@ -41,14 +41,14 @@
   </ion-item>
   
 
-    <ion-item no-padding>
-      <ion-input id="journeyDuration" [(ngModel)]="data.newJourney.duration" placeholder="How many days did you spend on your journey?" inputmode="decimal" type="number">
+    <ion-item no-padding no-margin>
+      <ion-input id="journeyDuration" [(ngModel)]="data.newJourney.duration" placeholder="How many days did you spend?" inputmode="decimal" type="number">
       </ion-input>
     </ion-item>
 
     <ion-label class="categoriesHeading">
-      Which category does your journey belong to?</ion-label>
-    <ion-item id="journeyCategory">
+      <b>Which category does your journey belong to?</b></ion-label>
+    <ion-item id="journeyCategory" lines="none" no-padding>
     <ion-radio-group [(ngModel)]="data.newJourney._journeyCategoryID">
       <ion-chip *ngFor="let c of data.journeyCategories.journeyCategories">
         <ion-radio value={{c.journeyCategoryID}}></ion-radio>
@@ -59,8 +59,8 @@
     </ion-radio-group> 
   </ion-item>
 
-  <ion-label class="categoriesHeading">Who did you travel with?</ion-label>
-    <ion-item id="companionshipsCategory">
+  <ion-label class="categoriesHeading"><b>Who did you travel with?</b></ion-label>
+    <ion-item id="companionshipsCategory" no-padding lines="none">
     <ion-radio-group [(ngModel)]="data.newJourney._companionshipID" class="radioButtons">
       <ion-chip *ngFor="let cs of data.companionships.companionships">
         <ion-radio value={{cs.companionshipID}}></ion-radio>
@@ -72,7 +72,7 @@
   </ion-item>
 
   <ion-label class="categoriesHeading">
-    With which means of transport did you travel?</ion-label>
+    <b>With which means of transport did you travel?</b></ion-label>
   <div id="transport">
     <ion-chip *ngFor="let t of data.transports.transports; let in=index">
       <ion-checkbox aria-checked="false" [(ngModel)]="transports[in]" id={{t.transportID}}></ion-checkbox> <!--[(ngModel)]="t.transportID"-->
