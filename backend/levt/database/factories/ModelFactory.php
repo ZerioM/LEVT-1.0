@@ -14,8 +14,14 @@
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         '_profileImageID' => $faker->numberBetween($min = 5, $max = 7),
-        'username' => $faker->name,
+        'username' => $faker->username,
         'pwHash' => '123',
+        'emailAddress' => $faker->email,
+        'birthday' => $faker->date,
+        '_countryOfResidence' => 'AT',
+        '_genderID' => $faker->numberBetween($min = 1, $max = 3),
+        'firstname' => $faker->firstname,
+        'lastname' => $faker->lastname,
     ];
 });
 
