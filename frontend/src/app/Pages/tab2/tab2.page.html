@@ -4,7 +4,7 @@
       <ion-icon class="cancel" name="ios-close"></ion-icon>
     </ion-button>
   </ion-buttons>
-  <ion-title class="tabHeading" no-padding>New journey</ion-title>
+  <ion-title class="tabHeading" no-padding>New Journey</ion-title>
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
@@ -95,9 +95,10 @@
           <img class="pictureGrid" src="{{p.thumbnailSrc}}" alt="" />
           <div id="visitedPlaceName" class="visitedPlaceName">{{p.placeName}}</div>
         </div>
+
         <div class="grid-item" (click)="goToAddNewPlace()">
           <ion-icon name="ios-add" class="addPlace"></ion-icon>
-        </div>
+        </div> <!--Plus Button-->
       </div>
     </ion-item>
 
