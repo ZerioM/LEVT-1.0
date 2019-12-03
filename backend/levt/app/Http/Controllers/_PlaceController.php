@@ -19,9 +19,6 @@ class _PlaceController extends BaseController
 
         $requestArray = $request->all();
 
-        $thumbnailID = $imageController->selectIDPerSrc($requestArray['thumbnailSrc']);
-
-        $countryID = $countryController->selectIDPerName($requestArray['countryName']);
 
         //Create DB table object
         $insertPlacesArray = [

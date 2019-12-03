@@ -34,6 +34,11 @@ class CreateController extends BaseController
         return $bookmarkController->insertOne($request);
     }
 
+    public function insertUser(Request $request) {
+        $userController = new _UserController;
+        return $userController->insertOne($request);
+    }
+
     /*
     //Post Requests und Module work:
 

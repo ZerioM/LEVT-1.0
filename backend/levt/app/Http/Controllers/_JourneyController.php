@@ -13,7 +13,11 @@ use App\Models\User as User;
 
 class _JourneyController extends BaseController
 {
-    //
+    public function selectByUserID($userID){
+        return DB::table('journeys')->where('_userID', $userID);
+    }
+
+
     public function insertOne(Request $request){
 
         $userController = new _UserController;
