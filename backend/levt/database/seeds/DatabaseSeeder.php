@@ -12,16 +12,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
          $this->call([
-             ImagesTableSeeder::class,
-             UserTableSeeder::class,
-             SeasonsTableSeeder::class,
-             JourneyCategoriesTableSeeder::class,
-             CompanionTableSeeder::class,
-             JourneyTableSeeder::class,
-             BookmarkTableSeeder::class,
-             ActivityTableSeeder::class,
-             TransportTableSeeder::class,
-             CountryTableSeeder::class,
+            GenderTableSeeder::class,
+            ImagesTableSeeder::class,
+            CountryTableSeeder::class,
+            UserTableSeeder::class,
+            SeasonsTableSeeder::class,
+            JourneyCategoriesTableSeeder::class,
+            CompanionTableSeeder::class,
+            JourneyTableSeeder::class,
+            BookmarkTableSeeder::class,
+            ActivityTableSeeder::class,
+            TransportTableSeeder::class
              ]);
     }
 }

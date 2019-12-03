@@ -13,7 +13,7 @@ class DeleteController extends BaseController
 {
     public function deleteOneJourney(Request $request){
         $jc = new _JourneyController;
-        return $jc->deleteOne($request);
+        return $jc->ifExistsDeleteOne($request);
     }
 
     public function deleteOnePlace(Request $request){

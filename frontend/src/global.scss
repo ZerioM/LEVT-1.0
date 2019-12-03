@@ -29,6 +29,7 @@ ion-item {
   font-size: 10pt;
   --inner-padding-end: none;
   background-color: none;
+  margin-bottom: 20px;
 }
 input {
   background-color: none;
@@ -185,6 +186,15 @@ ion-chip {
   z-index: 100; 
 }//Text auf transparenten Hintergrund
 
+b{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  color: #415f4b;
+} // dicker Text
+
+p{
+  color:#d68900;
+}// You haven't add any ...
 
 //Map
 .map {

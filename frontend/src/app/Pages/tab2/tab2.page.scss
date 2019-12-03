@@ -31,17 +31,9 @@ button.button-native{
 .season{
   color: #161616;
 }
-//#journeyYear{}
-//#journeyCategory{}
-//#transport{}
-
 .radioButtons ion-radio{
   border: none;
 }
-.categoriesHeading{
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 10pt;
-}// Überschrift bei den Kategorien
 .labelsCategories{
   margin-left: 3px;
 }// alle Labels bei den jeweiligen Kategorien
@@ -49,4 +41,8 @@ button.button-native{
   justify-content: right;
   text-align: right;
   margin-right: 2px;
+}
+#journeyDuration{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 12pt;
 }

@@ -29,6 +29,7 @@ $router->post('/newImage','CreateController@insertImage');
 
 $router->post('/newBookmark','CreateController@insertBookmark');
 
+$router->post('/newUser','CreateController@insertUser'); //noch kein Postman Test
 
 //READ
 
@@ -43,6 +44,8 @@ $router->get('/allTransports','ReadController@selectTransports');
 $router->get('/allActivities','ReadController@selectActivities');
 
 $router->get('/allSeasons','ReadController@selectSeasons');
+
+$router->get('/allGenders','ReadController@selectGenders');
 
 $router->post('/oneJourney','ReadController@selectOneJourney');
 

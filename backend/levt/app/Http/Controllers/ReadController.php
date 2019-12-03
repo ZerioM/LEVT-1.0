@@ -70,4 +70,9 @@ class ReadController extends BaseController
         $bc = new _BookmarkController;
         return $bc->showBookmarkedJourneys($request);
     }
+
+    public function selectGenders(){
+        $gc = new _GenderController;
+        return $gc->selectAll();
+    }
 }

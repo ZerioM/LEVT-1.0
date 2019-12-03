@@ -19,9 +19,6 @@ class _PlaceController extends BaseController
 
         $requestArray = $request->all();
 
-        $thumbnailID = $imageController->selectIDPerSrc($requestArray['thumbnailSrc']);
-
-        $countryID = $countryController->selectIDPerName($requestArray['countryName']);
 
         //Create DB table object
         $insertPlacesArray = [
@@ -136,7 +133,7 @@ class _PlaceController extends BaseController
             $outputImageArray = [
                 'imageID' => $imageArray['imageID'],
                 '_postID' => $imageArray['_postID'],
-                'imgSrc' => $postArray['src'],
+                'imgSrc' => $imageArray['src'],
                 'date' => $imageArray['date'],
                 'coordinateX' => $imageArray['coordinateX'],
                 'coordinateY' => $imageArray['coordinateY']

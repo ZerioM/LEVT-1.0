@@ -13,7 +13,11 @@ use App\Models\User as User;
 
 class _JourneyController extends BaseController
 {
-    //
+    public function selectByUserID($userID){
+        return DB::table('journeys')->where('_userID', $userID);
+    }
+
+
     public function insertOne(Request $request){
 
         $userController = new _UserController;
@@ -316,6 +320,7 @@ class _JourneyController extends BaseController
         $journey->_seasonID = $requestArray['_seasonID'];
         $journey->_journeyCategoryID = $requestArray['_journeyCategoryID'];
         $journey->_companionshipID = $requestArray['_companionshipID'];
+        $journey->journeyName = $requestArray['journeyName'];
         $journey->year = $requestArray['year'];
         $journey->detail = $requestArray['detail'];
         $journey->duration = $requestArray['duration'];
