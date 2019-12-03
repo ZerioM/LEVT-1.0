@@ -34,7 +34,8 @@
     <ion-item no-padding lines="none">
       <div id="alreadyAddedPlaces" class="gridContainer">
         <div class="grid-item" *ngFor="let po of data.newPlace.posts; let in of index" (click)="goToEditPost(po,in)"> <!--muss noch auf posts geändert werden-->
-          <img class="pictureGrid" alt="" src="{{po.images[0].imgSrc}}"/>
+          <img class="pictureGrid" *ngIf="po.images[0] != null" alt="" src="{{po.images[0].imgSrc}}"/>
+          <img class="pictureGrid" *ngIf="po.images[0] == null" alt="" src="/assets/images/platzhalter_activity.png"/>
         </div>
         <div class="grid-item" (click)="goToAddNewPost()">
           <ion-icon name="ios-add" class="addPlace"></ion-icon>
