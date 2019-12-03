@@ -12,7 +12,7 @@ export class PlaceService {
   constructor(private http: HttpClient) { }
 
   newPlace(journey: Journey) {
-    let newPlace: Place = { placeID: null,_journeyID:journey.journeyID,_thumbnailID: 8,_countryID:"AT",detail: "", coordinateX: 48.208767, coordinateY: 16.372526, posts: [], thumbnailSrc: "assets/images/platzhalter_travellocation.png" ,placeName:"",countryName:""}
+    let newPlace: Place = { placeID: null,_journeyID:journey.journeyID,_thumbnailID: null,_countryID:"AT",detail: "", coordinateX: 48.208767, coordinateY: 16.372526, posts: [], thumbnailSrc: "assets/images/platzhalter_travellocation.png" ,placeName:"",countryName:""}
 
     return newPlace;
   }
