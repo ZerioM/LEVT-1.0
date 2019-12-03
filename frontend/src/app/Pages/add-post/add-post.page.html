@@ -13,7 +13,7 @@
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
   <ion-item no-padding>
-    <ion-label>What is your post about?</ion-label>
+    <ion-label>What is your post about?*</ion-label>
     <ion-select placeholder="Post Category" [(ngModel)]="data.newPost._activityID">
       <ion-select-option *ngFor="let a of data.activities.activities" value="{{a.activityID}}">
         {{a.activityName}}
@@ -29,4 +29,9 @@
   <ion-button (click)="savePost()" color="primary" expand="full">
     Finish
   </ion-button>
+  <ion-item>
+    <ion-label>
+      * Fields marked with a * are mandatory.
+    </ion-label>
+  </ion-item>
 </ion-content>

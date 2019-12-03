@@ -279,6 +279,46 @@ export class DataService {
     toast.present();
   }
 
+  async presentNoJourneyNameToast() {
+    const toast = await this.toastController.create({
+      message: 'This Journey has`nt got any name. Please enter a name!',
+      duration: 4000
+    });
+    toast.present();
+  }
+
+  async presentNoSeasonToast() {
+    const toast = await this.toastController.create({
+      message: 'You haven´t added any season when you traveled. Please enter a season!',
+      duration: 4000
+    });
+    toast.present();
+  }
+
+  async presentNoYearToast() {
+    const toast = await this.toastController.create({
+      message: 'You haven´t added any year when you traveled. Please enter a year!',
+      duration: 4000
+    });
+    toast.present();
+  }
+
+  async presentNoJourneyCategoryToast() {
+    const toast = await this.toastController.create({
+      message: 'You haven´t chosen any Category your journey fits. Please enter a Category!',
+      duration: 4000
+    });
+    toast.present();
+  }
+
+  async presentNoTransportToast() {
+    const toast = await this.toastController.create({
+      message: 'You haven´t added any transportation with whom you traveled. Please enter a transportation!',
+      duration: 4000
+    });
+    toast.present();
+  }
+
   loadTopPosts(){
     // http://levt.test/top100 liefert die Daten aus der DB 
     
@@ -344,7 +384,7 @@ export class DataService {
 
   async validatePlaceName(){
     /*let place : Place;
-    await this.http.post("http://levt.test/autocompletePlace", this.newPlace.placeName).toPromise().then((loadedData: Place) => {
+    await this.http.post("http://levt.test/validatePlace", this.newPlace.placeName).toPromise().then((loadedData: Place) => {
       console.log(loadedData);
       console.log("New Place in DB inserted");
       place = loadedData;      

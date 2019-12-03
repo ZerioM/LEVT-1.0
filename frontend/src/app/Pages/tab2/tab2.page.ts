@@ -46,6 +46,11 @@ export class Tab2Page {
   //Naviagation 
   async goToAddNewPlace() {
     this.readCostsAndTransports();
+    if(this.data.newJourney.journeyName != null){
+
+    } else {
+      
+    }
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
     if(this.data.newJourney.journeyID != null){
       this.placeService.newPlace(this.data.newJourney);
@@ -87,8 +92,8 @@ export class Tab2Page {
           text: 'Continue without saving',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+          handler: () => {
+            console.log('Confirm Cancel');
             this.goBacktoHomepageWithoutSaving();
           }
         }, {
