@@ -88,9 +88,23 @@ class _UserController extends BaseController
             'lastName' => $requestArray['lastName']
         ];
 
+        //return $this->existsOne($requestArray['username']);
+        if($this->existsOne($requestArray['username'])=="false"){
         $id = DB::table('users')->insertGetId($insertUserArray);
 
         return $this->selectOne($id);
-        //return $requestArray;
+        } 
+        else {
+            $outputArray = [
+                //"freeUsername" => $this->existsOne('username')
+                $requestArray['username'] => $this->existsOne('username')
+            ];
+            return json_encode($outputArray,JSON_PRETTY_PRINT);
+        }
+    }
+
+    public function existsOne($username){
+        $user = User::where([['username', '=',$username]]);
+        return JSON_ENCODE($user->exists());
     }
 }
