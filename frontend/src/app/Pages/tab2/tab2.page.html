@@ -70,8 +70,8 @@
     </ion-radio-group>
   </ion-item>
 
-  <ion-label class="categoriesHeading">
-    With which means of transport did you travel?*</ion-label>
+  <ion-label>
+    <b>With which means of transport did you travel?*</b></ion-label>
   <div id="transport">
     <ion-chip *ngFor="let t of data.transports.transports; let in=index">
       <ion-checkbox aria-checked="false" [(ngModel)]="transports[in]" id={{t.transportID}}></ion-checkbox> <!--[(ngModel)]="t.transportID"-->
