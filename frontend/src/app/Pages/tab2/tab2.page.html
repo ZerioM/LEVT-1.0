@@ -4,7 +4,7 @@
       <ion-icon class="cancel" name="ios-close"></ion-icon>
     </ion-button>
   </ion-buttons>
-  <ion-title class="tabHeading" no-padding>New journey</ion-title>
+  <ion-title class="tabHeading" no-padding>New Journey</ion-title>
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
@@ -70,8 +70,8 @@
     </ion-radio-group>
   </ion-item>
 
-  <ion-label class="categoriesHeading">
-    With which means of transport did you travel?*</ion-label>
+  <ion-label>
+    <b>With which means of transport did you travel?*</b></ion-label>
   <div id="transport">
     <ion-chip *ngFor="let t of data.transports.transports; let in=index">
       <ion-checkbox aria-checked="false" [(ngModel)]="transports[in]" id={{t.transportID}}></ion-checkbox> <!--[(ngModel)]="t.transportID"-->
@@ -96,9 +96,10 @@
           <img class="pictureGrid" *ngIf="p.thumbnailSrc != null" src="{{p.thumbnailSrc}}" alt="" />
           <div id="visitedPlaceName" class="visitedPlaceName">{{p.placeName}}</div>
         </div>
+
         <div class="grid-item" (click)="goToAddNewPlace()">
           <ion-icon name="ios-add" class="addPlace"></ion-icon>
-        </div>
+        </div> <!--Plus Button-->
       </div>
     </ion-item>
 
@@ -107,12 +108,6 @@
       <ion-textarea [(ngModel)]="data.newJourney.detail" placeholder="Tell us more about your Journey" rows="8" background="light" id="journeyDetails" no-padding>
           <ion-label no-padding bo-margin><b>Journey Details</b></ion-label><br>
       </ion-textarea>
-    </ion-item>
-    
-    <ion-item>
-      <ion-label>
-        * Fields marked with a * are mandatory.
-      </ion-label>
     </ion-item>
     
     <ion-item no-padding lines="none">
@@ -141,6 +136,10 @@
         </ion-item>
       </div>
     </div>
+
+    <ion-label class="importantThings">
+      * Fields marked with a * are mandatory.
+    </ion-label>
 
     <ion-button color="primary" expand="full"  (click)="finishJourney()">
       Finish

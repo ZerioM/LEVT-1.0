@@ -7,7 +7,7 @@
         <ion-icon class="back" name="ios-arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-  <ion-title class="tabHeading" no-padding>Add a place</ion-title>
+  <ion-title class="tabHeading" no-padding>Add A Place</ion-title>
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
@@ -46,12 +46,12 @@
       <ion-textarea placeholder="Tell us what you experienced here!" [(ngModel)]="data.newPlace.detail" rows="8" background="light" no-padding>
       <ion-label no-margin><b>Place Details</b></ion-label><br ></ion-textarea>
     </ion-item>
+
+    <ion-label class="importantThings">
+        * Fields marked with a * are mandatory.
+      </ion-label>
+
     <ion-button (click)="savePlace()" color="primary" expand="full">
       Finish
     </ion-button>
-    <ion-item>
-      <ion-label>
-        * Fields marked with a * are mandatory.
-      </ion-label>
-    </ion-item>
 </ion-content>
