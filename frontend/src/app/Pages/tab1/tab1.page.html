@@ -17,7 +17,8 @@
         <div class="frameLeft"></div>
         <div class="imgAndInfo">
           <ion-item class="thumbnailImg" color="none" (click)="showJourney(j.journeyID)">
-            <img src="{{j.thumbnailSrc}}" alt="Reise" />
+            <img *ngIf="j.thumbnailSrc != null" src="{{j.thumbnailSrc}}" alt="Reise" />
+            <img *ngIf="j.thumbnailSrc == null" src="/assets/images/platzhalter_journey.png" alt="Reise" />
             <div id="travelTitle">{{j.journeyName}}</div>
           </ion-item>
           <div class="picInformations">

@@ -18,7 +18,8 @@
       <div class="frameLeft"></div>
       <div class="imgAndInfo">
         <ion-item class="thumbnailImg" color="none">
-          <img src="{{data.currentJourney.thumbnailSrc}}" alt="Reise" />
+          <img *ngIf="data.currentJourney.thumbnailSrc != null" src="{{data.currentJourney.thumbnailSrc}}" alt="Reise" />
+          <img *ngIf="data.currentJourney.thumbnailSrc == null" src="/assets/images/platzhalter_journey.png" alt="Reise" />
         </ion-item>
         <div class="picInformations">
           <div class="bookmarkIcon">
@@ -66,7 +67,8 @@
         <ion-label><b>Visited places</b></ion-label>
       <div id="alreadyAddedPlaces" class="gridContainer">
         <div class="grid-item" *ngFor="let p of data.currentJourney.places" (click)="showPlace(p.placeID)">
-            <img class="pictureGrid" src="{{p.thumbnailSrc}}" alt="" />
+            <img class="pictureGrid" *ngIf="p.thumbnailSrc != null" src="{{p.thumbnailSrc}}" alt="" />
+            <img class="pictureGrid" *ngIf="p.thumbnailSrc == null" src="/assets/images/platzhalter_travellocation.png" alt="" />
           <div id="visitedPlaceName" class="visitedPlaceName">{{p.placeName}}</div>
         </div>
       </div>

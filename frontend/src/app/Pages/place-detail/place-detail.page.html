@@ -16,7 +16,8 @@
           <div class="pictureFrame">
             <div class="imgAndInfo">
               <ion-item class="thumbnailImg" color="none">
-                <img src="{{data.currentPlace.thumbnailSrc}}" alt="Place" />
+                <img *ngIf="data.currentPlace.thumbnailSrc != null" src="{{data.currentPlace.thumbnailSrc}}" alt="Place" />
+                <img *ngIf="data.currentPlace.thumbnailSrc == null" src="/assets/images/platzhalter_travellocation.png" alt="Place" />
               </ion-item>
               <div class="picInformations">
                 <div class="userpicAndName">
@@ -46,7 +47,8 @@
       <ion-item>
         <div id="alreadyAddedPlaces" class="gridContainer">
           <div class="grid-item" *ngFor="let po of data.currentPlace.posts">
-            <img class="pictureGrid" src="{{po.images[0]}}" alt="" (click)="showPost(po.postID)"/>
+            <img class="pictureGrid" *ngIf="po.images[0] != null" src="{{po.images[0].imgSrc}}" alt="" (click)="showPost(po.postID)"/>
+            <img class="pictureGrid" *ngIf="po.images[0] == null" src="/assets/images/platzhalter_activity.png" alt="" (click)="showPost(po.postID)"/>
             <div id="Postactivity">{{po.activityName}}</div>
           </div>
         </div>
