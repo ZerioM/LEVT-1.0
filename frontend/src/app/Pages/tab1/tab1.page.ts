@@ -25,9 +25,15 @@ export class Tab1Page {
   
    }
 
-   showJourney(journeyID: number){
+    async showJourney(journeyID: number){
 
-    this.data.loadOneJourney(journeyID);
+    await this.data.loadOneJourney(journeyID);
+      this.data.bookmarkExists();
+    if(this.data.currentBookmark.bookmarkID != null){
+      this.data.bookmarkIcon = this.data.bookmarkSaved;
+    } else {
+      this.data.bookmarkIcon = this.data.bookmarkUnsaved;
+    }
       
     //go To Journey Detail 
     this.router.navigateByUrl('/tabs/tab1/journey-detail');
