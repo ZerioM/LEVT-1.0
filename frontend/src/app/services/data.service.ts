@@ -23,6 +23,7 @@ import { PlaceService } from './place.service';
 import { PostService } from './post.service';
 
 import { ToastController } from '@ionic/angular';
+import { Bookmark } from '../Interfaces/Bookmark';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,11 @@ export class DataService {
 
   public placeInJourney: number;
   public postInPlace: number;
+
+  public currentBookmark:Bookmark ={bookmarkID:null,_journeyID:null,_userID: this.currentUser.userID};
+  public bookmarkIcon: string = "assets/icon/bookmark_unsaved_icon.svg";
+  public bookmarkUnsaved:string="assets/icon/bookmark_unsaved_icon.svg";
+  public bookmarkSaved:string="assets/icon/bookmark_saved_icon.svg";
 
   //Zentrale Daten laden 
   public journeyCategories: JourneyCategories = { journeyCategories: [] };
@@ -178,22 +184,23 @@ export class DataService {
     });
   }
 
-  loadOneJourney(journeyID:number){
+  async loadOneJourney(journeyID:number){
     
     let postData={
 
       "journeyID": journeyID
     }
-
-    this.http.post("http://levt.test/oneJourney", postData).subscribe((loadedData: Journey) => {
+    
+    await this.http.post("http://levt.test/oneJourney", postData).toPromise().then((loadedData: Journey) => {
       console.log(loadedData);
       this.currentJourney=loadedData;
       console.log("Post funktioniert");
     }, error => {
       console.log(error);
     });
-    
 
+    this.currentBookmark._journeyID = this.currentJourney.journeyID;
+  
   }
 
   loadOnePlace(placeID:number){
@@ -346,9 +353,58 @@ export class DataService {
         console.log("null per http geladen");
       }
     });
+  }
 
+  async setBookmark(){
+    this.currentBookmark._userID=this.currentUser.userID;
+    this.currentBookmark._journeyID=this.currentJourney.journeyID;
+    let postData = this.currentBookmark;
+
+    //let bookmarked: boolean = false;
+
+    await this.http.post("http://levt.test/newBookmark", postData).toPromise().then((loadedData: Bookmark) => {
+      this.currentBookmark = loadedData;
+      console.log(this.currentBookmark);
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  async unsetBookmark(){
+    this.currentBookmark._userID=this.currentUser.userID;
+    this.currentBookmark._journeyID=this.currentJourney.journeyID;
+    let postData = this.currentBookmark;
     
+   // let bookmarked: boolean = true;
 
+    await this.http.post("http://levt.test/deleteBookmark", postData).toPromise().then((loadedData: Bookmark) => {
+      this.currentBookmark = loadedData;
+      console.log(this.currentBookmark);
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  async bookmarkExists(){
+    this.currentBookmark._userID=this.currentUser.userID;
+    this.currentBookmark._journeyID=this.currentJourney.journeyID;
+    let postData = this.currentBookmark;
+
+    console.log(this.currentUser.userID);
+    console.log(this.currentJourney.journeyID);
+
+    let bookmarked: boolean = false;
+
+    await this.http.post("http://levt.test/proveBookmarkExists", postData).toPromise().then((loadedData: Bookmark) => {
+      console.log(loadedData);
+      this.currentBookmark = loadedData;
+      console.log(this.currentBookmark);
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
   }
 
   // -> Fisher–Yates shuffle algorithm

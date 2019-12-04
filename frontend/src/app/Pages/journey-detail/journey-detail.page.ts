@@ -15,19 +15,21 @@ import { Router } from '@angular/router';
 export class JourneyDetailPage implements OnInit {
   map;
   @ViewChild('mapElement', {static:false}) mapElement:ElementRef;
-  
- 
 
-  public bookmarkUnsaved:string="assets/icon/bookmark_unsaved_icon.svg";
-  public bookmarkSaved:string="assets/icon/bookmark_saved_icon.svg";
 
-  public bookmarkIcon:string="assets/icon/bookmark_unsaved_icon.svg"
 
-  constructor(private data: DataService, private navCtrl:NavController, private router: Router) { }
+
+  constructor(private data: DataService, private navCtrl:NavController, private router: Router) {
+    //Bookmarked checken und Symbol richtig setzen
+    
+   }
 
   ngOnInit() {
+    
   }
 
+  ngAfterViewInit() {
+  }
  /* ngAfterViewInit(): void {
     console.log("Map geladen");
     //throw new Error("Method not implemented.");
@@ -40,12 +42,40 @@ export class JourneyDetailPage implements OnInit {
       
   }*/
 
-  bookmarken(){
+  async bookmarken(){
+    console.log("Auf Bookmark geklickt.");
+    
+    
+    if(this.data.currentBookmark.bookmarkID == null){
 
-    if(this.bookmarkIcon==this.bookmarkUnsaved){
-      this.bookmarkIcon=this.bookmarkSaved;
-    }else{
-      this.bookmarkIcon=this.bookmarkUnsaved;
+      console.log("Bookmark ist false.");
+      this.data.bookmarkIcon = this.data.bookmarkSaved;
+
+      await this.data.setBookmark()
+      if(this.data.currentBookmark.bookmarkID != null){
+        console.log("Bookmark gesetzt.");
+        
+      } else {
+        console.log("Bookmark setzen hat nicht funktioniert.");
+        this.data.bookmarkIcon = this.data.bookmarkUnsaved;
+        this.data.presentNotSavedToast();
+      }
+
+    } else {
+
+      console.log("Bookmark ist true");
+      this.data.bookmarkIcon = this.data.bookmarkUnsaved;
+
+      await this.data.unsetBookmark()
+      if(this.data.currentBookmark.bookmarkID == null){
+        console.log("Bookmark entfernt.");
+        
+      } else {
+        console.log("Bookmark entfernen hat nicht funktioniert.");
+        this.data.bookmarkIcon = this.data.bookmarkSaved;
+        this.data.presentNotSavedToast();
+      }
+      
     }
 
 
