@@ -23,7 +23,7 @@
         maxlength="20"></ion-input>
     </ion-item>
 
-    <ion-label><b>When did you go there?*</b></ion-label>
+    <ion-label><b>When did you go there?</b><b class="importantStars">*</b></ion-label>
     <ion-item class="seasonYear" lines="none" no-padding no-margin>
     <ion-radio-group class="season" [(ngModel)]="data.newJourney._seasonID">
       <ion-chip *ngFor="let s of data.seasons.seasons" >
@@ -40,13 +40,13 @@
     </div>
   </ion-item>
   
-    <ion-item no-padding no-margin>
-      <ion-input id="journeyDuration" [(ngModel)]="data.newJourney.duration" placeholder="How many days did you spend?" inputmode="decimal" type="number">
+    <ion-item no-padding no-margin lines="none">
+      <ion-input id="journeyDuration" [(ngModel)]="data.newJourney.duration" placeholder="How many days did you spend?" inputmode="decimal" type="number" no-padding no-margin >
       </ion-input>
     </ion-item>
 
     <ion-label>
-      <b>Which category does your journey belong to?*</b></ion-label>
+      <b>Which category does your journey belong to?</b><b class="importantStars">*</b></ion-label>
     <ion-item id="journeyCategory" lines="none" no-padding>
     <ion-radio-group [(ngModel)]="data.newJourney._journeyCategoryID">
       <ion-chip *ngFor="let c of data.journeyCategories.journeyCategories">
@@ -58,7 +58,7 @@
     </ion-radio-group> 
   </ion-item>
 
-  <ion-label><b>Who did you travel with?*</b></ion-label>
+  <ion-label><b>Who did you travel with?</b><b class="importantStars">*</b></ion-label>
     <ion-item id="companionshipsCategory" no-padding lines="none">
     <ion-radio-group [(ngModel)]="data.newJourney._companionshipID" class="radioButtons">
       <ion-chip *ngFor="let cs of data.companionships.companionships">
@@ -71,7 +71,7 @@
   </ion-item>
 
   <ion-label>
-    <b>With which means of transport did you travel?*</b></ion-label>
+    <b>With which means of transport did you travel?</b><b class="importantStars">*</b></ion-label>
   <div id="transport">
     <ion-chip *ngFor="let t of data.transports.transports; let in=index">
       <ion-checkbox aria-checked="false" [(ngModel)]="transports[in]" id={{t.transportID}}></ion-checkbox> <!--[(ngModel)]="t.transportID"-->
@@ -138,7 +138,7 @@
     </div>
 
     <ion-label class="importantThings">
-      * Fields marked with a * are mandatory.
+      * Fields marked with a <b class="importantStars">*</b> are mandatory.
     </ion-label>
 
     <ion-button color="primary" expand="full"  (click)="finishJourney()">
