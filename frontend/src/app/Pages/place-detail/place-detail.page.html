@@ -1,39 +1,42 @@
 <ion-header class="tabHeader">
-    <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
-      </ion-buttons>
+     <!--<ion-buttons slot="start">
+        <ion-back-button icon="arrow-back"></ion-back-button>
+      </ion-buttons>-->
+  <ion-buttons>
+      <ion-button icon-only (click)="back()">
+        <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
 
-  <ion-title class="tabHeading">{{data.currentPlace.placeName}}</ion-title>
-  <ion-item color="none">
-      <img src={{data.currentJourney.userImgSrc}} alt="User" class="userpic" />
-    </ion-item>
+  <ion-title class="tabHeading" no-padding>{{data.currentPlace.placeName}}</ion-title>
+      <img  class="headerUserPic" src={{data.currentJourney.userImgSrc}} alt="User"/>
 </ion-header>
-
+<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
 <ion-content>
     <ion-list lines="none">
-        <div id="gallery">
           <div class="pictureFrame">
+              <div class="frameLeft"></div>
             <div class="imgAndInfo">
               <ion-item class="thumbnailImg" color="none">
                 <img *ngIf="data.currentPlace.thumbnailSrc != null" src="{{data.currentPlace.thumbnailSrc}}" alt="Place"  />
                 <img *ngIf="data.currentPlace.thumbnailSrc == null" src="/assets/images/platzhalter_travellocation.png" alt="Place" />
               </ion-item>
               <div class="picInformations">
-                <div class="userpicAndName">
-                  <ion-item color="none">
-                  </ion-item>
-                </div>
-                <ion-item color="none" id="travelTime">
-                    <ion-icon name="md-time" id="timeIcon"></ion-icon>
+                <ion-item color="none" class="travelTime">
+                    <ion-icon name="md-time" class="timeIcon"></ion-icon>
                   <ion-label>{{data.currentJourney.seasonName}} - {{data.currentJourney.year}}</ion-label>
                 </ion-item>
               </div>
-            </div>
+            </div>  
+            <div class="frameRight"></div>
           </div>
-        </div>
       </ion-list>
-    <ion-item><ion-text>Detail: {{data.currentPlace.detail}}</ion-text></ion-item>
+
+    <ion-item lines="none" no-padding>
+        <ion-text><b>Detail</b><br>{{data.currentPlace.detail}}</ion-text>
+    </ion-item><br>
+
     <!--<ion-item><ion-label>PlaceID: {{data.currentPlace.placeID}}</ion-label></ion-item>
     <ion-item><ion-label>JourneyID: {{data.currentPlace._journeyID}}</ion-label></ion-item>
     <ion-item><ion-label>thumbnailID: {{data.currentPlace._thumbnailID}}</ion-label></ion-item>
@@ -41,16 +44,14 @@
     <ion-item><ion-text>Placename: {{data.currentPlace.placeName}}</ion-text></ion-item>
     <ion-item><ion-text>Country: {{data.currentPlace.countryName}}</ion-text></ion-item>-->
 
-    <ion-item>
-        <ion-label>Posts:</ion-label>
-      </ion-item>
-      <ion-item>
+    <ion-col no-padding>
+        <ion-label><b>Posts</b></ion-label>
         <div id="alreadyAddedPlaces" class="gridContainer">
           <div class="grid-item" *ngFor="let po of data.currentPlace.posts">
             <img class="pictureGrid" *ngIf="po.images[0] != null" src="{{po.images[0].imgSrc}}" alt="" (click)="showPost(po.postID)"/>
             <img class="pictureGrid" *ngIf="po.images[0] == null" src="/assets/images/platzhalter_activity.png" alt="" (click)="showPost(po.postID)"/>
-            <div id="Postactivity">{{po.activityName}}</div>
+            <div id="visitedPlaceName" class="visitedPlaceName" id="Postactivity">{{po.activityName}}</div>
           </div>
         </div>
-      </ion-item>
+      </ion-col>
 </ion-content>
