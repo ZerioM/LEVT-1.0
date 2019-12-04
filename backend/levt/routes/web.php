@@ -12,7 +12,8 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    // return $router->app->version();
+    return view('picuploadTest');
 });
 
 //$router->get('/JSONData','JSONController@returnJSON');
