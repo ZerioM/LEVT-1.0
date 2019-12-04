@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
             JourneyTableSeeder::class,
             BookmarkTableSeeder::class,
             ActivityTableSeeder::class,
-            TransportTableSeeder::class
+            TransportTableSeeder::class,
+            PlaceTableSeeder::class,
+            PostTableSeeder::class
              ]);
     }
 }

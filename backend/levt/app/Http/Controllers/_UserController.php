@@ -27,28 +27,32 @@ class _UserController extends BaseController
 
         $usersArray = json_decode(json_encode(DB::table('users')->where('userID',$id)->get()), true);
         $userArray = $usersArray[0];
-        $journeysArray = json_decode(json_encode($journeyController->selectByUserID($id)->get()),true);
+        //$journeysArray = json_decode(json_encode($journeyController->selectByUserID($id)->get()),true);
 
-        $outputJourneysArray = array();
-        foreach ($journeysArray as $journeyArray) {
-            $outputJourneyArray = array();
-            $outputJourneyArray = [
-                '_userID' => null,
-                '_thumbnailID' => $journeyArray['_thumbnailID'],
-                'journeyName' => $journeyArray['journeyName'],
-                '_seasonID' => $journeyArray['_seasonID'],
-                '_journeyCategoryID' => $journeyArray['_journeyCategoryID'],
-                '_companionshipID' => $journeyArray['_companionshipID'],
-                'year' => $journeyArray['year'],
-                'detail' => $journeyArray['detail'],
-                'duration' => $journeyArray['duration'],
-                'cost' => $journeyArray['totalCosts'],
-                'thumbnailSrc' => $imageController->selectSrcPerImageID($placeArray['_thumbnailID']),
-                'countryName' => $countryController->selectNamePerID($placeArray['_countryID'])
-            ];
+        // $outputJourneysArray = array();
+        // foreach ($journeysArray as $journeyArray) {
+        //     $outputJourneyArray = array();
+        //     $outputJourneyArray = [
+                // '_userID' => null,
+                // '_thumbnailID' => $journeyArray['_thumbnailID'],
+                // 'journeyName' => $journeyArray['journeyName'],
+                // '_seasonID' => $journeyArray['_seasonID'],
+                // '_journeyCategoryID' => $journeyArray['_journeyCategoryID'],
+                // '_companionshipID' => $journeyArray['_companionshipID'],
+                // 'year' => $journeyArray['year'],
+                // 'detail' => $journeyArray['detail'],
+                // 'duration' => $journeyArray['duration'],
+                // 'cost' => $journeyArray['totalCosts'],
+                // 'thumbnailSrc' => $imageController->selectSrcPerImageID($placeArray['_thumbnailID']),
+                // 'countryName' => $countryController->selectNamePerID($placeArray['_countryID'])
+            //]; // nur JourneyIDs?
 
-            array_push($outputJourneysArray,$outputJourneyArray);
-        }
+            
+
+           // array_push($outputJourneysArray,$outputJourneyArray);
+        //}
+
+        //$journeysArray = 
 
 
         $outputArray = [
@@ -64,7 +68,7 @@ class _UserController extends BaseController
             'lastName' => $userArray['lastName'],
             'thumbnailSrc' => $imageController->selectSrcPerImageID($userArray['_profileImageID']),
             'countryName' => $countryController->selectNamePerID($userArray['_countryOfResidence']),
-            'journeys' => $outputJourneysArray
+            //'journeys' => $outputJourneysArray
         ];
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
@@ -97,7 +101,7 @@ class _UserController extends BaseController
         else {
             $outputArray = [
                 //"freeUsername" => $this->existsOne('username')
-                $requestArray['username'] => $this->existsOne('username')
+                "freeUsername ".$requestArray['username'] => $this->existsOne('username')
             ];
             return json_encode($outputArray,JSON_PRETTY_PRINT);
         }
