@@ -33,9 +33,9 @@
           </div>
       </ion-list>
 
-    <ion-col lines="none" no-padding>
-        <b>Detail</b><br>
-      <ion-text>{{data.currentPlace.detail}}</ion-text> <br><br>
+    <ion-item lines="none" no-padding>
+        <ion-text><b>Detail</b><br>{{data.currentPlace.detail}}</ion-text>
+    </ion-item><br>
 
     <!--<ion-item><ion-label>PlaceID: {{data.currentPlace.placeID}}</ion-label></ion-item>
     <ion-item><ion-label>JourneyID: {{data.currentPlace._journeyID}}</ion-label></ion-item>
@@ -44,12 +44,13 @@
     <ion-item><ion-text>Placename: {{data.currentPlace.placeName}}</ion-text></ion-item>
     <ion-item><ion-text>Country: {{data.currentPlace.countryName}}</ion-text></ion-item>-->
 
+    <ion-col no-padding>
         <ion-label><b>Posts</b></ion-label>
         <div id="alreadyAddedPlaces" class="gridContainer">
           <div class="grid-item" *ngFor="let po of data.currentPlace.posts">
             <img class="pictureGrid" *ngIf="po.images[0] != null" src="{{po.images[0].imgSrc}}" alt="" (click)="showPost(po.postID)"/>
             <img class="pictureGrid" *ngIf="po.images[0] == null" src="/assets/images/platzhalter_activity.png" alt="" (click)="showPost(po.postID)"/>
-            <div id="Postactivity">{{po.activityName}}</div>
+            <div id="visitedPlaceName" class="visitedPlaceName" id="Postactivity">{{po.activityName}}</div>
           </div>
         </div>
       </ion-col>
