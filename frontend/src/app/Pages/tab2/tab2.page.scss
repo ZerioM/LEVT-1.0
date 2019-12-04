@@ -13,12 +13,13 @@ button.button-native{
 #journeyName{
   width: 100%;
   border-bottom: 1px solid #16161650;
-  max-height: 30pt;
+  line-height: 30px;
   vertical-align: middle;
   margin-top: 5px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 12pt;
   padding-left: 10px;
+  padding-bottom: 2px;
   margin-bottom: 5px;
 }
 .seasonYear{
@@ -43,6 +44,13 @@ button.button-native{
   margin-right: 2px;
 }
 #journeyDuration{
+  width: 100%;
+  border-bottom: 1px solid #16161650;
+  line-height: 30px;
+  vertical-align: middle;
+  margin-top: 5px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 12pt;
+  padding-left: 10px;
+  margin-bottom: 5px;
 }

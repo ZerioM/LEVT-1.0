@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="tabHeading">{{data.currentPost.activityName}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-list lines="none">
+          <div class="pictureFrameIndex">
+            <div class="frameLeft"></div>
+            <div class="imgAndInfo">
+              <ion-item class="thumbnailImg" color="none">
+                  <ion-slides>
+
+                      <ion-slide *ngFor="let i of data.currentPost.images">
+                        <img src="{{i.imgSrc}}"/>
+                      </ion-slide>
+                
+                    </ion-slides>
+                    
+              </ion-item>
+              <div class="picInformations">
+                <div class="userpicAndName">
+                  <ion-item color="none">
+                    <img src={{data.currentJourney.userImgSrc}} alt="User" class="userpic" />
+                  </ion-item>
+                  <ion-item color="none">
+                    <ion-label>{{data.currentJourney.username}}</ion-label>
+                  </ion-item>
+                </div>
+                <ion-item color="none">
+                    <ion-label>{{data.currentPlace.placeName}}</ion-label>
+                  </ion-item>
+                <ion-item color="none" class="travelTime">
+                    <ion-icon name="md-time" class="timeIcon"></ion-icon>
+                  <ion-label>{{data.currentJourney.seasonName}} - {{data.currentJourney.year}}</ion-label>
+                </ion-item>
+              </div>
+            </div>
+            <div class="frameRight"></div>
+          </div>
+      </ion-list>
+
+
+
+  
+
+
+    <ion-item>
+        <ion-text>{{data.currentPost.detail}}</ion-text>
+    </ion-item>
+
+
+
+</ion-content>

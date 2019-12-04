@@ -12,7 +12,8 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    // return $router->app->version();
+    return view('picuploadTest');
 });
 
 //$router->get('/JSONData','JSONController@returnJSON');
@@ -29,7 +30,7 @@ $router->post('/newImage','CreateController@insertImage');
 
 $router->post('/newBookmark','CreateController@insertBookmark');
 
-$router->post('/newUser','CreateController@insertUser'); //noch kein Postman Test
+$router->post('/newUser','CreateController@insertUser');
 
 //READ
 
@@ -56,6 +57,8 @@ $router->post('/onePost','ReadController@selectOnePost');
 $router->post('/proveBookmarkExists','ReadController@showIfBookmarkExists');
 
 $router->post('/allBookmarkedJourneys','ReadController@selectBookmarkedJourneys');
+
+$router->post('/oneUser','ReadController@selectOneUser');
 
 
 //UPDATE
