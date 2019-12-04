@@ -31,6 +31,15 @@ const routes: Routes = [
                 loadChildren:()=>
                 import('../Pages/place-detail/place-detail.module').then (m => m.PlaceDetailPageModule)}
             ]
+          },
+          {
+            path: 'post-detail',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/post-detail/post-detail.module').then (m => m.PostDetailPageModule)}
+            ]
           }
         ]
       },
