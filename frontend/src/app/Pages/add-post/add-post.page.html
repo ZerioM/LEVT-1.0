@@ -7,31 +7,30 @@
           <ion-icon class="back" name="ios-arrow-back"></ion-icon>
         </ion-button>
       </ion-buttons>
-    <ion-title  class="tabHeading" no-padding>Add a Post</ion-title>
+    <ion-title  class="tabHeading" no-padding>Add A Post</ion-title>
     <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
-  <ion-item no-padding>
-    <ion-label>What is your post about?*</ion-label>
+  <ion-item no-padding lines="none">
+    <ion-label><b>What is your post about?</b><b class="importantStars">*</b></ion-label>
     <ion-select placeholder="Post Category" [(ngModel)]="data.newPost._activityID">
       <ion-select-option *ngFor="let a of data.activities.activities" value="{{a.activityID}}">
         {{a.activityName}}
       </ion-select-option>
     </ion-select>
   </ion-item>
+
   <ion-item no-padding>
-    <ion-label><b>Post Details</b></ion-label>
+    <ion-textarea [(ngModel)]="data.newPost.detail" placeholder="Tell us what you experienced here!" rows="8" background="light" no-padding> 
+    <ion-label><b>Post Details</b></ion-label></ion-textarea>
   </ion-item>
-  <ion-item no-padding>
-    <ion-textarea [(ngModel)]="data.newPost.detail" placeholder="Tell us what you experienced here!" rows="8" background="light"></ion-textarea>
-  </ion-item>
+
+  <ion-label class="importantThings">
+      * Fields marked with a <b class="importantStars">*</b> are mandatory.
+    </ion-label>
+
   <ion-button (click)="savePost()" color="primary" expand="full">
     Finish
   </ion-button>
-  <ion-item>
-    <ion-label>
-      * Fields marked with a * are mandatory.
-    </ion-label>
-  </ion-item>
 </ion-content>

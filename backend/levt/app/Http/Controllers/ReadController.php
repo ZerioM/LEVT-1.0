@@ -36,6 +36,12 @@ class ReadController extends BaseController
         return $poc->selectOne($requestArray['postID']);
     }
 
+    public function selectOneUser(Request $request){
+        $uc = new _UserController;
+        $requestArray = $request->all();
+        return $uc->selectOne($requestArray['userID']);//username?
+    }
+
     public function selectJourneyCategories(){
         $jcc = new _JourneyCategoryController;
         return $jcc->selectAll();
@@ -75,4 +81,5 @@ class ReadController extends BaseController
         $gc = new _GenderController;
         return $gc->selectAll();
     }
+
 }
