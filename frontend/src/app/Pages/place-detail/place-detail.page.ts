@@ -17,7 +17,7 @@ export class PlaceDetailPage implements OnInit {
 
   showPost(postID: number){
 
-    this.data.loadOnePlace(postID);
+    this.data.loadOnePost(postID);
       
     //go To Journey Detail 
     this.router.navigateByUrl('/tabs/tab1/post-detail');
