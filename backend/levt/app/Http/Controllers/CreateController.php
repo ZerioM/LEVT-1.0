@@ -39,6 +39,11 @@ class CreateController extends BaseController
         return $userController->insertOne($request);
     }
 
+    public function uploadImage(Request $request) {
+        $imageController = new _ImageController;
+        return $imageController->uploadOne($request);
+    }
+
     /*
     //Post Requests und Module work:
 

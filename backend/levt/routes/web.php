@@ -32,6 +32,11 @@ $router->post('/newBookmark','CreateController@insertBookmark');
 
 $router->post('/newUser','CreateController@insertUser');
 
+$router->post('/uploadImage','CreateController@uploadImage');
+
+//$router->post('/validatePlace','CreateController@InsertValidatedPlace');
+
+
 //READ
 
 $router->get('/top100','ReadController@selectTopJourneys');
