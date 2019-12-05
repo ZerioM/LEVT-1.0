@@ -90,4 +90,10 @@ export class JourneyDetailPage implements OnInit {
   
    }
 
+   backToHomepage(){
+
+    this.router.navigateByUrl('/tabs/tab1');
+  
+   }
+
 }
