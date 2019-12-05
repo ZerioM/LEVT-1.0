@@ -429,6 +429,10 @@ export class DataService {
     return this.journeyService.updateJourneyWorks;
   }
 
+  updatePlaceWorks() {
+    return this.placeService.updatePlaceWorks;
+  }
+
   async autocompletePlaceName(){
     /*let suggestedPlaces: Place[];
     await this.http.post("http://levt.test/autocompletePlace", this.newPlace.placeName).toPromise().then((loadedData: Place[]) => {
