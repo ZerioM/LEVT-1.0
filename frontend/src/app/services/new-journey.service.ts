@@ -21,7 +21,7 @@ export class NewJourneyService {
   postData: any;
 
 
- 
+  public updateJourneyWorks: boolean = true;
 
   constructor(private http: HttpClient) {}
 
@@ -67,8 +67,10 @@ export class NewJourneyService {
       await this.http.post("http://levt.test/newJourney", journey).toPromise().then((loadedData: Journey) => {
         console.log(loadedData);
         console.log("New Journey in DB inserted.");
+        this.updateJourneyWorks = true;
         journey = loadedData;
       }, error => {
+        this.updateJourneyWorks = true;
         console.log(error);
       });
     } else {
@@ -77,8 +79,10 @@ export class NewJourneyService {
         console.log("Journey with ID: ");
         console.log(journey.journeyID);
         console.log(" in DB updated.");
+        this.updateJourneyWorks = true;
         journey = loadedData;
       }, error => {
+        this.updateJourneyWorks = false;
         console.log(error);
       });
     }
