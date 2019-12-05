@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 
 use App\Http\Controllers\Controller;
 
@@ -96,6 +98,32 @@ class _ImageController extends BaseController
         ];
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
+    }
+
+
+    public function uploadOne(Request $request){
+
+        // request()->validate([
+
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+        // ]);
+
+        // $imageName = time().'.'.request()->image->getClientOriginalExtension();
+
+        // request()->image->move(public_path('images'), $imageName);
+
+        // return back()
+
+        //     ->with('success','You have successfully upload image.')
+
+        //     ->with('image',$imageName);
+
+        //print_r($request->file());
+        echo $request->file('picUpload')->store('images');
+        //$request->file->move(public_path('images'));
+        //Storage::put($request->file(),'');
+
     }
 
 }

@@ -201,9 +201,9 @@ class _JourneyController extends BaseController
                     null as places,thumbnailImage.src as thumbnailSrc
                     FROM journeys
                     INNER JOIN users ON journeys._userID = users.userID
-                    INNER JOIN images AS profileImage ON users._profileImageID = profileImage.imageID
-                    INNER JOIN images AS thumbnailImage ON journeys._thumbnailID = thumbnailImage.imageID
-                    INNER JOIN bookmarks ON journeys.journeyID = bookmarks._journeyID
+                    LEFT JOIN images AS profileImage ON users._profileImageID = profileImage.imageID
+                    LEFT JOIN images AS thumbnailImage ON journeys._thumbnailID = thumbnailImage.imageID
+                    LEFT JOIN bookmarks ON journeys.journeyID = bookmarks._journeyID
                     INNER JOIN seasons on journeys._seasonID = seasons.seasonID
                     GROUP BY journeys.journeyID
                     ORDER BY bookmarks DESC

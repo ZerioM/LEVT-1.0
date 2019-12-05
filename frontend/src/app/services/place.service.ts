@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 export class PlaceService {
 
 
+  public updatePlaceWorks: boolean = true;
+
   constructor(private http: HttpClient) { }
 
   newPlace(journey: Journey) {
@@ -23,8 +25,10 @@ export class PlaceService {
       await this.http.post("http://levt.test/newPlace", place).toPromise().then((loadedData: Place) => {
         console.log(loadedData);
         console.log("New Place in DB inserted");
+        this.updatePlaceWorks = true;
         place = loadedData;      
       }, error => {
+        this.updatePlaceWorks = true;
         console.log(error);
       });
     } else {
@@ -33,8 +37,10 @@ export class PlaceService {
         console.log("Place with ID: ");
         console.log(place.placeID);
         console.log(" in DB updated");
+        this.updatePlaceWorks = true;
         place = loadedData;
       }, error => {
+        this.updatePlaceWorks = false;
         console.log(error);
       });
     }

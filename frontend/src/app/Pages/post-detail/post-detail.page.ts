@@ -15,4 +15,10 @@ export class PostDetailPage implements OnInit {
   ngOnInit() {
   }
 
+  backToPlaceDetail(){
+
+    this.router.navigateByUrl('/tabs/tab1/place-detail');
+  
+  }
+
 }
