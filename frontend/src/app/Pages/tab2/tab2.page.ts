@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NewJourneyService } from 'src/app/services/new-journey.service';
+import { LoadingController } from '@ionic/angular';
 
 
 import { compileNgModule } from '@angular/compiler';
@@ -25,9 +26,11 @@ export class Tab2Page {
  public transports=[false,false,false,false,false,false,false,false,false];
 
   test: any;
+  
+  public loading;
 
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController) {
+  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController) {
 
     this.loadJSON();
   }
@@ -46,12 +49,15 @@ export class Tab2Page {
   //Naviagation 
   async goToAddNewPlace() {
     this.readCostsAndTransports();
+    
     if(this.data.newJourney.journeyName != null){
 
     } else {
       
-    }
+    } 
+    this.presentLoading();
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
+    this.loading.dismiss();
     if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       this.placeService.newPlace(this.data.newJourney);
       this.router.navigateByUrl('/tabs/tab2/add-place');
@@ -65,7 +71,9 @@ export class Tab2Page {
 
   async goToEditPlace(place: Place, index: number){
     this.readCostsAndTransports();
+    this.presentLoading();
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
+    this.loading.dismiss();
     if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       console.log(place);
       this.data.placeInJourney = index;
@@ -167,6 +175,18 @@ export class Tab2Page {
     this.data.newJourney.campingtrailer=this.transports[6];
     this.data.newJourney.hiking=this.transports[7];
     this.data.newJourney.bicycle=this.transports[8];
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      spinner: "lines",
+      duration: 20000,
+      message: 'Please wait...',
+      translucent: true,
+     // cssClass: 'custom-class custom-loading'
+    });
+    return await this.loading.present();
+
   }
 }
 
