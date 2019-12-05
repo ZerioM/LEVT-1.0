@@ -26,9 +26,11 @@ export class Tab1Page {
    }
 
     async showJourney(journeyID: number){
-
+    
+    await this.data.presentLoading();  
     await this.data.loadOneJourney(journeyID);
     await this.data.bookmarkExists();
+    await this.data.dismissLoading();
     if(this.data.currentBookmark.bookmarkID != null){
       this.data.bookmarkIcon = this.data.bookmarkSaved;
     } else {

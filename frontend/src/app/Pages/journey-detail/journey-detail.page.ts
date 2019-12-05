@@ -81,9 +81,11 @@ export class JourneyDetailPage implements OnInit {
 
   }
 
-  showPlace(placeID: number){
+ async showPlace(placeID: number){
 
-    this.data.loadOnePlace(placeID);
+  await this.data.presentLoading();
+  await this.data.loadOnePlace(placeID);
+  await this.data.dismissLoading();
       
     //go To Journey Detail 
     this.router.navigateByUrl('/tabs/tab1/place-detail');
