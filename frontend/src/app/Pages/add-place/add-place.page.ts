@@ -45,7 +45,7 @@ export class AddPlacePage implements OnInit {
   async goToAddNewPost(){
     if(this.data.validatePlaceName()){
       this.data.newPlace = await this.placeService.savePlace(this.data.newPlace);
-      if(this.data.newPlace.placeID != null){
+      if(this.data.newPlace.placeID != null && this.data.updatePlaceWorks()){
         this.postService.newPost(this.data.newPlace);
         this.router.navigateByUrl('/tabs/tab2/add-post');
       } else {
@@ -61,7 +61,7 @@ export class AddPlacePage implements OnInit {
   async goToEditPost(po:Post,index:number){
     if(this.data.validatePlaceName()){
       this.data.newPlace = await this.placeService.savePlace(this.data.newPlace);
-      if(this.data.newPlace.placeID != null){
+      if(this.data.newPlace.placeID != null && this.data.updatePlaceWorks()){
         this.data.newPost = po;
         this.data.postInPlace = index;
         this.router.navigateByUrl('/tabs/tab2/add-post');
