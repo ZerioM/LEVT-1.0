@@ -52,7 +52,7 @@ export class Tab2Page {
       
     }
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
-    if(this.data.newJourney.journeyID != null){
+    if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       this.placeService.newPlace(this.data.newJourney);
       this.router.navigateByUrl('/tabs/tab2/add-place');
     } else {
@@ -66,7 +66,7 @@ export class Tab2Page {
   async goToEditPlace(place: Place, index: number){
     this.readCostsAndTransports();
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
-    if(this.data.newJourney.journeyID != null){
+    if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       console.log(place);
       this.data.placeInJourney = index;
       this.data.newPlace = place;
