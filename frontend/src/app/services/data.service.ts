@@ -465,9 +465,11 @@ export class DataService {
 
   async presentLoading() {
     this.loading = await this.loadingController.create({
-      spinner: "lines",
+      spinner: null,
       duration: 20000,
-      message: 'Please wait...',
+      /*message: 'Please wait...',
+      content: "<div class="loadingscreen"></div>",*/
+      message: '<img src="/assets/images/loadingscreen.gif">',
       translucent: true,
      // cssClass: 'custom-class custom-loading'
     }); 
