@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 
 use App\Http\Controllers\Controller;
@@ -103,27 +104,22 @@ class _ImageController extends BaseController
 
     public function uploadOne(Request $request){
 
-        // request()->validate([
+        $this->validate($request,[
 
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'picUpload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-        // ]);
+        ]);
 
-        // $imageName = time().'.'.request()->image->getClientOriginalExtension();
-
-        // request()->image->move(public_path('images'), $imageName);
-
-        // return back()
-
-        //     ->with('success','You have successfully upload image.')
-
-        //     ->with('image',$imageName);
-
-        //print_r($request->file());
-        echo $request->file('picUpload')->store('images');
-        //$request->file->move(public_path('images'));
-        //Storage::put($request->file(),'');
-
+        $mytime = Carbon::now();
+        $mytime->toDateTimeString();
+        $year = substr($mytime, 0, -15);
+        $month = substr($mytime, 5, -12);
+        $day = substr($mytime, 8, -9);
+        $hour = substr($mytime, 11, -6);
+        Storage::makeDirectory('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
+        print_r($mytime);
+        $request->file('picUpload')->store('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
+        
     }
 
 }
