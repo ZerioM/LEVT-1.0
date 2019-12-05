@@ -47,10 +47,10 @@ ion-searchbar {
   z-index: 3;
   padding: 0;
 } //Suchleiste
+
 .searchbar-input.sc-ion-searchbar-ios{
   background:white !important;
 } //macht Hintergrund bei Suchleiste in IOS trotzdem grau
-
 #gallery {
   width: 100%;
 } // Alle Beiträge auf der Startseite
@@ -58,14 +58,7 @@ ion-searchbar {
   width: 100%;
   margin-bottom: 50px;
   position: relative;
-} // Bilderrahmen mit Bild und Text
-.imgAndInfo {
-  width: 95%;
-  display: block;
-  margin-top: -20px;
-  margin-left: auto;
-  margin-right: auto;
-}// Bild und Infotext
+} // Bilderrahmen mit Bild und Text auf Startseite
 .thumbnailImg {
   margin-top: -10px;
   padding: 0px !important;
@@ -81,24 +74,6 @@ ion-searchbar {
   font-variant: small-caps;
   position:absolute;
 } // Titel der Reise im Bild
-.picInformations {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: -35px;
-  margin-top: -5px;
-} // Username & Season
-.userpicAndName {
-  display: flex;
-  flex-direction: row;
-} // Profilbild & Username
-.userpic {
-  width: 20px;
-  height: 20px;
-  object-fit: cover;
-  margin-right: 5px;
-} // Profilbild
 
 ion-label {
   margin: 0;
@@ -111,7 +86,6 @@ ion-item {
 ion-list{
 	padding:0;
 }
-
 #start {
   position: fixed;
   width: 20px;
