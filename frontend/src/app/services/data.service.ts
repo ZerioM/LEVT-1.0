@@ -61,7 +61,8 @@ export class DataService {
   public activities: Activities = { activities: [] };
   public seasons: Seasons = { seasons: [] };
 
-  
+  public placeInserted:boolean =false;
+  public postInserted:boolean = false;
 
   private locale : string;
 

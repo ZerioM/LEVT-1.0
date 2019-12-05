@@ -13,15 +13,13 @@ import { PlaceService } from 'src/app/services/place.service';
 })
 export class AddPostPage implements OnInit {
 
-  private inserted: boolean = false;;
 
   constructor(private journeyService: NewJourneyService, private data: DataService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router) {
     this.data.loadActivities();
-    if(this.data.newPost == null){
-      this.data.newPost = this.postService.newPost(this.data.newPlace);
-      this.inserted = false;
+    if(this.data.postInserted){
+
     } else {
-      this.inserted = true;
+      this.data.newPost = this.postService.newPost(this.data.newPlace);
     }
   }
 
@@ -39,7 +37,7 @@ export class AddPostPage implements OnInit {
     
     if(this.data.newPost.postID != null){
       console.log("Post saved");
-      if(this.inserted){
+      if(this.data.postInserted){
         this.data.newPlace.posts[this.data.postInPlace] = this.data.newPost;
       } else {
         this.data.newPlace.posts.push(this.data.newPost);

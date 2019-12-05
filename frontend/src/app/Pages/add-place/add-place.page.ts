@@ -18,19 +18,13 @@ import { Post } from 'src/app/Interfaces/Post';
   styleUrls: ['./add-place.page.scss'],
 })
 export class AddPlacePage implements OnInit {
-  private inserted: boolean = false;
 
   constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService) {
-  
+    if(this.data.placeInserted){
 
-    if(this.data.newPlace == null){
-      this.data.newPlace = this.placeService.newPlace(this.data.newJourney);
-      this.inserted = false;
     } else {
-      this.inserted = true;
+      this.data.newPlace = this.placeService.newPlace(this.data.newJourney);
     }
-    
-  
   }
 
   ngOnInit() {
@@ -43,6 +37,7 @@ export class AddPlacePage implements OnInit {
   }
   
   async goToAddNewPost(){
+    this.data.postInserted = false;
     if(this.data.validatePlaceName()){
       this.data.newPlace = await this.placeService.savePlace(this.data.newPlace);
       if(this.data.newPlace.placeID != null && this.data.updatePlaceWorks()){
@@ -59,6 +54,7 @@ export class AddPlacePage implements OnInit {
   }
 
   async goToEditPost(po:Post,index:number){
+    this.data.postInserted = true;
     if(this.data.validatePlaceName()){
       this.data.newPlace = await this.placeService.savePlace(this.data.newPlace);
       if(this.data.newPlace.placeID != null && this.data.updatePlaceWorks()){
@@ -89,7 +85,7 @@ export class AddPlacePage implements OnInit {
     if(this.data.validatePlaceName()){
       this.data.newPlace = await this.placeService.savePlace(this.data.newPlace);
       if(this.data.newPlace.placeID != null){
-        if(this.inserted){
+        if(this.data.placeInserted){
           this.data.newJourney.places[this.data.placeInJourney] = this.data.newPlace;
           this.data.placeInJourney = null;
         } else {

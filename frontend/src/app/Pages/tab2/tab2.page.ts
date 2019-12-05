@@ -46,6 +46,7 @@ export class Tab2Page {
   //Naviagation 
   async goToAddNewPlace() {
     this.readCostsAndTransports();
+    this.data.placeInserted = false;
     if(this.data.newJourney.journeyName != null){
 
     } else {
@@ -65,6 +66,7 @@ export class Tab2Page {
 
   async goToEditPlace(place: Place, index: number){
     this.readCostsAndTransports();
+    this.data.placeInserted = true;
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
     if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       console.log(place);
