@@ -8,6 +8,7 @@ export interface Post{
     detail:string;
 
     activityName: string;
+    iconName: string;
     place: Place;
     images: Image[];
 }

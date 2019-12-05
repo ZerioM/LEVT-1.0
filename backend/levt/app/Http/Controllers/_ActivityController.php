@@ -16,6 +16,10 @@ class _ActivityController extends BaseController
         return DB::table('activities')->where('activityID',$id)->value('activityName');
     }
 
+    public function selectIconByID($id){
+        return DB::table('activities')->where('activityID',$id)->value('iconName');
+    }
+
     public function selectAll(){
         return '{"activities": '.json_encode(Activity::all(), JSON_PRETTY_PRINT)." \n}";
     }

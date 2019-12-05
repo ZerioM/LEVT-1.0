@@ -65,6 +65,7 @@ class _PlaceController extends BaseController
                 'detail' => null,
 
                 'activityName' => $activityController->selectNameByID($postArray['_activityID']),
+                'iconName' => $activityController->selectIconByID($postArray['_activityID']),
                 'place' => null,
                 'images' => $this->selectImagesByPostID($postArray['postID'])
             ];
