@@ -17,7 +17,7 @@
             <div class="frameLeft"></div>
             <div class="imgAndInfo">
 
-              <ion-item class="thumbnailImgSlider" color="none" no-padding>
+              <ion-item class="thumbnailImgSlider" color="none" no-padding no-margin>
                   <ion-slides>
                       <ion-slide *ngFor="let i of data.currentPost.images">
                         <img src="{{i.imgSrc}}"/>
@@ -26,18 +26,10 @@
               </ion-item>
 
               <div class="picInformations">
-                <!--<div class="userpicAndName">
-                  <ion-item color="none">
-                    <img src={{data.currentJourney.userImgSrc}} alt="User" class="userpic" />
-                  </ion-item>
-                  <ion-item color="none">
-                    <ion-label>{{data.currentJourney.username}}</ion-label>
-                  </ion-item>
-                </div>-->
-                <ion-item color="none" no-padding>
+                <ion-item color="none" no-padding no-margin>
                     <ion-label>{{data.currentPost.activityName}}</ion-label>
                   </ion-item>
-                <ion-item color="none" class="travelTime">
+                <ion-item color="none" class="travelTime" no-margin>
                     <ion-icon name="md-time" class="timeIcon"></ion-icon>
                   <ion-label>{{data.currentJourney.seasonName}} - {{data.currentJourney.year}}</ion-label>
                 </ion-item>
@@ -47,12 +39,7 @@
           </div>
       </ion-list>
 
-
-
-  
-
-
-    <ion-item>
+    <ion-item lines="none" no-padding>
         <ion-text><b>Detail</b><br>{{data.currentPost.detail}}</ion-text>
     </ion-item>
 
