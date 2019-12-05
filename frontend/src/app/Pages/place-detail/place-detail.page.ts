@@ -24,4 +24,8 @@ export class PlaceDetailPage implements OnInit {
   
    }
 
+   backToJourneyDetail(){
+     this.router.navigateByUrl('/tabs/tab1/journey-detail');
+   }
+
 }
