@@ -21,6 +21,7 @@ import { NewJourneyService } from './new-journey.service';
 import { User } from '../Interfaces/User';
 import { PlaceService } from './place.service';
 import { PostService } from './post.service';
+import { LoadingController } from '@ionic/angular';
 
 import { ToastController } from '@ionic/angular';
 import { Bookmark } from '../Interfaces/Bookmark';
@@ -61,14 +62,15 @@ export class DataService {
   public activities: Activities = { activities: [] };
   public seasons: Seasons = { seasons: [] };
 
+  public loading;
   
 
   private locale : string;
 
-  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService, public toastController: ToastController) { 
-    this.newJourney= this.journeyService.newJourney(this.currentUser);
+  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService, public toastController: ToastController, public loadingController:LoadingController) { 
 
-      
+    this.newJourney= this.journeyService.newJourney(this.currentUser);
+  
     /*
     //for german Date:
     registerLocaleDate(localeDE);
@@ -459,5 +461,22 @@ export class DataService {
       return false;
     }*/
     return true;
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      spinner: "lines",
+      duration: 20000,
+      message: 'Please wait...',
+      translucent: true,
+     // cssClass: 'custom-class custom-loading'
+    }); 
+
+    return await this.loading.present();
+
+  }
+
+  async dismissLoading() {
+    return await this.loading.dismiss();
   }
 }

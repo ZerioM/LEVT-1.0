@@ -27,12 +27,14 @@ export class Tab2Page {
 
   test: any;
   
-  public loading;
+  
 
 
   constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController) {
 
     this.loadJSON();
+
+    
   }
 
   //Daten laden
@@ -55,9 +57,9 @@ export class Tab2Page {
     } else {
       
     } 
-    this.presentLoading();
+    await this.data.presentLoading();
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
-    this.loading.dismiss();
+    await this.data.dismissLoading();
     if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       this.placeService.newPlace(this.data.newJourney);
       this.router.navigateByUrl('/tabs/tab2/add-place');
@@ -71,9 +73,9 @@ export class Tab2Page {
 
   async goToEditPlace(place: Place, index: number){
     this.readCostsAndTransports();
-    this.presentLoading();
+   await this.data.presentLoading();
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
-    this.loading.dismiss();
+    await this.data.dismissLoading();
     if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       console.log(place);
       this.data.placeInJourney = index;
@@ -145,8 +147,10 @@ export class Tab2Page {
     
     console.log("Plane = "+this.data.newJourney.plane);
     
+    await this.data.presentLoading();
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
-    
+    await this.data.dismissLoading();
+
     if(this.data.newJourney.journeyID != null){
       this.data.newJourney=this.journeyService.newJourney(this.data.currentUser);
       this.router.navigateByUrl('/tabs/tab1');
@@ -177,16 +181,6 @@ export class Tab2Page {
     this.data.newJourney.bicycle=this.transports[8];
   }
 
-  async presentLoading() {
-    this.loading = await this.loadingController.create({
-      spinner: "lines",
-      duration: 20000,
-      message: 'Please wait...',
-      translucent: true,
-     // cssClass: 'custom-class custom-loading'
-    });
-    return await this.loading.present();
-
-  }
+  
 }
 
