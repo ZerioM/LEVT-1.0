@@ -28,7 +28,7 @@ export class Tab1Page {
     async showJourney(journeyID: number){
 
     await this.data.loadOneJourney(journeyID);
-      this.data.bookmarkExists();
+    await this.data.bookmarkExists();
     if(this.data.currentBookmark.bookmarkID != null){
       this.data.bookmarkIcon = this.data.bookmarkSaved;
     } else {
