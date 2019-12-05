@@ -18,11 +18,14 @@
             <div class="imgAndInfo">
 
               <ion-item class="thumbnailImgSlider" color="none" no-padding no-margin>
-                  <ion-slides>
+                  <ion-slides *ngIf="data.currentPost.images.length != 0">
                       <ion-slide *ngFor="let i of data.currentPost.images">
                         <img src="{{i.imgSrc}}"/>
+                        
                       </ion-slide>
-                    </ion-slides>          
+                      
+                  </ion-slides>
+                  <img *ngIf="data.currentPost.images.length == 0" src="/assets/images/platzhalter_post_big.png" />          
               </ion-item>
 
               <div class="picInformations">
