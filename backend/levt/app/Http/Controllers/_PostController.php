@@ -81,6 +81,7 @@ class _PostController extends BaseController
             'detail' => $postArray['detail'],
 
             'activityName' => $activityController->selectNameByID($postArray['_activityID']),
+            'iconName' => $activityController->selectIconByID($postArray['_activityID']),
             'place' => $outputPlaceArray,
             'images' => $outputImagesArray
         ];

@@ -21,6 +21,7 @@ import { NewJourneyService } from './new-journey.service';
 import { User } from '../Interfaces/User';
 import { PlaceService } from './place.service';
 import { PostService } from './post.service';
+import { LoadingController } from '@ionic/angular';
 
 import { ToastController } from '@ionic/angular';
 import { Bookmark } from '../Interfaces/Bookmark';
@@ -30,7 +31,7 @@ import { Bookmark } from '../Interfaces/Bookmark';
 })
 export class DataService {
 
-  public currentPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", place:null, images:[]}
+  public currentPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", iconName:"" , place:null, images:[]}
 
   public currentPlace: Place = { placeID: null,_journeyID:null,_thumbnailID: null,_countryID:"",detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
 
@@ -63,13 +64,15 @@ export class DataService {
 
   public placeInserted:boolean =false;
   public postInserted:boolean = false;
+  public loading;
+  
 
   private locale : string;
 
-  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService, public toastController: ToastController) { 
-    this.newJourney= this.journeyService.newJourney(this.currentUser);
+  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService, public toastController: ToastController, public loadingController:LoadingController) { 
 
-      
+    this.newJourney= this.journeyService.newJourney(this.currentUser);
+  
     /*
     //for german Date:
     registerLocaleDate(localeDE);
@@ -460,5 +463,24 @@ export class DataService {
       return false;
     }*/
     return true;
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      spinner: null,
+      duration: 20000,
+      /*message: 'Please wait...',
+      content: "<div class="loadingscreen"></div>",*/
+      message: '<img src="/assets/images/loadingscreen.gif">',
+      translucent: true,
+     // cssClass: 'custom-class custom-loading'
+    }); 
+
+    return await this.loading.present();
+
+  }
+
+  async dismissLoading() {
+    return await this.loading.dismiss();
   }
 }

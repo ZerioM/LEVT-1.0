@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NewJourneyService } from 'src/app/services/new-journey.service';
+import { LoadingController } from '@ionic/angular';
 
 
 import { compileNgModule } from '@angular/compiler';
@@ -25,11 +26,15 @@ export class Tab2Page {
  public transports=[false,false,false,false,false,false,false,false,false];
 
   test: any;
+  
+  
 
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController) {
+  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController) {
 
     this.loadJSON();
+
+    
   }
 
   //Daten laden
@@ -47,12 +52,15 @@ export class Tab2Page {
   async goToAddNewPlace() {
     this.readCostsAndTransports();
     this.data.placeInserted = false;
+    
     if(this.data.newJourney.journeyName != null){
 
     } else {
       
-    }
+    } 
+    await this.data.presentLoading();
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
+    await this.data.dismissLoading();
     if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       this.placeService.newPlace(this.data.newJourney);
       this.router.navigateByUrl('/tabs/tab2/add-place');
@@ -67,7 +75,9 @@ export class Tab2Page {
   async goToEditPlace(place: Place, index: number){
     this.readCostsAndTransports();
     this.data.placeInserted = true;
+    await this.data.presentLoading();
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
+    await this.data.dismissLoading();
     if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       console.log(place);
       this.data.placeInJourney = index;
@@ -139,8 +149,10 @@ export class Tab2Page {
     
     console.log("Plane = "+this.data.newJourney.plane);
     
+    await this.data.presentLoading();
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
-    
+    await this.data.dismissLoading();
+
     if(this.data.newJourney.journeyID != null){
       this.data.newJourney=this.journeyService.newJourney(this.data.currentUser);
       this.router.navigateByUrl('/tabs/tab1');
@@ -170,5 +182,7 @@ export class Tab2Page {
     this.data.newJourney.hiking=this.transports[7];
     this.data.newJourney.bicycle=this.transports[8];
   }
+
+  
 }
 

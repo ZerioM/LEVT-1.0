@@ -12,7 +12,7 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
   newPost(place: Place) {
-    let newPost: Post = { postID: null, _activityID:null, _placeID: place.placeID, detail: "", activityName:"", place: place, images:[] }
+    let newPost: Post = { postID: null, _activityID:null, _placeID: place.placeID, detail: "", activityName:"", iconName:"" , place: place, images:[] }
 
     return newPost;
   }
