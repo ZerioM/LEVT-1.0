@@ -79,6 +79,15 @@ export class AddPlacePage implements OnInit {
 
   }
 
+  showNoPostWarning() {
+    if (this.data.newPlace.posts.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
+    return true;
+  }
+
   keyUpPlaceName(){
    //let placeSuggestions = await this.data.autocompletePlaceName();
   }

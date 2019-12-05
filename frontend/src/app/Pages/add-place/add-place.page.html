@@ -29,7 +29,7 @@
     <ion-item lines="none" no-padding>
       <ion-label position="floating"><b>Posts</b></ion-label><br>
      <!--<ion-label color="warning" id="NoPlace" no-margin> You haven't added any posts to your place!</ion-label>-->
-     <br><p id="NoPlace" no-margin> You haven't added any posts to your place!</p>
+     <br><p *ngIf="showNoPostWarning()" id="NoPlace" no-margin> You haven't added any posts to your place!</p>
     </ion-item>
     <ion-item no-padding lines="none">
       <div id="alreadyAddedPlaces" class="gridContainer">
