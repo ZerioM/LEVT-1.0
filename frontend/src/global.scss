@@ -99,6 +99,7 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
   position: relative;
   margin-bottom: 20px;
 } // Bilderrahmen => Rahmen & Bild
+
 .frameLeft {
   width: 30px;
   height: 30px;
@@ -116,6 +117,31 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
   border-bottom: 4px solid #182f30;
   border-right: 4px solid #182f30;
 } // Rahmen Rechts
+.imgAndInfo {
+  width: 95%;
+  display: block;
+  margin-top: -20px;
+  margin-left: auto;
+  margin-right: auto;
+}// Bild und Infotext
+.picInformations {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: -35px;
+  margin-top: -5px;
+} // Username & Season
+.userpicAndName {
+  display: flex;
+  flex-direction: row;
+} // Profilbild & Username
+.userpic {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  margin-right: 5px;
+} // Profilbild
 .travelTime {
   display: flex;
   flex-direction: row;
@@ -212,7 +238,6 @@ p{
   font-weight: bold;
   color:#d68900;
 }// Sternchen *
-
 
 //Map
 .map {

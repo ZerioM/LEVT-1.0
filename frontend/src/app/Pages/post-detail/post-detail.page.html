@@ -1,36 +1,41 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title class="tabHeading">{{data.currentPost.activityName}}</ion-title>
-  </ion-toolbar>
+<ion-header class="tabHeader">
+ <ion-buttons>
+     <ion-button icon-only (click)="back()">
+       <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+     </ion-button>
+   </ion-buttons>
+
+ <ion-title class="tabHeading" no-padding>{{data.currentPlace.placeName}}</ion-title>
+     <img  class="headerUserPic" src={{data.currentJourney.userImgSrc}} alt="User"/>
 </ion-header>
+<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
 <ion-content>
 
     <ion-list lines="none">
-          <div class="pictureFrameIndex">
+          <div class="pictureFramePostDetail">
             <div class="frameLeft"></div>
             <div class="imgAndInfo">
-              <ion-item class="thumbnailImg" color="none">
-                  <ion-slides>
 
+              <ion-item class="thumbnailImgSlider" color="none" no-padding>
+                  <ion-slides>
                       <ion-slide *ngFor="let i of data.currentPost.images">
                         <img src="{{i.imgSrc}}"/>
                       </ion-slide>
-                
-                    </ion-slides>
-                    
+                    </ion-slides>          
               </ion-item>
+
               <div class="picInformations">
-                <div class="userpicAndName">
+                <!--<div class="userpicAndName">
                   <ion-item color="none">
                     <img src={{data.currentJourney.userImgSrc}} alt="User" class="userpic" />
                   </ion-item>
                   <ion-item color="none">
                     <ion-label>{{data.currentJourney.username}}</ion-label>
                   </ion-item>
-                </div>
-                <ion-item color="none">
-                    <ion-label>{{data.currentPlace.placeName}}</ion-label>
+                </div>-->
+                <ion-item color="none" no-padding>
+                    <ion-label>{{data.currentPost.activityName}}</ion-label>
                   </ion-item>
                 <ion-item color="none" class="travelTime">
                     <ion-icon name="md-time" class="timeIcon"></ion-icon>
@@ -48,7 +53,7 @@
 
 
     <ion-item>
-        <ion-text>{{data.currentPost.detail}}</ion-text>
+        <ion-text><b>Detail</b><br>{{data.currentPost.detail}}</ion-text>
     </ion-item>
 
 
