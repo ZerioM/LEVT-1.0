@@ -37,6 +37,14 @@ export class AddPlacePage implements OnInit {
   }
   
   async goToAddNewPost(){
+
+    if(this.data.newPlace.placeName == ""){
+
+        this.data.presentMandatoryToast();
+        return;
+
+    }
+
     this.data.postInserted = false;
     if(this.data.validatePlaceName()){
       await this.data.presentLoading();
@@ -56,6 +64,14 @@ export class AddPlacePage implements OnInit {
   }
 
   async goToEditPost(po:Post,index:number){
+
+    if(this.data.newPlace.placeName == ""){
+
+      this.data.presentMandatoryToast();
+      return;
+
+    }
+
     this.data.postInserted = true;
     if(this.data.validatePlaceName()){
       await this.data.presentLoading();
@@ -125,7 +141,14 @@ export class AddPlacePage implements OnInit {
 
   
   async savePlace(){
-    //console.log("Place saved");
+
+    if(this.data.newPlace.placeName == ""){
+
+      this.data.presentMandatoryToast();
+      return;
+
+    } 
+
     if(this.data.validatePlaceName()){
 
       await this.data.presentLoading();

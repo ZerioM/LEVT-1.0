@@ -290,42 +290,10 @@ export class DataService {
     toast.present();
   }
 
-  async presentNoJourneyNameToast() {
+  async presentMandatoryToast() {
     const toast = await this.toastController.create({
-      message: 'This Journey has`nt got any name. Please enter a name!',
-      duration: 4000
-    });
-    toast.present();
-  }
-
-  async presentNoSeasonToast() {
-    const toast = await this.toastController.create({
-      message: 'You haven´t added any season when you traveled. Please enter a season!',
-      duration: 4000
-    });
-    toast.present();
-  }
-
-  async presentNoYearToast() {
-    const toast = await this.toastController.create({
-      message: 'You haven´t added any year when you traveled. Please enter a year!',
-      duration: 4000
-    });
-    toast.present();
-  }
-
-  async presentNoJourneyCategoryToast() {
-    const toast = await this.toastController.create({
-      message: 'You haven´t chosen any Category your journey fits. Please enter a Category!',
-      duration: 4000
-    });
-    toast.present();
-  }
-
-  async presentNoTransportToast() {
-    const toast = await this.toastController.create({
-      message: 'You haven´t added any transportation with whom you traveled. Please enter a transportation!',
-      duration: 4000
+      message: 'You haven`t entered some mandatory fields. Please check if you filled all fields with a * and try again!',
+      duration: 8000
     });
     toast.present();
   }
