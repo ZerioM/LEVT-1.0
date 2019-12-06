@@ -59,7 +59,13 @@ export class Tab2Page {
       
     } 
     await this.data.presentLoading();
+    let seasonID = this.data.newJourney._seasonID;
+    let journeyCategoryID = this.data.newJourney._journeyCategoryID;
+    let companionshipID = this.data.newJourney._companionshipID;
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
+    this.data.newJourney._seasonID = seasonID;
+    this.data.newJourney._journeyCategoryID = journeyCategoryID;
+    this.data.newJourney._companionshipID = companionshipID;
     await this.data.dismissLoading();
     if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       this.placeService.newPlace(this.data.newJourney);
@@ -76,7 +82,13 @@ export class Tab2Page {
     this.readCostsAndTransports();
     this.data.placeInserted = true;
     await this.data.presentLoading();
+    let seasonID = this.data.newJourney._seasonID;
+    let journeyCategoryID = this.data.newJourney._journeyCategoryID;
+    let companionshipID = this.data.newJourney._companionshipID;
     this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
+    this.data.newJourney._seasonID = seasonID;
+    this.data.newJourney._journeyCategoryID = journeyCategoryID;
+    this.data.newJourney._companionshipID = companionshipID;
     await this.data.dismissLoading();
     if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       console.log(place);
