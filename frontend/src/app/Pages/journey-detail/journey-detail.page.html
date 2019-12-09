@@ -65,7 +65,7 @@
       width="600" height="200" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
 
     <ion-col no-padding>
-        <ion-label><b>Visited places</b></ion-label>
+        <ion-label><b>Click on a place to learn more about it</b></ion-label>
       <div id="alreadyAddedPlaces" class="gridContainer">
         <div class="grid-item" *ngFor="let p of data.currentJourney.places" (click)="showPlace(p.placeID)">
             <img class="pictureGrid" *ngIf="p.thumbnailSrc != null" src="{{p.thumbnailSrc}}" alt="" />

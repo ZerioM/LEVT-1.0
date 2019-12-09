@@ -19,7 +19,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class Tab2Page {
 
-  public showC: Boolean = false;
+  public showC: Boolean = true;
   public divideC: Boolean = false;
 
  public costs=[null,null,null,null,null];
@@ -159,6 +159,7 @@ export class Tab2Page {
 
   divideCosts() {
     this.divideC = !this.divideC;
+    this.showC= !this.showC;
   }
 
   showNoPlaceWarning() {
