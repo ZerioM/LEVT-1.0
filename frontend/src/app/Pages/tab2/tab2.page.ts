@@ -171,6 +171,12 @@ export class Tab2Page {
     return true;
   }
 
+  toggleTransports(index:number){
+
+  this.transports[index]=!this.transports[index];
+  console.log (this.transports[index]);
+  }
+
   async finishJourney() {
     //Data binding testen
   
