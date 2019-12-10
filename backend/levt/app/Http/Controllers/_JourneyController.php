@@ -222,7 +222,7 @@ class _JourneyController extends BaseController
         $companionshipController = new _CompanionshipController;
         $costController = new _CostController;
         $placeController = new _PlaceController;
-        $journeyTransportController = new _journeyTransportController;
+        $journeyTransportController = new _JourneyTransportController;
         $countryController = new _CountryController;
 
         $journeysArray = json_decode(json_encode(DB::table('journeys')->where('journeyID',$id)->get()), true);
