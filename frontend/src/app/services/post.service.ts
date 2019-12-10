@@ -21,7 +21,7 @@ export class PostService {
 
     //Abfragen, ob postID == null, dann newPost aufrufen, sonst updatePost aufrufen
     if(post.postID == null){
-      await this.http.post("http://flock-1427.students.fhstp.ac.at/backend/public/newPost", post).toPromise().then((loadedData: Post) => {
+      await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/newPost", post).toPromise().then((loadedData: Post) => {
         console.log(loadedData);
         console.log("New Post in DB inserted");
         post = loadedData;      
@@ -29,7 +29,7 @@ export class PostService {
         console.log(error);
       });
     } else {
-      await this.http.post("http://flock-1427.students.fhstp.ac.at/backend/public/updatePost", post).toPromise().then((loadedData: Post) => {
+      await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/updatePost", post).toPromise().then((loadedData: Post) => {
         console.log(loadedData);
         console.log("Post with ID: ");
         console.log(post.postID);
