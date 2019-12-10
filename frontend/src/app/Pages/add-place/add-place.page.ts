@@ -96,11 +96,14 @@ export class AddPlacePage implements OnInit {
   }
 
   showNoPostWarning() {
-    if (this.data.newPlace.posts.length == 0) {
-      return true;
-    } else {
-      return false;
+    if(this.data.newPlace.posts != null){
+      if (this.data.newPlace.posts.length == 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
+    
     return true;
   }
 
