@@ -37,20 +37,7 @@ class _ImageController extends BaseController
 
         $requestArray = $request->all();
 
-        $insertImagesArray = [
-            'src' => $requestArray['imgSrc'],
-            'coordinateX' => $requestArray['coordinateX'],
-            'coordinateY' => $requestArray['coordinateY'],
-            'date' => $requestArray['date'],
-            '_postID' => $requestArray['_postID']
-        ];
-
-        $id = DB::table('images')->insertGetId($insertImagesArray);
-
-
-
-        return $this->selectOne($id);
-
+    
     }
 
     public function selectOne($id){
@@ -117,9 +104,23 @@ class _ImageController extends BaseController
         $day = substr($mytime, 8, -9);
         $hour = substr($mytime, 11, -6);
         Storage::makeDirectory('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
-        print_r($mytime);
-        $request->file('picUpload')->store('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
         
+        $requestArray = $request->all();
+        $array = (json_decode($requestArray['data'],true));
+        //print_r($array['imageID']);
+        //print_r($request->file('picUpload'));
+
+        $insertImagesArray = [
+            'src' => "/backend/levt/storage/app/".$request->file('picUpload')->store('images/'.$year.'/'.$month.'/'.$day.'/'.$hour),
+            'coordinateX' => $array['coordinateX'],
+            'coordinateY' => $array['coordinateY'],
+            'date' => $array['date'],
+            '_postID' => $array['_postID']
+        ];
+
+        $id = DB::table('images')->insertGetId($insertImagesArray);
+
+        return $this->selectOne($id);
     }
 
 }
