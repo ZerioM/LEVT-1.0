@@ -28,7 +28,10 @@ export class AddPostPage implements OnInit {
   }
 
   goBackToPlace(){
-    this.alert();
+    if(this.data.newPost._activityID == null && this.data.newPost.detail == "" && this.data.newPost.images.length==null){
+      this.goBacktoAddPlaceWithoutSaving();
+    }else{
+    this.alert();}
   }
 
   goBacktoAddPlaceWithoutSaving(){

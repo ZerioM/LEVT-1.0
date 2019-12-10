@@ -33,7 +33,11 @@ export class AddPlacePage implements OnInit {
   
 
   goBackToJourney(){
-    this.alert();
+
+    if(this.data.newPlace.placeName == "" && this.data.newPlace.detail == "" && this.data.newPlace.posts.length==null){
+      this.goBacktoAddJourneyWithoutSaving();
+    }else{
+    this.alert();}
   }
   
   async goToAddNewPost(){
