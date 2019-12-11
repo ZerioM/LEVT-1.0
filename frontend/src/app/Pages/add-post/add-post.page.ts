@@ -6,6 +6,17 @@ import { DataService } from 'src/app/services/data.service';
 import { PostService } from 'src/app/services/post.service';
 import { PlaceService } from 'src/app/services/place.service';
 
+import { Crop } from '@ionic-native/crop/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+
+import { Capacitor, Plugins, CameraResultType, FilesystemDirectory } from '@capacitor/core';
+import { NgIfContext } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+
+const { Camera, Filesystem } = Plugins;
+
 @Component({
   selector: 'app-add-post',
   templateUrl: './add-post.page.html',
@@ -13,8 +24,10 @@ import { PlaceService } from 'src/app/services/place.service';
 })
 export class AddPostPage implements OnInit {
 
+  fileUrl: SafeResourceUrl = null;
+  respData: any;
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router, private alertController:AlertController) {
+  constructor(private domSanitizer: DomSanitizer, private journeyService: NewJourneyService, private data: DataService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router, private alertController:AlertController, private crop: Crop, private imagePicker: ImagePicker, private transfer: FileTransfer) {
     this.data.loadActivities();
     if(this.data.postInserted){
 
@@ -23,8 +36,33 @@ export class AddPostPage implements OnInit {
     }
   }
 
+  
+
   ngOnInit() {
 
+  }
+
+  cropUpload() {
+    this.imagePicker.getPictures({ maximumImagesCount: 10, outputType: 0 }).then((results) => {
+      for (let i = 0; i < results.length; i++) {
+          console.log('Image URI: ' + results[i]);
+          this.crop.crop(results[i], { quality: 100, targetHeight: 700, targetWidth: 1000 })
+            .then(
+              newImage => {
+                console.log('new image path is: ' + newImage);
+                this.fileUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(newImage);
+                const fileTransfer: FileTransferObject = this.transfer.create();
+                const uploadOpts: FileUploadOptions = {
+                   fileKey: 'file',
+                   fileName: newImage.substr(newImage.lastIndexOf('/') + 1)
+                };
+  
+                
+              },
+              error => console.error('Error cropping image', error)
+            );
+      }
+    }, (err) => { console.log(err); });
   }
 
   goBackToPlace(){
