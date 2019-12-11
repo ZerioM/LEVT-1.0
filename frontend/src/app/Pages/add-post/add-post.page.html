@@ -37,11 +37,19 @@
       
   </ion-card> -->
 
+  <ion-item lines="none" no-padding>
+    <ion-label position="floating"><b>Images</b></ion-label><br>
+   <br><p *ngIf="showNoImageWarning()" id="NoPlace" no-margin> Click the plus to add a new image!</p>
+  </ion-item>
+
 
   <ion-item no-padding lines="none">
     <div id="alreadyAddedPlaces" class="gridContainer">
-      <div class="grid-item" *ngFor="let p of photos; let in of index"> <!--muss noch auf posts geändert werden-->
-        <img class="pictureGrid" alt="" src="{{p}}">
+      <div class="grid-item" *ngFor="let i of data.newPost.images; let in of index"> <!--muss noch auf posts geändert werden-->
+        <img class="pictureGrid" alt="" src="{{i.imgSrc}}">
+        <ion-button icon-only (click)="deleteImage(i,in)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
       </div>
       <div class="grid-item" (click)="selectPhoto()">
         <ion-icon name="ios-add" class="addPlace"></ion-icon>

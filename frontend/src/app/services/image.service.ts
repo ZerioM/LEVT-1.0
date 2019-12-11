@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Image } from '../Interfaces/Image';
 import { DataService } from './data.service';
 import { Post } from '../Interfaces/Post';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +18,34 @@ export class ImageService {
     return image;
   }
 
- uploadImage(imageString:string, post: Post, metaData: any){
+ async uploadImage(imageString:string, post: Post){
    let image:Image;
   
    image={imageID:null,_postID:post.postID,imgSrc:null,date:null,coordinateX:null, coordinateY:null}
 
 
+    const blob = await fetch(imageString).then(r => r.blob());
+    
 
-  return image;
- }
+    const formData = new FormData();
+    formData.append('picUpload', blob);
+    formData.append('data',JSON.stringify(image));
+
+    const httpOptions= {headers:new HttpHeaders({'enctype':'multipart/form-data;'})};
+
+    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/uploadImage", formData,httpOptions).toPromise().then((loadedData: Image) => {
+        console.log(loadedData);
+        console.log("New Image in DB inserted");
+        image = loadedData;      
+      }, error => {
+        console.log(error);
+      });
+
+      return image;
+ 
+  }
+
+  
 
 
 }

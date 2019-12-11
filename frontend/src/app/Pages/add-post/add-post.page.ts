@@ -54,6 +54,12 @@ export class AddPostPage implements OnInit {
   async selectPhoto(){
 
     const webPath = await this.getPhoto(CameraSource.Photos);
+
+    this.data.presentLoading();
+    this.image = await this.imageService.uploadImage(webPath, this.data.newPost);
+    this.data.dismissLoading();
+    this.data.newPost.images.push(this.image);
+
   }
 
   private async getPhoto(source: CameraSource) {
@@ -71,6 +77,12 @@ export class AddPostPage implements OnInit {
     return image.webPath;
     
   }
+
+  private deleteImage(image:Image,index:number){
+
+
+  }
+
 
   // cropUpload() {
   //   this.imagePicker.getPictures({ maximumImagesCount: 10, outputType: 0 }).then((results) => {
@@ -100,6 +112,18 @@ export class AddPostPage implements OnInit {
   //   }, (err) => { console.log(err); });
   //   console.log(this.imgArray);
   // }
+
+  showNoImageWarning(){
+    if(this.data.newPost.images != null){
+      if (this.data.newPost.images.length == 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    return true;
+  }
 
   goBackToPlace(){
     this.alert();
