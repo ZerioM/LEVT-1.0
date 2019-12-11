@@ -65,6 +65,8 @@ $router->post('/allBookmarkedJourneys','ReadController@selectBookmarkedJourneys'
 
 $router->post('/oneUser','ReadController@selectOneUser');
 
+$router->post('/validatePlace','ReadController@validateOnePlace');
+
 
 //UPDATE
 

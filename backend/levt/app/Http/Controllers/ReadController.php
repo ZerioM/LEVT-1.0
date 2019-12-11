@@ -82,4 +82,9 @@ class ReadController extends BaseController
         return $gc->selectAll();
     }
 
+    public function validateOnePlace(Request $request){
+        $pc = new _PlaceController;
+        return $pc->validateOne($request);
+    }
+
 }

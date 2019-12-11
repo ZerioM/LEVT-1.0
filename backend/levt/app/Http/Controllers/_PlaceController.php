@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 use App\Http\Controllers\Controller;
 
@@ -145,12 +147,57 @@ class _PlaceController extends BaseController
         return $outputImagesArray;
     }
 
-    public function validatePlaceName($placeName){
-
+    public function validateOne(Request $request){
+        $cc = new _CountryController;
+        $requestArray = $request->all();
+        $placeName = $requestArray['placeName'];
         //Implement Google Api and check if Place available
+        $firstPlace = DB::table('places')->where('placeName', $placeName)->first();
+        $firstPlaceArray = json_decode(json_encode($firstPlace), true);
+        if ($firstPlace == null){
+            $client = new Client();
 
+            $link = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input="
+            .$requestArray['placeName']
+            ."&inputtype=textquery&fields=formatted_address,name,geometry,place_id&language=en&key=AIzaSyC6lexavDKzPzt_NjMxqP0bqL2pX-ESGXo";
 
-        return true;
+            
+            $placeRes = $client->get($link);
+            $placeResult=json_decode($placeRes->getBody(),true);
+            //var_dump(json_decode($res->getBody()),true);
+            //print_r($placeResult['candidates'][0]);
+            $formAddress = $placeResult['candidates'][0]['formatted_address'];
+            $countryName = substr(strrchr($formAddress, ", "),2);
+            $countryID = $cc->selectIDPerName($countryName);
+
+            $outputArray = [
+                '_journeyID' => $requestArray['_journeyID'],
+                '_thumbnailID' => $requestArray['_thumbnailID'],
+                '_countryID' => $countryID,
+                'placeName' => $requestArray['placeName'],
+                'coordinateX' => $placeResult['candidates'][0]['geometry']['location']['lat'],
+                'coordinateY' => $placeResult['candidates'][0]['geometry']['location']['lng'],
+                'detail' => $requestArray['detail'],
+                'posts' => $requestArray['posts'],
+                'thumbnailSrc' => $requestArray['thumbnailSrc'],
+                'countryName' => $requestArray['countryName']
+            ];  
+        } else {
+            $outputArray = [
+                'placeID' => null,
+                '_journeyID' => $requestArray['_journeyID'],
+                '_thumbnailID' => $requestArray['_thumbnailID'],
+                '_countryID' => $firstPlaceArray['_countryID'],
+                'placeName' => $requestArray['placeName'],
+                'coordinateX' => $firstPlaceArray['coordinateX'],
+                'coordinateY' => $firstPlaceArray['coordinateY'],
+                'detail' => $requestArray['detail'],
+                'posts' => $requestArray['posts'],
+                'thumbnailSrc' => $requestArray['thumbnailSrc'],
+                'countryName' => $requestArray['countryName']
+            ];           
+        }
+        return $outputArray;     
     }
 
 }
