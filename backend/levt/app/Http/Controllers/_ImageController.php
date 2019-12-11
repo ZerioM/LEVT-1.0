@@ -33,12 +33,6 @@ class _ImageController extends BaseController
         return DB::table('images')->where('_postID', $postID);
     }
 
-    public function insertOne(Request $request){
-
-        $requestArray = $request->all();
-
-    
-    }
 
     public function selectOne($id){
 
@@ -111,6 +105,7 @@ class _ImageController extends BaseController
         //print_r($request->file('picUpload'));
 
         $insertImagesArray = [
+            //sftp://flock-1427@flock-1427.students.fhstp.ac.at/flock-1427.students.fhstp.ac.at/backend/storage/app/images/2019/12/11/17/
             'src' => "/backend/levt/storage/app/".$request->file('picUpload')->store('images/'.$year.'/'.$month.'/'.$day.'/'.$hour),
             'coordinateX' => $array['coordinateX'],
             'coordinateY' => $array['coordinateY'],

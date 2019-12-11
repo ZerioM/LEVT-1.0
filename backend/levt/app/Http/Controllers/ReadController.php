@@ -87,4 +87,9 @@ class ReadController extends BaseController
         return $pc->validateOne($request);
     }
 
+    public function autocompleteOnePlace(Request $request){
+        $pc = new _PlaceController;
+        return $pc->autocompleteOne($request);
+    }
+
 }

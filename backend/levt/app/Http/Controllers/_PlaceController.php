@@ -151,7 +151,6 @@ class _PlaceController extends BaseController
         $cc = new _CountryController;
         $requestArray = $request->all();
         $placeName = $requestArray['placeName'];
-        //Implement Google Api and check if Place available
         $firstPlace = DB::table('places')->where('placeName', $placeName)->first();
         $firstPlaceArray = json_decode(json_encode($firstPlace), true);
         if ($firstPlace == null){
@@ -164,8 +163,6 @@ class _PlaceController extends BaseController
             
             $placeRes = $client->get($link);
             $placeResult=json_decode($placeRes->getBody(),true);
-            //var_dump(json_decode($res->getBody()),true);
-            //print_r($placeResult['candidates'][0]);
             $formAddress = $placeResult['candidates'][0]['formatted_address'];
             $countryName = substr(strrchr($formAddress, ", "),2);
             $countryID = $cc->selectIDPerName($countryName);
@@ -198,6 +195,31 @@ class _PlaceController extends BaseController
             ];           
         }
         return $outputArray;     
+    }
+
+    public function autocompleteOne(Request $request){
+    
+        $requestArray = $request->all();
+        $placeName = $requestArray['placeName'];
+        $client = new Client();
+        $link = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input="
+            .$placeName
+            ."&types=(regions)&key=AIzaSyC6lexavDKzPzt_NjMxqP0bqL2pX-ESGXo";
+            
+        $places = $client->get($link);
+        $placesResult=json_decode($places->getBody(),true);
+
+        $outputArrays = array();
+        for ($i=0; $i<sizeof($placesResult['predictions']);$i++){
+            $outputArray = [
+            'place'.$i => $placesResult['predictions'][$i]['description'],
+            ];
+            //$outputArray = '"'.'place'.$i.'"'.':'.'"'.$placesResult['predictions'][$i]['description'].'"';
+            array_push($outputArrays,$outputArray);
+        }
+        //var_dump($outputArrays);
+        return '{"Places": '.json_encode($outputArrays, JSON_PRETTY_PRINT);
+
     }
 
 }
