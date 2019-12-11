@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { NewJourneyService } from 'src/app/services/new-journey.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -10,10 +10,13 @@ import { Crop } from '@ionic-native/crop/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 
-import { Capacitor, Plugins, CameraResultType, FilesystemDirectory } from '@capacitor/core';
+import { Capacitor, Plugins, CameraResultType, FilesystemDirectory, CameraSource } from '@capacitor/core';
 import { NgIfContext } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Image } from 'src/app/Interfaces/Image';
+import { ImageService } from 'src/app/services/image.service';
 
+import * as Exif from 'exif-js';
 
 const { Camera, Filesystem } = Plugins;
 
@@ -24,10 +27,16 @@ const { Camera, Filesystem } = Plugins;
 })
 export class AddPostPage implements OnInit {
 
-  fileUrl: SafeResourceUrl = null;
+ 
   respData: any;
+  image: Image;
+  imgArray: Image[];
+  metaData: any;
 
-  constructor(private domSanitizer: DomSanitizer, private journeyService: NewJourneyService, private data: DataService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router, private alertController:AlertController, private crop: Crop, private imagePicker: ImagePicker, private transfer: FileTransfer) {
+  photo:SafeResourceUrl=null;
+  photos:SafeResourceUrl[]=[];
+
+  constructor(private domSanitizer: DomSanitizer, private journeyService: NewJourneyService, private imageService:ImageService, private data: DataService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router, private alertController:AlertController, private crop: Crop, private imagePicker: ImagePicker, private transfer: FileTransfer) {
     this.data.loadActivities();
     if(this.data.postInserted){
 
@@ -42,28 +51,55 @@ export class AddPostPage implements OnInit {
 
   }
 
-  cropUpload() {
-    this.imagePicker.getPictures({ maximumImagesCount: 10, outputType: 0 }).then((results) => {
-      for (let i = 0; i < results.length; i++) {
-          console.log('Image URI: ' + results[i]);
-          this.crop.crop(results[i], { quality: 100, targetHeight: 700, targetWidth: 1000 })
-            .then(
-              newImage => {
-                console.log('new image path is: ' + newImage);
-                this.fileUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(newImage);
-                const fileTransfer: FileTransferObject = this.transfer.create();
-                const uploadOpts: FileUploadOptions = {
-                   fileKey: 'file',
-                   fileName: newImage.substr(newImage.lastIndexOf('/') + 1)
-                };
-  
-                
-              },
-              error => console.error('Error cropping image', error)
-            );
-      }
-    }, (err) => { console.log(err); });
+  async selectPhoto(){
+
+    const webPath = await this.getPhoto(CameraSource.Photos);
   }
+
+  private async getPhoto(source: CameraSource) {
+    const image = await Plugins.Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source,
+      //height, width, allowEditing
+    });
+
+    this.photo = this.domSanitizer.sanitize(SecurityContext.RESOURCE_URL,this.domSanitizer.bypassSecurityTrustResourceUrl(image && (image.webPath)));
+    this.photos.push(this.photo);
+
+    return image.webPath;
+    
+  }
+
+  // cropUpload() {
+  //   this.imagePicker.getPictures({ maximumImagesCount: 10, outputType: 0 }).then((results) => {
+  //     for (let i = 0; i < results.length; i++) {
+  //         Exif.getData(results[i], function() {
+  //           this.metaData = Exif.getAllTags(this);
+  //           console.log(this.metaData);
+  //         });
+  //         console.log('Image URI: ' + results[i]);
+  //         this.crop.crop(results[i], { quality: 100, targetHeight: 700, targetWidth: 1000})
+  //           .then(
+  //             newImageString => {
+  //               console.log('new image path is: ' + newImageString);
+  //               this.fileUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(newImageString);
+  //               const fileTransfer: FileTransferObject = this.transfer.create();
+  //               const uploadOpts: FileUploadOptions = {
+  //                  fileKey: 'file',
+  //                  fileName: newImageString.substr(newImageString.lastIndexOf('/') + 1)
+  //               };
+  
+  //               this.image = this.imageService.uploadImage(newImageString, this.data.newPost, this.metaData);
+  //             },
+  //             error => console.error('Error cropping image', error)
+  //           );
+  //           this.imgArray.push(this.image);
+  //     }
+  //   }, (err) => { console.log(err); });
+  //   console.log(this.imgArray);
+  // }
 
   goBackToPlace(){
     this.alert();

@@ -42,6 +42,7 @@
     "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-telerik-imagepicker": "^2.3.3",
     "core-js": "^2.5.4",
+    "exif-js": "^2.3.0",
     "ionic-scrolling-header": "^0.2.3",
     "rm": "^0.1.8",
     "rxjs": "~6.5.1",

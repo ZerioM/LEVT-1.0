@@ -26,6 +26,7 @@ import { LoadingController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { Bookmark } from '../Interfaces/Bookmark';
 import { debug } from 'util';
+import { ImageService } from './image.service';
 
 @Injectable({
   providedIn: 'root'
@@ -72,7 +73,7 @@ export class DataService {
 
   private locale : string;
 
-  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService, public toastController: ToastController, public loadingController:LoadingController) { 
+  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
 
     this.newJourney= this.journeyService.newJourney(this.currentUser);
   
