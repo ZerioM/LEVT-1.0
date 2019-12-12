@@ -26,7 +26,7 @@ class ActivityTableSeeder extends Seeder
         ]);
         DB::table('activities')->insert([
             'activityName' => 'Transport',
-            'iconName' => 'md-airplane'
+            'iconName' => 'ios-airplane'
         ]);
         DB::table('activities')->insert([
             'activityName' => 'Other',
