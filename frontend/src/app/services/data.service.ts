@@ -55,6 +55,13 @@ export class DataService {
   public bookmarkUnsaved:string="assets/icon/bookmark_unsaved_icon.svg";
   public bookmarkSaved:string="assets/icon/bookmark_saved_icon.svg";
 
+
+  public hasJourneyDetail=false;
+  public hasPlaces=false;
+  public hasPlaceDetail=false;
+  public hasPosts=false;
+  public hasPostDetail=false;
+
   //Zentrale Daten laden 
   public journeyCategories: JourneyCategories = { journeyCategories: [] };
   public companionships: Companionships = { companionships: [] };
@@ -204,6 +211,20 @@ export class DataService {
     });
 
     this.currentBookmark._journeyID = this.currentJourney.journeyID;
+
+    if(this.currentJourney.detail==""){
+      this.hasJourneyDetail=false;
+    }else{
+      this.hasJourneyDetail=true;
+    }
+
+    if(this.currentJourney.places.length==0){
+      this.hasPlaces=false;
+    }else{
+      this.hasPlaces=true;
+    }
+  
+     
   
   }
 
@@ -222,6 +243,18 @@ export class DataService {
       console.log(error);
     });
 
+    if(this.currentPlace.detail==""){
+      this.hasPlaceDetail=false;
+    }else{
+      this.hasPlaceDetail=true;
+    }
+
+    if(this.currentPlace.posts.length==null){
+      this.hasPosts=false;
+    }else{
+      this.hasPosts=true;
+    }
+
   }
 
   loadOnePost(postID:number){
@@ -239,6 +272,11 @@ export class DataService {
       console.log(error);
     });
     
+    if(this.currentPost.detail==""){
+      this.hasPostDetail=false;
+    }else{
+      this.hasPostDetail=true;
+    }
 
   }
 
