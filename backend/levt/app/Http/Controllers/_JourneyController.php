@@ -241,6 +241,7 @@ class _JourneyController extends BaseController
                 'placeName' => $placeArray['placeName'],
                 'coordinateX' => $placeArray['coordinateX'],
                 'coordinateY' => $placeArray['coordinateY'],
+                'detail' => $placeArray['detail'],
                 'posts' => null,
                 'thumbnailSrc' => $imageController->selectSrcPerImageID($placeArray['_thumbnailID']),
                 'countryName' => $countryController->selectNamePerID($placeArray['_countryID'])
