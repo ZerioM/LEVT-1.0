@@ -5,5 +5,4 @@ export interface Image{
     date: Date;
     coordinateX:number;
     coordinateY:number;
-    file: any[];
 }

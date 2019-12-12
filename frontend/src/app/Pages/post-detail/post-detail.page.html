@@ -21,11 +21,15 @@
                   <ion-slides *ngIf="data.currentPost.images.length != 0">
                       <ion-slide *ngFor="let i of data.currentPost.images">
                         <img src="{{i.imgSrc}}"/>
-                        
                       </ion-slide>
-                      
+                      <!--<button type="submit" style="left:0;" ion-button class="btnSlide" (click)="prev()"><ion-icon name="ios-arrow-back"></ion-icon></button>
+                      <button type="submit" style="right:0;" ion-button class="btnSlide" (click)="next()"><ion-icon name="ios-arrow-forward"></ion-icon></button>-->
                   </ion-slides>
-                  <img *ngIf="data.currentPost.images.length == 0" src="/assets/images/platzhalter_post_big.png" />          
+                  <img *ngIf="data.currentPost.images.length == 0" src="/assets/images/platzhalter_post_big.png" />   
+                  <div class="sliderBtns" *ngIf="data.currentPost.images.length >= 1">
+                      <button type="submit" style="left:0;" ion-button class="btnSlide" ><ion-icon name="ios-arrow-back"></ion-icon></button>
+                      <button type="submit" style="right:0;" ion-button class="btnSlide"><ion-icon name="ios-arrow-forward"></ion-icon></button>
+                  </div>       
               </ion-item>
 
               <div class="picInformations">
