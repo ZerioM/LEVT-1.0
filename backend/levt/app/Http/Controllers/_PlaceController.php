@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 use App\Http\Controllers\Controller;
 
@@ -145,12 +147,79 @@ class _PlaceController extends BaseController
         return $outputImagesArray;
     }
 
-    public function validatePlaceName($placeName){
+    public function validateOne(Request $request){
+        $cc = new _CountryController;
+        $requestArray = $request->all();
+        $placeName = $requestArray['placeName'];
+        $firstPlace = DB::table('places')->where('placeName', $placeName)->first();
+        $firstPlaceArray = json_decode(json_encode($firstPlace), true);
+        if ($firstPlace == null){
+            $client = new Client();
 
-        //Implement Google Api and check if Place available
+            $link = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input="
+            .$requestArray['placeName']
+            ."&inputtype=textquery&fields=formatted_address,name,geometry,place_id&language=en&key=AIzaSyC6lexavDKzPzt_NjMxqP0bqL2pX-ESGXo";
 
+            
+            $placeRes = $client->get($link);
+            $placeResult=json_decode($placeRes->getBody(),true);
+            $formAddress = $placeResult['candidates'][0]['formatted_address'];
+            $countryName = substr(strrchr($formAddress, ", "),2);
+            $countryID = $cc->selectIDPerName($countryName);
 
-        return true;
+            $outputArray = [
+                '_journeyID' => $requestArray['_journeyID'],
+                '_thumbnailID' => $requestArray['_thumbnailID'],
+                '_countryID' => $countryID,
+                'placeName' => $requestArray['placeName'],
+                'coordinateX' => $placeResult['candidates'][0]['geometry']['location']['lat'],
+                'coordinateY' => $placeResult['candidates'][0]['geometry']['location']['lng'],
+                'detail' => $requestArray['detail'],
+                'posts' => $requestArray['posts'],
+                'thumbnailSrc' => $requestArray['thumbnailSrc'],
+                'countryName' => $requestArray['countryName']
+            ];  
+        } else {
+            $outputArray = [
+                'placeID' => null,
+                '_journeyID' => $requestArray['_journeyID'],
+                '_thumbnailID' => $requestArray['_thumbnailID'],
+                '_countryID' => $firstPlaceArray['_countryID'],
+                'placeName' => $requestArray['placeName'],
+                'coordinateX' => $firstPlaceArray['coordinateX'],
+                'coordinateY' => $firstPlaceArray['coordinateY'],
+                'detail' => $requestArray['detail'],
+                'posts' => $requestArray['posts'],
+                'thumbnailSrc' => $requestArray['thumbnailSrc'],
+                'countryName' => $requestArray['countryName']
+            ];           
+        }
+        return $outputArray;     
+    }
+
+    public function autocompleteOne(Request $request){
+    
+        $requestArray = $request->all();
+        $placeName = $requestArray['placeName'];
+        $client = new Client();
+        $link = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input="
+            .$placeName
+            ."&types=(regions)&key=AIzaSyC6lexavDKzPzt_NjMxqP0bqL2pX-ESGXo";
+            
+        $places = $client->get($link);
+        $placesResult=json_decode($places->getBody(),true);
+
+        $outputArrays = array();
+        for ($i=0; $i<sizeof($placesResult['predictions']);$i++){
+            $outputArray = [
+            'place'.$i => $placesResult['predictions'][$i]['description'],
+            ];
+            //$outputArray = '"'.'place'.$i.'"'.':'.'"'.$placesResult['predictions'][$i]['description'].'"';
+            array_push($outputArrays,$outputArray);
+        }
+        //var_dump($outputArrays);
+        return '{"Places": '.json_encode($outputArrays, JSON_PRETTY_PRINT);
+
     }
 
 }

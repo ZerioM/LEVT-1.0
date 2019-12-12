@@ -24,11 +24,6 @@ class CreateController extends BaseController
         return $postController->insertOne($request);
     }
 
-    public function insertImage(Request $request) {
-        $imageController = new _ImageController;
-        return $imageController->insertOne($request);
-    }
-
     public function insertBookmark(Request $request) {
         $bookmarkController = new _BookmarkController;
         return $bookmarkController->insertOne($request);
