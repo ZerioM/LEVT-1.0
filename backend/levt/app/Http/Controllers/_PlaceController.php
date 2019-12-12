@@ -64,7 +64,7 @@ class _PlaceController extends BaseController
                 'postID' => $postArray['postID'],
                 '_activityID' => $postArray['_activityID'],
                 '_placeID' => $postArray['_placeID'],
-                'detail' => $postArray['_postID'],
+                'detail' => $postArray['detail'],
 
                 'activityName' => $activityController->selectNameByID($postArray['_activityID']),
                 'iconName' => $activityController->selectIconByID($postArray['_activityID']),
