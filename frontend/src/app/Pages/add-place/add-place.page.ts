@@ -25,6 +25,9 @@ export class AddPlacePage implements OnInit {
     } else {
       this.data.newPlace = this.placeService.newPlace(this.data.newJourney);
     }
+
+    console.log("Bool PlaceInserted:")
+    console.log(this.data.placeInserted)
   }
 
   ngOnInit() {

@@ -76,8 +76,13 @@ export class AddPostPage implements OnInit {
     }
 
     await this.data.presentLoading();
+    let _activityID = this.data.newPost._activityID;
     this.data.newPost = await this.postService.savePost(this.data.newPost);
+    this.data.newPost._activityID = _activityID;
     await this.data.dismissLoading();
+
+    console.log("Neuer Post:");
+    console.log(this.data.newPost);
 
     if(this.data.newPost.postID != null){
       console.log("Post saved");
