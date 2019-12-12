@@ -77,7 +77,7 @@ class _ImageController extends BaseController
             $imageArray = json_decode($image,true);
             $src = $imageArray['src'];
             //$src = substr($src,-66);
-            $src = substr($src,107);
+            $src = substr($src,102);
             print_r($src);
             Storage::delete($src);
 
@@ -115,7 +115,7 @@ class _ImageController extends BaseController
         //print_r($request->file('picUpload'));
 
         $insertImagesArray = [
-            'src' => "sftp://flock-1427@flock-1427.students.fhstp.ac.at/flock-1427.students.fhstp.ac.at/backend/levt/storage/app/"
+            'src' => "sftp://flock-1427@flock-1427.students.fhstp.ac.at/flock-1427.students.fhstp.ac.at/backend/storage/app/"
             .$request->file('picUpload')->store('images/'.$year.'/'.$month.'/'.$day.'/'.$hour),
             'coordinateX' => $array['coordinateX'],
             'coordinateY' => $array['coordinateY'],
