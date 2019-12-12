@@ -10,16 +10,22 @@ button.button-native{
   margin-bottom: -20px;
   padding: 0px !important;
 }
+.pictureFrame{
+  margin-bottom: 30px;
+}
+.colJourneyName{
+  margin-top:20px;
+}
 #journeyName{
   width: 100%;
   border-bottom: 1px solid #16161650;
-  line-height: 30px;
+  border-left: 1px solid #16161650;
+  border-right: 1px solid #16161650;
   vertical-align: middle;
   margin-top: 5px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 12pt;
-  padding-left: 10px;
-  padding-bottom: 2px;
+  font-size: 10pt;
+  line-height: 15px;
   margin-bottom: 5px;
 }
 .seasonYear{
@@ -32,11 +38,18 @@ button.button-native{
 .season{
   color: #161616;
 }
+#journeyYear{
+  width: 100%;
+  background-color: #16161633;
+  text-align: center;
+  padding: 5px;
+}
 .radioButtons ion-radio{
   border: none;
 }
 .labelsCategories{
   margin-left: 3px;
+  overflow: visible;
 }// alle Labels bei den jeweiligen Kategorien
 .costcategories{
   justify-content: right;
@@ -46,11 +59,12 @@ button.button-native{
 #journeyDuration{
   width: 100%;
   border-bottom: 1px solid #16161650;
-  line-height: 30px;
+  border-left: 1px solid #16161650;
+  border-right: 1px solid #16161650;
   vertical-align: middle;
   margin-top: 5px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 12pt;
-  padding-left: 10px;
+  font-size: 10pt;
+  line-height: 15px;
   margin-bottom: 5px;
 }
