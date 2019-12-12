@@ -33,7 +33,7 @@
           </div>
       </ion-list>
 
-    <ion-item lines="none" no-padding>
+    <ion-item lines="none" no-padding *ngIf="data.hasPlaceDetail">
         <ion-text><b>Detail</b><br>{{data.currentPlace.detail}}</ion-text>
     </ion-item><br>
 
@@ -44,7 +44,7 @@
     <ion-item><ion-text>Placename: {{data.currentPlace.placeName}}</ion-text></ion-item>
     <ion-item><ion-text>Country: {{data.currentPlace.countryName}}</ion-text></ion-item>-->
 
-    <ion-col no-padding>
+    <ion-col no-padding *ngIf="data.hasPosts">
         <ion-label><b>Posts</b></ion-label>
         <div id="alreadyAddedPlaces" class="gridContainer">
           <div class="grid-item" *ngFor="let po of data.currentPlace.posts">
