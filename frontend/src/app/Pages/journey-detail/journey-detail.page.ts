@@ -18,7 +18,6 @@ export class JourneyDetailPage implements OnInit {
 
 
 
-
   constructor(private data: DataService, private navCtrl:NavController, private router: Router) {
     //Bookmarked checken und Symbol richtig setzen
     
