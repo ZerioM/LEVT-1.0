@@ -65,6 +65,8 @@ $router->post('/validatePlace','ReadController@validateOnePlace');
 
 $router->post('/autocompletePlace','ReadController@autocompleteOnePlace');
 
+$router->post('/userJourneys','ReadController@journeysPerUser');
+
 
 //UPDATE
 

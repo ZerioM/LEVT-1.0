@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import { NavController } from '@ionic/angular';
+import { NavController, IonInput } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { NewJourneyService } from 'src/app/services/new-journey.service';
 import { LoadingController } from '@ionic/angular';
@@ -18,6 +18,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+
 
   public showC: Boolean = true;
   public divideC: Boolean = false;
@@ -110,9 +111,12 @@ export class Tab2Page {
     this.data.newJourney._companionshipID = companionshipID;
     await this.data.dismissLoading();
     if (this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()) {
+      console.log("Place bevor es zur add place Seite geht")
       console.log(place);
       this.data.placeInJourney = index;
       this.data.newPlace = place;
+      console.log("Neuer übergebener Place");
+      console.log(this.data.newPlace);
       this.router.navigateByUrl('/tabs/tab2/add-place');
     } else {
       //TO DO: Toast ausgeben: "Das Speichern hat nicht funktioniert"
