@@ -402,4 +402,12 @@ class _JourneyController extends BaseController
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
+
+
+    public function selectAllJourneysPerUser(Request $request){
+        $requestArray = $request->all();
+        $userID = $requestArray['userID'];
+        $outputArray = json_encode($this->selectByUserID($userID)->get());
+        return '{"journeys": '.$outputArray." \n}";
+    }
 }
