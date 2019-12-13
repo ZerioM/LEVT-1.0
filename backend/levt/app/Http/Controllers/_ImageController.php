@@ -95,11 +95,11 @@ class _ImageController extends BaseController
 
     public function uploadOne(Request $request){
 
-        $this->validate($request,[
+        // $this->validate($request,[
 
-            'picUpload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'picUpload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-        ]);
+        // ]);
 
         $mytime = Carbon::now();
         $mytime->toDateTimeString();
@@ -108,6 +108,7 @@ class _ImageController extends BaseController
         $day = substr($mytime, 8, -9);
         $hour = substr($mytime, 11, -6);
         Storage::makeDirectory('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
+        $path = $request->file('picUpload')->store('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
         
         $requestArray = $request->all();
         $array = (json_decode($requestArray['data'],true));
@@ -115,8 +116,7 @@ class _ImageController extends BaseController
         //print_r($request->file('picUpload'));
 
         $insertImagesArray = [
-            'src' => "sftp://flock-1427@flock-1427.students.fhstp.ac.at/flock-1427.students.fhstp.ac.at/backend/storage/app/"
-            .$request->file('picUpload')->store('images/'.$year.'/'.$month.'/'.$day.'/'.$hour),
+            'src' => "sftp://flock-1427@flock-1427.students.fhstp.ac.at/flock-1427.students.fhstp.ac.at/backend/storage/app/".$path,
             'coordinateX' => $array['coordinateX'],
             'coordinateY' => $array['coordinateY'],
             'date' => $array['date'],
@@ -124,6 +124,7 @@ class _ImageController extends BaseController
         ];
 
         $id = DB::table('images')->insertGetId($insertImagesArray);
+        //return var_export($request);
 
         return $this->selectOne($id);
     }

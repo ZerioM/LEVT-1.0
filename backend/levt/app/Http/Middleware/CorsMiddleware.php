@@ -26,6 +26,10 @@ class CorsMiddleware
         {
             return response()->json('{"method":"OPTIONS"}', 200, $headers);
         }
+        // if ($request->isMethod('POST'))
+        // {
+        //     return response()->json('{"method":"POST"}', 200, $headers);
+        // }
 
         $response = $next($request);
         foreach($headers as $key => $value)
