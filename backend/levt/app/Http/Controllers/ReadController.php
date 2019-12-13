@@ -92,4 +92,9 @@ class ReadController extends BaseController
         return $pc->autocompleteOne($request);
     }
 
+    public function journeysPerUser(Request $request){
+        $jc = new _JourneyController;
+        return $jc->selectAllJourneysPerUser($request);
+    }
+
 }
