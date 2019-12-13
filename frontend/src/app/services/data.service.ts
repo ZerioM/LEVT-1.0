@@ -366,6 +366,11 @@ export class DataService {
     });
   }
 
+  loadUserJourneys(currentUser:User){
+
+
+  }
+
   async setBookmark(){
     this.currentBookmark._userID=this.currentUser.userID;
     this.currentBookmark._journeyID=this.currentJourney.journeyID;

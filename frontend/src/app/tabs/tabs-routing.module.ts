@@ -102,6 +102,33 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../Pages/tab5/tab5.module').then(m => m.Tab5PageModule)
+          },
+          {
+            path: 'user-journey-detail',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/user-journey-detail/user-journey-detail.module').then (m => m.UserJourneyDetailPageModule)}
+            ]
+          },
+          {
+            path: 'user-place-detail',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/user-place-detail/user-place-detail.module').then (m => m.UserPlaceDetailPageModule)}
+            ]
+          },
+          {
+            path: 'user-post-detail',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/user-post-detail/user-post-detail.module').then (m => m.UserPostDetailPageModule)}
+            ]
           }
         ]
       },

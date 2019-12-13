@@ -21,8 +21,20 @@ export class Tab5Page implements OnInit {
    //Daten laden
    loadJSON(){
 
+    //this.data.loadUserJourneys(this.data.currentUser);
     this.data.loadTopPosts();
     
+
+ }
+
+ async showJourney(journeyID: number){
+    
+  await this.data.presentLoading();  
+  await this.data.loadOneJourney(journeyID);
+  await this.data.dismissLoading();
+
+  //go To Journey Detail 
+  this.router.navigateByUrl('/tabs/tab5/user-journey-detail');
 
  }
 
