@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
+import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab5',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Tab5Page implements OnInit {
 
-  constructor() { }
+  constructor(private data: DataService, private navCtrl:NavController, private router: Router) {
+
+    this.loadJSON();
+   }
 
   ngOnInit() {
   }
+
+   //Daten laden
+   loadJSON(){
+
+    this.data.loadTopPosts();
+    
+
+ }
 
 }
