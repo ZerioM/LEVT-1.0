@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ChangeDetectorRef } from '@angular/core'
 
 @Component({
   selector: 'app-tab5',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class Tab5Page implements OnInit {
 
-  constructor(private data: DataService, private navCtrl:NavController, private router: Router) {
+  constructor(private data: DataService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
 
     this.loadJSON();
    }

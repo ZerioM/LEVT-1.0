@@ -69,6 +69,12 @@ export class DataService {
   public hasPosts=false;
   public hasPostDetail=false;
 
+  public hasUserJourneyDetail=false;
+  public hasUserPlaces=false;
+  public hasUserPlaceDetail=false;
+  public hasUserPosts=false;
+  public hasUserPostDetail=false;
+
   //Zentrale Daten laden 
   public journeyCategories: JourneyCategories = { journeyCategories: [] };
   public companionships: Companionships = { companionships: [] };
@@ -251,18 +257,18 @@ export class DataService {
       console.log(error);
     });
 
-    this.currentBookmark._journeyID = this.currentUserJourney.journeyID;
 
     if(this.currentUserJourney.detail==""){
-      this.hasJourneyDetail=false;
+      this.hasUserJourneyDetail=false;
     }else{
-      this.hasJourneyDetail=true;
+      this.hasUserJourneyDetail=true;
     }
 
     if(this.currentUserJourney.places.length==0){
-      this.hasPlaces=false;
+      console.log("places sind null")
+      this.hasUserPlaces=false;
     }else{
-      this.hasPlaces=true;
+      this.hasUserPlaces=true;
     }
   
      
@@ -314,15 +320,15 @@ export class DataService {
     });
 
     if(this.currentUserPlace.detail==""){
-      this.hasPlaceDetail=false;
+      this.hasUserPlaceDetail=false;
     }else{
-      this.hasPlaceDetail=true;
+      this.hasUserPlaceDetail=true;
     }
 
     if(this.currentUserPlace.posts.length==null){
-      this.hasPosts=false;
+      this.hasUserPosts=false;
     }else{
-      this.hasPosts=true;
+      this.hasUserPosts=true;
     }
 
   }
@@ -366,9 +372,9 @@ export class DataService {
     });
     
     if(this.currentPost.detail==""){
-      this.hasPostDetail=false;
+      this.hasUserPostDetail=false;
     }else{
-      this.hasPostDetail=true;
+      this.hasUserPostDetail=true;
     }
 
   }
