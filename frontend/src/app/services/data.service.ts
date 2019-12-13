@@ -48,7 +48,7 @@ export class DataService {
   public newJourney: Journey;
 
   public currentJourneys:Journeys={journeys:[]};
-  public userJourneys:Journeys={journeys:[]};
+  public currentUserJourneys:Journeys={journeys:[]};
 
   public placeInJourney: number;
   public postInPlace: number;
@@ -369,7 +369,15 @@ export class DataService {
   }
 
   loadUserJourneys(currentUser:User){
+  
 
+    this.http.post("http://levt.test/userJourneys", currentUser).subscribe((loadedData: Journeys) => {
+      console.log(loadedData);
+      this.currentUserJourneys=loadedData;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
 
   }
 
