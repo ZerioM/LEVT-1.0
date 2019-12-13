@@ -407,7 +407,13 @@ class _JourneyController extends BaseController
     public function selectAllJourneysPerUser(Request $request){
         $requestArray = $request->all();
         $userID = $requestArray['userID'];
-        $outputArray = json_encode($this->selectByUserID($userID)->get());
-        return '{"journeys": '.$outputArray." \n}";
+        $userJourneys = json_decode(json_encode($this->selectByUserID($userID)->get()),true);
+        $journeysArray = array();
+        foreach($userJourneys as $userJourney){
+            $journeyID = $userJourney['journeyID'];
+            $journeyArray = json_decode($this->selectOne($journeyID), true);
+            array_push($journeysArray,$journeyArray);
+        }
+        return '{"journeys": '.json_encode($journeysArray)." \n}";
     }
 }
