@@ -18,7 +18,7 @@ export class UserJourneyDetailPage implements OnInit {
   async showPlace(placeID: number){
 
     await this.data.presentLoading();
-    await this.data.loadOnePlace(placeID);
+    await this.data.loadOneUserPlace(placeID);
     await this.data.dismissLoading();
         
       //go To Place Detail 

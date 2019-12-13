@@ -30,7 +30,7 @@ export class Tab5Page implements OnInit {
  async showJourney(journeyID: number){
     
   await this.data.presentLoading();  
-  await this.data.loadOneJourney(journeyID);
+  await this.data.loadOneUserJourney(journeyID);
   await this.data.dismissLoading();
 
   //go To Journey Detail 

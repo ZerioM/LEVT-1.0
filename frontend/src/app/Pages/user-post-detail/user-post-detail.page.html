@@ -5,7 +5,7 @@
         </ion-button>
       </ion-buttons>
    
-    <ion-title class="tabHeading" no-padding>{{data.currentPlace.placeName}}</ion-title>
+    <ion-title class="tabHeading" no-padding>{{data.currentUserPlace.placeName}}</ion-title>
         <img  class="headerUserPic" src={{data.currentUser.userImgSrc}} alt="User"/>
    </ion-header>
    <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
@@ -18,15 +18,15 @@
                <div class="imgAndInfo">
    
                  <ion-item class="thumbnailImgSlider" color="none" no-padding no-margin>
-                     <ion-slides *ngIf="data.currentPost.images.length != 0">
-                         <ion-slide *ngFor="let i of data.currentPost.images">
+                     <ion-slides *ngIf="data.currentUserPost.images.length != 0">
+                         <ion-slide *ngFor="let i of data.currentUserPost.images">
                            <img src="{{i.imgSrc}}"/>
                          </ion-slide>
                          <!--<button type="submit" style="left:0;" ion-button class="btnSlide" (click)="prev()"><ion-icon name="ios-arrow-back"></ion-icon></button>
                          <button type="submit" style="right:0;" ion-button class="btnSlide" (click)="next()"><ion-icon name="ios-arrow-forward"></ion-icon></button>-->
                      </ion-slides>
-                     <img *ngIf="data.currentPost.images.length == 0" src="/assets/images/platzhalter_post_big.png" />   
-                     <div class="sliderBtns" *ngIf="data.currentPost.images.length >= 1">
+                     <img *ngIf="data.currentUserPost.images.length == 0" src="/assets/images/platzhalter_post_big.png" />   
+                     <div class="sliderBtns" *ngIf="data.currentUserPost.images.length >= 1">
                          <button type="submit" style="left:0;" ion-button class="btnSlide" ><ion-icon name="ios-arrow-back"></ion-icon></button>
                          <button type="submit" style="right:0;" ion-button class="btnSlide"><ion-icon name="ios-arrow-forward"></ion-icon></button>
                      </div>       
@@ -34,11 +34,11 @@
    
                  <div class="picInformations">
                    <ion-item color="none" no-padding no-margin>
-                       <ion-label>{{data.currentPost.activityName}}</ion-label>
+                       <ion-label>{{data.currentUserPost.activityName}}</ion-label>
                      </ion-item>
                    <ion-item color="none" class="travelTime" no-margin>
                        <ion-icon name="md-time" class="timeIcon"></ion-icon>
-                     <ion-label>{{data.currentJourney.seasonName}} - {{data.currentJourney.year}}</ion-label>
+                     <ion-label>{{data.currentUserJourney.seasonName}} - {{data.currentUserJourney.year}}</ion-label>
                    </ion-item>
                  </div>
                </div>
@@ -47,7 +47,7 @@
          </ion-list>
    
        <ion-item lines="none" no-padding *ngIf="data.hasPostDetail">
-           <ion-text><b>Detail</b><br>{{data.currentPost.detail}}</ion-text>
+           <ion-text><b>Detail</b><br>{{data.currentUserPost.detail}}</ion-text>
        </ion-item>
    
    

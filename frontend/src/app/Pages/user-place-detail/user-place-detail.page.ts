@@ -18,7 +18,7 @@ export class UserPlaceDetailPage implements OnInit {
   async showPost(postID: number){
 
     await this.data.presentLoading();
-    await this.data.loadOnePost(postID);
+    await this.data.loadOneUserPost(postID);
     await this.data.dismissLoading();
        
      //go To Journey Detail 

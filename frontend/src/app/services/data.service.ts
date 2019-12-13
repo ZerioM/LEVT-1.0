@@ -33,7 +33,11 @@ export class DataService {
 
   public currentPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", iconName:"" , place:null, images:[]}
 
+  public currentUserPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", iconName:"" , place:null, images:[]}
+
   public currentPlace: Place = { placeID: null,_journeyID:null,_thumbnailID: null,_countryID:"",detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
+
+  public currentUserPlace: Place = { placeID: null,_journeyID:null,_thumbnailID: null,_countryID:"",detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
 
   public newPlace: Place;
 
@@ -231,6 +235,40 @@ export class DataService {
   
   }
 
+
+  async loadOneUserJourney(journeyID:number){
+    
+    let postData={
+
+      "journeyID": journeyID
+    }
+    
+    await this.http.post("http://levt.test/oneJourney", postData).toPromise().then((loadedData: Journey) => {
+      console.log(loadedData);
+      this.currentUserJourney=loadedData;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+
+    this.currentBookmark._journeyID = this.currentUserJourney.journeyID;
+
+    if(this.currentUserJourney.detail==""){
+      this.hasJourneyDetail=false;
+    }else{
+      this.hasJourneyDetail=true;
+    }
+
+    if(this.currentUserJourney.places.length==0){
+      this.hasPlaces=false;
+    }else{
+      this.hasPlaces=true;
+    }
+  
+     
+  
+  }
+
   loadOnePlace(placeID:number){
     
     let postData={
@@ -260,6 +298,35 @@ export class DataService {
 
   }
 
+  loadOneUserPlace(placeID:number){
+    
+    let postData={
+
+      "placeID": placeID
+    }
+
+    this.http.post("http://levt.test/onePlace", postData).subscribe((loadedData: Place) => {
+      console.log(loadedData);
+      this.currentUserPlace=loadedData;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+
+    if(this.currentUserPlace.detail==""){
+      this.hasPlaceDetail=false;
+    }else{
+      this.hasPlaceDetail=true;
+    }
+
+    if(this.currentUserPlace.posts.length==null){
+      this.hasPosts=false;
+    }else{
+      this.hasPosts=true;
+    }
+
+  }
+
   loadOnePost(postID:number){
     
     let postData={
@@ -282,6 +349,31 @@ export class DataService {
     }
 
   }
+
+  loadOneUserPost(postID:number){
+    
+    let postData={
+
+      "postID": postID
+    }
+
+    this.http.post("http://levt.test/onePost", postData).subscribe((loadedData: Post) => {
+      console.log(loadedData);
+      this.currentUserPost=loadedData;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+    
+    if(this.currentPost.detail==""){
+      this.hasPostDetail=false;
+    }else{
+      this.hasPostDetail=true;
+    }
+
+  }
+
+  
 
 
 
