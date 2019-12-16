@@ -1,11 +1,15 @@
-#travelTitle{
+#userpicProfil{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 5px;
+  } // Profilbild auf Profil
+
+  #PlatzhalterKartenVis{
     width: 100%;
-    margin-top: 50px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 18pt;
-    line-height: 26pt;
-    text-align:center;
-    background-color: #eceeefbf;
-    font-variant: small-caps;
-    position:absolute;
-  } // Titel der Reise im Bild
+    height: 200px;
+    border: 1px solid #182f30;
+    background-color: #182f30;
+    //background-image: url("assets/images/kartenvisualisierung.png");
+    //background-image: url("kartenvisualisierung.png");
+  } // dies ist nur ein Platzhalter

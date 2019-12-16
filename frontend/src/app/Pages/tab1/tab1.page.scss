@@ -40,30 +40,6 @@ ion-searchbar {
 .searchbar-input.sc-ion-searchbar-ios{
   background:white !important;
 } //macht Hintergrund bei Suchleiste in IOS trotzdem grau
-#gallery {
-  width: 100%;
-} // Alle Beiträge auf der Startseite
-.pictureFrameIndex {
-  width: 100%;
-  margin-bottom: 50px;
-  position: relative;
-} // Bilderrahmen mit Bild und Text auf Startseite
-.thumbnailImg {
-  margin-top: -10px;
-  padding: 0px !important;
-}// Titelbild der Reise
-#travelTitle{
-  width: 100%;
-  margin-top: 50px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 18pt;
-  line-height: 26pt;
-  text-align:center;
-  background-color: #eceeefbf;
-  font-variant: small-caps;
-  position:absolute;
-} // Titel der Reise im Bild
-
 ion-label {
   margin: 0;
 }
