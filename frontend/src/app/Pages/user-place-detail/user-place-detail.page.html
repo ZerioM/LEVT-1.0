@@ -15,12 +15,12 @@
             <div class="pictureFrame">
                 <div class="frameLeft"></div>
               <div class="imgAndInfo">
-                <ion-item class="thumbnailImg" color="none">
+                <ion-item class="thumbnailImg" color="none" no-padding no-margin>
                   <img *ngIf="data.currentUserPlace.thumbnailSrc != null" src="{{data.currentUserPlace.thumbnailSrc}}" alt="Place"  />
                   <img *ngIf="data.currentUserPlace.thumbnailSrc == null" src="/assets/images/platzhalter_travellocation_big.png" alt="Place" />
                 </ion-item>
                 <div class="picInformations">
-                  <ion-item color="none" class="travelTime">
+                  <ion-item color="none" class="travelTime" no-padding no-margin>
                       <ion-icon name="md-time" class="timeIcon"></ion-icon>
                     <ion-label>{{data.currentUserJourney.seasonName}} - {{data.currentUserJourney.year}}</ion-label>
                   </ion-item>
