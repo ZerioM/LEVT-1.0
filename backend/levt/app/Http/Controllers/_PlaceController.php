@@ -158,7 +158,8 @@ class _PlaceController extends BaseController
 
             $link = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input="
             .$requestArray['placeName']
-            ."&inputtype=textquery&fields=formatted_address,name,geometry,place_id&language=en&key=AIzaSyC6lexavDKzPzt_NjMxqP0bqL2pX-ESGXo";
+            ."&inputtype=textquery&fields=formatted_address,name,geometry,place_id&language=en&key="
+            .env('API_KEY');
 
             
             $placeRes = $client->get($link);
@@ -204,7 +205,8 @@ class _PlaceController extends BaseController
         $client = new Client();
         $link = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input="
             .$placeName
-            ."&types=(regions)&key=AIzaSyC6lexavDKzPzt_NjMxqP0bqL2pX-ESGXo";
+            ."&types=(regions)&key="
+            .env('API_KEY');
             
         $places = $client->get($link);
         $placesResult=json_decode($places->getBody(),true);
