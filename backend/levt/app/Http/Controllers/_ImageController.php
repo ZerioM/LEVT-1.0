@@ -116,7 +116,7 @@ class _ImageController extends BaseController
         //print_r($request->file('picUpload'));
 
         $insertImagesArray = [
-            'src' => "sftp://flock-1427@flock-1427.students.fhstp.ac.at/flock-1427.students.fhstp.ac.at/backend/storage/app/".$path,
+            'src' => "https://flock-1427.students.fhstp.ac.at/backend/storage/app/".$path,
             'coordinateX' => $array['coordinateX'],
             'coordinateY' => $array['coordinateY'],
             'date' => $array['date'],
