@@ -25,13 +25,15 @@ import { LoadingController } from '@ionic/angular';
 
 import { ToastController } from '@ionic/angular';
 import { Bookmark } from '../Interfaces/Bookmark';
+import { debug } from 'util';
+import { ImageService } from './image.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  public currentPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", iconName:"" , place:null, images:[]}
+  public currentPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", iconName:"" , placeName: null, _countryID: null, images:[]}
 
   public currentUserPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", iconName:"" , place:null, images:[]}
 
@@ -85,11 +87,13 @@ export class DataService {
   public placeInserted:boolean =false;
   public postInserted:boolean = false;
   public loading;
+
+  public errorMsg;
   
 
   private locale : string;
 
-  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService, public toastController: ToastController, public loadingController:LoadingController) { 
+  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
 
     this.newJourney= this.journeyService.newJourney(this.currentUser);
   
@@ -105,7 +109,7 @@ export class DataService {
 
   loadJourneyCategories() {
     //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
-    this.http.get("http://levt.test/allJourneyCategories").subscribe((loadedData: JourneyCategories) => {
+    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/allJourneyCategories").subscribe((loadedData: JourneyCategories) => {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -129,7 +133,7 @@ export class DataService {
 
   loadCompanionships() {
     //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
-    this.http.get("http://levt.test/allCompanionships").subscribe((loadedData: Companionships) => {
+    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/allCompanionships").subscribe((loadedData: Companionships) => {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -152,7 +156,7 @@ export class DataService {
 
   loadTransports() {
     //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
-    this.http.get("http://levt.test/allTransports").subscribe((loadedData: Transports) => {
+    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/allTransports").subscribe((loadedData: Transports) => {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -172,7 +176,7 @@ export class DataService {
 
   }
   loadActivities() {
-    this.http.get("http://levt.test/allActivities").subscribe((loadedData: Activities) => {
+    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/allActivities").subscribe((loadedData: Activities) => {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -190,7 +194,7 @@ export class DataService {
 
 
   loadSeasons() {
-    this.http.get("http://levt.test/allSeasons").subscribe((loadedData: Seasons) => {
+    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/allSeasons").subscribe((loadedData: Seasons) => {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -215,7 +219,7 @@ export class DataService {
       "journeyID": journeyID
     }
     
-    await this.http.post("http://levt.test/oneJourney", postData).toPromise().then((loadedData: Journey) => {
+    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/oneJourney", postData).toPromise().then((loadedData: Journey) => {
       console.log(loadedData);
       this.currentJourney=loadedData;
       console.log("Post funktioniert");
@@ -282,7 +286,7 @@ export class DataService {
       "placeID": placeID
     }
 
-    this.http.post("http://levt.test/onePlace", postData).subscribe((loadedData: Place) => {
+    this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/onePlace", postData).subscribe((loadedData: Place) => {
       console.log(loadedData);
       this.currentPlace=loadedData;
       console.log("Post funktioniert");
@@ -340,7 +344,7 @@ export class DataService {
       "postID": postID
     }
 
-    this.http.post("http://levt.test/onePost", postData).subscribe((loadedData: Post) => {
+    this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/onePost", postData).subscribe((loadedData: Post) => {
       console.log(loadedData);
       this.currentPost=loadedData;
       console.log("Post funktioniert");
@@ -437,10 +441,18 @@ export class DataService {
     toast.present();
   }
 
+  async presentDBErrorToast() {
+    const toast = await this.toastController.create({
+      message: this.errorMsg,
+      duration: 8000
+    });
+    toast.present();
+  }
+
   loadTopPosts(){
-    // http://levt.test/top100 liefert die Daten aus der DB 
+    // http://flock-1427.students.fhstp.ac.at/backend/public/top100 liefert die Daten aus der DB 
     
-    this.http.get("http://levt.test/top100").subscribe( (loadedData: Journeys)=> {
+    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/top100").toPromise().then( (loadedData: Journeys) => {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -459,12 +471,21 @@ export class DataService {
         });
         */
         console.log(this.currentJourneys);
+
       }else{
 
+
         console.log("null per http geladen");
-      }
-    });
+        }
+    }, error => {
+      console.log(error);
+      console.info(error);
+      this.errorMsg = error;
+      this.presentDBErrorToast();
+    }
+    );
   }
+
 
   loadUserJourneys(currentUser:User){
   
@@ -486,12 +507,13 @@ export class DataService {
 
     //let bookmarked: boolean = false;
 
-    await this.http.post("http://levt.test/newBookmark", postData).toPromise().then((loadedData: Bookmark) => {
+    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/newBookmark", postData).toPromise().then((loadedData: Bookmark) => {
       this.currentBookmark = loadedData;
       console.log(this.currentBookmark);
       console.log("Post funktioniert");
     }, error => {
       console.log(error);
+      
     });
   }
 
@@ -502,7 +524,7 @@ export class DataService {
     
    // let bookmarked: boolean = true;
 
-    await this.http.post("http://levt.test/deleteBookmark", postData).toPromise().then((loadedData: Bookmark) => {
+    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/deleteBookmark", postData).toPromise().then((loadedData: Bookmark) => {
       this.currentBookmark = loadedData;
       console.log(this.currentBookmark);
       console.log("Post funktioniert");
@@ -521,7 +543,7 @@ export class DataService {
 
     let bookmarked: boolean = false;
 
-    await this.http.post("http://levt.test/proveBookmarkExists", postData).toPromise().then((loadedData: Bookmark) => {
+    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/proveBookmarkExists", postData).toPromise().then((loadedData: Bookmark) => {
       console.log(loadedData);
       this.currentBookmark = loadedData;
       console.log(this.currentBookmark);
@@ -557,9 +579,13 @@ export class DataService {
     return this.placeService.updatePlaceWorks;
   }
 
+  updatePostWorks() {
+    return this.postService.updatePostWorks;
+  }
+
   async autocompletePlaceName(){
     /*let suggestedPlaces: Place[];
-    await this.http.post("http://levt.test/autocompletePlace", this.newPlace.placeName).toPromise().then((loadedData: Place[]) => {
+    await this.http.post("http://flock-1427.students.fhstp.ac.at/backend/public/autocompletePlace", this.newPlace.placeName).toPromise().then((loadedData: Place[]) => {
       console.log(loadedData);
       console.log("New Place in DB inserted");
       suggestedPlaces = loadedData;      
@@ -572,7 +598,7 @@ export class DataService {
 
   async validatePlaceName(){
     /*let place : Place;
-    await this.http.post("http://levt.test/validatePlace", this.newPlace.placeName).toPromise().then((loadedData: Place) => {
+    await this.http.post("http://flock-1427.students.fhstp.ac.at/backend/public/validatePlace", this.newPlace.placeName).toPromise().then((loadedData: Place) => {
       console.log(loadedData);
       console.log("New Place in DB inserted");
       place = loadedData;      

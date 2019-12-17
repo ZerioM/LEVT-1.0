@@ -9,6 +9,7 @@ export interface Post{
 
     activityName: string;
     iconName: string;
-    place: Place;
+    placeName: string;
+    _countryID: string;
     images: Image[];
 }

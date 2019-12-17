@@ -22,32 +22,31 @@ export class PlaceService {
   async savePlace(place: Place){
     //Abfragen, ob placeID == null, dann newPlace aufrufen, sonst updatePlace aufrufen
     if(place.placeID == null){
-      await this.http.post("http://levt.test/newPlace", place).toPromise().then((loadedData: Place) => {
+      await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/newPlace", place).toPromise().then((loadedData: Place) => {
         console.log(loadedData);
         console.log("New Place in DB inserted");
         this.updatePlaceWorks = true;
-        place = loadedData;      
+        place.placeID = loadedData.placeID;      
       }, error => {
         this.updatePlaceWorks = true;
         console.log(error);
       });
     } else {
-      await this.http.post("http://levt.test/updatePlace", place).toPromise().then((loadedData: Place) => {
+      await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/updatePlace", place).toPromise().then((loadedData: Place) => {
         console.log(loadedData);
         console.log("Place with ID: ");
         console.log(place.placeID);
         console.log(" in DB updated");
         this.updatePlaceWorks = true;
-        place = loadedData;
-        console.log("place");
-        console.log(place);
+
+        place.placeID = loadedData.placeID;
+
       }, error => {
         this.updatePlaceWorks = false;
         console.log(error);
       });
     }
-    
-    return place;
+
   }
 
   
