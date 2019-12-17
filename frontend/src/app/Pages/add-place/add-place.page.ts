@@ -56,7 +56,7 @@ export class AddPlacePage implements OnInit {
     this.data.postInserted = false;
     if(this.data.validatePlaceName()){
       await this.data.presentLoading();
-      this.data.newPlace = await this.placeService.savePlace(this.data.newPlace);
+      await this.placeService.savePlace(this.data.newPlace);
       await this.data.dismissLoading();
       if(this.data.newPlace.placeID != null && this.data.updatePlaceWorks()){
         this.postService.newPost(this.data.newPlace);
@@ -83,7 +83,7 @@ export class AddPlacePage implements OnInit {
     this.data.postInserted = true;
     if(this.data.validatePlaceName()){
       await this.data.presentLoading();
-      this.data.newPlace = await this.placeService.savePlace(this.data.newPlace);
+      await this.placeService.savePlace(this.data.newPlace);
       await this.data.dismissLoading();
       if(this.data.newPlace.placeID != null && this.data.updatePlaceWorks()){
         this.data.newPost = po;
@@ -163,7 +163,7 @@ export class AddPlacePage implements OnInit {
     if(this.data.validatePlaceName()){
 
       await this.data.presentLoading();
-      this.data.newPlace = await this.placeService.savePlace(this.data.newPlace);
+      await this.placeService.savePlace(this.data.newPlace);
       await this.data.dismissLoading();
 
       if(this.data.newPlace.placeID != null){
