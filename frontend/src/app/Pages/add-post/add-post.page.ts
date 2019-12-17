@@ -154,7 +154,10 @@ export class AddPostPage implements OnInit {
   }
 
   goBackToPlace(){
-    this.alert();
+    if(this.data.newPost._activityID == null && this.data.newPost.detail == "" && this.data.newPost.images.length==null){
+      this.goBacktoAddPlaceWithoutSaving();
+    }else{
+    this.alert();}
   }
 
   goBacktoAddPlaceWithoutSaving(){
@@ -199,10 +202,12 @@ export class AddPostPage implements OnInit {
     }
 
     await this.data.presentLoading();
+
     await this.postService.savePost(this.data.newPost);
     await this.data.dismissLoading();
 
     if(this.data.newPost.postID != null && this.data.updatePostWorks()){
+
       console.log("Post saved");
       if(this.data.postInserted){
         this.data.newPlace.posts[this.data.postInPlace] = this.data.newPost;

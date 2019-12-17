@@ -38,7 +38,9 @@ export class PlaceService {
         console.log(place.placeID);
         console.log(" in DB updated");
         this.updatePlaceWorks = true;
+
         place.placeID = loadedData.placeID;
+
       }, error => {
         this.updatePlaceWorks = false;
         console.log(error);

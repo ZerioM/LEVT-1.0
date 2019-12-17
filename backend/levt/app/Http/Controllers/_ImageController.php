@@ -33,25 +33,6 @@ class _ImageController extends BaseController
         return DB::table('images')->where('_postID', $postID);
     }
 
-    public function insertOne(Request $request){
-
-        $requestArray = $request->all();
-
-        $insertImagesArray = [
-            'src' => $requestArray['imgSrc'],
-            'coordinateX' => $requestArray['coordinateX'],
-            'coordinateY' => $requestArray['coordinateY'],
-            'date' => $requestArray['date'],
-            '_postID' => $requestArray['_postID']
-        ];
-
-        $id = DB::table('images')->insertGetId($insertImagesArray);
-
-
-
-        return $this->selectOne($id);
-
-    }
 
     public function selectOne($id){
 
@@ -91,24 +72,33 @@ class _ImageController extends BaseController
         $requestArray = $request->all();
 
         $image = Image::find($requestArray['imageID']);
+        
+        if($image != null){
+            $imageArray = json_decode($image,true);
+            $src = $imageArray['src'];
+            //$src = substr($src,-66);
+            $src = substr($src,59);
+            Storage::delete($src);
 
-        $image->delete();
+            $image->delete();
 
-        $outputArray = [
-            "deleted" => true
-        ];
+            $outputArray = [
+                "deleted" => true
+            ];
+            return json_encode($outputArray,JSON_PRETTY_PRINT);
+        }
 
-        return json_encode($outputArray,JSON_PRETTY_PRINT);
+        
     }
 
 
     public function uploadOne(Request $request){
 
-        $this->validate($request,[
+        // $this->validate($request,[
 
-            'picUpload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'picUpload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-        ]);
+        // ]);
 
         $mytime = Carbon::now();
         $mytime->toDateTimeString();
@@ -117,9 +107,25 @@ class _ImageController extends BaseController
         $day = substr($mytime, 8, -9);
         $hour = substr($mytime, 11, -6);
         Storage::makeDirectory('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
-        print_r($mytime);
-        $request->file('picUpload')->store('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
+        $path = $request->file('picUpload')->store('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
         
+        $requestArray = $request->all();
+        $array = (json_decode($requestArray['data'],true));
+        //print_r($array['imageID']);
+        //print_r($request->file('picUpload'));
+
+        $insertImagesArray = [
+            'src' => "https://flock-1427.students.fhstp.ac.at/backend/storage/app/".$path,
+            'coordinateX' => $array['coordinateX'],
+            'coordinateY' => $array['coordinateY'],
+            'date' => $array['date'],
+            '_postID' => $array['_postID']
+        ];
+
+        $id = DB::table('images')->insertGetId($insertImagesArray);
+        //return var_export($request);
+
+        return $this->selectOne($id);
     }
 
 }

@@ -8,6 +8,7 @@ import { PlaceService } from 'src/app/services/place.service';
 import { PostService } from 'src/app/services/post.service';
 import { isGeneratedFile } from '@angular/compiler/src/aot/util';
 import { Post } from 'src/app/Interfaces/Post';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 
@@ -19,12 +20,15 @@ import { Post } from 'src/app/Interfaces/Post';
 })
 export class AddPlacePage implements OnInit {
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController) {
+  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
     if(this.data.placeInserted){
 
     } else {
       this.data.newPlace = this.placeService.newPlace(this.data.newJourney);
     }
+
+    console.log("Bool PlaceInserted:")
+    console.log(this.data.placeInserted)
   }
 
   ngOnInit() {
@@ -33,7 +37,11 @@ export class AddPlacePage implements OnInit {
   
 
   goBackToJourney(){
-    this.alert();
+
+    if(this.data.newPlace.placeName == "" && this.data.newPlace.detail == "" && this.data.newPlace.posts.length==null){
+      this.goBacktoAddJourneyWithoutSaving();
+    }else{
+    this.alert();}
   }
   
   async goToAddNewPost(){
@@ -92,11 +100,14 @@ export class AddPlacePage implements OnInit {
   }
 
   showNoPostWarning() {
-    if (this.data.newPlace.posts.length == 0) {
-      return true;
-    } else {
-      return false;
+    if(this.data.newPlace.posts != null){
+      if (this.data.newPlace.posts.length == 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
+    
     return true;
   }
 

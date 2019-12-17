@@ -35,7 +35,11 @@ export class DataService {
 
   public currentPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", iconName:"" , placeName: null, _countryID: null, images:[]}
 
+  public currentUserPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", iconName:"" , place:null, images:[]}
+
   public currentPlace: Place = { placeID: null,_journeyID:null,_thumbnailID: null,_countryID:"",detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
+
+  public currentUserPlace: Place = { placeID: null,_journeyID:null,_thumbnailID: null,_countryID:"",detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
 
   public newPlace: Place;
 
@@ -43,11 +47,14 @@ export class DataService {
 
   public currentJourney:Journey={journeyID:null, _userID:null,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
 
-  public currentUser:User={userID:11, username:"Sallie Johns",_profileImageID:6}
+  public currentUserJourney:Journey={journeyID:null, _userID:null,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
+
+  public currentUser:User={userID:11, username:"Sallie Johns",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg"}
 
   public newJourney: Journey;
 
-  public currentJourneys:Journeys={journeys:[]}
+  public currentJourneys:Journeys={journeys:[]};
+  public currentUserJourneys:Journeys={journeys:[]};
 
   public placeInJourney: number;
   public postInPlace: number;
@@ -56,6 +63,19 @@ export class DataService {
   public bookmarkIcon: string = "assets/icon/bookmark_unsaved_icon.svg";
   public bookmarkUnsaved:string="assets/icon/bookmark_unsaved_icon.svg";
   public bookmarkSaved:string="assets/icon/bookmark_saved_icon.svg";
+
+
+  public hasJourneyDetail=false;
+  public hasPlaces=false;
+  public hasPlaceDetail=false;
+  public hasPosts=false;
+  public hasPostDetail=false;
+
+  public hasUserJourneyDetail=false;
+  public hasUserPlaces=false;
+  public hasUserPlaceDetail=false;
+  public hasUserPosts=false;
+  public hasUserPostDetail=false;
 
   //Zentrale Daten laden 
   public journeyCategories: JourneyCategories = { journeyCategories: [] };
@@ -208,6 +228,54 @@ export class DataService {
     });
 
     this.currentBookmark._journeyID = this.currentJourney.journeyID;
+
+    if(this.currentJourney.detail==""){
+      this.hasJourneyDetail=false;
+    }else{
+      this.hasJourneyDetail=true;
+    }
+
+    if(this.currentJourney.places.length==0){
+      this.hasPlaces=false;
+    }else{
+      this.hasPlaces=true;
+    }
+  
+     
+  
+  }
+
+
+  async loadOneUserJourney(journeyID:number){
+    
+    let postData={
+
+      "journeyID": journeyID
+    }
+    
+    await this.http.post("http://levt.test/oneJourney", postData).toPromise().then((loadedData: Journey) => {
+      console.log(loadedData);
+      this.currentUserJourney=loadedData;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+
+
+    if(this.currentUserJourney.detail==""){
+      this.hasUserJourneyDetail=false;
+    }else{
+      this.hasUserJourneyDetail=true;
+    }
+
+    if(this.currentUserJourney.places.length==0){
+      console.log("places sind null")
+      this.hasUserPlaces=false;
+    }else{
+      this.hasUserPlaces=true;
+    }
+  
+     
   
   }
 
@@ -226,6 +294,47 @@ export class DataService {
       console.log(error);
     });
 
+    if(this.currentPlace.detail==""){
+      this.hasPlaceDetail=false;
+    }else{
+      this.hasPlaceDetail=true;
+    }
+
+    if(this.currentPlace.posts.length==null){
+      this.hasPosts=false;
+    }else{
+      this.hasPosts=true;
+    }
+
+  }
+
+  loadOneUserPlace(placeID:number){
+    
+    let postData={
+
+      "placeID": placeID
+    }
+
+    this.http.post("http://levt.test/onePlace", postData).subscribe((loadedData: Place) => {
+      console.log(loadedData);
+      this.currentUserPlace=loadedData;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+
+    if(this.currentUserPlace.detail==""){
+      this.hasUserPlaceDetail=false;
+    }else{
+      this.hasUserPlaceDetail=true;
+    }
+
+    if(this.currentUserPlace.posts.length==null){
+      this.hasUserPosts=false;
+    }else{
+      this.hasUserPosts=true;
+    }
+
   }
 
   loadOnePost(postID:number){
@@ -243,8 +352,38 @@ export class DataService {
       console.log(error);
     });
     
+    if(this.currentPost.detail==""){
+      this.hasPostDetail=false;
+    }else{
+      this.hasPostDetail=true;
+    }
 
   }
+
+  loadOneUserPost(postID:number){
+    
+    let postData={
+
+      "postID": postID
+    }
+
+    this.http.post("http://levt.test/onePost", postData).subscribe((loadedData: Post) => {
+      console.log(loadedData);
+      this.currentUserPost=loadedData;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+    
+    if(this.currentPost.detail==""){
+      this.hasUserPostDetail=false;
+    }else{
+      this.hasUserPostDetail=true;
+    }
+
+  }
+
+  
 
 
 
@@ -348,6 +487,18 @@ export class DataService {
   }
 
 
+  loadUserJourneys(currentUser:User){
+  
+
+    this.http.post("http://levt.test/userJourneys", currentUser).subscribe((loadedData: Journeys) => {
+      console.log(loadedData);
+      this.currentUserJourneys=loadedData;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+
+  }
 
   async setBookmark(){
     this.currentBookmark._userID=this.currentUser.userID;

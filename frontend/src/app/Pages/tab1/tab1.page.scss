@@ -1,18 +1,7 @@
 body {
   height: auto;
 }
-#setup {
-  color: #182f30;
-  position: fixed;
-  z-index: 2;
-  padding: 0;
-  right: 0;
-  margin-top: 5px;
-} // Setup Button
-#setup ion-button{
-  --padding-start: 0;
-  --padding-end: 0;
-} // Setup Button padding
+
 ion-list.md.list-md.list-lines-none.list-md-lines-none.hydrated{
 	background:0;
 } // Startseite alle Beiträge & Zwischenraum
@@ -51,30 +40,6 @@ ion-searchbar {
 .searchbar-input.sc-ion-searchbar-ios{
   background:white !important;
 } //macht Hintergrund bei Suchleiste in IOS trotzdem grau
-#gallery {
-  width: 100%;
-} // Alle Beiträge auf der Startseite
-.pictureFrameIndex {
-  width: 100%;
-  margin-bottom: 50px;
-  position: relative;
-} // Bilderrahmen mit Bild und Text auf Startseite
-.thumbnailImg {
-  margin-top: -10px;
-  padding: 0px !important;
-}// Titelbild der Reise
-#travelTitle{
-  width: 100%;
-  margin-top: 50px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 18pt;
-  line-height: 26pt;
-  text-align:center;
-  background-color: #eceeefbf;
-  font-variant: small-caps;
-  position:absolute;
-} // Titel der Reise im Bild
-
 ion-label {
   margin: 0;
 }

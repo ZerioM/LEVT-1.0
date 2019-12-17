@@ -25,6 +25,20 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+
+.setup {
+  color: #182f30;
+  position: fixed;
+  z-index: 2;
+  padding: 0;
+  right: 0;
+  margin-top: 5px;
+} // Setup Button auf Startseite & Profil
+.setup ion-button{
+  //--padding-start: 0;
+  //--padding-end: 0;
+  padding: 0;
+} // Setup Button padding auf Startseite & Profil
 ion-item {
   font-size: 10pt;
   --inner-padding-end: none;
@@ -91,14 +105,17 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
   align-self: center;
   object-fit: cover;
 } // User Pic im Header auf allen Seiten
+.gallery {
+  width: 100%;
+} // Alle Beiträge auf der Startseite & Profil
+.pictureFrame {
+  width: 100%;
+  margin-bottom: 50px;
+  position: relative;
+} // Bilderrahmen mit Rahmen, Bild & Text auf Startseite
 .frameLeft .frameRight {
   position: absolute;
 } // Bilderrahmen link und rechts
-.pictureFrame {
-  width: 100%;
-  position: relative;
-  margin-bottom: 20px;
-} // Bilderrahmen => Rahmen & Bild
 .frameLeft {
   width: 30px;
   height: 30px;
@@ -123,6 +140,21 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
   margin-left: auto;
   margin-right: auto;
 }// Bild und Infotext
+.travelTitle{
+  width: 100%;
+  margin-top: 50px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 18pt;
+  line-height: 26pt;
+  text-align:center;
+  background-color: #eceeefbf;
+  font-variant: small-caps;
+  position:absolute;
+} // Titel der Reise im Bild Startseite & Profil
+.thumbnailImg {
+  margin-top: -10px;
+  padding: 0px !important;
+}// Titelbild der Reise
 .picInformations {
   width: 100%;
   display: flex;
@@ -140,7 +172,7 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
   height: 20px;
   object-fit: cover;
   margin-right: 5px;
-} // Profilbild
+} // Profilbild unter Beiträgen
 .travelTime {
   display: flex;
   flex-direction: row;
@@ -226,7 +258,7 @@ p{
 
 .importantThings{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 10pt;
+  font-size: 10pt !important;
   font-weight: bold;
   color:#415f4b;
 }// Info text dass mit * markiert

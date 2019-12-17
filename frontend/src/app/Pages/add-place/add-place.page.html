@@ -15,12 +15,17 @@
     <!--<ion-item no-padding lines="none">
       <ion-label no-margin><b>General</b></ion-label>
     </ion-item>-->
+    <ion-label><b>Visited Place</b><b class="importantStars">   (mandatory)</b></ion-label>
     <ion-item no-padding no-margin>
-        <ion-label no-margin position="floating"><b>General</b></ion-label>
-      <ion-input [(ngModel)]="data.newPlace.placeName" placeholder="Where did you travel to?" background="light" 
+      <ion-input [(ngModel)]="data.newPlace.placeName" placeholder="Unnamed Place" background="light" 
       (keyUp)="keyUpPlaceName()" (focusout)="focusOutPlaceName()" >
     </ion-input>
     </ion-item>
+
+    <ion-item no-padding>
+        <ion-textarea placeholder="Tell us what you experienced here!" [(ngModel)]="data.newPlace.detail" rows="8" background="light" no-padding>
+        <ion-label no-margin><b>Place Details</b></ion-label><br ></ion-textarea>
+      </ion-item>
     
 
     <!--<ion-item no-padding lines="none" no-margin>
@@ -29,7 +34,7 @@
     <ion-item lines="none" no-padding>
       <ion-label position="floating"><b>Posts</b></ion-label><br>
      <!--<ion-label color="warning" id="NoPlace" no-margin> You haven't added any posts to your place!</ion-label>-->
-     <br><p *ngIf="showNoPostWarning()" id="NoPlace" no-margin> You haven't added any posts to your place!</p>
+     <br><p *ngIf="showNoPostWarning()" id="NoPlace" no-margin> Click the plus to add a new post!</p>
     </ion-item>
     <ion-item no-padding lines="none">
       <div id="alreadyAddedPlaces" class="gridContainer">
@@ -43,15 +48,6 @@
         </div>
       </div>
     </ion-item>
-
-    <ion-item no-padding>
-      <ion-textarea placeholder="Tell us what you experienced here!" [(ngModel)]="data.newPlace.detail" rows="8" background="light" no-padding>
-      <ion-label no-margin><b>Place Details</b></ion-label><br ></ion-textarea>
-    </ion-item>
-
-    <ion-label class="importantThings">
-        * Fields marked with a <b class="importantStars">*</b> are mandatory.
-      </ion-label>
 
     <ion-button (click)="savePlace()" color="primary" expand="full">
       Finish

@@ -12,8 +12,8 @@
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
+  <ion-label><b>What is your post about?</b><b class="importantStars">   (mandatory)</b></ion-label>
   <ion-item no-padding lines="none">
-    <ion-label><b>What is your post about?</b><b class="importantStars">*</b></ion-label>
     <ion-select placeholder="Post Category" [(ngModel)]="data.newPost._activityID">
       <ion-select-option *ngFor="let a of data.activities.activities" value="{{a.activityID}}">
         {{a.activityName}}
@@ -25,6 +25,7 @@
     <ion-textarea [(ngModel)]="data.newPost.detail" placeholder="Tell us what you experienced here!" rows="8" background="light" no-padding> 
     <ion-label><b>Post Details</b></ion-label></ion-textarea>
   </ion-item>
+
 
   <!-- <ion-card>
       <img *ngIf="!fileUrl" src="assets/no-image.jpeg"/>

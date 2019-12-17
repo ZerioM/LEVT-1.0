@@ -1,7 +1,4 @@
-#gallery {
-    width: 100%;
-  } // Alle Beiträge auf der Startseite
-  .pictureFramePostDetail {
+.pictureFramePostDetail {
     width: 100%;
     position: relative;
   } // Bilderrahmen mit Bild und Text
@@ -9,17 +6,25 @@
     margin-top: -10px;
     padding: 0px !important;
     max-height: 200px;
-    object-fit: cover;
+    object-fit: contain;
+    //object-fit: cover;
   }// Titelbild der Reise
-  #travelTitle{
-    width: 100%;
-    margin-top: 50px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 18pt;
-    line-height: 26pt;
+  .btnSlide{
+    width: 20px;
+    height: 20px;
+    font-weight: bolder;
+    color:#182f30;
     text-align:center;
+    vertical-align: middle;
     background-color: #eceeefbf;
-    font-variant: small-caps;
+  }
+  .sliderBtns{
+    width: 100%;
+    margin-top: -10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     position:absolute;
-  } // Titel der Reise im Bild
+    z-index: 1000;
+  }
  

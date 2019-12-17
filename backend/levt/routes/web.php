@@ -26,15 +26,11 @@ $router->post('/newPlace','CreateController@insertPlace');
 
 $router->post('/newPost','CreateController@insertPost');
 
-$router->post('/newImage','CreateController@insertImage');
-
 $router->post('/newBookmark','CreateController@insertBookmark');
 
 $router->post('/newUser','CreateController@insertUser');
 
 $router->post('/uploadImage','CreateController@uploadImage');
-
-//$router->post('/validatePlace','CreateController@InsertValidatedPlace');
 
 
 //READ
@@ -64,6 +60,12 @@ $router->post('/proveBookmarkExists','ReadController@showIfBookmarkExists');
 $router->post('/allBookmarkedJourneys','ReadController@selectBookmarkedJourneys');
 
 $router->post('/oneUser','ReadController@selectOneUser');
+
+$router->post('/validatePlace','ReadController@validateOnePlace');
+
+$router->post('/autocompletePlace','ReadController@autocompleteOnePlace');
+
+$router->post('/userJourneys','ReadController@journeysPerUser');
 
 
 //UPDATE

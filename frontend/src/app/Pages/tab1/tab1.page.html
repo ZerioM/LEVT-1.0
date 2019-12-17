@@ -1,7 +1,7 @@
 <ion-header color="none">
   <ion-list class="headerAll">
-    <ion-buttons id="setup" slot="end">
-      <ion-button icon-only>
+    <ion-buttons slot="end" no-padding>
+      <ion-button class="setup" style="margin-top: 20px; right: 0;"  icon-only>
         <ion-icon name="md-apps" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -12,14 +12,14 @@
 
 <ion-content color="none">
   <ion-list lines="none">
-    <div id="gallery" *ngFor="let j of data.currentJourneys.journeys">
-      <div class="pictureFrameIndex">
+    <div class="gallery" *ngFor="let j of data.currentJourneys.journeys">
+      <div class="pictureFrame">
         <div class="frameLeft"></div>
         <div class="imgAndInfo">
           <ion-item class="thumbnailImg" color="none" (click)="showJourney(j.journeyID)">
             <img *ngIf="j.thumbnailSrc != null" src="{{j.thumbnailSrc}}" alt="Reise" />
             <img *ngIf="j.thumbnailSrc == null" src="/assets/images/platzhalter_journey.png" alt="Reise" />
-            <div id="travelTitle">{{j.journeyName}}</div>
+            <div class="travelTitle">{{j.journeyName}}</div>
           </ion-item>
           <div class="picInformations">
             <div class="userpicAndName">
