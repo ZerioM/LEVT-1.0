@@ -1,7 +1,4 @@
-#gallery {
-    width: 100%;
-  } // Alle Beiträge auf der Startseite
-  .pictureFramePostDetail {
+.pictureFramePostDetail {
     width: 100%;
     position: relative;
   } // Bilderrahmen mit Bild und Text
@@ -9,7 +6,8 @@
     margin-top: -10px;
     padding: 0px !important;
     max-height: 200px;
-    object-fit: cover;
+    object-fit: contain;
+    //object-fit: cover;
   }// Titelbild der Reise
   .btnSlide{
     width: 20px;
@@ -22,7 +20,7 @@
   }
   .sliderBtns{
     width: 100%;
-    margin-top: -40px;
+    margin-top: -10%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

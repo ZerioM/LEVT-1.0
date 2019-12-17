@@ -1,5 +1,6 @@
 #profilUserpicInformations{
   width: 100%;
+  background-color: cornflowerblue;
 }
 #userpicProfil{
     width: 100px;
@@ -10,23 +11,24 @@
   } // Profilbild auf Profil
 #ageLanguageBadges{
   width:100%;
+  height: 600px;
   background-color: blueviolet;
-  display: flex;
-  flex-direction: row;
+  //display: flex;
+  //flex-direction: row;
 }
 #userInformations{
   width:50%;
-  display: flex;
-  flex-direction: row;
+  height: 100px;
+  //display: flex;
+  //flex-direction: row;
   background-color: cadetblue;
-  justify-content: space-between;
+  //justify-content: space-between;
 }
   #profilAgeLanguage{
-    background-color: chartreuse;
-   display: flex;
-  flex-direction: column;
+    margin-top: -50px;
   }
   #badges{
+    height: 100px;
     background-color: chocolate;
   //  display: flex;
    // flex-direction: column;
