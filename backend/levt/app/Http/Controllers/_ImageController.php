@@ -77,8 +77,7 @@ class _ImageController extends BaseController
             $imageArray = json_decode($image,true);
             $src = $imageArray['src'];
             //$src = substr($src,-66);
-            $src = substr($src,102);
-            print_r($src);
+            $src = substr($src,59);
             Storage::delete($src);
 
             $image->delete();
