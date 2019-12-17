@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, DefaultIterableDiffer } from '@angular/core';
 import { Image } from '../Interfaces/Image';
 import { DataService } from './data.service';
 import { Post } from '../Interfaces/Post';
@@ -36,13 +36,29 @@ export class ImageService {
     await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/uploadImage", formData,httpOptions).toPromise().then((loadedData: Image) => {
         console.log(loadedData);
         console.log("New Image in DB inserted");
-        image = loadedData;      
+        image.imageID = loadedData.imageID;
+        image.imgSrc = loadedData.imgSrc      
       }, error => {
         console.log(error);
       });
 
       return image;
  
+  }
+
+  async deleteImage(image: Image){
+    let isDeleted;
+
+    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/deleteImage", image).toPromise().then((loadedData: boolean) => {
+      console.log(loadedData);
+      console.log("Image in DB deleted");
+      isDeleted = loadedData;      
+    }, error => {
+        console.log(error);
+    });
+
+
+    return isDeleted;
   }
 
   

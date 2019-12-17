@@ -26,7 +26,7 @@ export class PlaceService {
         console.log(loadedData);
         console.log("New Place in DB inserted");
         this.updatePlaceWorks = true;
-        place = loadedData;      
+        place.placeID = loadedData.placeID;      
       }, error => {
         this.updatePlaceWorks = true;
         console.log(error);
@@ -38,14 +38,13 @@ export class PlaceService {
         console.log(place.placeID);
         console.log(" in DB updated");
         this.updatePlaceWorks = true;
-        place = loadedData;
+        place.placeID = loadedData.placeID;
       }, error => {
         this.updatePlaceWorks = false;
         console.log(error);
       });
     }
-    
-    return place;
+
   }
 
   

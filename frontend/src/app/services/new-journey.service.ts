@@ -65,12 +65,16 @@ export class NewJourneyService {
     //Abfragen, ob journeyID == null, dann newJourney aufrufen, sonst updateJourney aufrufen
     if(journey.journeyID == null){
       await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/newJourney", journey).toPromise().then((loadedData: Journey) => {
+        console.log("Loaded Data:");
         console.log(loadedData);
-        console.log("New Journey in DB inserted.");
         this.updateJourneyWorks = true;
-        journey = loadedData;
+        journey.journeyID = loadedData.journeyID;
+        console.log("New Journey in DB inserted.");
+        console.log("Journey after insert:");
+        console.log(journey);
       }, error => {
         this.updateJourneyWorks = true;
+        console.log("Ich bin in dieses Error-Feld gegangen.");
         console.log(error);
       });
     } else {
@@ -80,15 +84,12 @@ export class NewJourneyService {
         console.log(journey.journeyID);
         console.log(" in DB updated.");
         this.updateJourneyWorks = true;
-        journey = loadedData;
+        journey.journeyID = loadedData.journeyID;
       }, error => {
         this.updateJourneyWorks = false;
         console.log(error);
       });
     }
-    
-
-    return journey;
     
   }
 

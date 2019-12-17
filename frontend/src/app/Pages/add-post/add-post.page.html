@@ -46,8 +46,8 @@
   <ion-item no-padding lines="none">
     <div id="alreadyAddedPlaces" class="gridContainer">
       <div class="grid-item" *ngFor="let i of data.newPost.images; let in of index"> <!--muss noch auf posts geändert werden-->
-        <img class="pictureGrid" alt="" src="{{i.imgSrc}}">
-        <ion-button icon-only (click)="deleteImage(i,in)">
+        <img class="pictureGrid" alt="" src="{{i.imgSrc}}" (click)="showImage(i)">
+        <ion-button class="trash" icon-only (click)="deleteImage(i,in)">
           <ion-icon name="trash"></ion-icon>
         </ion-button>
       </div>

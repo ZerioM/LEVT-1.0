@@ -52,7 +52,9 @@ export class Tab2Page {
   async goToAddNewPlace() {
     this.readCostsAndTransports();
     
-    
+    console.log("SeasonID");
+    console.log(this.data.newJourney._seasonID);
+
     if(this.data.newJourney.journeyName == null || this.data.newJourney._seasonID == null || this.data.newJourney._companionshipID == null 
       || this.data.newJourney.year == null || this.data.newJourney._journeyCategoryID == null 
       || this.data.newJourney.plane == false && this.data.newJourney.car == false && this.data.newJourney.bus == false 
@@ -66,13 +68,7 @@ export class Tab2Page {
 
     this.data.placeInserted = false;
     await this.data.presentLoading();
-    let seasonID = this.data.newJourney._seasonID;
-    let journeyCategoryID = this.data.newJourney._journeyCategoryID;
-    let companionshipID = this.data.newJourney._companionshipID;
-    this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
-    this.data.newJourney._seasonID = seasonID;
-    this.data.newJourney._journeyCategoryID = journeyCategoryID;
-    this.data.newJourney._companionshipID = companionshipID;
+    await this.journeyService.saveJourney(this.data.newJourney);
     await this.data.dismissLoading();
     if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       this.placeService.newPlace(this.data.newJourney);
@@ -86,7 +82,10 @@ export class Tab2Page {
   }
 
   async goToEditPlace(place: Place, index: number){
+    
     this.readCostsAndTransports();
+
+    
 
     if(this.data.newJourney.journeyName == null || this.data.newJourney._seasonID == null || this.data.newJourney._companionshipID == null 
       || this.data.newJourney.year == null || this.data.newJourney._journeyCategoryID == null 
@@ -101,13 +100,13 @@ export class Tab2Page {
 
     this.data.placeInserted = true;
     await this.data.presentLoading();
-    let seasonID = this.data.newJourney._seasonID;
-    let journeyCategoryID = this.data.newJourney._journeyCategoryID;
-    let companionshipID = this.data.newJourney._companionshipID;
-    this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
-    this.data.newJourney._seasonID = seasonID;
-    this.data.newJourney._journeyCategoryID = journeyCategoryID;
-    this.data.newJourney._companionshipID = companionshipID;
+    //let seasonID = this.data.newJourney._seasonID;
+    //let journeyCategoryID = this.data.newJourney._journeyCategoryID;
+    //let companionshipID = this.data.newJourney._companionshipID;
+    await this.journeyService.saveJourney(this.data.newJourney);
+    //this.data.newJourney._seasonID = seasonID;
+    //this.data.newJourney._journeyCategoryID = journeyCategoryID;
+    //this.data.newJourney._companionshipID = companionshipID;
     await this.data.dismissLoading();
     if(this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()){
       console.log(place);
@@ -162,11 +161,14 @@ export class Tab2Page {
   }
 
   showNoPlaceWarning() {
-    if (this.data.newJourney.places.length == 0) {
-      return true;
-    } else {
-      return false;
+    if(this.data.newJourney.places != null){
+      if (this.data.newJourney.places.length == 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
+    
     return true;
   }
 
@@ -187,7 +189,7 @@ export class Tab2Page {
     }
     
     await this.data.presentLoading();
-    this.data.newJourney = await this.journeyService.saveJourney(this.data.newJourney);
+    await this.journeyService.saveJourney(this.data.newJourney);
     await this.data.dismissLoading();
 
     if(this.data.newJourney.journeyID != null){

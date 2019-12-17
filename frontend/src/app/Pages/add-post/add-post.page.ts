@@ -53,12 +53,23 @@ export class AddPostPage implements OnInit {
 
   async selectPhoto(){
 
-    const webPath = await this.getPhoto(CameraSource.Photos);
+    const webPath = await this.getPhoto(CameraSource.Prompt);
 
     this.data.presentLoading();
-    this.image = await this.imageService.uploadImage(webPath, this.data.newPost);
+    await this.postService.savePost(this.data.newPost);
+    if(this.data.newPost.postID != null){
+      this.image = await this.imageService.uploadImage(webPath, this.data.newPost);
+      if(this.image.imageID != null){
+      this.data.newPost.images.push(this.image);
+      } else {
+      this.data.presentNotSavedToast();
+      }
+    } else {
+      this.data.presentNotSavedToast();
+    }
     this.data.dismissLoading();
-    this.data.newPost.images.push(this.image);
+    
+    
 
   }
 
@@ -71,16 +82,33 @@ export class AddPostPage implements OnInit {
       //height, width, allowEditing
     });
 
-    this.photo = this.domSanitizer.sanitize(SecurityContext.RESOURCE_URL,this.domSanitizer.bypassSecurityTrustResourceUrl(image && (image.webPath)));
-    this.photos.push(this.photo);
+    // this.photo = this.domSanitizer.sanitize(SecurityContext.RESOURCE_URL,this.domSanitizer.bypassSecurityTrustResourceUrl(image && (image.webPath)));
+    // this.photos.push(this.photo);
 
     return image.webPath;
     
   }
 
-  private deleteImage(image:Image,index:number){
+  private showImage(image: Image){
 
+    //Auf neue Seite routen, dort Bild machen
 
+  }
+
+  private async deleteImage(image:Image,index:number){
+
+    let isDeleted: boolean;
+
+    this.data.presentLoading();
+    isDeleted = await this.imageService.deleteImage(image);
+    this.data.dismissLoading();
+
+    if(isDeleted){
+      this.data.newPost.images.splice(index,1);
+    } else {
+      this.data.presentNotSavedToast();
+    }
+    
   }
 
 
@@ -171,10 +199,10 @@ export class AddPostPage implements OnInit {
     }
 
     await this.data.presentLoading();
-    this.data.newPost = await this.postService.savePost(this.data.newPost);
+    await this.postService.savePost(this.data.newPost);
     await this.data.dismissLoading();
 
-    if(this.data.newPost.postID != null){
+    if(this.data.newPost.postID != null && this.data.updatePostWorks()){
       console.log("Post saved");
       if(this.data.postInserted){
         this.data.newPlace.posts[this.data.postInPlace] = this.data.newPost;

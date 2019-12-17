@@ -33,7 +33,7 @@ import { ImageService } from './image.service';
 })
 export class DataService {
 
-  public currentPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", iconName:"" , place:null, images:[]}
+  public currentPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", iconName:"" , placeName: null, _countryID: null, images:[]}
 
   public currentPlace: Place = { placeID: null,_journeyID:null,_thumbnailID: null,_countryID:"",detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
 
@@ -426,6 +426,10 @@ export class DataService {
 
   updatePlaceWorks() {
     return this.placeService.updatePlaceWorks;
+  }
+
+  updatePostWorks() {
+    return this.postService.updatePostWorks;
   }
 
   async autocompletePlaceName(){
