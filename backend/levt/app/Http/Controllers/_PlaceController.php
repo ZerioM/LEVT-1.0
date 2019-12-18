@@ -161,14 +161,14 @@ class _PlaceController extends BaseController
             ."&inputtype=textquery&fields=formatted_address,name,geometry,place_id&language=en&key="
             .env('API_KEY');
 
-            
+
             $placeRes = $client->get($link);
             $placeResult=json_decode($placeRes->getBody(),true);
             if ($placeResult['candidates']!=null){
                 $formAddress = $placeResult['candidates'][0]['formatted_address'];
                 $countryName = substr(strrchr($formAddress, ", "),2);
                 $countryID = $cc->selectIDPerName($countryName);
-            
+
 
                 $outputArray = [
                     '_journeyID' => $requestArray['_journeyID'],
@@ -209,13 +209,13 @@ class _PlaceController extends BaseController
                 'posts' => $requestArray['posts'],
                 'thumbnailSrc' => $requestArray['thumbnailSrc'],
                 'countryName' => $requestArray['countryName']
-            ];           
+            ];
         }
-        return $outputArray;     
+        return $outputArray;
     }
 
     public function autocompleteOne(Request $request){
-    
+
         $requestArray = $request->all();
         $placeName = $requestArray['placeName'];
         $client = new Client();
@@ -223,21 +223,31 @@ class _PlaceController extends BaseController
             .$placeName
             ."&types=(regions)&key="
             .env('API_KEY');
-            
+
         $places = $client->get($link);
         $placesResult=json_decode($places->getBody(),true);
 
         $outputArrays = array();
         for ($i=0; $i<sizeof($placesResult['predictions']);$i++){
             $outputArray = [
-            'placeName' => $placesResult['predictions'][$i]['description'],
+                'placeID'=>null,
+                '_journeyID'=>null,
+                '_thumbnailID'=>null,
+                '_countryID'=>null,
+                'placeName' => $placesResult['predictions'][$i]['description'],
+                'coordinateX'=>null,
+                'coordinateY'=>null,
+                'detail'=>null,
+                'posts'=>null,
+                'thumbnailSrc'=>null,
+                'countryName'=>null
             ];
             //$outputArray = '"'.'place'.$i.'"'.':'.'"'.$placesResult['predictions'][$i]['description'].'"';
             array_push($outputArrays,$outputArray);
         }
         //var_dump($outputArrays->toJson());
-        return '{places: '.json_encode($outputArrays, JSON_PRETTY_PRINT).'}';
-        
+        return '{"places": '.json_encode($outputArrays, JSON_PRETTY_PRINT).'}';
+
     }
 
 }
