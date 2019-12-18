@@ -164,22 +164,38 @@ class _PlaceController extends BaseController
             
             $placeRes = $client->get($link);
             $placeResult=json_decode($placeRes->getBody(),true);
-            $formAddress = $placeResult['candidates'][0]['formatted_address'];
-            $countryName = substr(strrchr($formAddress, ", "),2);
-            $countryID = $cc->selectIDPerName($countryName);
+            if ($placeResult['candidates']!=null){
+                $formAddress = $placeResult['candidates'][0]['formatted_address'];
+                $countryName = substr(strrchr($formAddress, ", "),2);
+                $countryID = $cc->selectIDPerName($countryName);
+            
 
-            $outputArray = [
-                '_journeyID' => $requestArray['_journeyID'],
-                '_thumbnailID' => $requestArray['_thumbnailID'],
-                '_countryID' => $countryID,
-                'placeName' => $requestArray['placeName'],
-                'coordinateX' => $placeResult['candidates'][0]['geometry']['location']['lat'],
-                'coordinateY' => $placeResult['candidates'][0]['geometry']['location']['lng'],
-                'detail' => $requestArray['detail'],
-                'posts' => $requestArray['posts'],
-                'thumbnailSrc' => $requestArray['thumbnailSrc'],
-                'countryName' => $requestArray['countryName']
-            ];  
+                $outputArray = [
+                    '_journeyID' => $requestArray['_journeyID'],
+                    '_thumbnailID' => $requestArray['_thumbnailID'],
+                    '_countryID' => $countryID,
+                    'placeName' => $requestArray['placeName'],
+                    'coordinateX' => $placeResult['candidates'][0]['geometry']['location']['lat'],
+                    'coordinateY' => $placeResult['candidates'][0]['geometry']['location']['lng'],
+                    'detail' => $requestArray['detail'],
+                    'posts' => $requestArray['posts'],
+                    'thumbnailSrc' => $requestArray['thumbnailSrc'],
+                    'countryName' => $requestArray['countryName']
+                ];
+            } else {
+                $outputArray = [
+                    '_journeyID' => $requestArray['_journeyID'],
+                    '_thumbnailID' => $requestArray['_thumbnailID'],
+                    '_countryID' => null,
+                    'placeName' => $requestArray['placeName'],
+                    'coordinateX' => null,
+                    'coordinateY' => null,
+                    'detail' => $requestArray['detail'],
+                    'posts' => $requestArray['posts'],
+                    'thumbnailSrc' => $requestArray['thumbnailSrc'],
+                    'countryName' => $requestArray['countryName']
+                ];
+            }
         } else {
             $outputArray = [
                 'placeID' => null,
@@ -214,14 +230,14 @@ class _PlaceController extends BaseController
         $outputArrays = array();
         for ($i=0; $i<sizeof($placesResult['predictions']);$i++){
             $outputArray = [
-            'place'.$i => $placesResult['predictions'][$i]['description'],
+            'placeName' => $placesResult['predictions'][$i]['description'],
             ];
             //$outputArray = '"'.'place'.$i.'"'.':'.'"'.$placesResult['predictions'][$i]['description'].'"';
             array_push($outputArrays,$outputArray);
         }
-        //var_dump($outputArrays);
-        return '{"Places": '.json_encode($outputArrays, JSON_PRETTY_PRINT);
-
+        //var_dump($outputArrays->toJson());
+        return '{places: '.json_encode($outputArrays, JSON_PRETTY_PRINT).'}';
+        
     }
 
 }
