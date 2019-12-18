@@ -20,6 +20,8 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class AddPlacePage implements OnInit {
 
+  public placeValidated: boolean = false;
+
   constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
     if(this.data.placeInserted){
 
@@ -54,7 +56,7 @@ export class AddPlacePage implements OnInit {
     }
 
     this.data.postInserted = false;
-    if(this.data.validatePlaceName()){
+    if(this.placeValidated){
       await this.data.presentLoading();
       await this.placeService.savePlace(this.data.newPlace, this.data.url);
       await this.data.dismissLoading();
@@ -67,6 +69,8 @@ export class AddPlacePage implements OnInit {
         console.log("Das Speichern hat nicht funktioniert.");
       }
       
+    } else {
+      this.data.presentValidPlaceToast();
     }
     
   }
@@ -81,7 +85,7 @@ export class AddPlacePage implements OnInit {
     }
 
     this.data.postInserted = true;
-    if(this.data.validatePlaceName()){
+    if(this.placeValidated){
       await this.data.presentLoading();
       await this.placeService.savePlace(this.data.newPlace, this.data.url);
       await this.data.dismissLoading();
@@ -95,6 +99,8 @@ export class AddPlacePage implements OnInit {
         console.log("Das Speichern hat nicht funktioniert.");
       }
       
+    } else {
+      this.data.presentValidPlaceToast();
     }
 
   }
@@ -111,12 +117,19 @@ export class AddPlacePage implements OnInit {
     return true;
   }
 
-  keyUpPlaceName(){
-   //let placeSuggestions = await this.data.autocompletePlaceName();
+  async keyUpPlaceName(event: Event){
+    console.log("Key Up");
+   let placeSuggestions = this.data.autocompletePlaceName();
   }
 
-  focusOutPlaceName(){
-    return this.data.validatePlaceName();
+  async focusOutPlaceName(){
+    this.data.newPlace.coordinateX = null;
+    this.data.newPlace.coordinateY = null;
+    this.placeValidated = false;
+    if(await this.data.validatePlaceName()){
+      this.placeValidated = true;
+    }
+    console.log(this.placeValidated);
   }
 
   goBacktoAddJourneyWithoutSaving(){
@@ -160,7 +173,7 @@ export class AddPlacePage implements OnInit {
 
     } 
 
-    if(this.data.validatePlaceName()){
+    if(this.placeValidated){
 
       await this.data.presentLoading();
       await this.placeService.savePlace(this.data.newPlace, this.data.url);
@@ -181,6 +194,8 @@ export class AddPlacePage implements OnInit {
         console.log("Speichern hat nicht funktioniert.");
       }
       
+    } else {
+      this.data.presentValidPlaceToast();
     }
   }  
 

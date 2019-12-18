@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Place } from '../Interfaces/Place';
+import { Places } from '../Interfaces/Places';
 import { Journey } from '../Interfaces/Journey';
 import { HttpClient } from '@angular/common/http';
 
@@ -14,7 +15,7 @@ export class PlaceService {
   constructor(private http: HttpClient) { }
 
   newPlace(journey: Journey) {
-    let newPlace: Place = { placeID: null,_journeyID:journey.journeyID,_thumbnailID: null,_countryID:"AT",detail: "", coordinateX: 48.208767, coordinateY: 16.372526, posts: [], thumbnailSrc: "assets/images/platzhalter_travellocation.png" ,placeName:"",countryName:""}
+    let newPlace: Place = { placeID: null,_journeyID:journey.journeyID,_thumbnailID: null,_countryID: null ,detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
 
     return newPlace;
   }
@@ -47,6 +48,50 @@ export class PlaceService {
       });
     }
 
+  }
+
+  async autocompletePlace(place: Place, url: string){
+    let suggestedPlaceNames: string[];
+
+    await this.http.post(url+"/autocompletePlace", place).toPromise().then((loadedData: Places) => {
+      console.log(loadedData);
+      console.log("New Place in DB inserted");
+      let i = 0;
+
+      loadedData.places.forEach(place => {
+        
+        suggestedPlaceNames[i] = place.placeName;
+        i++;
+
+      });      
+    }, error => {
+      console.log(error);
+    });
+
+    console.log(suggestedPlaceNames);
+
+    return suggestedPlaceNames;
+  }
+
+  async validatePlace(place: Place, url: string){
+    await this.http.post(url+"/validatePlace", place).toPromise().then((loadedData: Place) => {
+      console.log(loadedData);
+      place._countryID = loadedData._countryID;
+      place.countryName = loadedData.countryName;
+      place.coordinateX = loadedData.coordinateX;
+      place.coordinateY = loadedData.coordinateY;
+      place.placeName = loadedData.placeName;      
+    }, error => {
+      console.log(error);
+    });
+    console.log("Koordinaten von Platz:");
+    console.log(place.coordinateX);
+    console.log(place.coordinateY);
+    if(place.coordinateX != null || place.coordinateY != null){
+      return true;
+    }
+    
+    return false;
   }
 
   

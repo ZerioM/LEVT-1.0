@@ -436,6 +436,14 @@ export class DataService {
     toast.present();
   }
 
+  async presentValidPlaceToast() {
+    const toast = await this.toastController.create({
+      message: 'The place you entered is not a valid place. Please enter a correct place and try again!',
+      duration: 8000
+    });
+    toast.present();
+  }
+
   async presentMandatoryToast() {
     const toast = await this.toastController.create({
       message: 'You haven`t entered some mandatory fields. Please check if you filled all fields with a * and try again!',
