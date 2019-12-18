@@ -16,7 +16,7 @@ class AlterTableCreateColumnsInUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('emailAddress');
             $table->date('birthday');
-            $table->string('_countryOfResidence');
+            $table->string('_countryOfResidenceID');
             $table->bigInteger('_genderID')->unsigned();
             $table->string('firstName');
             $table->string('lastName');

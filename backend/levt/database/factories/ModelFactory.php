@@ -18,10 +18,8 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'pwHash' => '123',
         'emailAddress' => $faker->email,
         'birthday' => $faker->date,
-        '_countryOfResidence' => 'AT',
-        '_genderID' => $faker->numberBetween($min = 1, $max = 3),
-        'firstname' => $faker->firstname,
-        'lastname' => $faker->lastname,
+        '_countryOfResidenceID' => 'AT',
+        'gamificationPoints' => 0
     ];
 });
 
