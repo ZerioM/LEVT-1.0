@@ -51,6 +51,8 @@ export class DataService {
 
   public currentUser:User={userID:11, username:"Sallie Johns",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",pwHash:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:""}
 
+  public newUser:User;
+
   public newJourney: Journey;
 
   public currentJourneys:Journeys={journeys:[]};
@@ -70,6 +72,7 @@ export class DataService {
   public hasPlaceDetail=false;
   public hasPosts=false;
   public hasPostDetail=false;
+  
 
   public hasUserJourneyDetail=false;
   public hasUserPlaces=false;
@@ -89,6 +92,10 @@ export class DataService {
   public loading;
 
   public errorMsg;
+
+  //login
+  public userLoggedIn=true;
+  public register=false;
   
 
   private locale : string;

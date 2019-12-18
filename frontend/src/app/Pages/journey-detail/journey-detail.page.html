@@ -88,4 +88,89 @@
       </div>
     </ion-col>
   </ion-list>
+
+  <!-- login und Register -->
+
+  <div class="loginBg" *ngIf="data.userLoggedIn==false">
+    <div class="login">
+      <ion-buttons>
+        <ion-button icon-only>
+          <ion-icon class="cancel" name="ios-close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="tabHeading" no-padding>Login</ion-title>
+    <ion-card>
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Username:</b></ion-label>
+      <ion-input id="journeyName" type="text" placeholder="username"
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+    
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Password:</b></ion-label>
+      <ion-input id="journeyName" type="text" placeholder="password"
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+    
+      <ion-button expand="full">Login</ion-button>
+    
+    </ion-card>
+    
+    <ion-button expand="full">Register</ion-button>
+  </div>
+  </div>
+
+  <div class="registerBg" *ngIf="data.register">
+    <div class="register">
+      <ion-buttons>
+        <ion-button icon-only>
+          <ion-icon class="cancel" name="ios-close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="tabHeading" no-padding>Register</ion-title>
+    <ion-card>
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Username:</b><b class="importantStars">*</b></ion-label>
+      <ion-input id="journeyName" type="text" placeholder="username" 
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+    
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Password:</b><b class="importantStars">*</b></ion-label>
+      <ion-input id="journeyName" type="text" placeholder="password"
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Repeat Password:</b><b class="importantStars">*</b></ion-label>
+      <ion-input id="journeyName" type="text" placeholder="repeat password"
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">E-Mail:</b><b class="importantStars">*</b></ion-label>
+      <ion-input type="e-mail" id="journeyName" type="text" placeholder="e-mail"
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Country of Residence:</b><b class="importantStars">*</b></ion-label>
+      <ion-input type="e-mail" id="journeyName" placeholder="country of residence" 
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+    
+      <div id="journeyYear" lines="none">
+        <ion-label><b class="importantThings">Birthday:</b><b class="importantStars">*</b></ion-label>
+        <ion-datetime [(ngModel)]="data.newJourney.year"displayFormat="MMM DD YYYY"
+          id="journeyYear" no-padding ></ion-datetime>
+        </div>
+    </ion-card>
+    
+    <ion-button expand="full">Register</ion-button>
+    <ion-label class="importantThings">
+      * Fields marked with a <b class="importantStars">*</b> are mandatory.
+    </ion-label>
+
+  </div>
+  </div>
 </ion-content>
