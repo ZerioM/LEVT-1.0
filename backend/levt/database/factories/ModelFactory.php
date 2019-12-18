@@ -18,10 +18,8 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'pwHash' => '123',
         'emailAddress' => $faker->email,
         'birthday' => $faker->date,
-        '_countryOfResidence' => 'AT',
-        '_genderID' => $faker->numberBetween($min = 1, $max = 3),
-        'firstname' => $faker->firstname,
-        'lastname' => $faker->lastname,
+        '_countryOfResidenceID' => 'AT',
+        'gamificationPoints' => 0
     ];
 });
 
@@ -65,5 +63,12 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
         '_activityID' => $faker->numberBetween($min = 1, $max = 5),
         '_placeID' => $faker->numberBetween($min = 1, $max = 50),
         'detail' => $faker->text
+    ];
+});
+
+$factory->define(App\Models\JourneyTransport::class, function (Faker\Generator $faker) {
+    return [
+        '_journeyID' => $faker->numberBetween($min = 1, $max = 30),
+        '_transportID' => $faker->numberBetween($min = 1, $max = 9)
     ];
 });

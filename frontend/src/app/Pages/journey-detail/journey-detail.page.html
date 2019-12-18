@@ -53,6 +53,19 @@
     <ion-item lines="none">
       <ion-label><b>Companionship</b><br>{{data.currentJourney.companionshipType}}</ion-label>
     </ion-item>
+    <ion-item lines="none">
+      <ion-label><b>Transports</b><br>
+        <ion-text *ngIf="data.currentJourney.plane">Plane <br></ion-text>
+        <ion-text *ngIf="data.currentJourney.car">Car <br></ion-text>
+        <ion-text *ngIf="data.currentJourney.bus">Bus <br></ion-text>
+        <ion-text *ngIf="data.currentJourney.train">Train <br></ion-text>
+        <ion-text *ngIf="data.currentJourney.ship">Ship <br></ion-text>
+        <ion-text *ngIf="data.currentJourney.motorbike">Motorbike <br></ion-text>
+        <ion-text *ngIf="data.currentJourney.campingtrailer">Camping Trailer <br></ion-text>
+        <ion-text *ngIf="data.currentJourney.hiking">Hiking <br></ion-text>
+        <ion-text *ngIf="data.currentJourney.bicycle">Bicycle <br></ion-text>
+      </ion-label>
+    </ion-item>
     <ion-item *ngIf="data.hasJourneyDetail">
       <ion-text><b>Details</b><br> {{data.currentJourney.detail}}</ion-text>
     </ion-item>
@@ -75,4 +88,89 @@
       </div>
     </ion-col>
   </ion-list>
+
+  <!-- login und Register -->
+
+  <div class="loginBg" *ngIf="data.userLoggedIn==false">
+    <div class="login">
+      <ion-buttons>
+        <ion-button icon-only>
+          <ion-icon class="cancel" name="ios-close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="tabHeading" no-padding>Login</ion-title>
+    <ion-card>
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Username:</b></ion-label>
+      <ion-input id="journeyName" type="text" placeholder="username"
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+    
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Password:</b></ion-label>
+      <ion-input id="journeyName" type="text" placeholder="password"
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+    
+      <ion-button expand="full">Login</ion-button>
+    
+    </ion-card>
+    
+    <ion-button expand="full">Register</ion-button>
+  </div>
+  </div>
+
+  <div class="registerBg" *ngIf="data.register">
+    <div class="register">
+      <ion-buttons>
+        <ion-button icon-only>
+          <ion-icon class="cancel" name="ios-close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="tabHeading" no-padding>Register</ion-title>
+    <ion-card>
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Username:</b><b class="importantStars">*</b></ion-label>
+      <ion-input id="journeyName" type="text" placeholder="username" 
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+    
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Password:</b><b class="importantStars">*</b></ion-label>
+      <ion-input id="journeyName" type="text" placeholder="password"
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Repeat Password:</b><b class="importantStars">*</b></ion-label>
+      <ion-input id="journeyName" type="text" placeholder="repeat password"
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">E-Mail:</b><b class="importantStars">*</b></ion-label>
+      <ion-input type="e-mail" id="journeyName" type="text" placeholder="e-mail"
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Country of Residence:</b><b class="importantStars">*</b></ion-label>
+      <ion-input type="e-mail" id="journeyName" placeholder="country of residence" 
+         no-margin maxlength="20"></ion-input>
+      </ion-col>
+    
+      <div id="journeyYear" lines="none">
+        <ion-label><b class="importantThings">Birthday:</b><b class="importantStars">*</b></ion-label>
+        <ion-datetime [(ngModel)]="data.newJourney.year"displayFormat="MMM DD YYYY"
+          id="journeyYear" no-padding ></ion-datetime>
+        </div>
+    </ion-card>
+    
+    <ion-button expand="full">Register</ion-button>
+    <ion-label class="importantThings">
+      * Fields marked with a <b class="importantStars">*</b> are mandatory.
+    </ion-label>
+
+  </div>
+  </div>
 </ion-content>

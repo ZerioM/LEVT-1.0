@@ -46,6 +46,19 @@
       <ion-item lines="none" no-padding no-margin>
         <ion-label><b>Companionship</b><br>{{data.currentUserJourney.companionshipType}}</ion-label>
       </ion-item>
+      <ion-item lines="none">
+        <ion-label><b>Transports</b><br>
+          <ion-text *ngIf="data.currentUserJourney.plane">Plane <br></ion-text>
+          <ion-text *ngIf="data.currentUserJourney.car">Car <br></ion-text>
+          <ion-text *ngIf="data.currentUserJourney.bus">Bus <br></ion-text>
+          <ion-text *ngIf="data.currentUserJourney.train">Train <br></ion-text>
+          <ion-text *ngIf="data.currentUserJourney.ship">Ship <br></ion-text>
+          <ion-text *ngIf="data.currentUserJourney.motorbike">Motorbike <br></ion-text>
+          <ion-text *ngIf="data.currentUserJourney.campingtrailer">Camping Trailer <br></ion-text>
+          <ion-text *ngIf="data.currentUserJourney.hiking">Hiking <br></ion-text>
+          <ion-text *ngIf="data.currentUserJourney.bicycle">Bicycle <br></ion-text>
+        </ion-label>
+      </ion-item>
       <ion-item *ngIf="data.hasUserJourneyDetail" no-padding no-margin lines="none">
         <ion-text><b>Details</b><br> {{data.currentUserJourney.detail}}</ion-text>
       </ion-item>
