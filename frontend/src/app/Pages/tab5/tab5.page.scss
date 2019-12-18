@@ -1,22 +1,28 @@
 #profilUserpicInformations{
   width: 100%;
+  margin-bottom: 10px;
 }
 #userpicProfil{
     width: 100px;
     height: 100px;
     object-fit: cover;
-    margin-right: 5px;
   } // Profilbild auf Profil
   #profilAgeLanguage{
-    margin-top: -50px;
+    margin-left: 5px;
+    //margin-top: -50px;
+    top:0;
   }
   #badges{
-    display: flex;
-    flex-direction: row;
+    top:0;
   }
+ .myJourneys.hydrated{
+   width: 100%;
+   text-align: center;
+   margin-bottom: -20px;
+ }
   .oneBadge{
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
   }
   #platzhalterFortschritt{
@@ -30,8 +36,5 @@
     max-height: 200px;
     padding: 2px;
     border: 1px solid #182f30;
-    //background-color: #182f30;
-    //background-image: url("/assets/images/kartenvisualisierung.png");
     object-fit: cover;
-    //background-image: url("kartenvisualisierung.png");
   } // dies ist nur ein Platzhalter
