@@ -19,11 +19,11 @@ export class PostService {
     return newPost;
   }
 
-  async savePost(post: Post){
+  async savePost(post: Post, url: string){
 
     //Abfragen, ob postID == null, dann newPost aufrufen, sonst updatePost aufrufen
     if(post.postID == null){
-      await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/newPost", post).toPromise().then((loadedData: Post) => {
+      await this.http.post(url+"/newPost", post).toPromise().then((loadedData: Post) => {
         console.log(loadedData);
         console.log("New Post in DB inserted");
         post.postID = loadedData.postID;
@@ -33,7 +33,7 @@ export class PostService {
         this.updatePostWorks = true;
       });
     } else {
-      await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/updatePost", post).toPromise().then((loadedData: Post) => {
+      await this.http.post(url+"/updatePost", post).toPromise().then((loadedData: Post) => {
         console.log(loadedData);
         console.log("Post with ID: ");
         console.log(post.postID);

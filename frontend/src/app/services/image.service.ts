@@ -18,7 +18,7 @@ export class ImageService {
     return image;
   }
 
- async uploadImage(imageString:string, post: Post){
+ async uploadImage(imageString:string, post: Post, url: string){
    let image:Image;
   
    image={imageID:null,_postID:post.postID,imgSrc:null,date:null,coordinateX:null, coordinateY:null}
@@ -33,7 +33,7 @@ export class ImageService {
 
     const httpOptions= {headers:new HttpHeaders({'enctype':'multipart/form-data;'})};
 
-    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/uploadImage", formData,httpOptions).toPromise().then((loadedData: Image) => {
+    await this.http.post(url+"/uploadImage", formData,httpOptions).toPromise().then((loadedData: Image) => {
         console.log(loadedData);
         console.log("New Image in DB inserted");
         image.imageID = loadedData.imageID;
@@ -46,10 +46,10 @@ export class ImageService {
  
   }
 
-  async deleteImage(image: Image){
+  async deleteImage(image: Image, url: string){
     let isDeleted;
 
-    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/deleteImage", image).toPromise().then((loadedData: boolean) => {
+    await this.http.post(url+"/deleteImage", image).toPromise().then((loadedData: boolean) => {
       console.log(loadedData);
       console.log("Image in DB deleted");
       isDeleted = loadedData;      

@@ -56,9 +56,9 @@ export class AddPostPage implements OnInit {
     const webPath = await this.getPhoto(CameraSource.Prompt);
 
     this.data.presentLoading();
-    await this.postService.savePost(this.data.newPost);
+    await this.postService.savePost(this.data.newPost, this.data.url);
     if(this.data.newPost.postID != null){
-      this.image = await this.imageService.uploadImage(webPath, this.data.newPost);
+      this.image = await this.imageService.uploadImage(webPath, this.data.newPost, this.data.url);
       if(this.image.imageID != null){
       this.data.newPost.images.push(this.image);
       } else {
@@ -100,7 +100,7 @@ export class AddPostPage implements OnInit {
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image);
+    isDeleted = await this.imageService.deleteImage(image, this.data.url);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -203,7 +203,7 @@ export class AddPostPage implements OnInit {
 
     await this.data.presentLoading();
 
-    await this.postService.savePost(this.data.newPost);
+    await this.postService.savePost(this.data.newPost, this.data.url);
     await this.data.dismissLoading();
 
     if(this.data.newPost.postID != null && this.data.updatePostWorks()){
