@@ -21,6 +21,7 @@ import { ChangeDetectorRef } from '@angular/core';
 export class AddPlacePage implements OnInit {
 
   public placeValidated: boolean = false;
+  public placeSuggestions: Place[] = null;
 
   constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
     if(this.data.placeInserted){
@@ -119,10 +120,19 @@ export class AddPlacePage implements OnInit {
 
   async keyUpPlaceName(event: Event){
     console.log("Key Up");
-   let placeSuggestions = this.data.autocompletePlaceName();
+   this.placeSuggestions = await this.placeService.autocompletePlace(this.data.newPlace, this.data.url);
+   if(this.data.newPlace.placeName == null){
+     this.placeSuggestions = null;
+   }
+  }
+
+  setAutocompletion(placeName: string){
+    this.data.newPlace.placeName = placeName;
   }
 
   async focusOutPlaceName(){
+    
+    this.placeSuggestions = null;
     this.data.newPlace.coordinateX = null;
     this.data.newPlace.coordinateY = null;
     this.placeValidated = false;

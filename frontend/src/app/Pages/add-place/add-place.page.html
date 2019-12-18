@@ -21,6 +21,11 @@
       (ngModelChange)="keyUpPlaceName($event)" (focusout)="focusOutPlaceName()" ><ion-icon *ngIf="placeValidated" name="md-checkmark"></ion-icon>
     </ion-input>
     </ion-item>
+    <ion-item *ngFor="let p of this.placeSuggestions">
+        <ion-button (click)="setAutocompletion(p.placeName)">
+          {{p.placeName}}
+        </ion-button>
+    </ion-item>
 
     <ion-item no-padding>
         <ion-textarea placeholder="Tell us what you experienced here!" [(ngModel)]="data.newPlace.detail" rows="8" background="light" no-padding>
