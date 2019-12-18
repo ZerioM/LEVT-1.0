@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableAddForeignKeysInUsers extends Migration
+class AlterTableInUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,10 @@ class AlterTableAddForeignKeysInUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('_countryOfResidenceID')->references('countryID')->on('countries');
-            $table->foreign('_genderID')->references('genderID')->on('genders');
+            $table->dropColumn(['firstName', 'lastName', '_genderID']);
+            $table->string('apiToken')->nullable();
+            $table->integer('gamificationPoints');
+            $table->string('emailAddress')->unique()->change();
         });
     }
 

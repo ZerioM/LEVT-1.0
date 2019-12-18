@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('userID');
-            $table->bigInteger('_profileImageID')->unsigned();
+            $table->bigInteger('_profileImageID')->unsigned()->nullable();
             $table->string('username');
             $table->unique('username');
             $table->string('pwHash');
