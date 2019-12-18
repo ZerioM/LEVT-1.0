@@ -38,12 +38,13 @@
   //--padding-start: 0;
   //--padding-end: 0;
   padding: 0;
+  right:0; 
+
 } // Setup Button padding auf Startseite & Profil
 ion-item {
   font-size: 10pt;
   --inner-padding-end: none;
   background-color: none;
-  margin-bottom: 20px;
 }
 input {
   background-color: none;

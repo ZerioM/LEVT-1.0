@@ -23,12 +23,12 @@
         <ion-label no-padding no-margin><b> Age</b><br> 25 Years</ion-label>
       </ion-item>
       <ion-item lines="none" no-margin no-padding>
-        <ion-label no-padding no-margin><b>Langugage</b><br>German</ion-label>
+        <ion-label no-padding no-margin><b>Residence</b><br>Australia</ion-label>
       </ion-item>
     </ion-list>
-    
-      <ion-label style="margin-top: -10px;" no-padding no-margin><b>My Badges</b>
-        <ion-item  id="badges" no-padding lines="none">
+
+    <!--<ion-label id="badges" no-padding no-margin><b>My Badges</b>
+        <ion-item no-padding lines="none">
         <ion-item class="oneBadge" no-padding no-margin lines="none">
           <img src="/assets/images/badge_pioneer.png">
         </ion-item>
@@ -36,7 +36,14 @@
           <img src="/assets/images/badge_explorer.png">
         </ion-item>
       </ion-item>
-      </ion-label>
+      </ion-label>-->
+
+
+    <ion-item id="badges" no-padding lines="none">
+      <b>My Badges</b>
+      <img class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+    </ion-item>
 
   </ion-item>
 
@@ -44,9 +51,11 @@
     <img src="/assets/images/kartenvisualisierung.png">
   </div>
 
- 
-  <ion-list lines="none">
-    <b>My Journeys</b>
+
+  <ion-list lines="none" no-padding no-margin>
+    <ion-item no-padding no-margin>
+      <ion-text class="myJourneys" no-padding no-margin><b>My Journeys</b></ion-text>
+    </ion-item>
     <div class="gallery" *ngFor="let j of data.currentUserJourneys.journeys">
       <div class="pictureFrame">
         <div class="frameLeft"></div>
