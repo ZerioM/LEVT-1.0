@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             ActivityTableSeeder::class,
             TransportTableSeeder::class,
             PlaceTableSeeder::class,
-            PostTableSeeder::class
-             ]);
+            PostTableSeeder::class,
+            JourneyTransportTableSeeder::class
+            ]);
     }
 }

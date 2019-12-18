@@ -67,3 +67,10 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
         'detail' => $faker->text
     ];
 });
+
+$factory->define(App\Models\JourneyTransport::class, function (Faker\Generator $faker) {
+    return [
+        '_journeyID' => $faker->numberBetween($min = 1, $max = 30),
+        '_transportID' => $faker->numberBetween($min = 1, $max = 9)
+    ];
+});
