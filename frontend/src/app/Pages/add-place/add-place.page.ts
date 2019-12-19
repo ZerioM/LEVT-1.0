@@ -34,6 +34,8 @@ export class AddPlacePage implements OnInit {
 
     console.log("Bool PlaceInserted:")
     console.log(this.data.placeInserted)
+
+  
   }
 
   ngOnInit() {
