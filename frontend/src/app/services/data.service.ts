@@ -49,7 +49,7 @@ export class DataService {
 
   public currentUserJourney:Journey={journeyID:null, _userID:null,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
 
-  public currentUser:User={userID:11, username:"Sallie Johns",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",pwHash:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null}
+  public loggedInUser:User={userID:11, username:"Sallie Johns",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",pwHash:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null}
 
   public newUser:User;
 
@@ -61,7 +61,7 @@ export class DataService {
   public placeInJourney: number;
   public postInPlace: number;
 
-  public currentBookmark:Bookmark ={bookmarkID:null,_journeyID:null,_userID: this.currentUser.userID};
+  public currentBookmark:Bookmark ={bookmarkID:null,_journeyID:null,_userID: this.loggedInUser.userID};
   public bookmarkIcon: string = "assets/icon/bookmark_unsaved_icon.svg";
   public bookmarkUnsaved:string="assets/icon/bookmark_unsaved_icon.svg";
   public bookmarkSaved:string="assets/icon/bookmark_saved_icon.svg";
@@ -114,7 +114,7 @@ export class DataService {
 
   constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
 
-    this.newJourney= this.journeyService.newJourney(this.currentUser);
+    this.newJourney= this.journeyService.newJourney(this.loggedInUser);
   
     /*
     //for german Date:
@@ -260,7 +260,7 @@ export class DataService {
       this.hasPlaces=true;
     }
 
-    if(this.currentUser.userID==this.currentJourney._userID){
+    if(this.loggedInUser.userID==this.currentJourney._userID){
       this.edit=true;
     }else{
       this.edit=false;
@@ -520,10 +520,10 @@ export class DataService {
   }
 
 
-  loadUserJourneys(currentUser:User){
+  loadUserJourneys(loggedInUser:User){
   
 
-    this.http.post(this.url+"/userJourneys", currentUser).subscribe((loadedData: Journeys) => {
+    this.http.post(this.url+"/userJourneys", loggedInUser).subscribe((loadedData: Journeys) => {
       console.log(loadedData);
       this.currentUserJourneys=loadedData;
       console.log("Post funktioniert");
@@ -534,7 +534,7 @@ export class DataService {
   }
 
   async setBookmark(){
-    this.currentBookmark._userID=this.currentUser.userID;
+    this.currentBookmark._userID=this.loggedInUser.userID;
     this.currentBookmark._journeyID=this.currentJourney.journeyID;
     let postData = this.currentBookmark;
 
@@ -551,7 +551,7 @@ export class DataService {
   }
 
   async unsetBookmark(){
-    this.currentBookmark._userID=this.currentUser.userID;
+    this.currentBookmark._userID=this.loggedInUser.userID;
     this.currentBookmark._journeyID=this.currentJourney.journeyID;
     let postData = this.currentBookmark;
     
@@ -567,11 +567,11 @@ export class DataService {
   }
 
   async bookmarkExists(){
-    this.currentBookmark._userID=this.currentUser.userID;
+    this.currentBookmark._userID=this.loggedInUser.userID;
     this.currentBookmark._journeyID=this.currentJourney.journeyID;
     let postData = this.currentBookmark;
 
-    console.log(this.currentUser.userID);
+    console.log(this.loggedInUser.userID);
     console.log(this.currentJourney.journeyID);
 
     let bookmarked: boolean = false;

@@ -255,7 +255,8 @@ p{
   font-size: 10pt;
   font-weight: bold;
   color:#d68900;
-}// You haven't add any ...
+  padding-bottom: 5px;
+}// Click the plus to add a new post!
 
 .importantThings{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -287,31 +288,53 @@ ion-loading{
   height: 100%;
   background-color: #16161699;
   z-index: 1000;
-  position: absolute;
+  position: fixed;
   top:0;
-}
+} // Grau Transparenter Hintergrund bei Login
 
 .login{
   width:85%;
-  height: 300px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  padding-top: 5px;
   background-color: white;
-  margin: auto;
- 
-}
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15%;
+  vertical-align: middle;
+} // Alles was in weißen Fenster steht bei Login
 
 .registerBg{
   width: 100%;
   height: 100%;
   background-color: #16161699;
   z-index: 1000;
-  position: absolute;
+  position: fixed;
   top:0;
-}
+} // Grau Transparenter Hintergrund bei Registrierung
 
 .register{
   width:85%;
-  height: 500px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  padding-top: 5px;
   background-color: white;
-  margin: auto;
- 
-}
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15%;
+  vertical-align: middle;
+} //Alles was in weißen Fenster steht bei Registrierung
+
+.inputField{
+  border-bottom: 1px solid #16161650;
+  border-left: 1px solid #16161650;
+  border-right: 1px solid #16161650;
+  vertical-align: middle;
+  margin-top: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  line-height: 15px;
+  margin-bottom: 20px;
+} // Einzelnen Input Felder bei Login & Registrierung

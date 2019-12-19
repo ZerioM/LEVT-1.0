@@ -24,6 +24,12 @@ class ReadController extends BaseController
         return $jc->selectOne($requestArray['journeyID']);
     }
 
+    public function selectOneJourneyWithChildren(Request $request){
+        $jc = new _JourneyController;
+        $requestArray = $request->all();
+        return $jc->selectOneWithChildren($requestArray['journeyID']);
+    }
+
     public function selectOnePlace(Request $request){
         $pc = new _PlaceController;
         $requestArray = $request->all();
