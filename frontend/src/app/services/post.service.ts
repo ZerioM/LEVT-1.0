@@ -27,6 +27,7 @@ export class PostService {
         console.log(loadedData);
         console.log("New Post in DB inserted");
         post.postID = loadedData.postID;
+        post.iconName = loadedData.iconName;
         this.updatePostWorks = true;      
       }, error => {
         console.log(error);

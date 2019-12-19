@@ -1,0 +1,18 @@
+<ion-header class="tabHeader">
+  <!--<ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+  </ion-buttons>-->
+  <ion-buttons>
+      <ion-button icon-only (click)="goBackToAddPost()">
+        <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  <ion-title  class="tabHeading" no-padding>Image Detail</ion-title>
+  <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
+</ion-header>
+
+<ion-content>
+
+  <img src={{data.newImage.imgSrc}} alt="Image"/>
+
+</ion-content>

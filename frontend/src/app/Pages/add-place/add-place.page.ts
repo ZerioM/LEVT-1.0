@@ -23,6 +23,8 @@ export class AddPlacePage implements OnInit {
   public placeValidated: boolean = false;
   public placeSuggestions: Place[] = null;
 
+  public delay = ms => new Promise(res => setTimeout(res, ms));
+
   constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
     if(this.data.placeInserted){
 
@@ -32,6 +34,8 @@ export class AddPlacePage implements OnInit {
 
     console.log("Bool PlaceInserted:")
     console.log(this.data.placeInserted)
+
+  
   }
 
   ngOnInit() {
@@ -131,13 +135,17 @@ export class AddPlacePage implements OnInit {
   }
 
   async focusOutPlaceName(){
-    
+    await this.delay(1000);
+    console.log("Waited 1s");
     this.placeSuggestions = null;
     this.data.newPlace.coordinateX = null;
     this.data.newPlace.coordinateY = null;
     this.placeValidated = false;
     if(await this.data.validatePlaceName()){
       this.placeValidated = true;
+     if(this.data.newPlace.placeName.includes(',')){
+        this.data.newPlace.placeName = this.data.newPlace.placeName.slice(0,this.data.newPlace.placeName.indexOf(','));
+      }
     }
     console.log(this.placeValidated);
   }
