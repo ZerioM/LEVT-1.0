@@ -19,8 +19,13 @@
     <ion-label><b>Visited Place</b><b class="importantStars">   (mandatory)</b></ion-label>
     <ion-item no-padding no-margin>
       <ion-input [(ngModel)]="data.newPlace.placeName" placeholder="Unnamed Place" background="light" 
-      (keyUp)="keyUpPlaceName()" (focusout)="focusOutPlaceName()" >
+      (ngModelChange)="keyUpPlaceName($event)" (focusout)="focusOutPlaceName()" ><ion-icon *ngIf="placeValidated" name="md-checkmark"></ion-icon>
     </ion-input>
+    </ion-item>
+    <ion-item *ngFor="let p of this.placeSuggestions">
+        <ion-button (click)="setAutocompletion(p.placeName)">
+          {{p.placeName}}
+        </ion-button>
     </ion-item>
 
     <ion-item no-padding>
