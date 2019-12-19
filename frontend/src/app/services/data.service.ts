@@ -80,6 +80,10 @@ export class DataService {
   public hasUserPosts=false;
   public hasUserPostDetail=false;
 
+  //image
+
+  public newImage:Image;
+
   //Zentrale Daten laden 
   public journeyCategories: JourneyCategories = { journeyCategories: [] };
   public companionships: Companionships = { companionships: [] };

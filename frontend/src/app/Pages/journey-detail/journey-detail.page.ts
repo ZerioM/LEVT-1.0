@@ -115,6 +115,9 @@ export class JourneyDetailPage implements OnInit {
     // this.data.newJourney.year = this.data.currentJourney.year;
     // this.data.newJourney.duration = this.data.currentJourney.duration;
 
+    console.log("New Journey bei Edit");
+    console.log(this.data.newJourney)
+
     this.router.navigateByUrl('tabs/tab2');
 
 

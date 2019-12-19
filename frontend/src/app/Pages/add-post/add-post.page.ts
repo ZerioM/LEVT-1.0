@@ -91,7 +91,9 @@ export class AddPostPage implements OnInit {
 
   private showImage(image: Image){
 
-    //Auf neue Seite routen, dort Bild machen
+    this.data.newImage=image;
+    this.router.navigateByUrl('/tabs/tab2/image');
+
 
   }
 

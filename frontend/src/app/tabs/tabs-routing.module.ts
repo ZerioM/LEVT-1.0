@@ -69,6 +69,15 @@ const routes: Routes = [
                 loadChildren:()=>
                 import('../Pages/add-post/add-post.module').then (m => m.AddPostPageModule)}
             ]
+          },
+          {
+            path: 'image',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/image/image.module').then (m => m.ImagePageModule)}
+            ]
           }
         ]
       },
