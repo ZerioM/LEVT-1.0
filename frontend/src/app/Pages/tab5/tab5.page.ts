@@ -22,7 +22,7 @@ export class Tab5Page implements OnInit {
    //Daten laden
    loadJSON(){
 
-    this.data.loadUserJourneys(this.data.currentUser);
+    this.data.loadUserJourneys(this.data.loggedInUser);
    // this.data.loadTopPosts();
     
 
