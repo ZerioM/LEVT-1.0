@@ -28,9 +28,11 @@ $router->post('/newPost','CreateController@insertPost');
 
 $router->post('/newBookmark','CreateController@insertBookmark');
 
-$router->post('/newUser','CreateController@insertUser');
+//$router->post('/newUser','CreateController@insertUser');
 
 $router->post('/uploadImage','CreateController@uploadImage');
+
+$router->post('/register','CreateController@register');
 
 
 //READ
@@ -50,6 +52,8 @@ $router->get('/allSeasons','ReadController@selectSeasons');
 $router->get('/allGenders','ReadController@selectGenders');
 
 $router->post('/oneJourney','ReadController@selectOneJourney');
+
+$router->post('/oneJourneyWithChildren','ReadController@selectOneJourneyWithChildren');
 
 $router->post('/onePlace','ReadController@selectOnePlace');
 

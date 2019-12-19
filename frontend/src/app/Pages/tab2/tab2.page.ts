@@ -121,7 +121,7 @@ export class Tab2Page {
   }
 
   goBacktoHomepageWithoutSaving() {
-    this.data.newJourney = this.journeyService.newJourney(this.data.currentUser);
+    this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
     this.router.navigateByUrl('/tabs/tab1');
   }
 
@@ -212,7 +212,7 @@ export class Tab2Page {
     await this.data.dismissLoading();
 
     if (this.data.newJourney.journeyID != null) {
-      this.data.newJourney = this.journeyService.newJourney(this.data.currentUser);
+      this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
       this.router.navigateByUrl('/tabs/tab1');
     } else {
       //Toast ausgeben: Das Speichern hat nicht funktioniert.
