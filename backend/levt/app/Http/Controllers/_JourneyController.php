@@ -315,12 +315,17 @@ class _JourneyController extends BaseController
         if($journey['places'] != null){
             $places = $journey['places'];
             $postsArray = array();
+
             foreach($places as $place){
-                $postArray = array();
-                $postArray = json_decode($placeController->selectOne($place['placeID']),true);
-                array_push($postsArray,$postArray);
-            }          
-            $journey['places'] = $postsArray;
+                if($place['posts'] != null){
+                    $postArray = array();
+                    $postArray = json_decode($placeController->selectOne($place['placeID']),true);
+                    array_push($postsArray,$postArray);
+                }
+            }
+            if($postsArray != []){
+                $journey['places'] = $postsArray;
+            }
         }
         return $journey;
     }
