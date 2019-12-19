@@ -2,6 +2,7 @@ import { AfterViewInit,Component, ElementRef,OnInit,ViewChild } from '@angular/c
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Journey } from 'src/app/Interfaces/Journey';
 //import {Geolocation}from '@ionic-native/geolocation/ngx';
 
 //declare var google: { maps: { Map: new (arg0: any, arg1: { center: { lat: number; lng: number; }; zoom: number; }) => void; }; };
@@ -95,6 +96,28 @@ export class JourneyDetailPage implements OnInit {
 
     this.router.navigateByUrl('/tabs/tab1');
   
+   }
+
+  async editJourney(){
+
+    this.data.fromEditJourney=true;
+    this.data.fromNewJourney=false;
+
+    this.data.newJourney = this.data.currentJourney;
+
+    // this.data.newJourney.journeyID = this.data.currentJourney.journeyID;
+    // this.data.newJourney._userID = this.data.currentJourney._userID;
+    // this.data.newJourney._thumbnailID = this.data.currentJourney._thumbnailID;
+    // this.data.newJourney._seasonID = this.data.currentJourney._seasonID;
+    // this.data.newJourney._journeyCategoryID = this.data.currentJourney._journeyCategoryID;
+    // this.data.newJourney._companionshipID = this.data.currentJourney._companionshipID;
+    // this.data.newJourney.journeyName = this.data.currentJourney.journeyName;
+    // this.data.newJourney.year = this.data.currentJourney.year;
+    // this.data.newJourney.duration = this.data.currentJourney.duration;
+
+    this.router.navigateByUrl('tabs/tab2');
+
+
    }
 
 }

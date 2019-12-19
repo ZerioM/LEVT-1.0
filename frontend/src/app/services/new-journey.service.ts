@@ -64,7 +64,7 @@ export class NewJourneyService {
     
     //Abfragen, ob journeyID == null, dann newJourney aufrufen, sonst updateJourney aufrufen
     if(journey.journeyID == null){
-      await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/newJourney", journey).toPromise().then((loadedData: Journey) => {
+      await this.http.post("http://levt.test/newJourney", journey).toPromise().then((loadedData: Journey) => {
         console.log("Loaded Data:");
         console.log(loadedData);
         this.updateJourneyWorks = true;
@@ -78,7 +78,7 @@ export class NewJourneyService {
         console.log(error);
       });
     } else {
-      await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/updateJourney", journey).toPromise().then((loadedData: Journey) => {
+      await this.http.post("http://levt.test/updateJourney", journey).toPromise().then((loadedData: Journey) => {
         console.log(loadedData);
         console.log("Journey with ID: ");
         console.log(journey.journeyID);

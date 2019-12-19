@@ -35,7 +35,8 @@
         <div class="frameRight"></div>
       </div>
     </ion-list>
-    
+    <ion-button (click)="editJourney()"><ion-icon name="ios-create"></ion-icon>Edit Journey</ion-button>
+
     <ion-list no-padding no-margin>
       <ion-item lines="none" no-padding no-margin>
           <ion-label no-margin><b>Duration</b><br> {{data.currentUserJourney.duration}}  days </ion-label>

@@ -220,6 +220,11 @@ export class Tab2Page {
       console.log("Das Speichern hat nicht funktioniert.");
     }
 
+    if(this.data.fromEditJourney==true){
+      this.data.fromEditJourney=false;
+      this.data.fromNewJourney=true;
+    }
+
 
   }
 

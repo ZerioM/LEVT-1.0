@@ -33,7 +33,7 @@ export class ImageService {
 
     const httpOptions= {headers:new HttpHeaders({'enctype':'multipart/form-data;'})};
 
-    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/uploadImage", formData,httpOptions).toPromise().then((loadedData: Image) => {
+    await this.http.post("http://levt.test/uploadImage", formData,httpOptions).toPromise().then((loadedData: Image) => {
         console.log(loadedData);
         console.log("New Image in DB inserted");
         image.imageID = loadedData.imageID;

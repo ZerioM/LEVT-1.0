@@ -96,6 +96,11 @@ export class DataService {
   //login
   public userLoggedIn=true;
   public register=false;
+
+  //edit
+  public edit: boolean=false;
+  public fromEditJourney:boolean=false;
+  public fromNewJourney:boolean=true;
   
 
   private locale : string;
@@ -116,7 +121,7 @@ export class DataService {
 
   loadJourneyCategories() {
     //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
-    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/allJourneyCategories").subscribe((loadedData: JourneyCategories) => {
+    this.http.get("http://levt.test/allJourneyCategories").subscribe((loadedData: JourneyCategories) => {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -140,7 +145,7 @@ export class DataService {
 
   loadCompanionships() {
     //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
-    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/allCompanionships").subscribe((loadedData: Companionships) => {
+    this.http.get("http://levt.test/allCompanionships").subscribe((loadedData: Companionships) => {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -163,7 +168,7 @@ export class DataService {
 
   loadTransports() {
     //"/assets/journeyCategoriesTest.json" --> ladet das JSON File mit den Testdaten aus den assets
-    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/allTransports").subscribe((loadedData: Transports) => {
+    this.http.get("http://levt.test/allTransports").subscribe((loadedData: Transports) => {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -183,7 +188,7 @@ export class DataService {
 
   }
   loadActivities() {
-    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/allActivities").subscribe((loadedData: Activities) => {
+    this.http.get("http://levt.test/allActivities").subscribe((loadedData: Activities) => {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -201,7 +206,7 @@ export class DataService {
 
 
   loadSeasons() {
-    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/allSeasons").subscribe((loadedData: Seasons) => {
+    this.http.get("http://levt.test/allSeasons").subscribe((loadedData: Seasons) => {
       if (loadedData != null) {
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -226,7 +231,7 @@ export class DataService {
       "journeyID": journeyID
     }
     
-    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/oneJourney", postData).toPromise().then((loadedData: Journey) => {
+    await this.http.post("http://levt.test/oneJourney", postData).toPromise().then((loadedData: Journey) => {
       console.log(loadedData);
       this.currentJourney=loadedData;
       console.log("Post funktioniert");
@@ -246,6 +251,12 @@ export class DataService {
       this.hasPlaces=false;
     }else{
       this.hasPlaces=true;
+    }
+
+    if(this.currentUser.userID==this.currentJourney._userID){
+      this.edit=true;
+    }else{
+      this.edit=false;
     }
   
      
@@ -293,7 +304,7 @@ export class DataService {
       "placeID": placeID
     }
 
-    this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/onePlace", postData).subscribe((loadedData: Place) => {
+    this.http.post("http://levt.test/onePlace", postData).subscribe((loadedData: Place) => {
       console.log(loadedData);
       this.currentPlace=loadedData;
       console.log("Post funktioniert");
@@ -351,7 +362,7 @@ export class DataService {
       "postID": postID
     }
 
-    this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/onePost", postData).subscribe((loadedData: Post) => {
+    this.http.post("http://levt.test/onePost", postData).subscribe((loadedData: Post) => {
       console.log(loadedData);
       this.currentPost=loadedData;
       console.log("Post funktioniert");
@@ -459,7 +470,7 @@ export class DataService {
   loadTopPosts(){
     // http://flock-1427.students.fhstp.ac.at/backend/public/top100 liefert die Daten aus der DB 
     
-    this.http.get("https://flock-1427.students.fhstp.ac.at/backend/public/top100").toPromise().then( (loadedData: Journeys) => {
+    this.http.get("http://levt.test/top100").toPromise().then( (loadedData: Journeys) => {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
         //console.log(JSON.stringify(loadedData));
@@ -514,7 +525,7 @@ export class DataService {
 
     //let bookmarked: boolean = false;
 
-    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/newBookmark", postData).toPromise().then((loadedData: Bookmark) => {
+    await this.http.post("http://levt.test/newBookmark", postData).toPromise().then((loadedData: Bookmark) => {
       this.currentBookmark = loadedData;
       console.log(this.currentBookmark);
       console.log("Post funktioniert");
@@ -531,7 +542,7 @@ export class DataService {
     
    // let bookmarked: boolean = true;
 
-    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/deleteBookmark", postData).toPromise().then((loadedData: Bookmark) => {
+    await this.http.post("http://levt.test/deleteBookmark", postData).toPromise().then((loadedData: Bookmark) => {
       this.currentBookmark = loadedData;
       console.log(this.currentBookmark);
       console.log("Post funktioniert");
@@ -550,7 +561,7 @@ export class DataService {
 
     let bookmarked: boolean = false;
 
-    await this.http.post("https://flock-1427.students.fhstp.ac.at/backend/public/proveBookmarkExists", postData).toPromise().then((loadedData: Bookmark) => {
+    await this.http.post("http://levt.test/proveBookmarkExists", postData).toPromise().then((loadedData: Bookmark) => {
       console.log(loadedData);
       this.currentBookmark = loadedData;
       console.log(this.currentBookmark);
