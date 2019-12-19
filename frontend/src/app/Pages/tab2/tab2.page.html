@@ -19,23 +19,19 @@
     </div>
     <div class="frameRight"></div>
   </div>
-
-  <!--<ion-item no-padding no-margin lines="none" color="none">-->
+  
     <ion-col no-padding>
       <ion-label><b class="importantThings">Give your journey a name</b><b class="importantStars">*</b></ion-label>
     <ion-input id="journeyName" [(ngModel)]="data.newJourney.journeyName" type="text" placeholder="Unnamed Journey"
        no-margin maxlength="20"></ion-input>
-    </ion-col>
-  <!--</ion-item>-->
+    </ion-col> 
 
   <ion-col no-padding>
   <ion-label><b>How many days did you spend?</b><b class="importantStars">*</b></ion-label>
-  <!--<ion-item no-padding no-margin lines="none">-->
     <ion-input id="journeyDuration" [(ngModel)]="data.newJourney.duration" placeholder="Amount of days "
       inputmode="decimal" type="number" no-margin>
     </ion-input>
   </ion-col>
- <!-- </ion-item>-->
   
   <ion-label><b>When did you go there?</b><b class="importantStars">*</b></ion-label>
   <ion-item class="seasonYear" lines="none" no-padding no-margin>
@@ -52,7 +48,7 @@
 <ion-item no-padding lines="none" no-margin>
     <div id="journeyYear" lines="none">
     <ion-datetime [(ngModel)]="data.newJourney.year" value="2019" placeholder="Year" displayFormat="YYYY"
-      id="journeyYear" no-padding ></ion-datetime>
+       no-padding ></ion-datetime>
     </div>
   </ion-item>
 
