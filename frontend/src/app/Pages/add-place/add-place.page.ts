@@ -9,6 +9,7 @@ import { PostService } from 'src/app/services/post.service';
 import { isGeneratedFile } from '@angular/compiler/src/aot/util';
 import { Post } from 'src/app/Interfaces/Post';
 import { ChangeDetectorRef } from '@angular/core';
+import { Image } from 'src/app/Interfaces/Image';
 
 
 
@@ -22,6 +23,8 @@ export class AddPlacePage implements OnInit {
 
   public placeValidated: boolean = false;
   public placeSuggestions: Place[] = null;
+
+  // public isThumbnail: boolean[][];
 
   public delay = ms => new Promise(res => setTimeout(res, ms));
 
@@ -41,7 +44,18 @@ export class AddPlacePage implements OnInit {
   ngOnInit() {
   }
 
-  
+  // setThumbnail(image: Image, index: number, jndex: number){
+  //   this.data.newPlace._thumbnailID = image.imageID;
+  //   this.data.newPlace.thumbnailSrc = image.imgSrc;
+
+  //   this.isThumbnail.forEach(thumbnails => {
+  //     thumbnails.forEach(thumbnail => {
+  //       thumbnail = false;
+  //     });
+  //   });
+
+  //   this.isThumbnail[jndex][index] = true;
+  // }
 
   goBackToJourney(){
 
