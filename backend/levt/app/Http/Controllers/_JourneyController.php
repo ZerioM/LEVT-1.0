@@ -308,6 +308,24 @@ class _JourneyController extends BaseController
         return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 
+
+    public function selectOneWithChildren($id){
+        $placeController = new _PlaceController;
+        $journey = json_decode($this->selectOne($id),true);
+        if($journey['places'] != null){
+            $places = $journey['places'];
+            $postsArray = array();
+            foreach($places as $place){
+                $postArray = array();
+                $postArray = json_decode($placeController->selectOne($place['placeID']),true);
+                array_push($postsArray,$postArray);
+            }          
+            $journey['places'] = $postsArray;
+        }
+        return $journey;
+    }
+
+
     public function updateOne(Request $request){
 
         $costController = new _CostController;
