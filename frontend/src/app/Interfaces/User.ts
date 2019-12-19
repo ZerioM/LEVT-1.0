@@ -9,10 +9,12 @@ export interface User{
    sessionID: string;
    explorerBadgeProgress:number;
    pioneerBadgeProgress:number;
+   gamificationPoints:number;
    
    age:number;
    countryName:string;
    userImgSrc:string;
+   pwClear:string;
    
 
 }

@@ -10,7 +10,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   newUser(){
-  let newUser:User={userID:null, username:null,_profileImageID:null, userImgSrc:null,pwHash:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null}
+  let newUser:User={userID:null, username:null,_profileImageID:null, userImgSrc:null,pwHash:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null, gamificationPoints:null, pwClear:null}
 
   return newUser;
 
