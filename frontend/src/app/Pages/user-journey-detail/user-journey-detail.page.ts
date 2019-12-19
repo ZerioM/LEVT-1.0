@@ -32,4 +32,14 @@ export class UserJourneyDetailPage implements OnInit {
     
      }
 
+     editJourney(){
+      this.data.fromEditJourney=true;
+      this.data.fromNewJourney=false;
+  
+      this.data.newJourney=this.data.currentUserJourney;
+  
+      this.router.navigateByUrl('tabs/tab2');
+  
+     }
+
 }

@@ -96,6 +96,11 @@ export class DataService {
   //login
   public userLoggedIn=true;
   public register=false;
+
+  //edit
+  public edit: boolean=false;
+  public fromEditJourney:boolean=false;
+  public fromNewJourney:boolean=true;
   
   private locale : string;
 
@@ -249,6 +254,12 @@ export class DataService {
       this.hasPlaces=false;
     }else{
       this.hasPlaces=true;
+    }
+
+    if(this.currentUser.userID==this.currentJourney._userID){
+      this.edit=true;
+    }else{
+      this.edit=false;
     }
   
      

@@ -4,7 +4,8 @@
       <ion-icon class="cancel" name="ios-close"></ion-icon>
     </ion-button>
   </ion-buttons>
-  <ion-title class="tabHeading" no-padding>New Journey</ion-title>
+  <ion-title *ngIf="data.fromNewJourney"class="tabHeading" no-padding>New Journey</ion-title>
+  <ion-title *ngIf="data.fromEditJourney"class="tabHeading" no-padding>Edit Journey</ion-title>
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
 <hr>

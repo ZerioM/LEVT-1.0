@@ -36,6 +36,7 @@ export class Tab1Page {
     } else {
       this.data.bookmarkIcon = this.data.bookmarkUnsaved;
     }
+
  
     //go To Journey Detail 
     this.router.navigateByUrl('/tabs/tab1/journey-detail');

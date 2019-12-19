@@ -7,7 +7,8 @@
         <ion-icon class="back" name="ios-arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-  <ion-title class="tabHeading" no-padding>Add A Place</ion-title>
+  <ion-title *ngIf="data.fromNewJourney" class="tabHeading" no-padding>Add A Place</ion-title>
+  <ion-title *ngIf="data.fromEditJourney"class="tabHeading" no-padding>Edit A Place</ion-title>
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
@@ -20,6 +21,11 @@
       <ion-input [(ngModel)]="data.newPlace.placeName" placeholder="Unnamed Place" background="light" 
       (ngModelChange)="keyUpPlaceName($event)" (focusout)="focusOutPlaceName()" ><ion-icon *ngIf="placeValidated" name="md-checkmark"></ion-icon>
     </ion-input>
+    </ion-item>
+    <ion-item *ngFor="let p of this.placeSuggestions">
+        <ion-button (click)="setAutocompletion(p.placeName)">
+          {{p.placeName}}
+        </ion-button>
     </ion-item>
 
     <ion-item no-padding>

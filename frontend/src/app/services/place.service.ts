@@ -51,26 +51,17 @@ export class PlaceService {
   }
 
   async autocompletePlace(place: Place, url: string){
-    let suggestedPlaceNames: string[];
+    let suggestedPlaces: Place[];
 
     await this.http.post(url+"/autocompletePlace", place).toPromise().then((loadedData: Places) => {
+      console.log("Getting Autocomplete Data...");
       console.log(loadedData);
-      console.log("New Place in DB inserted");
-      let i = 0;
-
-      loadedData.places.forEach(place => {
-        
-        suggestedPlaceNames[i] = place.placeName;
-        i++;
-
-      });      
+      suggestedPlaces = loadedData.places;
     }, error => {
       console.log(error);
     });
 
-    console.log(suggestedPlaceNames);
-
-    return suggestedPlaceNames;
+    return suggestedPlaces;
   }
 
   async validatePlace(place: Place, url: string){
