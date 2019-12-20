@@ -11,7 +11,7 @@
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
 
-  <ion-list lines="none">
+  <ion-list lines="none" no-padding>
     <div class="pictureFrame">
       <div class="frameLeft"></div>
       <div class="imgAndInfo">
@@ -36,7 +36,16 @@
   </ion-list>
   <ion-list>
   
-  <ion-button *ngIf="data.edit" (click)="editJourney()"><ion-icon name="ios-create"></ion-icon>Edit Journey</ion-button>
+  <ion-button no-margin style="--border-radius: 0;" *ngIf="data.edit" (click)="editJourney()"><ion-icon name="ios-create"></ion-icon>Edit Journey</ion-button>
+
+  <div id="kostenVisualisierung">
+    <!--<form>
+      <label><input type="radio" name="dataset" id="dataset1" value="option1"> Perrache</label>
+      </form>-->
+      
+      <script src="https://d3js.org/d3.v4.min.js"></script>
+      <script src="script.js"></script>
+  </div>
 
     <ion-item lines="none">
         <ion-label><b>Duration</b><br> {{data.currentJourney.duration}}  days </ion-label>
