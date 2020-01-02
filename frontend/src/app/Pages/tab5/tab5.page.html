@@ -1,6 +1,6 @@
 <ion-header class="tabHeader">
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
-  <ion-title class="tabHeading" no-padding>{{data.currentUser.username}}</ion-title>
+  <ion-title class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
   <ion-buttons slot="end" no-padding>
     <ion-button icon-only no-padding>
       <ion-icon class="setup" name="md-apps" size="large"></ion-icon>
@@ -14,7 +14,7 @@
   <ion-item id="profilUserpicInformations" color="none" lines="none" no-padding no-margin>
 
     <ion-item no-padding lines="none">
-      <img id="userpicProfil" src={{data.currentUser.userImgSrc}} alt="User" />
+      <img id="userpicProfil" src={{data.loggedInUser.userImgSrc}} alt="User" />
     </ion-item>
     <!--Profilbild-->
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { NewJourneyService } from 'src/app/services/new-journey.service';
 
 @Component({
   selector: 'app-user-journey-detail',
@@ -9,8 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./user-journey-detail.page.scss'],
 })
 export class UserJourneyDetailPage implements OnInit {
+  [x: string]: any;
 
-  constructor(private data: DataService, private navCtrl:NavController, private router: Router) { }
+  constructor(private data: DataService, private navCtrl:NavController, private router: Router, private journeyService:NewJourneyService) { }
 
   ngOnInit() {
   }
@@ -32,11 +34,16 @@ export class UserJourneyDetailPage implements OnInit {
     
      }
 
-     editJourney(){
+     async editJourney(){
       this.data.fromEditJourney=true;
       this.data.fromNewJourney=false;
   
-      this.data.newJourney=this.data.currentUserJourney;
+      await this.journeyService.loadJourneyWithChildren(this.data.newJourney,this.data.currentJourney.journeyID,this.data.url);
+
+      console.log("New Journey bei Edit");
+      console.log(this.data.newJourney);
+
+      
   
       this.router.navigateByUrl('tabs/tab2');
   

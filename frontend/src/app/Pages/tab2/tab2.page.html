@@ -85,7 +85,7 @@
     <b>With which means of transport did you travel?</b><b class="importantStars">*</b></ion-label>
   <div id="transport">
     <ion-chip *ngFor="let t of data.transports.transports; let in=index">
-      <ion-checkbox aria-checked="false" [(ngModel)]="transports[in]" id={{t.transportID}}></ion-checkbox>
+      <ion-checkbox aria-checked="false" [(ngModel)]="data.transportsCheckbox[in]" id={{t.transportID}}></ion-checkbox>
       <!--[(ngModel)]="t.transportID"-->
       <ion-label (click)="toggleTransports(in)" class="labelsCategories">
         {{t.transportType}}
@@ -119,7 +119,7 @@
         <div *ngIf="divideC" id="journeycostsCategories">
           <ion-item *ngFor="let a of data.activities.activities; let in=index" no-padding>
             <ion-label><b>{{a.activityName}}</b></ion-label>
-            <ion-input id="{{a.activityName}}" [(ngModel)]="costs[in]" class="costcategories" inputmode="decimal"
+            <ion-input id="{{a.activityName}}" [(ngModel)]="data.costs[in]" class="costcategories" inputmode="decimal"
               type="number" placeholder="0"></ion-input>
             <ion-label>€</ion-label>
           </ion-item>

@@ -23,8 +23,8 @@ export class Tab2Page {
   public showC: Boolean = true;
   public divideC: Boolean = false;
 
-  public costs = [null, null, null, null, null];
-  public transports = [false, false, false, false, false, false, false, false, false];
+ 
+  
 
   test: any;
 
@@ -51,7 +51,7 @@ export class Tab2Page {
 
   //Naviagation 
   async goToAddNewPlace() {
-    this.readCostsAndTransports();
+    this.data.readCostsAndTransports();
 
 
     if (this.data.newJourney.journeyName == null || this.data.newJourney._seasonID == null || this.data.newJourney._companionshipID == null
@@ -82,7 +82,7 @@ export class Tab2Page {
 
 
   async goToEditPlace(place: Place, index: number) {
-    this.readCostsAndTransports();
+    this.data.readCostsAndTransports();
 
     if (this.data.newJourney.journeyName == null || this.data.newJourney._seasonID == null || this.data.newJourney._companionshipID == null
       || this.data.newJourney.year == null || this.data.newJourney._journeyCategoryID == null
@@ -187,14 +187,14 @@ export class Tab2Page {
 
   toggleTransports(index: number) {
 
-    this.transports[index] = !this.transports[index];
-    console.log(this.transports[index]);
+    this.data.transportsCheckbox[index] = !this.data.transportsCheckbox[index];
+    console.log(this.data.transportsCheckbox[index]);
   }
 
   async finishJourney() {
     //Data binding testen
 
-    this.readCostsAndTransports();
+    this.data.readCostsAndTransports();
 
     if (this.data.newJourney.journeyName == "" || this.data.newJourney._seasonID == null || this.data.newJourney._companionshipID == null
       || this.data.newJourney.year == null || this.data.newJourney._journeyCategoryID == null
@@ -228,23 +228,7 @@ export class Tab2Page {
 
   }
 
-  readCostsAndTransports() {
-    this.data.newJourney.leisureCosts = this.costs[0];
-    this.data.newJourney.accommodationCosts = this.costs[1];
-    this.data.newJourney.mealsanddrinksCosts = this.costs[2];
-    this.data.newJourney.transportationCosts = this.costs[3];
-    this.data.newJourney.otherCosts = this.costs[4];
-
-    this.data.newJourney.plane = this.transports[0];
-    this.data.newJourney.car = this.transports[1];
-    this.data.newJourney.bus = this.transports[2];
-    this.data.newJourney.train = this.transports[3];
-    this.data.newJourney.ship = this.transports[4];
-    this.data.newJourney.motorbike = this.transports[5];
-    this.data.newJourney.campingtrailer = this.transports[6];
-    this.data.newJourney.hiking = this.transports[7];
-    this.data.newJourney.bicycle = this.transports[8];
-  }
+  
 
 
 }
