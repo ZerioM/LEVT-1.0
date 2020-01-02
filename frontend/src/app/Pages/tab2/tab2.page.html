@@ -12,13 +12,24 @@
 <!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content class="tabsContent">
 
-  <div class="pictureFrame">
-    <div class="frameLeft"></div>
-    <div id="journeythumbnail">
-      <img class="journeythumbnail" src="/assets/images/01.jpg" alt="Journeycover" />
-    </div>
-    <div class="frameRight"></div>
-  </div>
+  
+    
+    <ion-item no-padding lines="none">
+      <div *ngIf="data.newJourney.thumbnailSrc != ''" id="placeThumbnails" class="gridContainer">
+        <div class="pictureFrame">
+        <div class="frameLeft"></div>
+          <img class="journeythumbnail" alt="" src="{{data.newJourney.thumbnailSrc}}" alt="Journeycover" />
+          <ion-button class="trash" icon-only (click)="deleteImage(image)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+          <div class="frameRight"></div>
+        </div>
+        </div>
+        <div *ngIf="data.newJourney.thumbnailSrc == ''" class="grid-item" (click)="selectThumbnail()">
+          <ion-icon name="ios-add" class="addPlace">
+          </ion-icon>
+        </div>
+    </ion-item>
   
     <ion-col no-padding>
       <ion-label><b class="importantThings">Give your journey a name</b><b class="importantStars">*</b></ion-label>

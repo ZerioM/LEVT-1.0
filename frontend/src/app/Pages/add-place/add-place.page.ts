@@ -11,6 +11,10 @@ import { Post } from 'src/app/Interfaces/Post';
 import { ChangeDetectorRef } from '@angular/core';
 import { Image } from 'src/app/Interfaces/Image';
 
+import { Capacitor, Plugins, CameraResultType, FilesystemDirectory, CameraSource } from '@capacitor/core';
+import { ImageService } from 'src/app/services/image.service';
+
+
 
 
 
@@ -23,12 +27,11 @@ export class AddPlacePage implements OnInit {
 
   public placeValidated: boolean = false;
   public placeSuggestions: Place[] = null;
-
-  // public isThumbnail: boolean[][];
+  public image: Image;
 
   public delay = ms => new Promise(res => setTimeout(res, ms));
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
+  constructor(private journeyService: NewJourneyService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
     if(this.data.placeInserted){
 
     } else {
@@ -44,18 +47,55 @@ export class AddPlacePage implements OnInit {
   ngOnInit() {
   }
 
-  // setThumbnail(image: Image, index: number, jndex: number){
-  //   this.data.newPlace._thumbnailID = image.imageID;
-  //   this.data.newPlace.thumbnailSrc = image.imgSrc;
+  async selectThumbnail(){
 
-  //   this.isThumbnail.forEach(thumbnails => {
-  //     thumbnails.forEach(thumbnail => {
-  //       thumbnail = false;
-  //     });
-  //   });
+    const webPath = await this.getPhoto(CameraSource.Prompt);
 
-  //   this.isThumbnail[jndex][index] = true;
-  // }
+    this.data.presentLoading();
+
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    if(this.image.imageID != null){
+      this.data.newPlace._thumbnailID = this.image.imageID;
+      this.data.newPlace.thumbnailSrc = this.image.imgSrc;
+    } else {
+      this.data.presentNotSavedToast();
+    }
+
+    this.data.dismissLoading();
+    
+    
+
+  }
+
+  private async getPhoto(source: CameraSource) {
+    const image = await Plugins.Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source,
+      //height, width, allowEditing
+    });
+
+    return image.webPath;
+    
+  }
+
+  private async deleteImage(image:Image){
+
+    let isDeleted: boolean;
+
+    this.data.presentLoading();
+    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    this.data.dismissLoading();
+
+    if(isDeleted){
+      this.data.newPlace._thumbnailID = null;
+      this.data.newPlace.thumbnailSrc = null;
+    } else {
+      this.data.presentNotSavedToast();
+    }
+    
+  }
 
   goBackToJourney(){
 

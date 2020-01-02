@@ -11,18 +11,19 @@
 <hr>
 <!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
-    <!-- THUMBNAILS... funktionieren aber noch nicht
+    <!-- THUMBNAILS... funktionieren aber noch nicht -->
       
-      <ion-item no-padding lines="none">
-      <div id="alreadyAddedPlaces" class="gridContainer">
-        <div class="grid-item" *ngFor="let po of data.newPlace.posts; let jn of index">
-          <div class="grid-item" *ngFor="let i of po.images; let in of index" (click)="setThumbnail(i,in,jn)">
-            <img class="pictureGrid" alt="" src="{{i.imgSrc}}"/>
-            <ion-label *ngIf="isThumbnail[jn][in]">Thumb</ion-label>
-          </div>
+    <ion-item no-padding lines="none">
+      <div *ngIf="data.newPlace.thumbnailSrc != ''" id="placeThumbnails" class="gridContainer">
+          <img class="pictureGrid" alt="" src="{{data.newPlace.thumbnailSrc}}" >
+          <ion-button class="trash" icon-only (click)="deleteImage(image)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
         </div>
-      </div>
-    </ion-item> -->
+        <div *ngIf="data.newPlace.thumbnailSrc == ''" class="grid-item" (click)="selectThumbnail()">
+          <ion-icon name="ios-add" class="addPlace"></ion-icon>
+        </div>
+    </ion-item>
     <!--<ion-item no-padding lines="none">
       <ion-label no-margin><b>General</b></ion-label>
     </ion-item>-->
