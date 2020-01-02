@@ -12,6 +12,10 @@ import { Place } from 'src/app/Interfaces/Place';
 
 import { AlertController } from '@ionic/angular';
 
+import { Capacitor, Plugins, CameraResultType, FilesystemDirectory, CameraSource } from '@capacitor/core';
+import { ImageService } from 'src/app/services/image.service';
+import { Image } from 'src/app/Interfaces/Image';
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -23,15 +27,17 @@ export class Tab2Page {
   public showC: Boolean = true;
   public divideC: Boolean = false;
 
- 
-  
+  public image: Image;
+
+  public costs = [null, null, null, null, null];
+  public transports = [false, false, false, false, false, false, false, false, false];
 
   test: any;
 
 
 
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController) {
+  constructor(private journeyService: NewJourneyService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController) {
 
     this.loadJSON();
 
@@ -47,6 +53,56 @@ export class Tab2Page {
     this.data.loadTransports();
     this.data.loadActivities();
     this.data.loadSeasons();
+  }
+
+  async selectThumbnail(){
+
+    const webPath = await this.getPhoto(CameraSource.Prompt);
+
+    this.data.presentLoading();
+
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    if(this.image.imageID != null){
+      this.data.newJourney._thumbnailID = this.image.imageID;
+      this.data.newJourney.thumbnailSrc = this.image.imgSrc;
+    } else {
+      this.data.presentNotSavedToast();
+    }
+
+    this.data.dismissLoading();
+    
+    
+
+  }
+
+  private async getPhoto(source: CameraSource) {
+    const image = await Plugins.Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source,
+      //height, width, allowEditing
+    });
+
+    return image.webPath;
+    
+  }
+
+  private async deleteImage(image:Image){
+
+    let isDeleted: boolean;
+
+    this.data.presentLoading();
+    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    this.data.dismissLoading();
+
+    if(isDeleted){
+      this.data.newJourney._thumbnailID = null;
+      this.data.newJourney.thumbnailSrc = null;
+    } else {
+      this.data.presentNotSavedToast();
+    }
+    
   }
 
   //Naviagation 
@@ -69,6 +125,7 @@ export class Tab2Page {
     await this.data.presentLoading();
     await this.journeyService.saveJourney(this.data.newJourney, this.data.url);
     await this.data.dismissLoading();
+
     if (this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()) {
       this.placeService.newPlace(this.data.newJourney);
       this.router.navigateByUrl('/tabs/tab2/add-place');

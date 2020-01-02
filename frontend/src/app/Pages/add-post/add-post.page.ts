@@ -82,9 +82,6 @@ export class AddPostPage implements OnInit {
       //height, width, allowEditing
     });
 
-    // this.photo = this.domSanitizer.sanitize(SecurityContext.RESOURCE_URL,this.domSanitizer.bypassSecurityTrustResourceUrl(image && (image.webPath)));
-    // this.photos.push(this.photo);
-
     return image.webPath;
     
   }

@@ -12,30 +12,37 @@
 <!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content class="tabsContent">
 
-  <div class="pictureFrame">
-    <div class="frameLeft"></div>
-    <div id="journeythumbnail">
-      <img class="journeythumbnail" src="/assets/images/01.jpg" alt="Journeycover" />
-    </div>
-    <div class="frameRight"></div>
-  </div>
-
-  <!--<ion-item no-padding no-margin lines="none" color="none">-->
+  
+    
+    <ion-item no-padding lines="none">
+      <div *ngIf="data.newJourney.thumbnailSrc != ''" id="placeThumbnails" class="gridContainer">
+        <div class="pictureFrame">
+        <div class="frameLeft"></div>
+          <img class="journeythumbnail" alt="" src="{{data.newJourney.thumbnailSrc}}" alt="Journeycover" />
+          <ion-button class="trash" icon-only (click)="deleteImage(image)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+          <div class="frameRight"></div>
+        </div>
+        </div>
+        <div *ngIf="data.newJourney.thumbnailSrc == ''" class="grid-item" (click)="selectThumbnail()">
+          <ion-icon name="ios-add" class="addPlace">
+          </ion-icon>
+        </div>
+    </ion-item>
+  
     <ion-col no-padding>
       <ion-label><b class="importantThings">Give your journey a name</b><b class="importantStars">*</b></ion-label>
     <ion-input id="journeyName" [(ngModel)]="data.newJourney.journeyName" type="text" placeholder="Unnamed Journey"
-       no-margin maxlength="20"></ion-input>
-    </ion-col>
-  <!--</ion-item>-->
+       no-margin maxlength="20"></ion-input> 
+    </ion-col> 
 
   <ion-col no-padding>
   <ion-label><b>How many days did you spend?</b><b class="importantStars">*</b></ion-label>
-  <!--<ion-item no-padding no-margin lines="none">-->
     <ion-input id="journeyDuration" [(ngModel)]="data.newJourney.duration" placeholder="Amount of days "
       inputmode="decimal" type="number" no-margin>
     </ion-input>
   </ion-col>
- <!-- </ion-item>-->
   
   <ion-label><b>When did you go there?</b><b class="importantStars">*</b></ion-label>
   <ion-item class="seasonYear" lines="none" no-padding no-margin>
@@ -52,7 +59,7 @@
 <ion-item no-padding lines="none" no-margin>
     <div id="journeyYear" lines="none">
     <ion-datetime [(ngModel)]="data.newJourney.year" value="2019" placeholder="Year" displayFormat="YYYY"
-      id="journeyYear" no-padding ></ion-datetime>
+       no-padding ></ion-datetime>
     </div>
   </ion-item>
 
@@ -123,14 +130,9 @@
               type="number" placeholder="0"></ion-input>
             <ion-label>€</ion-label>
           </ion-item>
-    
         </div>
-    
       </div>
   
-  <!--ion-item no-padding lines="none"> 
-      <ion-label><b>Visited places</b></ion-label>
-    </ion-item>-->
   <ion-item lines="none" no-padding>
     <ion-label position="floating"><b>Visited places</b></ion-label><br>
     <!--<ion-label color="warning" id="NoPlace"> You haven't added any places to your journey!</ion-label>-->

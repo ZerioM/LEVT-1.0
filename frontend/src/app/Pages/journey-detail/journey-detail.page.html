@@ -1,7 +1,4 @@
 <ion-header class="tabHeader">
-  <!--<ion-buttons slot="start">
-        <ion-back-button icon="arrow-back"></ion-back-button>
-      </ion-buttons>-->
   <ion-buttons>
     <ion-button icon-only (click)="backToHomepage()">
       <ion-icon class="back" name="ios-arrow-back"></ion-icon>
@@ -14,7 +11,7 @@
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
 
-  <ion-list lines="none">
+  <ion-list lines="none" no-padding>
     <div class="pictureFrame">
       <div class="frameLeft"></div>
       <div class="imgAndInfo">
@@ -39,13 +36,17 @@
   </ion-list>
   <ion-list>
   
-  <ion-button *ngIf="data.edit" (click)="editJourney()"><ion-icon name="ios-create"></ion-icon>Edit Journey</ion-button>
-    <!-- <ion-item><ion-label>Journey Name: {{data.currentJourney.journeyName}}</ion-label></ion-item>
-    <ion-item><ion-label>Season Name: {{data.currentJourney.seasonName}}</ion-label></ion-item>
-    <ion-item><ion-label>Year: {{data.currentJourney.year}}</ion-label></ion-item>-->
-    <!--<ion-item lines="none">
-      <ion-label><b>JourneyID:</b> {{data.currentJourney.journeyID}}</ion-label>
-    </ion-item>-->
+  <ion-button no-margin style="--border-radius: 0;" *ngIf="data.edit" (click)="editJourney()"><ion-icon name="ios-create"></ion-icon>Edit Journey</ion-button>
+
+  <div id="kostenVisualisierung">
+    <!--<form>
+      <label><input type="radio" name="dataset" id="dataset1" value="option1"> Perrache</label>
+      </form>-->
+      
+      <script src="https://d3js.org/d3.v4.min.js"></script>
+      <script src="script.js"></script>
+  </div>
+
     <ion-item lines="none">
         <ion-label><b>Duration</b><br> {{data.currentJourney.duration}}  days </ion-label>
       </ion-item>
@@ -101,22 +102,22 @@
         </ion-button>
       </ion-buttons>
       <ion-title class="tabHeading" no-padding>Login</ion-title>
-    <ion-card>
+    <ion-list>
       <ion-col no-padding>
-        <ion-label><b class="importantThings">Username:</b></ion-label>
-      <ion-input id="journeyName" type="text" placeholder="username"
+        <ion-label><b class="importantThings">Username</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="username"
          no-margin maxlength="20"></ion-input>
       </ion-col>
     
       <ion-col no-padding>
-        <ion-label><b class="importantThings">Password:</b></ion-label>
-      <ion-input id="journeyName" type="text" placeholder="password"
+        <ion-label><b class="importantThings">Password</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="password"
          no-margin maxlength="20"></ion-input>
       </ion-col>
     
       <ion-button expand="full">Login</ion-button>
     
-    </ion-card>
+    </ion-list>
     
     <ion-button expand="full">Register</ion-button>
   </div>
@@ -130,43 +131,44 @@
         </ion-button>
       </ion-buttons>
       <ion-title class="tabHeading" no-padding>Register</ion-title>
-    <ion-card>
+
+    <ion-list>
       <ion-col no-padding>
-        <ion-label><b class="importantThings">Username:</b><b class="importantStars">*</b></ion-label>
-      <ion-input id="journeyName" type="text" placeholder="username" 
+        <ion-label><b class="importantThings">Username</b><b class="importantStars">*</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="username" 
          no-margin maxlength="20"></ion-input>
       </ion-col>
     
       <ion-col no-padding>
-        <ion-label><b class="importantThings">Password:</b><b class="importantStars">*</b></ion-label>
-      <ion-input id="journeyName" type="text" placeholder="password"
+        <ion-label><b class="importantThings">Password</b><b class="importantStars">*</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="password"
          no-margin maxlength="20"></ion-input>
       </ion-col>
 
       <ion-col no-padding>
-        <ion-label><b class="importantThings">Repeat Password:</b><b class="importantStars">*</b></ion-label>
-      <ion-input id="journeyName" type="text" placeholder="repeat password"
+        <ion-label><b class="importantThings">Repeat Password</b><b class="importantStars">*</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="repeat password"
          no-margin maxlength="20"></ion-input>
       </ion-col>
 
       <ion-col no-padding>
-        <ion-label><b class="importantThings">E-Mail:</b><b class="importantStars">*</b></ion-label>
-      <ion-input type="e-mail" id="journeyName" type="text" placeholder="e-mail"
+        <ion-label><b class="importantThings">E-Mail</b><b class="importantStars">*</b></ion-label>
+      <ion-input type="e-mail" class="inputField" type="text" placeholder="e-mail"
          no-margin maxlength="20"></ion-input>
       </ion-col>
 
       <ion-col no-padding>
-        <ion-label><b class="importantThings">Country of Residence:</b><b class="importantStars">*</b></ion-label>
-      <ion-input type="e-mail" id="journeyName" placeholder="country of residence" 
+        <ion-label><b class="importantThings">Country of Residence</b><b class="importantStars">*</b></ion-label>
+      <ion-input type="e-mail" class="inputField" placeholder="country of residence" 
          no-margin maxlength="20"></ion-input>
       </ion-col>
     
       <div id="journeyYear" lines="none">
-        <ion-label><b class="importantThings">Birthday:</b><b class="importantStars">*</b></ion-label>
+        <ion-label><b class="importantThings">Birthday</b><b class="importantStars">*</b></ion-label>
         <ion-datetime [(ngModel)]="data.newJourney.year"displayFormat="MMM DD YYYY"
           id="journeyYear" no-padding ></ion-datetime>
         </div>
-    </ion-card>
+  </ion-list>
     
     <ion-button expand="full">Register</ion-button>
     <ion-label class="importantThings">

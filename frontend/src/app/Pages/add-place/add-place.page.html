@@ -1,51 +1,72 @@
 <ion-header class="tabHeader">
   <ion-buttons>
-      <ion-button icon-only (click)="goBackToJourney()">
-        <ion-icon class="back" name="ios-arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-button icon-only (click)="goBackToJourney()">
+      <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+    </ion-button>
+  </ion-buttons>
   <ion-title *ngIf="data.fromNewJourney" class="tabHeading" no-padding>Add A Place</ion-title>
-  <ion-title *ngIf="data.fromEditJourney"class="tabHeading" no-padding>Edit A Place</ion-title>
+  <ion-title *ngIf="data.fromEditJourney" class="tabHeading" no-padding>Edit A Place</ion-title>
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
-<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
+<hr>
+<!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
-    
-    <ion-label><b>Visited Place</b><b class="importantStars">   (mandatory)</b></ion-label>
-    <ion-item no-padding no-margin>
-      <ion-input [(ngModel)]="data.newPlace.placeName" placeholder="Unnamed Place" background="light" 
-      (ngModelChange)="keyUpPlaceName($event)" (focusout)="focusOutPlaceName()" ><ion-icon *ngIf="placeValidated" name="md-checkmark"></ion-icon>
-    </ion-input>
-    </ion-item>
-    <ion-item *ngFor="let p of this.placeSuggestions">
-        <ion-button (click)="setAutocompletion(p.placeName)">
-          {{p.placeName}}
-        </ion-button>
-    </ion-item>
-
-    <ion-item no-padding>
-        <ion-textarea placeholder="Tell us what you experienced here!" [(ngModel)]="data.newPlace.detail" rows="8" background="light" no-padding>
-        <ion-label no-margin><b>Place Details</b></ion-label><br ></ion-textarea>
-      </ion-item>
-    
-    <ion-item lines="none" no-padding>
-      <ion-label position="floating"><b>Posts</b></ion-label><br>
-     <br><p *ngIf="showNoPostWarning()" id="NoPlace" no-margin> Click the plus to add a new post!</p>
-    </ion-item>
+    <!-- THUMBNAILS... funktionieren aber noch nicht -->
+      
     <ion-item no-padding lines="none">
-      <div id="alreadyAddedPlaces" class="gridContainer">
-        <div class="grid-item" *ngFor="let po of data.newPlace.posts; let in of index" (click)="goToEditPost(po,in)"> <!--muss noch auf posts geändert werden-->
-          <img class="pictureGrid" *ngIf="po.images[0] != null" alt="" src="{{po.images[0].imgSrc}}"/>
-          <img class="pictureGrid" *ngIf="po.images[0] == null" alt="" src="/assets/images/platzhalter_activity.png"/>
-          <ion-icon id="visitedPlaceName" class="visitedPlaceName" name="{{po.iconName}}"></ion-icon>
+      <div *ngIf="data.newPlace.thumbnailSrc != ''" id="placeThumbnails" class="gridContainer">
+          <img class="pictureGrid" alt="" src="{{data.newPlace.thumbnailSrc}}" >
+          <ion-button class="trash" icon-only (click)="deleteImage(image)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
         </div>
-        <div class="grid-item" (click)="goToAddNewPost()">
+        <div *ngIf="data.newPlace.thumbnailSrc == ''" class="grid-item" (click)="selectThumbnail()">
           <ion-icon name="ios-add" class="addPlace"></ion-icon>
         </div>
-      </div>
     </ion-item>
-
-    <ion-button (click)="savePlace()" color="primary" expand="full">
-      Finish
+    <!--<ion-item no-padding lines="none">
+      <ion-label no-margin><b>General</b></ion-label>
+    </ion-item>-->
+  <ion-label><b>Visited Place</b><b class="importantStars"> (mandatory)</b></ion-label>
+  <ion-item no-padding no-margin>
+    <ion-input [(ngModel)]="data.newPlace.placeName" placeholder="Unnamed Place" background="light"
+      (ngModelChange)="keyUpPlaceName($event)" (focusout)="focusOutPlaceName()">
+      <ion-icon *ngIf="placeValidated" name="md-checkmark" style="color:#415f4b; margin-right: 2px;"></ion-icon>
+    </ion-input>
+  </ion-item>
+  <ion-item *ngFor="let p of this.placeSuggestions" lines="none">
+    <ion-button (click)="setAutocompletion(p.placeName)">
+      {{p.placeName}}
     </ion-button>
+  </ion-item>
+
+  <ion-item no-padding>
+    <ion-textarea placeholder="Tell us what you experienced here!" [(ngModel)]="data.newPlace.detail" rows="8"
+      background="light" no-padding>
+      <ion-label no-margin><b>Place Details</b></ion-label><br>
+    </ion-textarea>
+  </ion-item>
+
+  <ion-item lines="none" no-padding>
+    <ion-label position="floating"><b>Posts</b></ion-label><br>
+    <br>
+    <p *ngIf="showNoPostWarning()" id="NoPlace" no-margin> Click the plus to add a new post!</p>
+  </ion-item>
+  <ion-item no-padding lines="none">
+    <div id="alreadyAddedPlaces" class="gridContainer">
+      <div class="grid-item" *ngFor="let po of data.newPlace.posts; let in of index" (click)="goToEditPost(po,in)">
+        <!--muss noch auf posts geändert werden-->
+        <img class="pictureGrid" *ngIf="po.images[0] != null" alt="" src="{{po.images[0].imgSrc}}" />
+        <img class="pictureGrid" *ngIf="po.images[0] == null" alt="" src="/assets/images/platzhalter_activity.png" />
+        <ion-icon id="visitedPlaceName" class="visitedPlaceName" name="{{po.iconName}}"></ion-icon>
+      </div>
+      <div class="grid-item" (click)="goToAddNewPost()">
+        <ion-icon name="ios-add" class="addPlace"></ion-icon>
+      </div>
+    </div>
+  </ion-item>
+
+  <ion-button (click)="savePlace()" color="primary" expand="full">
+    Finish
+  </ion-button>
 </ion-content>

@@ -21,7 +21,12 @@ export class ImageService {
  async uploadImage(imageString:string, post: Post, url: string){
    let image:Image;
   
-   image={imageID:null,_postID:post.postID,imgSrc:null,date:null,coordinateX:null, coordinateY:null}
+   if(post != null){
+    image={imageID:null,_postID:post.postID,imgSrc:null,date:null,coordinateX:null, coordinateY:null};
+   } else {
+    image={imageID:null,_postID:null,imgSrc:null,date:null,coordinateX:null, coordinateY:null};
+   }
+          
 
 
     const blob = await fetch(imageString).then(r => r.blob());
