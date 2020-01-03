@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Controllers\Controller;
 
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
+
 use App\Models\Journey as Journey;
 use App\Models\User as User;
 
@@ -15,6 +18,26 @@ class _JourneyController extends BaseController
 {
     public function selectByUserID($userID){
         return DB::table('journeys')->where('_userID', $userID);
+    }
+
+    public function selectJourneyByCountryIDOfPlace($countryID){
+        $placeController = new _PlaceController;
+
+        $placesInThatCountry = json_decode(json_encode($placeController->selectByCountryID($countryID)),true);
+
+        $journeyIDs = array();
+
+        $journeysArray = array();
+        foreach($placesInThatCountry as $place){
+            $journeyIDofPlace = $place['_journeyID'];
+            
+            if(!in_array($journeyIDofPlace,$journeyIDs)){
+                array_push($journeyIDs,$journeyIDofPlace);
+                $journeyArray = json_decode($this->selectOne($journeyIDofPlace),true);
+                array_push($journeysArray,$journeyArray);
+            }
+        }
+        return '{"journeys": '.json_encode($journeysArray,JSON_PRETTY_PRINT)." \n}";
     }
 
 
@@ -430,6 +453,10 @@ class _JourneyController extends BaseController
     public function selectAllJourneysPerUser(Request $request){
         $requestArray = $request->all();
         $userID = $requestArray['userID'];
+        return $this->selectAllJourneysPerUserID($userID);
+    }
+
+    public function selectAllJourneysPerUserID($userID){
         $userJourneys = json_decode(json_encode($this->selectByUserID($userID)->get()),true);
         $journeysArray = array();
         foreach($userJourneys as $userJourney){
@@ -437,6 +464,67 @@ class _JourneyController extends BaseController
             $journeyArray = json_decode($this->selectOne($journeyID), true);
             array_push($journeysArray,$journeyArray);
         }
-        return '{"journeys": '.json_encode($journeysArray)." \n}";
+        return '{"journeys": '.json_encode($journeysArray,JSON_PRETTY_PRINT)." \n}";
     }
+
+    public function selectFilteredJourneys(Request $request){
+        $countryController = new _CountryController;
+        $userController = new _UserController;
+        $placeController = new _PlaceController;
+
+        $requestArray = $request->all();
+        $searchEntry = $requestArray['searchEntry'];
+
+        //if SearchEntry is a Country:
+        $countryID = $countryController->selectIDPerName($searchEntry);
+        if($countryID != null){
+            return $this->selectJourneyByCountryIDOfPlace($countryID);
+        }
+
+        //if SearchEntry is a User:
+        $userID = $userController->selectIDPerUsername($searchEntry);
+        if($userID != null){
+            return $this->selectAllJourneysPerUserID($userID);
+        }
+
+        //else: if SearchEntry is a Place:
+            $client = new Client();
+
+            $link = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input="
+            .$searchEntry
+            ."&inputtype=textquery&fields=formatted_address,name,geometry,place_id&language=en&key="
+            .env('API_KEY');
+
+
+            $placeRes = $client->get($link);
+            $placeResult = json_decode($placeRes->getBody(),true);
+            if ($placeResult['candidates']!=null){
+                $latNE = $placeResult['candidates'][0]['geometry']['viewport']['northeast']['lat'];
+                $lngNE = $placeResult['candidates'][0]['geometry']['viewport']['northeast']['lng'];
+                $latSW = $placeResult['candidates'][0]['geometry']['viewport']['southwest']['lat'];
+                $lngSW = $placeResult['candidates'][0]['geometry']['viewport']['southwest']['lng'];
+
+                $placesBetweenCoordinates = json_decode(json_encode($placeController->selectBetweenCoordinates($latSW,$lngSW,$latNE,$lngNE)),true);
+
+                $journeyIDs = array();
+
+                $journeysArray = array();
+                
+                foreach($placesBetweenCoordinates as $place){
+                    $journeyIDofPlace = $place['_journeyID'];
+            
+                    if(!in_array($journeyIDofPlace,$journeyIDs)){
+                        array_push($journeyIDs,$journeyIDofPlace);
+                        $journeyArray = json_decode($this->selectOne($journeyIDofPlace),true);
+                        array_push($journeysArray,$journeyArray);
+                    }
+                }
+
+                return '{"journeys": '.json_encode($journeysArray,JSON_PRETTY_PRINT)." \n}";
+            }
+
+        return null;
+
+    }
+
 }
