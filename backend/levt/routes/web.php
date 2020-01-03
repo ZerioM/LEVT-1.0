@@ -73,6 +73,8 @@ $router->post('/userJourneys','ReadController@journeysPerUser');
 
 $router->post('/filteredPosts','ReadController@journeysPerSearch');
 
+$router->post('/postsBetweenCoordinates','ReadController@postsPerCoordinates');
+
 
 //UPDATE
 

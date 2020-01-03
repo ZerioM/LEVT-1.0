@@ -108,4 +108,14 @@ class ReadController extends BaseController
         return $jc->selectFilteredJourneys($request);
     }
 
+    public function postsPerCoordinates(Request $request){
+        $pc = new _PlaceController;
+        $requestArray = $request->all();
+        $leftX = $requestArray['leftX'];
+        $leftY = $requestArray['leftY'];
+        $rightX = $requestArray['rightX'];
+        $rightY = $requestArray['rightY'];
+        return $pc->selectBetweenCoordinates($leftX,$leftY,$rightX,$rightY);
+    }
+
 }
