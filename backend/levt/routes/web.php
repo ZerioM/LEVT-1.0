@@ -71,6 +71,8 @@ $router->post('/autocompletePlace','ReadController@autocompleteOnePlace');
 
 $router->post('/userJourneys','ReadController@journeysPerUser');
 
+$router->post('/filteredPosts','ReadController@journeysPerSearch');
+
 
 //UPDATE
 

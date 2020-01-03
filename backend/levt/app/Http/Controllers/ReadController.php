@@ -103,4 +103,9 @@ class ReadController extends BaseController
         return $jc->selectAllJourneysPerUser($request);
     }
 
+    public function journeysPerSearch(Request $request){
+        $jc = new _JourneyController;
+        return $jc->selectFilteredJourneys($request);
+    }
+
 }

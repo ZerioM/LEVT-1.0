@@ -29,14 +29,19 @@ class CreateController extends BaseController
         return $bookmarkController->insertOne($request);
     }
 
-    public function insertUser(Request $request) {
-        $userController = new _UserController;
-        return $userController->insertOne($request);
-    }
+    // public function insertUser(Request $request) {
+    //     $userController = new _UserController;
+    //     return $userController->insertOne($request);
+    // }
 
     public function uploadImage(Request $request) {
         $imageController = new _ImageController;
         return $imageController->uploadOne($request);
+    }
+
+    public function register(Request $request) {
+        $userController = new _UserController;
+        return $userController->registerOne($request);
     }
 
     /*

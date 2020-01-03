@@ -15,6 +15,23 @@ use App\Models\Place as Place;
 class _PlaceController extends BaseController
 {
 
+    public function selectByCountryID($countryID){
+        return DB::table('places')->where('_countryID',$countryID)->get();
+    }
+
+    public function selectBetweenCoordinates($leftX,$leftY,$rightX,$rightY){
+        if($leftX > $rightX){
+            //OR:
+            return DB::table('places')->whereBetween('coordinateX',[$leftY,$rightY])
+                                        ->whereNotBetween('coordinateY',[$leftX,$rightX])
+                                        ->get();
+        }
+        //AND:
+        return DB::table('places')->whereBetween('coordinateX',[$leftX,$rightX])
+                                    ->whereBetween('coordinateY',[$leftY,$rightY])
+                                    ->get();
+    }
+
     public function insertOne(Request $request){
         $countryController = new _CountryController;
         $imageController = new _ImageController;
