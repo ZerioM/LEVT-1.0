@@ -104,5 +104,66 @@ export class NewJourneyService {
     
     
   }
+
+
+  async loadJourneyWithChildren(newJourney: Journey, journeyID:number, url:string){
+
+    let postData={
+
+      "journeyID": journeyID
+    }
+
+    let journey:Journey
+    
+    await this.http.post(url+"/oneJourneyWithChildren", postData).toPromise().then((loadedData: Journey) => {
+      console.log(loadedData);
+      console.log("Post funktioniert");
+
+      console.log("Loadet Data Journey with children --> leisureCosts");
+      console.log(loadedData.leisureCosts);
+      console.log("Loadet Data Journey with children --> Season ID:")
+      console.log(loadedData._seasonID);
+
+      newJourney.journeyID = loadedData.journeyID;
+      newJourney.journeyName=loadedData.journeyName;
+      newJourney.year=loadedData.year;
+      newJourney.username=loadedData.username;
+      newJourney.userImgSrc=loadedData.userImgSrc;
+      newJourney._userID=loadedData._userID;
+      newJourney.thumbnailSrc=loadedData.thumbnailSrc;
+      newJourney._companionshipID=loadedData._companionshipID;
+      newJourney.companionshipType=loadedData.companionshipType;
+      newJourney.seasonName=loadedData.seasonName;
+      newJourney._seasonID=loadedData._seasonID;
+      console.log("new Journey Season ID");
+      console.log(newJourney._seasonID);
+      newJourney.detail=loadedData.detail;
+      newJourney.journeyCategoryName=loadedData.journeyCategoryName;
+      newJourney._journeyCategoryID=loadedData._journeyCategoryID;
+      newJourney.accommodationCosts=loadedData.accommodationCosts;
+      newJourney.leisureCosts=loadedData.leisureCosts;
+      newJourney.totalCosts=loadedData.totalCosts;
+      newJourney.transportationCosts=loadedData.transportationCosts;
+      newJourney.otherCosts=loadedData.otherCosts;
+      newJourney.plane=loadedData.plane;
+      newJourney.ship=loadedData.ship;
+      newJourney.train=loadedData.train;
+      newJourney.motorbike=loadedData.motorbike;
+      newJourney.bicycle=loadedData.bicycle;
+      newJourney.bus=loadedData.bus;
+      newJourney.car=loadedData.car;
+      newJourney.hiking=loadedData.hiking;
+      newJourney.campingtrailer=loadedData.campingtrailer;
+      newJourney.duration=loadedData.duration;
+
+      
+
+      console.log ("leisure Costs nach zuweisung von loadetData:");
+      console.log (newJourney.leisureCosts);
+
+    }, error => {
+      console.log(error);
+    });
+  }
 }
 

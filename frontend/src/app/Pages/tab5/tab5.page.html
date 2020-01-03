@@ -1,7 +1,7 @@
 <ion-header class="tabHeader">
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
   <ion-title *ngIf="data.userLoggedIn" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
-  <ion-title *ngIf="data.userLoggedIn" class="tabHeading" no-padding>Username</ion-title>
+  <ion-title *ngIf="data.userLoggedIn == false" class="tabHeading" no-padding>Username</ion-title>
   <ion-buttons slot="end" no-padding>
     <ion-button icon-only no-padding>
       <ion-icon class="setup" name="md-apps" size="large"></ion-icon>

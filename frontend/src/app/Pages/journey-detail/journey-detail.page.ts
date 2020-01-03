@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Journey } from 'src/app/Interfaces/Journey';
+import { NewJourneyService } from 'src/app/services/new-journey.service';
 import * as d3 from 'd3';
 //import {Geolocation}from '@ionic-native/geolocation/ngx';
 //import {d3} from 'https://d3js.org/d3.v4.min.js';
@@ -21,7 +22,7 @@ export class JourneyDetailPage implements OnInit {
 
   public focusIsOut: boolean = false;
 
-  constructor(private data: DataService, private navCtrl:NavController, private router: Router) {
+  constructor(private data: DataService, private navCtrl:NavController, private router: Router, private journeyService:NewJourneyService) {
     //Bookmarked checken und Symbol richtig setzen
     
    }
@@ -105,17 +106,7 @@ export class JourneyDetailPage implements OnInit {
     this.data.fromEditJourney=true;
     this.data.fromNewJourney=false;
 
-    this.data.newJourney = this.data.currentJourney;
-
-    // this.data.newJourney.journeyID = this.data.currentJourney.journeyID;
-    // this.data.newJourney._userID = this.data.currentJourney._userID;
-    // this.data.newJourney._thumbnailID = this.data.currentJourney._thumbnailID;
-    // this.data.newJourney._seasonID = this.data.currentJourney._seasonID;
-    // this.data.newJourney._journeyCategoryID = this.data.currentJourney._journeyCategoryID;
-    // this.data.newJourney._companionshipID = this.data.currentJourney._companionshipID;
-    // this.data.newJourney.journeyName = this.data.currentJourney.journeyName;
-    // this.data.newJourney.year = this.data.currentJourney.year;
-    // this.data.newJourney.duration = this.data.currentJourney.duration;
+    await this.data.loadJourneyWithChildren(this.data.newJourney,this.data.currentJourney.journeyID);
 
     console.log("New Journey bei Edit");
     console.log(this.data.newJourney)
