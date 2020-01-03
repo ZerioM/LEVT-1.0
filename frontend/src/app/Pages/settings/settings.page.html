@@ -11,5 +11,114 @@
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
 <ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-button>My Bookmarks</ion-button>
+    </ion-item>
+    <ion-item *ngIf="data.userLoggedIn==false">
+      <ion-button (click)="showLogin()"  >Login</ion-button>
+    </ion-item>
+    <ion-item *ngIf="data.userLoggedIn">
+      <ion-button (click)="showLogoutAlert()">Logout</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button>About Gamfication</ion-button>
+    </ion-item>
+  </ion-list>
+
+
+   <!-- login und Register -->
+
+   <div class="loginBg" *ngIf="data.userLoggedIn==false && data.wantsToLogin==true && data.wantsToRegister==false">
+    <div class="login">
+      <ion-buttons>
+        <ion-button icon-only (click)="cancleWantsToLogin()">
+          <ion-icon class="cancel" name="ios-close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="tabHeading" no-padding>Login</ion-title>
+    <ion-list>
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Username</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="username"
+         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.username"></ion-input>
+      </ion-col>
+    
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Password</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="password"
+         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+      </ion-col>
+    
+      <ion-button expand="full" (click)="data.login()">Login</ion-button>
+    
+    </ion-list>
+    
+    <ion-button expand="full" (click)="data.goToRegistration()">Register</ion-button>
+  </div>
+  </div>
+
+  <div class="registerBg" *ngIf="data.wantsToRegister">
+    <div class="register">
+      <ion-buttons>
+        <ion-button icon-only (click)="cancleWantsToRegister()">
+          <ion-icon class="cancel" name="ios-close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="tabHeading" no-padding>Register</ion-title>
+
+    <ion-list>
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Username</b><b class="importantStars">*</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="username" 
+         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.username"></ion-input>
+      </ion-col>
+    
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Password</b><b class="importantStars">*</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="password"
+         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Repeat Password</b><b class="importantStars">*</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="repeat password"
+         no-margin maxlength="20" [(ngModel)]="data.secondPw" (focusout)="data.checkPassword()"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding *ngIf="data.passwordIsTheSame == false">
+        <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b></ion-label>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">E-Mail</b><b class="importantStars">*</b></ion-label>
+      <ion-input type="e-mail" class="inputField" type="text" placeholder="e-mail"
+         no-margin maxlength="50" [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="data.checkEmail()"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding *ngIf="data.emailFormatIsCorrect == false">
+        <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Country of Residence</b><b class="importantStars">*</b></ion-label>
+      <ion-input type="e-mail" class="inputField" placeholder="country of residence" 
+         no-margin maxlength="20" [(ngModel)]="data.loggedInUser._countryOfResidenceID"></ion-input>
+      </ion-col>
+    
+      <div id="journeyYear" lines="none">
+        <ion-label><b class="importantThings">Birthday</b><b class="importantStars">*</b></ion-label>
+        <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
+          id="journeyYear" no-padding ></ion-datetime>
+      </div>
+  </ion-list>
+    
+    <ion-button expand="full" (click)="data.register()">Register</ion-button>
+    <ion-label class="importantThings">
+      * Fields marked with a <b class="importantStars">*</b> are mandatory.
+    </ion-label>
+
+  </div>
+  </div>
 
 </ion-content>
