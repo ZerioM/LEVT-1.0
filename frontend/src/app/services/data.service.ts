@@ -30,6 +30,7 @@ import { ImageService } from './image.service';
 
 import { Md5 } from 'ts-md5/dist/md5';
 import { Validators } from '@angular/forms';
+import { Search } from '../Interfaces/Search';
 
 @Injectable({
   providedIn: 'root'
@@ -114,7 +115,7 @@ export class DataService {
 
   //search
 
-  public searchEntry: string;
+  public search: Search = {searchEntry: ''};
 
   //edit
   public edit: boolean=false;
@@ -542,7 +543,7 @@ export class DataService {
   }
 
   loadFilteredPosts(){
-    this.http.post(this.url+"/filteredPosts",this.searchEntry).toPromise().then( (loadedData: Journeys) => {
+    this.http.post(this.url+"/filteredPosts",this.search).toPromise().then( (loadedData: Journeys) => {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
         console.log(loadedData);
@@ -750,14 +751,14 @@ export class DataService {
   //Search
 
   filterSearch(){
-    if(this.searchEntry == ''){
+    if(this.search.searchEntry == ''){
       this.loadTopPosts();
     } else {
       this.loadFilteredPosts();
     }
 
   }
-  
+
   loadJourneyWithChildren(newJourney: Journey, journeyID:number) {
     this.journeyService.loadJourneyWithChildren(newJourney, journeyID,this.url);
 
