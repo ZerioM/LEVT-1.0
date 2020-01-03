@@ -556,6 +556,8 @@ export class DataService {
         console.log(this.currentJourneys);
 
       }else{
+        this.loadTopPosts();
+        this.presentGeneralToast("We couldn`t find any results for your entered search. Please try again!",5000);
         console.log("null per http geladen");
         }
     }, error => {
