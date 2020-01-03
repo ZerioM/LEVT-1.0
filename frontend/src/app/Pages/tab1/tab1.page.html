@@ -6,11 +6,14 @@
       </ion-button>
     </ion-buttons>
     <img id="header" src="/assets/images/LEVT_Header.svg" alt="" />
-    <ion-searchbar [(ngModel)]="data.search.searchEntry" placeholder="Dream destination" (focusout)="data.filterSearch()"></ion-searchbar>
+    <ion-searchbar *ngIf="showBookmarkedJourneys==false" [(ngModel)]="data.search.searchEntry" placeholder="Dream destination" (focusout)="data.filterSearch()"></ion-searchbar>
   </ion-list>
 </ion-header>
 
 <ion-content color="none">
+  <ion-item>
+  <ion-toggle [(ngModel)]="showBookmarkedJourneys" (ngModelChange)="showMyBookmarks()" color="warning"></ion-toggle> Show bookmarked journeys
+</ion-item>
   <ion-list lines="none">
     <div class="gallery" *ngFor="let j of data.currentJourneys.journeys">
       <div class="pictureFrame">

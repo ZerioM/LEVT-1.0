@@ -12,9 +12,6 @@
 
 <ion-content>
   <ion-list>
-    <ion-item>
-      <ion-button>My Bookmarks</ion-button>
-    </ion-item>
     <ion-item *ngIf="data.userLoggedIn==false">
       <ion-button (click)="showLogin()"  >Login</ion-button>
     </ion-item>
