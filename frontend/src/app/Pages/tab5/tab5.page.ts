@@ -39,4 +39,11 @@ export class Tab5Page implements OnInit {
 
  }
 
+ goToSettings(){
+
+  this.data.settingsFromHome=false;
+
+  this.router.navigateByUrl('/tabs/tab1/settings');
+}
+
 }

@@ -15,6 +15,13 @@ export class Tab1Page {
   constructor(private data: DataService, private navCtrl:NavController, private router: Router) {
 
     this.loadJSON();
+
+    if(this.data.resetTab){
+      this.data.resetTab=false;
+      if(this.data.settingsFromHome==false){
+        this.router.navigateByUrl('/tabs/tab5');
+      }
+    }
   }
 
     //Daten laden
@@ -48,5 +55,12 @@ export class Tab1Page {
     let timeInMilli = 500;
     console.log("Try to animate...");
     content.scrollToTop(timeInMilli);
+  }
+
+  goToSettings(){
+
+    this.data.settingsFromHome=true;
+
+    this.router.navigateByUrl('/tabs/tab1/settings');
   }
 }

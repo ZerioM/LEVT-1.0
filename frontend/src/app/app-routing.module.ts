@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'user-journey-detail', loadChildren: './Pages/user-journey-detail/user-journey-detail.module#UserJourneyDetailPageModule' },
   { path: 'user-place-detail', loadChildren: './Pages/user-place-detail/user-place-detail.module#UserPlaceDetailPageModule' },
   { path: 'user-post-detail', loadChildren: './Pages/user-post-detail/user-post-detail.module#UserPostDetailPageModule' },  { path: 'image', loadChildren: './Pages/image/image.module#ImagePageModule' },
+  { path: 'settings', loadChildren: './Pages/settings/settings.module#SettingsPageModule' },
 
   
 

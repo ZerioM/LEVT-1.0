@@ -40,6 +40,15 @@ const routes: Routes = [
                 loadChildren:()=>
                 import('../Pages/post-detail/post-detail.module').then (m => m.PostDetailPageModule)}
             ]
+          },
+          {
+            path: 'settings',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/settings/settings.module').then (m => m.SettingsPageModule)}
+            ]
           }
         ]
       },

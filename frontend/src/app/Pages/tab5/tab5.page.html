@@ -3,7 +3,7 @@
   <ion-title *ngIf="data.userLoggedIn" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
   <ion-title *ngIf="data.userLoggedIn == false" class="tabHeading" no-padding>Username</ion-title>
   <ion-buttons slot="end" no-padding>
-    <ion-button icon-only no-padding>
+    <ion-button icon-only no-padding (click)="goToSettings()">
       <ion-icon class="setup" name="md-apps" size="large"></ion-icon>
     </ion-button>
   </ion-buttons>

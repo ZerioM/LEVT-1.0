@@ -104,7 +104,7 @@ export class DataService {
   public errorMsg;
 
   //login
-  public userLoggedIn=false;
+  public userLoggedIn=true;
   public wantsToRegister=false;
   public wantsToLogin = false;
 
@@ -116,6 +116,10 @@ export class DataService {
   //search
 
   public search: Search = {searchEntry: ''};
+
+  //settings
+  public settingsFromHome=true;
+  public resetTab=false;
 
   //edit
   public edit: boolean=false;
