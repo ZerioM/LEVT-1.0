@@ -10,6 +10,9 @@ import { Router } from '@angular/router';
 })
 export class Tab1Page {
 
+  public showBookmarkedJourneys=false;
+
+
 //@ViewChild (Content) content: Content;
 
   constructor(private data: DataService, private navCtrl:NavController, private router: Router) {
@@ -62,5 +65,15 @@ export class Tab1Page {
     this.data.settingsFromHome=true;
 
     this.router.navigateByUrl('/tabs/tab1/settings');
+  }
+
+  showMyBookmarks(){
+
+    if(this.showBookmarkedJourneys == true){
+      this.data.loadBookmarkedPosts();
+    } else {
+      this.data.loadTopPosts();
+    }
+    console.log(this.showBookmarkedJourneys);
   }
 }

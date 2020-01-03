@@ -92,7 +92,7 @@ class _BookmarkController extends BaseController
         $journeyController = new _JourneyController;
 
         $requestArray = $request->all();
-        $userID = $requestArray['_userID'];
+        $userID = $requestArray['userID'];
         $bookmarkedJourneys = json_decode(json_encode($this->selectBookmarksPerUserID($userID)->get()),true);
         $journeysArray = array();
         foreach($bookmarkedJourneys as $bookmarkedJourney){
@@ -100,7 +100,9 @@ class _BookmarkController extends BaseController
             $journeyArray = json_decode($journeyController->selectOne($journeyID), true);
             array_push($journeysArray,$journeyArray);
         }
-        return json_encode($journeysArray, JSON_PRETTY_PRINT);
+
+        return '{"journeys": '.json_encode($journeysArray,JSON_PRETTY_PRINT)." \n}";
     }
+
 
 }

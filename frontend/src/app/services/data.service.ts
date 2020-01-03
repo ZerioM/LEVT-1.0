@@ -569,6 +569,28 @@ export class DataService {
     );
   }
 
+  loadBookmarkedPosts(){
+    this.http.post(this.url+"/allBookmarkedJourneys",this.loggedInUser).toPromise().then( (loadedData: Journeys) => {
+      if(loadedData!=null){
+        console.log("Json file wurde geladen");
+        console.log(loadedData);
+        this.currentJourneys=loadedData;
+
+        console.log(this.currentJourneys);
+
+      }else{
+        this.loadTopPosts();
+        this.presentGeneralToast("We couldn`t find any results for your entered search. Please try again!",5000);
+        console.log("null per http geladen");
+        }
+    }, error => {
+      console.log(error);
+      console.info(error);
+      this.errorMsg = error;
+      this.presentGeneralToast("There was a problem with the connection to the database. Please try again later!",5000);
+    }
+    );
+  }
 
   loadUserJourneys(loggedInUser:User){
   
