@@ -6,7 +6,7 @@
       </ion-button>
     </ion-buttons>
     <img id="header" src="/assets/images/LEVT_Header.svg" alt="" />
-    <ion-searchbar placeholder="Dream destination"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="data.searchEntry" placeholder="Dream destination" (focusout)="data.filterSearch()"></ion-searchbar>
   </ion-list>
 </ion-header>
 

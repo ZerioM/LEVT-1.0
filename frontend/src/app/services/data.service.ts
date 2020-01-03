@@ -474,6 +474,14 @@ export class DataService {
     toast.present();
   }
 
+  async presentGeneralToast(msg: string, dur: number){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: dur
+    });
+    toast.present();
+  }
+
   async presentDBErrorToast() {
     const toast = await this.toastController.create({
       message: this.errorMsg,
@@ -488,7 +496,6 @@ export class DataService {
     this.http.get(this.url+"/top100").toPromise().then( (loadedData: Journeys) => {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
-        //console.log(JSON.stringify(loadedData));
         console.log(loadedData);
         this.currentJourneys=loadedData;
         
@@ -515,6 +522,27 @@ export class DataService {
       console.info(error);
       this.errorMsg = error;
       this.presentDBErrorToast();
+    }
+    );
+  }
+
+  loadFilteredPosts(){
+    this.http.post(this.url+"/filteredPosts",this.searchEntry).toPromise().then( (loadedData: Journeys) => {
+      if(loadedData!=null){
+        console.log("Json file wurde geladen");
+        console.log(loadedData);
+        this.currentJourneys=loadedData;
+
+        console.log(this.currentJourneys);
+
+      }else{
+        console.log("null per http geladen");
+        }
+    }, error => {
+      console.log(error);
+      console.info(error);
+      this.errorMsg = error;
+      this.presentGeneralToast("There was a problem with the connection to the database. Please try again later!",5000);
     }
     );
   }
