@@ -20,7 +20,7 @@ export class JourneyDetailPage implements OnInit {
   map;
   @ViewChild('mapElement', {static:false}) mapElement:ElementRef;
 
-
+  public focusIsOut: boolean = false;
 
   constructor(private data: DataService, private navCtrl:NavController, private router: Router, private journeyService:NewJourneyService) {
     //Bookmarked checken und Symbol richtig setzen

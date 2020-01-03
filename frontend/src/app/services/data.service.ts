@@ -28,6 +28,10 @@ import { Bookmark } from '../Interfaces/Bookmark';
 import { debug } from 'util';
 import { ImageService } from './image.service';
 
+import { Md5 } from 'ts-md5/dist/md5';
+import { Validators } from '@angular/forms';
+import { Search } from '../Interfaces/Search';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -100,8 +104,18 @@ export class DataService {
   public errorMsg;
 
   //login
-  public userLoggedIn=true;
-  public register=false;
+  public userLoggedIn=false;
+  public wantsToRegister=false;
+  public wantsToLogin = false;
+
+  //register
+  public secondPw: string;
+  public passwordIsTheSame: boolean = true;
+  public emailFormatIsCorrect: boolean = true;
+
+  //search
+
+  public search: Search = {searchEntry: ''};
 
   //edit
   public edit: boolean=false;
@@ -476,6 +490,14 @@ export class DataService {
     toast.present();
   }
 
+  async presentGeneralToast(msg: string, dur: number){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: dur
+    });
+    toast.present();
+  }
+
   async presentDBErrorToast() {
     const toast = await this.toastController.create({
       message: this.errorMsg,
@@ -490,7 +512,6 @@ export class DataService {
     this.http.get(this.url+"/top100").toPromise().then( (loadedData: Journeys) => {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
-        //console.log(JSON.stringify(loadedData));
         console.log(loadedData);
         this.currentJourneys=loadedData;
         
@@ -517,6 +538,27 @@ export class DataService {
       console.info(error);
       this.errorMsg = error;
       this.presentDBErrorToast();
+    }
+    );
+  }
+
+  loadFilteredPosts(){
+    this.http.post(this.url+"/filteredPosts",this.search).toPromise().then( (loadedData: Journeys) => {
+      if(loadedData!=null){
+        console.log("Json file wurde geladen");
+        console.log(loadedData);
+        this.currentJourneys=loadedData;
+
+        console.log(this.currentJourneys);
+
+      }else{
+        console.log("null per http geladen");
+        }
+    }, error => {
+      console.log(error);
+      console.info(error);
+      this.errorMsg = error;
+      this.presentGeneralToast("There was a problem with the connection to the database. Please try again later!",5000);
     }
     );
   }
@@ -643,6 +685,78 @@ export class DataService {
 
   async dismissLoading() {
     return await this.loading.dismiss();
+  }
+
+  //Registrierung und Login
+
+  async login(){
+
+    this.loggedInUser.pwHash = Md5.hashStr(this.loggedInUser.pwClear).toString();  
+
+    this.loggedInUser.pwClear = "";
+    
+    await this.http.post(this.url+"/login", this.loggedInUser).toPromise().then((loadedData: User) => {
+      if(loadedData.userID != null){
+        this.loggedInUser.userID = loadedData.userID;
+        console.log("Login hat funktioniert.");
+        this.userLoggedIn = true;
+      } else {
+        console.log("Login hat nicht funktioniert.");
+      }
+    }, error => {
+      console.log(error);
+      
+    });
+    
+  }
+
+  async register(){
+    if(this.passwordIsTheSame){
+
+    } else {
+      this.presentGeneralToast("The two password phrases aren't identical. Please check and try again!",5000);
+    }
+
+    this.wantsToRegister = false;
+  }
+
+  checkPassword(){
+    if(this.secondPw == this.loggedInUser.pwClear){
+      this.passwordIsTheSame = true;
+    } else {
+      this.passwordIsTheSame = false;
+    }
+  }
+
+  checkEmail(){
+    if(this.loggedInUser.emailAddress == ''){
+      this.emailFormatIsCorrect = true;
+      return;
+    }
+    let regex = /^[a-zA-Z0-9._]+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if(regex.test(this.loggedInUser.emailAddress)){
+      this.emailFormatIsCorrect = true;
+      console.log("Email is in correct format");
+    } else {
+      this.emailFormatIsCorrect = false;
+      console.log("Email is not in correct format");
+    }
+    
+  }
+
+  goToRegistration(){
+    this.wantsToRegister = true;
+  }
+
+  //Search
+
+  filterSearch(){
+    if(this.search.searchEntry == ''){
+      this.loadTopPosts();
+    } else {
+      this.loadFilteredPosts();
+    }
+
   }
 
   loadJourneyWithChildren(newJourney: Journey, journeyID:number) {
