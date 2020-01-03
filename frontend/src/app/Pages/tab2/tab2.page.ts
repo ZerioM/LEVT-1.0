@@ -98,7 +98,7 @@ export class Tab2Page {
 
     if(isDeleted){
       this.data.newJourney._thumbnailID = null;
-      this.data.newJourney.thumbnailSrc = null;
+      this.data.newJourney.thumbnailSrc = '';
     } else {
       this.data.presentNotSavedToast();
     }
