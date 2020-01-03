@@ -104,4 +104,5 @@ class _BookmarkController extends BaseController
         return '{"journeys": '.json_encode($journeysArray,JSON_PRETTY_PRINT)." \n}";
     }
 
+
 }
