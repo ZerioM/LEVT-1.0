@@ -143,9 +143,9 @@
   <ion-item no-padding>
     <div id="alreadyAddedPlaces" class="gridContainer">
       <div class="grid-item" *ngFor="let p of data.newJourney.places; let in of index" (click)="goToEditPlace(p,in)">
-        <img class="pictureGrid" *ngIf="p.thumbnailSrc == null" src="/assets/images/platzhalter_travellocation.png"
+        <img class="pictureGrid" *ngIf="p.thumbnailSrc == null || p.thumbnailSrc == ''" src="/assets/images/platzhalter_travellocation.png"
           alt="" />
-        <img class="pictureGrid" *ngIf="p.thumbnailSrc != null" src="{{p.thumbnailSrc}}" alt="" />
+        <img class="pictureGrid" *ngIf="p.thumbnailSrc != null && p.thumbnailSrc != ''" src="{{p.thumbnailSrc}}" alt="" />
         <div id="visitedPlaceName" class="visitedPlaceName">{{p.placeName}}</div>
       </div>
 
