@@ -1,49 +1,137 @@
-import { AfterViewInit,Component, ElementRef,OnInit,ViewChild } from '@angular/core';
+import { AfterViewInit,Component, ElementRef,OnInit,ViewChild, Sanitizer } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Journey } from 'src/app/Interfaces/Journey';
 import { NewJourneyService } from 'src/app/services/new-journey.service';
 import * as d3 from 'd3';
+import { preserveWhitespacesDefault } from '@angular/compiler';
+import { zoom } from 'd3';
 //import {Geolocation}from '@ionic-native/geolocation/ngx';
 //import {d3} from 'https://d3js.org/d3.v4.min.js';
 
 //declare var google: { maps: { Map: new (arg0: any, arg1: { center: { lat: number; lng: number; }; zoom: number; }) => void; }; };
 
+declare var google;
 
 @Component({
   selector: 'app-journey-detail',
   templateUrl: './journey-detail.page.html',
   styleUrls: ['./journey-detail.page.scss'],
 })
-export class JourneyDetailPage implements OnInit {
-  map;
-  @ViewChild('mapElement', {static:false}) mapElement:ElementRef;
+export class JourneyDetailPage implements AfterViewInit {
+  
+  @ViewChild('map',{read: false, static: false}) mapElement: ElementRef;
+  map: any;
+  marker: any;
+  icon: any;
 
   public focusIsOut: boolean = false;
 
   constructor(private data: DataService, private navCtrl:NavController, private router: Router, private journeyService:NewJourneyService) {
-    //Bookmarked checken und Symbol richtig setzen
     
    }
 
-  ngOnInit() {
-    
+  ngAfterViewInit() {
+    console.log("After view has loaded.");
+    this.loadMap();
   }
 
-  ngAfterViewInit() {
-  }
- /* ngAfterViewInit(): void {
-    console.log("Map geladen");
-    //throw new Error("Method not implemented.");
-    this.map=new google.maps.Map(
-      this.mapElement.nativeElement,
-      {
-        center:{lat:-34.397, lng:150.644},
-        zoom:8
-      });
+  loadMap() {
+    let centerlat: number = 47.612328;
+    let centerlng: number = 13.2;
+    let zoomlvl = 6;
+
+    let bounds = new google.maps.LatLngBounds();
+
+    if(this.data.currentJourney.places != null){
+      if(this.data.currentJourney.places.length != 0){
+        let place1 = this.data.currentJourney.places[0];
+        if(place1 != null && place1.coordinateX != null && place1.coordinateY != null){
+          centerlat = place1.coordinateX;
+          centerlng = place1.coordinateY;
+          zoomlvl = 12;
+        }
+      }
+
+      /* TO DO: WARUM Macht das nichts?!
+      this.data.currentJourney.places.forEach(place => {
+        if(place.coordinateX != null && place.coordinateY != null){
+          let placeLatLng = new google.maps.LatLng(place.coordinateX,place.coordinateY);
+          bounds.extend(placeLatLng);
+        }
+      });*/
       
-  }*/
+
+      if(this.data.currentJourney.places.length > 1){
+
+        let placesLATArray: number[] = new Array();
+        let placesLNGArray: number[] = new Array();
+
+        this.data.currentJourney.places.forEach(place => {
+          placesLATArray.push(place.coordinateX);
+          placesLNGArray.push(place.coordinateY);
+        });
+
+        let minLAT = Math.min.apply(null,placesLATArray);
+        let maxLAT = Math.max.apply(null,placesLATArray);
+        let minLNG = Math.max.apply(null,placesLNGArray);
+        let maxLNG = Math.max.apply(null,placesLNGArray);
+
+        let placesLATDiff = maxLAT - minLAT;
+        let placesLNGDiff = maxLNG - minLNG;
+
+        console.log("Places LAT Diff:");
+        console.log(placesLATDiff);
+        console.log("Places LNG Diff:");
+        console.log(placesLNGDiff);
+
+        let generalDiff = (placesLATDiff + placesLNGDiff)/2;
+
+        zoomlvl = 12;
+
+        let zoomlvlChangeRate = 1 - (35 * generalDiff);
+
+        console.log("zoom lvl change rate:")
+        console.log(zoomlvlChangeRate);
+
+        zoomlvl = zoomlvl * zoomlvlChangeRate;
+
+        console.log("Zoom lvl");
+        console.log(zoomlvl);
+      }
+    }
+
+    
+
+    let latLng = new google.maps.LatLng(centerlat, centerlng);
+
+    let mapOptions = {
+      center: latLng,
+      zoom: zoomlvl,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      LatLngBounds: bounds
+    }
+
+    this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+    
+    if(this.data.currentJourney.places != null){
+      this.data.currentJourney.places.forEach(place => {
+        if(place.coordinateX != null && place.coordinateY != null){
+          let placeLatLng = new google.maps.LatLng(place.coordinateX, place.coordinateY);
+          if(place.thumbnailSrc != null && place.thumbnailSrc != ''){
+            let marker = new google.maps.Marker({label: {color: "white", text: place.placeName},position: placeLatLng, map: this.map, icon: {scaledSize: {width: 100, height: 70}, url: place.thumbnailSrc}});
+          } else {
+            let marker = new google.maps.Marker({label: {color: "white", text: place.placeName},position: placeLatLng, map: this.map});
+          }
+          
+        }
+        });
+    }
+     
+     
+    
+  }
 
   async bookmarken(){
     console.log("Auf Bookmark geklickt.");
@@ -84,22 +172,23 @@ export class JourneyDetailPage implements OnInit {
 
   }
 
- async showPlace(placeID: number){
+  async showPlace(placeID: number){
 
-  await this.data.presentLoading();
-  await this.data.loadOnePlace(placeID);
-  await this.data.dismissLoading();
+    await this.data.presentLoading();
+    await this.data.loadOnePlace(placeID);
+    await this.data.dismissLoading();
       
     //go To Journey Detail 
     this.router.navigateByUrl('/tabs/tab1/place-detail');
   
-   }
+  }
 
-   backToHomepage(){
+  backToHomepage(){
 
     this.router.navigateByUrl('/tabs/tab1');
   
-   }
+  }
+
 
   async editJourney(){
 
@@ -114,7 +203,7 @@ export class JourneyDetailPage implements OnInit {
     this.router.navigateByUrl('tabs/tab2');
 
 
-   }
+  }
  
 
 // /* ------------------------------------- */
