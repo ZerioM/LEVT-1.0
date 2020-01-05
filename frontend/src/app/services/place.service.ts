@@ -20,6 +20,18 @@ export class PlaceService {
     return newPlace;
   }
 
+  async loadAllPlaces(url: string) {
+    let places: Places;
+    await this.http.get(url+"/allPlaces").toPromise().then((loadedData: Places) => {
+      console.log(loadedData);
+      places = loadedData;
+    }, error => {
+      console.log(error);
+    });
+
+    return places;
+  }
+
   async savePlace(place: Place, url: string){
     //Abfragen, ob placeID == null, dann newPlace aufrufen, sonst updatePlace aufrufen
     if(place.placeID == null){

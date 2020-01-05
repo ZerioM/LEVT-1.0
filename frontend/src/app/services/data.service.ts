@@ -31,6 +31,7 @@ import { ImageService } from './image.service';
 import { Md5 } from 'ts-md5/dist/md5';
 import { Validators } from '@angular/forms';
 import { Search } from '../Interfaces/Search';
+import { Places } from '../Interfaces/Places';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,7 @@ export class DataService {
   public currentUserPost: Post = {postID: null, _activityID:null, _placeID:null, detail: "", activityName:"", iconName:"" , placeName:null, _countryID: null, images:[]}
 
   public currentPlace: Place = { placeID: null,_journeyID:null,_thumbnailID: null,_countryID:"",detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
+  public allPlaces: Places;
 
   public currentUserPlace: Place = { placeID: null,_journeyID:null,_thumbnailID: null,_countryID:"",detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
 
@@ -249,6 +251,10 @@ export class DataService {
         console.log("null per http geladen");
       }
     });
+  }
+
+  async loadAllPlaces(){
+    return await this.placeService.loadAllPlaces(this.url);
   }
 
   async loadOneJourney(journeyID:number){
