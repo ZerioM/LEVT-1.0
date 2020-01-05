@@ -57,6 +57,8 @@ $router->post('/oneJourney','ReadController@selectOneJourney');
 
 $router->post('/oneJourneyWithChildren','ReadController@selectOneJourneyWithChildren');
 
+$router->post('/oneJourneyByPlaceID','ReadController@selectOneJourneyByPlaceID');
+
 $router->post('/onePlace','ReadController@selectOnePlace');
 
 $router->post('/onePost','ReadController@selectOnePost');

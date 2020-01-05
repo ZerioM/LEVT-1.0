@@ -30,7 +30,7 @@ class _JourneyController extends BaseController
         $journeysArray = array();
         foreach($placesInThatCountry as $place){
             $journeyIDofPlace = $place['_journeyID'];
-            
+
             if(!in_array($journeyIDofPlace,$journeyIDs)){
                 array_push($journeyIDs,$journeyIDofPlace);
                 $journeyArray = json_decode($this->selectOne($journeyIDofPlace),true);
@@ -38,6 +38,14 @@ class _JourneyController extends BaseController
             }
         }
         return '{"journeys": '.json_encode($journeysArray,JSON_PRETTY_PRINT)." \n}";
+    }
+
+    public function selectOneByPlaceID(Request $request){
+        $requestArray = $request->all();
+
+        $journeyID = $requestArray['_journeyID'];
+
+        return $this->selectOne($journeyID);
     }
 
 
@@ -509,10 +517,10 @@ class _JourneyController extends BaseController
                 $journeyIDs = array();
 
                 $journeysArray = array();
-                
+
                 foreach($placesBetweenCoordinates as $place){
                     $journeyIDofPlace = $place['_journeyID'];
-            
+
                     if(!in_array($journeyIDofPlace,$journeyIDs)){
                         array_push($journeyIDs,$journeyIDofPlace);
                         $journeyArray = json_decode($this->selectOne($journeyIDofPlace),true);
