@@ -57,6 +57,8 @@ export class DataService {
 
   public loggedInUser:User={userID:11, username:"Sallie Johns",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",pwHash:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null}
 
+  public chatUser:User={userID:2, username:"leo41",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",pwHash:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null}
+
   public newUser:User;
 
   public newJourney: Journey;

@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonContent } from '@ionic/angular';
+import { IonContent, NavController, AlertController, LoadingController } from '@ionic/angular';
+import { DataService } from 'src/app/services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab4',
@@ -8,32 +10,32 @@ import { IonContent } from '@ionic/angular';
 })
 export class Tab4Page implements OnInit {
 
-  currentUser='sandra';
+  currentUser=this.data.loggedInUser.username;
   newMsg='';
 
   @ViewChild(IonContent,{read: false, static: false}) content: IonContent
 
 
-  constructor() { }
+  constructor(private data: DataService,navCtrl: NavController, private router: Router,private alertController: AlertController, private loadingController: LoadingController) { }
 
   ngOnInit() {
   }
 
   messages = [
     {
-      user: 'sandra',
+      user: this.data.loggedInUser.username,
       createdAt:1554090856000,
-      msg:'Hey how are you?'
+      msg:'Hab dich lieb'
     },
     {
-      user: 'mario',
+      user: this.data.chatUser.username,
       createdAt:1554090856000,
-      msg:'fine thanks and you?'
+      msg:'Ich dich auch'
     },
     {
-      user: 'sandra',
+      user: this.data.loggedInUser.username,
       createdAt:1554090856000,
-      msg:'also fine?'
+      msg:'<3 <3 <3'
     }
 
   ];
@@ -43,7 +45,7 @@ export class Tab4Page implements OnInit {
     //Hier kommt der Post Request hin 
 
     this.messages.push({
-      user: 'sandra',
+      user: this.data.loggedInUser.username,
       createdAt: new Date().getTime(),
       msg:this.newMsg
     });
