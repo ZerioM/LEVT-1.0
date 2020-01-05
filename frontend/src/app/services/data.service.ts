@@ -119,6 +119,10 @@ export class DataService {
 
   public search: Search = {searchEntry: ''};
 
+  //map
+
+  public contentChanged: boolean = true;
+
   //settings
   public settingsFromHome=true;
   public resetTab=false;
@@ -257,6 +261,33 @@ export class DataService {
     return await this.placeService.loadAllPlaces(this.url);
   }
 
+  async loadCurrentJourneyByPlaceID(place: Place){
+    this.currentJourney = await this.journeyService.loadJourneyByPlaceID(this.url,place);
+
+    
+    this.currentBookmark._journeyID = this.currentJourney.journeyID;
+
+    if(this.currentJourney.detail==""){
+      this.hasJourneyDetail=false;
+    }else{
+      this.hasJourneyDetail=true;
+    }
+
+    if(this.currentJourney.places.length==0){
+      this.hasPlaces=false;
+    }else{
+      this.hasPlaces=true;
+    }
+
+    if(this.loggedInUser.userID==this.currentJourney._userID){
+      this.edit=true;
+    }else{
+      this.edit=false;
+    }
+
+    this.contentChanged = true;
+  }
+
   async loadOneJourney(journeyID:number){
     
     let postData={
@@ -292,7 +323,7 @@ export class DataService {
       this.edit=false;
     }
   
-     
+     this.contentChanged = true;
   
   }
 

@@ -94,6 +94,17 @@ export class NewJourneyService {
   }
 
 
+  async loadJourneyByPlaceID(url: string, place: Place){
+    let journey: Journey;
+    await this.http.post(url+"/oneJourneyByPlaceID",place).toPromise().then((loadedData: Journey) => {
+      console.log(loadedData);
+      journey = loadedData;
+    }, error => {
+      console.log(error);
+    });
+
+    return journey;
+  }
 
   newJourney(currentUser:User){
   

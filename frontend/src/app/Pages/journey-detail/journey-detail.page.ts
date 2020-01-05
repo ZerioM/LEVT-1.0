@@ -1,4 +1,4 @@
-import { AfterViewInit,Component, ElementRef,OnInit,ViewChild, Sanitizer } from '@angular/core';
+import { AfterViewInit,Component, ElementRef,OnInit,ViewChild, Sanitizer, AfterContentInit, AfterViewChecked, AfterContentChecked } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ declare var google;
   templateUrl: './journey-detail.page.html',
   styleUrls: ['./journey-detail.page.scss'],
 })
-export class JourneyDetailPage implements AfterViewInit {
+export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
   
   @ViewChild('map',{read: false, static: false}) mapElement: ElementRef;
   map: any;
@@ -34,8 +34,19 @@ export class JourneyDetailPage implements AfterViewInit {
 
   ngAfterViewInit() {
     console.log("After view has loaded.");
-    this.loadMap();
   }
+
+  ngAfterViewChecked() {
+
+    if(this.data.contentChanged) {
+      console.log("After view checked.");
+      console.log(this.data.currentJourney);
+      this.loadMap();
+      this.data.contentChanged = false;
+    }
+  }
+
+
 
   loadMap() {
     let centerlat: number = 47.612328;
@@ -110,7 +121,6 @@ export class JourneyDetailPage implements AfterViewInit {
       center: latLng,
       zoom: zoomlvl,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      LatLngBounds: bounds
     }
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);

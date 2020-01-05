@@ -258,6 +258,7 @@ export class AddPlacePage implements OnInit {
         } else {
           this.data.newJourney.places.push(this.data.newPlace);
         }
+        this.data.contentChanged = true;
         this.data.newPlace = this.placeService.newPlace(this.data.newJourney);
         this.router.navigateByUrl('/tabs/tab2');
       } else {
