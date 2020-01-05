@@ -14,6 +14,7 @@ export class Tab3Page implements AfterViewInit, AfterViewChecked {
 
   @ViewChild('map',{read: false, static: false}) mapElement: ElementRef;
   map: any;
+  public clicked: boolean = false;
 
   constructor(private data: DataService, private router: Router) {
     
@@ -56,34 +57,43 @@ export class Tab3Page implements AfterViewInit, AfterViewChecked {
       if(place.coordinateX != null && place.coordinateY != null){
         let placeLatLng = new google.maps.LatLng(place.coordinateX, place.coordinateY);
         if(place.thumbnailSrc != null && place.thumbnailSrc != ''){
-          let marker = new google.maps.Marker({label: {color: "white", text: place.placeName},position: placeLatLng, map: this.map, icon: {scaledSize: {width: 50, height: 35}, url: place.thumbnailSrc}});
+          let marker = new google.maps.Marker({label: {color: "white", fontSize: "12px", fontWeight: "bold", text: place.placeName},position: placeLatLng, map: this.map, icon: {scaledSize: {width: 70, height: 63}, url: place.thumbnailSrc}});
           
           let infoWindow = new google.maps.InfoWindow({
             content: "Place: " + place.placeName + "\n" + "in: " + place.countryName + "\n" + "at lat: " + place.coordinateX + "/n" + "at long: " + place.coordinateY
           });
       
-          google.maps.event.addListener(marker, 'click', () => {
-            this.routeToJourneyDetail(place);
-          });
           google.maps.event.addListener(marker, 'mouseover', () => {
-            console.log("mouse over: " + place.placeName);
+            console.log("mouse over: ");
             infoWindow.open(this.map, marker);
           });
+          google.maps.event.addListener(marker, 'mousedown', () => {
+            console.log("mouse down: ");
+            infoWindow.open(this.map, marker);
+          });
+          google.maps.event.addListener(marker, 'dblclick', () => {
+            this.routeToJourneyDetail(place);
+          });
+
           
         } else {
-          let marker = new google.maps.Marker({label: {color: "white", text: place.placeName},position: placeLatLng, map: this.map});
+          let marker = new google.maps.Marker({label: {color: "orange", fontSize: "10px", fontWeight: "bold", text: place.placeName},position: placeLatLng, map: this.map, icon: {scaledSize: {width: 70, height: 63}, url: "/assets/images/background_places.svg"}});
           
           let infoWindow = new google.maps.InfoWindow({
             content: "Place: " + place.placeName + "\n" + "in: " + place.countryName + "\n" + "at lat: " + place.coordinateX + "\n" + "at long: " + place.coordinateY
           });
       
-          google.maps.event.addListener(marker, 'click', () => {
-            this.routeToJourneyDetail(place);
-          });
           google.maps.event.addListener(marker, 'mouseover', () => {
+            console.log("mouse over: ");
             infoWindow.open(this.map, marker);
           });
-
+          google.maps.event.addListener(marker, 'mousedown', () => {
+            console.log("mouse down: ");
+            infoWindow.open(this.map, marker);
+          });
+          google.maps.event.addListener(marker, 'dblclick', () => {
+            this.routeToJourneyDetail(place);
+          });
         }
         
       }

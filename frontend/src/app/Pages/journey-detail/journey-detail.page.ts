@@ -130,9 +130,9 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
         if(place.coordinateX != null && place.coordinateY != null){
           let placeLatLng = new google.maps.LatLng(place.coordinateX, place.coordinateY);
           if(place.thumbnailSrc != null && place.thumbnailSrc != ''){
-            let marker = new google.maps.Marker({label: {color: "white", text: place.placeName},position: placeLatLng, map: this.map, icon: {scaledSize: {width: 100, height: 70}, url: place.thumbnailSrc}});
+            let marker = new google.maps.Marker({label: {color: "white", fontSize: "12px", fontWeight: "bold", text: place.placeName},position: placeLatLng, map: this.map, icon: {scaledSize: {width: 70, height: 63}, url: place.thumbnailSrc}});
           } else {
-            let marker = new google.maps.Marker({label: {color: "white", text: place.placeName},position: placeLatLng, map: this.map});
+            let marker = new google.maps.Marker({label: {color: "white", fontSize: "10px", fontWeight: "bold", text: place.placeName},position: placeLatLng, map: this.map});
           }
           
         }
