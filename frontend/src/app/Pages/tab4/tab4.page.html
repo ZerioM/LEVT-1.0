@@ -1,12 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-  <ion-title>Chat with {{data.chatUser.username}}</ion-title>
-  </ion-toolbar>
+<ion-header class="tabHeader">
+  
+  <ion-title class="tabHeading" no-padding>Chat with {{data.chatUser.username}}</ion-title>
+    <img class="headerUserPic" src={{data.chatUser.userImgSrc}} alt="User" />
 </ion-header>
+<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
 <ion-content>
   <ion-grid>
-    <ion-row *ngFor="let message of messages">
+    <ion-row *ngFor="let message of messages" class="footerChat">
       <ion-col size="9" *ngIf="currentUser!== message.user" class="message otherMessage">
       <b>{{message.user}}</b><br>
       <span>{{message.msg}}</span>

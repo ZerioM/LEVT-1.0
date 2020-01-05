@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class Tab4Page implements OnInit {
 
-  currentUser=this.data.loggedInUser.username;
-  newMsg='';
+ public  currentUser: string=this.data.loggedInUser.username;
+ public newMsg:string='';
 
   @ViewChild(IonContent,{read: false, static: false}) content: IonContent
 

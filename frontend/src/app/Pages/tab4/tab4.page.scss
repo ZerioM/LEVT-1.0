@@ -6,7 +6,6 @@
 
 .message{
     padding: 10px;
-    border-radius: 10px;
     margin-bottom: 4px;
     white-space: pre-wrap;
 
@@ -34,10 +33,17 @@
 
 }
 
+
+
+ion-footer{
+
+    margin-bottom: 5px;
+    
+}
+
 .messageInput{
  width: 100%;
  border: 1px solid #bcc0c2;
- border-radius: 10px;
  background: #ffffff;
  resize: none;
  padding-left: 10px;
