@@ -55,6 +55,20 @@ class _PlaceController extends BaseController
         return $this->selectOne($id);
     }
 
+    public function selectAll(Request $request){
+        $places = json_decode(json_encode(DB::table('places')->get()),true);
+
+        $outputArray = array();
+
+        foreach($places as $place){
+            $placeID = $place['placeID'];
+            $onePlace = json_decode($this->selectOne($placeID),true);
+            array_push($outputArray, $onePlace);
+        }
+
+        return '{"places": '.json_encode($outputArray,JSON_PRETTY_PRINT)."\n}";
+    }
+
     public function selectByJourneyIDWithoutChildren($journeyID){
         return DB::table('places')->where('_journeyID', $journeyID);
     }

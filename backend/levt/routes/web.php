@@ -51,6 +51,8 @@ $router->get('/allSeasons','ReadController@selectSeasons');
 
 $router->get('/allGenders','ReadController@selectGenders');
 
+$router->get('/allPlaces','ReadController@selectAllPlaces');
+
 $router->post('/oneJourney','ReadController@selectOneJourney');
 
 $router->post('/oneJourneyWithChildren','ReadController@selectOneJourneyWithChildren');
@@ -74,6 +76,7 @@ $router->post('/userJourneys','ReadController@journeysPerUser');
 $router->post('/filteredPosts','ReadController@journeysPerSearch');
 
 $router->post('/postsBetweenCoordinates','ReadController@postsPerCoordinates');
+
 
 
 //UPDATE

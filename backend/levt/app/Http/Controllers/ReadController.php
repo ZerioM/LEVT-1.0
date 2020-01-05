@@ -18,6 +18,11 @@ class ReadController extends BaseController
         return $jc->selectAllLimit();
     }
 
+    public function selectAllPlaces(Request $request) {
+        $pc = new _PlaceController();
+        return $pc->selectAll($request);
+    }
+
     public function selectOneJourney(Request $request){
         $jc = new _JourneyController;
         $requestArray = $request->all();
@@ -117,5 +122,6 @@ class ReadController extends BaseController
         $rightY = $requestArray['rightY'];
         return $pc->selectBetweenCoordinates($leftX,$leftY,$rightX,$rightY);
     }
+
 
 }
