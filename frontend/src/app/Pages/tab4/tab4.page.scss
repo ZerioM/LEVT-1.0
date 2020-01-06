@@ -1,0 +1,60 @@
+.otherMessage b{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 10pt;
+    color:#7ba9a9;
+  } // dicker Text
+
+.message{
+    padding: 10px;
+    margin-bottom: 4px;
+    white-space: pre-wrap;
+
+}
+
+.otherMessage{
+    background-color: #415f4b;
+    color: white;
+
+
+}
+
+.myMessage{
+
+    background-color: #7ba9a9;
+    color: black;
+
+
+}
+
+.time{
+    color: #dfdfdf;
+    font-size: small;
+
+
+}
+
+
+
+ion-footer{
+
+    margin-bottom: 5px;
+    
+}
+
+.messageInput{
+ width: 100%;
+ border: 1px solid #bcc0c2;
+ background: #ffffff;
+ resize: none;
+ padding-left: 10px;
+ padding-right: 10px;
+
+}
+
+.msgButton{
+
+--padding-start:0.5em;
+--padding-end:0.5em;
+
+
+}
