@@ -16,7 +16,7 @@
   <ion-label><b>What is your post about?</b><b class="importantStars">   (mandatory)</b></ion-label>
   <ion-item no-padding lines="none">
     <ion-select placeholder="Post Category" [(ngModel)]="data.newPost._activityID">
-      <ion-select-option *ngFor="let a of data.activities.activities" value="{{a.activityID}}">
+      <ion-select-option *ngFor="let a of data.activities.activities" [value]="a.activityID">
         {{a.activityName}}
       </ion-select-option>
     </ion-select>

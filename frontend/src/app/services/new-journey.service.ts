@@ -166,6 +166,9 @@ export class NewJourneyService {
       newJourney.hiking=loadedData.hiking;
       newJourney.campingtrailer=loadedData.campingtrailer;
       newJourney.duration=loadedData.duration;
+      newJourney.places=loadedData.places;
+
+      console.log(newJourney.car);
 
       
 

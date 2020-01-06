@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController, IonInput } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -107,7 +107,7 @@ export class Tab2Page {
 
   //Naviagation 
   async goToAddNewPlace() {
-    this.data.readCostsAndTransports();
+    // this.data.readCostsAndTransports();
 
 
     if (this.data.newJourney.journeyName == null || this.data.newJourney._seasonID == null || this.data.newJourney._companionshipID == null
@@ -139,7 +139,7 @@ export class Tab2Page {
 
 
   async goToEditPlace(place: Place, index: number) {
-    this.data.readCostsAndTransports();
+    // this.data.readCostsAndTransports();
 
     if (this.data.newJourney.journeyName == null || this.data.newJourney._seasonID == null || this.data.newJourney._companionshipID == null
       || this.data.newJourney.year == null || this.data.newJourney._journeyCategoryID == null
@@ -251,7 +251,7 @@ export class Tab2Page {
   async finishJourney() {
     //Data binding testen
 
-    this.data.readCostsAndTransports();
+    // this.data.readCostsAndTransports();
 
     if (this.data.newJourney.journeyName == "" || this.data.newJourney._seasonID == null || this.data.newJourney._companionshipID == null
       || this.data.newJourney.year == null || this.data.newJourney._journeyCategoryID == null

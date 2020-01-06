@@ -16,7 +16,7 @@
       <ion-label ><b class="importantThings" position="floating">Upload a Thumbnail for this Journey</b></ion-label>
     </ion-item>
     <ion-item no-padding lines="none">
-      <div *ngIf="data.newJourney.thumbnailSrc != ''" id="placeThumbnails" class="gridContainer">
+      <div *ngIf="data.newJourney.thumbnailSrc != '' && data.newJourney.thumbnailSrc != null" id="placeThumbnails" class="gridContainer">
         <div class="pictureFrame">
         <div class="frameLeft"></div>
           <img class="journeythumbnail" alt="" src="{{data.newJourney.thumbnailSrc}}" alt="Journeycover" />
@@ -26,7 +26,7 @@
           <div class="frameRight"></div>
         </div>
         </div>
-        <div *ngIf="data.newJourney.thumbnailSrc == ''" class="grid-item" (click)="selectThumbnail()">
+        <div *ngIf="data.newJourney.thumbnailSrc == '' || data.newJourney.thumbnailSrc == null" class="grid-item" (click)="selectThumbnail()">
           <ion-icon name="ios-add" class="addPlace">
           </ion-icon>
         </div>
@@ -49,7 +49,7 @@
   <ion-item class="seasonYear" lines="none" no-padding no-margin>
     <ion-radio-group class="season" [(ngModel)]="data.newJourney._seasonID">
       <ion-chip *ngFor="let s of data.seasons.seasons">
-        <ion-radio value={{s.seasonID}}></ion-radio>
+        <ion-radio [value]="s.seasonID"></ion-radio>
         <ion-label class="labelsCategories">
           {{s.seasonName}}
         </ion-label>
@@ -65,11 +65,12 @@
   </ion-item>
 
   <ion-label>
-    <b>Which category does your journey belong to?</b><b class="importantStars">*</b></ion-label>
+    <b>Which category does your journey belong to?</b><b class="importantStars">*</b>
+  </ion-label>
   <ion-item id="journeyCategory" lines="none" no-padding>
     <ion-radio-group [(ngModel)]="data.newJourney._journeyCategoryID">
       <ion-chip *ngFor="let c of data.journeyCategories.journeyCategories">
-        <ion-radio value={{c.journeyCategoryID}}></ion-radio>
+        <ion-radio [value]="c.journeyCategoryID"></ion-radio>
         <ion-label class="labelsCategories">
           {{c.journeyCategoryName}}
         </ion-label>
@@ -81,7 +82,7 @@
   <ion-item id="companionshipsCategory" no-padding lines="none">
     <ion-radio-group [(ngModel)]="data.newJourney._companionshipID" class="radioButtons">
       <ion-chip *ngFor="let cs of data.companionships.companionships">
-        <ion-radio value={{cs.companionshipID}}></ion-radio>
+        <ion-radio [value]="cs.companionshipID"></ion-radio>
         <ion-label class="labelsCategories">
           {{cs.companionshipType}}
         </ion-label>
@@ -92,11 +93,58 @@
   <ion-label>
     <b>With which means of transport did you travel?</b><b class="importantStars">*</b></ion-label>
   <div id="transport">
-    <ion-chip *ngFor="let t of data.transports.transports; let in=index">
-      <ion-checkbox aria-checked="false" [(ngModel)]="data.transportsCheckbox[in]" id={{t.transportID}}></ion-checkbox>
-      <!--[(ngModel)]="t.transportID"-->
-      <ion-label (click)="toggleTransports(in)" class="labelsCategories">
-        {{t.transportType}}
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.plane"></ion-checkbox>
+      <ion-label (click)="toggleTransports(1)" id="1" class="labelsCategories">
+        Plane
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.car"></ion-checkbox>
+      <ion-label (click)="toggleTransports(2)" id="2" class="labelsCategories">
+        Car
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.bus"></ion-checkbox>
+      <ion-label (click)="toggleTransports(3)" id="3" class="labelsCategories">
+        Bus
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.train"></ion-checkbox>
+      <ion-label (click)="toggleTransports(4)" id="4" class="labelsCategories">
+        Train
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.ship"></ion-checkbox>
+      <ion-label (click)="toggleTransports(5)" id="5" class="labelsCategories">
+        Ship
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.motorbike"></ion-checkbox>
+      <ion-label (click)="toggleTransports(6)" id="6" class="labelsCategories">
+        Motorbike
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.campingtrailer"></ion-checkbox>
+      <ion-label (click)="toggleTransports(7)" id="7" class="labelsCategories">
+        Camping Trailer
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.hiking"></ion-checkbox>
+      <ion-label (click)="toggleTransports(8)" id="8" class="labelsCategories">
+        Hiking
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.bicycle"></ion-checkbox>
+      <ion-label (click)="toggleTransports(9)" id="9" class="labelsCategories">
+        Bicycle
       </ion-label>
     </ion-chip>
   </div>

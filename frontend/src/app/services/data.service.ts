@@ -827,43 +827,43 @@ export class DataService {
   loadJourneyWithChildren(newJourney: Journey, journeyID:number) {
     this.journeyService.loadJourneyWithChildren(newJourney, journeyID,this.url);
 
-    this.writeCostsAndTransports();
+    // this.writeCostsAndTransports();
 
   }
 
-  readCostsAndTransports() {
-    this.newJourney.leisureCosts = this.costs[0];
-    this.newJourney.accommodationCosts = this.costs[1];
-    this.newJourney.mealsanddrinksCosts = this.costs[2];
-    this.newJourney.transportationCosts = this.costs[3];
-    this.newJourney.otherCosts = this.costs[4];
+  // readCostsAndTransports() {
+  //   this.newJourney.leisureCosts = this.costs[0];
+  //   this.newJourney.accommodationCosts = this.costs[1];
+  //   this.newJourney.mealsanddrinksCosts = this.costs[2];
+  //   this.newJourney.transportationCosts = this.costs[3];
+  //   this.newJourney.otherCosts = this.costs[4];
 
-    this.newJourney.plane = this.transportsCheckbox[0];
-    this.newJourney.car = this.transportsCheckbox[1];
-    this.newJourney.bus = this.transportsCheckbox[2];
-    this.newJourney.train = this.transportsCheckbox[3];
-    this.newJourney.ship = this.transportsCheckbox[4];
-    this.newJourney.motorbike = this.transportsCheckbox[5];
-    this.newJourney.campingtrailer = this.transportsCheckbox[6];
-    this.newJourney.hiking = this.transportsCheckbox[7];
-    this.newJourney.bicycle = this.transportsCheckbox[8];
-  }
+  //   this.newJourney.plane = this.transportsCheckbox[0];
+  //   this.newJourney.car = this.transportsCheckbox[1];
+  //   this.newJourney.bus = this.transportsCheckbox[2];
+  //   this.newJourney.train = this.transportsCheckbox[3];
+  //   this.newJourney.ship = this.transportsCheckbox[4];
+  //   this.newJourney.motorbike = this.transportsCheckbox[5];
+  //   this.newJourney.campingtrailer = this.transportsCheckbox[6];
+  //   this.newJourney.hiking = this.transportsCheckbox[7];
+  //   this.newJourney.bicycle = this.transportsCheckbox[8];
+  // }
 
-  writeCostsAndTransports(){
-    this.costs[0] = this.newJourney.leisureCosts;
-    this.costs[1]=this.newJourney.accommodationCosts;
-    this.costs[2]=this.newJourney.mealsanddrinksCosts;
-    this.costs[3]=this.newJourney.transportationCosts;
-    this.costs[4]=this.newJourney.otherCosts;
+  // writeCostsAndTransports(){
+  //   this.costs[0] = this.newJourney.leisureCosts;
+  //   this.costs[1]=this.newJourney.accommodationCosts;
+  //   this.costs[2]=this.newJourney.mealsanddrinksCosts;
+  //   this.costs[3]=this.newJourney.transportationCosts;
+  //   this.costs[4]=this.newJourney.otherCosts;
 
-    this.transportsCheckbox[0]=this.newJourney.plane;
-    this.transportsCheckbox[1]=this.newJourney.car;
-    this.transportsCheckbox[2]=this.newJourney.bus;
-    this.transportsCheckbox[3]=this.newJourney.train;
-    this.transportsCheckbox[4]=this.newJourney.ship;
-    this.transportsCheckbox[5]=this.newJourney.motorbike;
-    this.transportsCheckbox[6]=this.newJourney.campingtrailer;
-    this.transportsCheckbox[7]=this.newJourney.hiking;
-    this.transportsCheckbox[8]=this.newJourney.bicycle;
-  }
+  //   this.transportsCheckbox[0]=this.newJourney.plane;
+  //   this.transportsCheckbox[1]=this.newJourney.car;
+  //   this.transportsCheckbox[2]=this.newJourney.bus;
+  //   this.transportsCheckbox[3]=this.newJourney.train;
+  //   this.transportsCheckbox[4]=this.newJourney.ship;
+  //   this.transportsCheckbox[5]=this.newJourney.motorbike;
+  //   this.transportsCheckbox[6]=this.newJourney.campingtrailer;
+  //   this.transportsCheckbox[7]=this.newJourney.hiking;
+  //   this.transportsCheckbox[8]=this.newJourney.bicycle;
+  // }
 }

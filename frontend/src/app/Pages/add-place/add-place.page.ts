@@ -115,7 +115,7 @@ export class AddPlacePage implements OnInit {
     }
 
     this.data.postInserted = false;
-    if(this.placeValidated){
+    if(this.placeValidated || this.data.newPlace.placeID != null){
       await this.data.presentLoading();
       await this.placeService.savePlace(this.data.newPlace, this.data.url);
       await this.data.dismissLoading();
@@ -144,7 +144,7 @@ export class AddPlacePage implements OnInit {
     }
 
     this.data.postInserted = true;
-    if(this.placeValidated){
+    if(this.placeValidated || this.data.newPlace.placeID != null){
       await this.data.presentLoading();
       await this.placeService.savePlace(this.data.newPlace, this.data.url);
       await this.data.dismissLoading();
@@ -245,7 +245,7 @@ export class AddPlacePage implements OnInit {
 
     } 
 
-    if(this.placeValidated){
+    if(this.placeValidated || this.data.newPlace.placeID != null){
 
       await this.data.presentLoading();
       await this.placeService.savePlace(this.data.newPlace, this.data.url);
