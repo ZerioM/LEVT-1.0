@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core'
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-tab5',
@@ -11,7 +12,7 @@ import { ChangeDetectorRef } from '@angular/core'
 })
 export class Tab5Page implements OnInit {
 
-  constructor(private data: DataService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
+  constructor(private data: DataService, private messageService: MessagesService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
 
     this.loadJSON();
    }
@@ -44,6 +45,13 @@ export class Tab5Page implements OnInit {
   this.data.settingsFromHome=false;
 
   this.router.navigateByUrl('/tabs/tab1/settings');
+}
+
+chatWith(){
+  //this.data.chatUser = this.profileuser;
+  this.data.currentMessage = this.messageService.newMessage(this.data.loggedInUser,this.data.chatUser);
+  //this.router.navigateByUrl('/tabs/tab4');
+  //eigentlich navigieren zu Unterseite von tab4, wo sich chat befindet
 }
 
 }

@@ -7,16 +7,16 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row *ngFor="let message of messages" class="footerChat">
-      <ion-col size="9" *ngIf="currentUser!== message.user" class="message otherMessage">
-      <b>{{message.user}}</b><br>
+    <ion-row *ngFor="let message of data.currentMessages.messages" class="footerChat">
+      <ion-col size="9" *ngIf="data.loggedInUser.userID != message.fromUserID" class="message otherMessage">
+      <b>{{message.fromUsername}}</b><br>
       <span>{{message.msg}}</span>
       <div class="time" text-right><br>
       {{message.createdAt |date:'short'}}</div>
       </ion-col>
 
-      <ion-col offset="3" *ngIf="currentUser=== message.user" class="message myMessage">
-        <b>{{message.user}}</b><br>
+      <ion-col offset="3" *ngIf="data.loggedInUser.userID == message.fromUserID" class="message myMessage">
+        <b>{{message.fromUsername}}</b><br>
         <span>{{message.msg}}</span>
         <div class="time" text-right><br>
         {{message.createdAt |date:'short'}}</div>
@@ -31,10 +31,10 @@
   <ion-toolbar color="light">
     <ion-row align-items-center no-padding>
       <ion-col size="10">
-        <textarea autosize [(ngModel)]="newMsg" class="messageInput"></textarea>
+        <textarea autosize [(ngModel)]="data.currentMessage.msg" class="messageInput"></textarea>
 
       </ion-col>
-      <ion-button expand="block" fill="clear" color="primary" [disabled]="newMsg===''" class="msgButton" (click)="sendMessage()">
+      <ion-button expand="block" fill="clear" color="primary" [disabled]="data.currentMessage.msg==='' || data.currentMessage.msg == null" class="msgButton" (click)="sendMessage()">
         <ion-icon name="md-send" slot="icon-only"></ion-icon>
       </ion-button>
 

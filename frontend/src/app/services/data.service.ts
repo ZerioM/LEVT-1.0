@@ -32,6 +32,8 @@ import { Md5 } from 'ts-md5/dist/md5';
 import { Validators } from '@angular/forms';
 import { Search } from '../Interfaces/Search';
 import { Places } from '../Interfaces/Places';
+import { Messages } from '../Interfaces/Messages';
+import { Message } from '../Interfaces/Message';
 
 @Injectable({
   providedIn: 'root'
@@ -57,7 +59,11 @@ export class DataService {
 
   public loggedInUser:User={userID:11, username:"Sallie Johns",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",pwHash:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null}
 
+  //chat
   public chatUser:User={userID:2, username:"leo41",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",pwHash:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null}
+
+  public currentMessages:Messages={messages:[]};
+  public currentMessage:Message={messageID: null, fromUserID: null, fromUsername: '', toUserID: null, createdAt: null, msg: ''}
 
   public newUser:User;
 
