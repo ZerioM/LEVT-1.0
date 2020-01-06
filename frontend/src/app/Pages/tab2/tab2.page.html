@@ -173,9 +173,33 @@
           <ion-label style="padding-left:5px;">divide costs by category</ion-label>
         </ion-item>
         <div *ngIf="divideC" id="journeycostsCategories">
-          <ion-item *ngFor="let a of data.activities.activities; let in=index" no-padding>
-            <ion-label><b>{{a.activityName}}</b></ion-label>
-            <ion-input id="{{a.activityName}}" [(ngModel)]="data.costs[in]" class="costcategories" inputmode="decimal"
+          <ion-item no-padding>
+            <ion-label><b>Leisure</b></ion-label>
+            <ion-input id="Leisure" [(ngModel)]="data.newJourney.leisureCosts" class="costcategories" inputmode="decimal"
+              type="number" placeholder="0"></ion-input>
+            <ion-label>€</ion-label>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-label><b>Accommodation</b></ion-label>
+            <ion-input id="Accommodation" [(ngModel)]="data.newJourney.accommodationCosts" class="costcategories" inputmode="decimal"
+              type="number" placeholder="0"></ion-input>
+            <ion-label>€</ion-label>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-label><b>Meals and Drinks</b></ion-label>
+            <ion-input id="Meals and Drinks" [(ngModel)]="data.newJourney.mealsanddrinksCosts" class="costcategories" inputmode="decimal"
+              type="number" placeholder="0"></ion-input>
+            <ion-label>€</ion-label>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-label><b>Transport</b></ion-label>
+            <ion-input id="Transport" [(ngModel)]="data.newJourney.transportationCosts" class="costcategories" inputmode="decimal"
+              type="number" placeholder="0"></ion-input>
+            <ion-label>€</ion-label>
+          </ion-item>
+          <ion-item no-padding>
+            <ion-label><b>Other</b></ion-label>
+            <ion-input id="Other" [(ngModel)]="data.newJourney.otherCosts" class="costcategories" inputmode="decimal"
               type="number" placeholder="0"></ion-input>
             <ion-label>€</ion-label>
           </ion-item>
