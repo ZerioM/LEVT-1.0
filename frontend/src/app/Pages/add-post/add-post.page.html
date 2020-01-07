@@ -66,4 +66,20 @@
   <ion-button (click)="savePost()" color="primary" expand="full">
     Finish
   </ion-button>
+
+  <!-- Gamification -->
+
+  <div class="gamificationBg" *ngIf="data.showedPioneerStep3==false && data.loggedInUser.pioneerBadgeProgress==75">
+    <div class="login">
+
+      <ion-title class="tabHeading" no-padding>Badge Process!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <p>Your journey got a foto! (75%) </p>
+      <ion-progress-bar value="0.75"></ion-progress-bar>
+    <br>
+    
+    <ion-button (click)="closePioneerStep3Toast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
 </ion-content>
