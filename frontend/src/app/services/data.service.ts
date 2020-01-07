@@ -123,6 +123,13 @@ export class DataService {
   public passwordIsTheSame: boolean = true;
   public emailFormatIsCorrect: boolean = true;
 
+  //gamification
+  public showedPioneerStep1:boolean=false;
+  public showedPioneerStep2:boolean=false;
+  public showedPioneerStep3:boolean=false;
+  public showedPioneerFinish:boolean=false;
+
+
   //search
 
   public search: Search = {searchEntry: ''};
@@ -543,6 +550,15 @@ export class DataService {
     const toast = await this.toastController.create({
       message: msg,
       duration: dur
+    });
+    toast.present();
+  }
+
+  async presentGamificationToast(msg: string, dur: number){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: dur,
+      cssClass:"gamificationToast"
     });
     toast.present();
   }

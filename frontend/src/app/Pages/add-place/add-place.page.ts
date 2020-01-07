@@ -201,7 +201,16 @@ export class AddPlacePage implements OnInit {
         this.data.newPlace.placeName = this.data.newPlace.placeName.slice(0,this.data.newPlace.placeName.indexOf(','));
       }
     }
+
+    
     console.log(this.placeValidated);
+    //Gamification
+    if(this.data.loggedInUser.pioneerBadgeProgress<50){
+
+      this.data.loggedInUser.pioneerBadgeProgress=50;
+
+      //Progess in die DB speichern 
+    }
   }
 
   goBacktoAddJourneyWithoutSaving(){
@@ -271,6 +280,15 @@ export class AddPlacePage implements OnInit {
       this.data.presentValidPlaceToast();
     }
   }  
+
+
+  //Gamification
+
+  closePioneerStep2Toast(){
+
+
+    this.data.showedPioneerStep2=true;
+  }
 
 
 }

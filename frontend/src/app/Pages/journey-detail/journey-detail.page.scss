@@ -85,11 +85,9 @@ polyline{
 	fill: none;
 }
 
-.labelValue
-{
+.labelValue{
 	font-size: 60%;
 	opacity: .5;
-	
 }
 
 .toolTip {
@@ -112,6 +110,12 @@ text {
 }
 .map {
   height: 40%;
+  margin-bottom: 10px;
+}
+#kostenVisualisierung{
+  height: 200px;
+  width: 100%;
+  background: #415f4b;
 }
 
 .scroll {

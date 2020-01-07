@@ -248,6 +248,8 @@ export class Tab2Page {
     console.log(this.data.transportsCheckbox[index]);
   }
 
+  
+
   async finishJourney() {
     //Data binding testen
 
@@ -270,6 +272,9 @@ export class Tab2Page {
 
     if (this.data.newJourney.journeyID != null) {
       this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
+      if(this.data.loggedInUser.pioneerBadgeProgress<100){
+        this.data.loggedInUser.pioneerBadgeProgress=100;
+      }
       this.router.navigateByUrl('/tabs/tab1');
     } else {
       //Toast ausgeben: Das Speichern hat nicht funktioniert.
@@ -285,6 +290,26 @@ export class Tab2Page {
 
   }
 
+
+  //Gamification
+
+  focusOutJourneyName(){
+
+    if(this.data.loggedInUser.pioneerBadgeProgress<25){
+
+      this.data.loggedInUser.pioneerBadgeProgress=25;
+
+      //Progess in die DB speichern 
+    }
+    
+
+  }
+
+  closePioneerStep1Toast(){
+
+
+    this.data.showedPioneerStep1=true;
+  }
   
 
 

@@ -76,4 +76,13 @@ export class Tab1Page {
     }
     console.log(this.showBookmarkedJourneys);
   }
+
+
+  //Gamification
+
+  closePioneerFinishToast(){
+
+
+    this.data.showedPioneerFinish=true;
+  }
 }

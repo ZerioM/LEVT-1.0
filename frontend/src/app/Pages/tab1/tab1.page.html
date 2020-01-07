@@ -47,4 +47,17 @@
   <div id="start">
     <ion-icon id="arrowUp" color="#d68900" name="ios-arrow-up" (click)="smoothScrollJS()"></ion-icon>
   </div>
+
+
+  <div class="gamificationBg" *ngIf="data.showedPioneerFinish==false && data.loggedInUser.pioneerBadgeProgress==100">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge achieved!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <p>Your journey got a name! (100%) </p>
+      <ion-progress-bar value="1"></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closePioneerFinishToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
 </ion-content>

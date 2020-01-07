@@ -69,9 +69,12 @@ export class AddPostPage implements OnInit {
     }
     this.data.dismissLoading();
     
-    
+    if(this.data.loggedInUser.pioneerBadgeProgress<75){
 
-  }
+      this.data.loggedInUser.pioneerBadgeProgress=75;
+
+      //Progess in die DB speichern 
+  }}
 
   private async getPhoto(source: CameraSource) {
     const image = await Plugins.Camera.getPhoto({
@@ -85,6 +88,8 @@ export class AddPostPage implements OnInit {
     return image.webPath;
     
   }
+
+  
 
   private showImage(image: Image){
 
@@ -222,5 +227,15 @@ export class AddPostPage implements OnInit {
     }
     
   }  
+
+//Gamification
+
+
+
+closePioneerStep3Toast(){
+
+
+  this.data.showedPioneerStep3=true;
+}
 
 }
