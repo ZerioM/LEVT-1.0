@@ -1,20 +1,20 @@
 <ion-header color="none">
-  <ion-list class="headerAll">
-    <ion-buttons slot="end" no-padding>
-      <ion-button class="setup" style="margin-top: 20px; right: 0;" (click)="goToSettings()" icon-only>
-        <ion-icon name="md-apps" size="large"></ion-icon>
+  <ion-list class="headerAll" no-padding no-margin>
+ <ion-buttons no-padding class="setup"  style="margin-top: 0px; right: 0;z-index: 1000;"slot="end" no-padding>
+      <ion-button (click)="goToSettings()" icon-only no-padding>
+        <ion-icon name="settings" size="large"></ion-icon>
+        <!--<ion-icon name="md-apps" size="large"></ion-icon>-->
       </ion-button>
     </ion-buttons>
     <img id="header" src="/assets/images/LEVT_Header.svg" alt="" />
-    <ion-searchbar [(ngModel)]="data.search.searchEntry" placeholder="Dream destination" (focusout)="data.filterSearch()"></ion-searchbar>
+    <ion-searchbar *ngIf="showBookmarkedJourneys==false" [(ngModel)]="data.search.searchEntry" placeholder="Dream destination" (focusout)="data.filterSearch()" (keyup.enter)="data.filterSearch()"></ion-searchbar>
+    <ion-item lines="none" color="none" style="background-color:0;">
+      <ion-toggle [(ngModel)]="showBookmarkedJourneys" (ngModelChange)="showMyBookmarks()" color="warning"></ion-toggle> Show bookmarked journeys
+    </ion-item>
   </ion-list>
-  <ion-item>
-    <ion-toggle [(ngModel)]="showBookmarkedJourneys" (ngModelChange)="showMyBookmarks()" color="warning"></ion-toggle> Show bookmarked journeys
-  </ion-item>
 </ion-header>
 
 <ion-content color="none">
-  
   <ion-list lines="none">
     <div class="gallery" *ngFor="let j of data.currentJourneys.journeys">
       <div class="pictureFrame">
