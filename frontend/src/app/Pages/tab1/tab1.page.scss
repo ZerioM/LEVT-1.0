@@ -1,6 +1,11 @@
 body {
   height: auto;
 }
+.sc-ion-buttons-md-s ion-button {
+  --padding-start: 20px;
+  --padding-end: 0;
+  margin-top: 10px;
+} // Setting Symbol
 
 ion-list.md.list-md.list-lines-none.list-md-lines-none.hydrated{
 	background:0;
@@ -22,7 +27,9 @@ ion-list.md.list-md.list-lines-none.list-md-lines-none.hydrated{
   //content: 0;
   height: 0;
 } // macht Strich nach Header weg
-
+ion-list.headerAll.md.list-md.hydrated{
+  padding: 0;
+}
 ion-searchbar {
   background-color: white;
   border: 5px solid #182f30;
@@ -50,6 +57,10 @@ ion-item {
 }
 ion-list{
 	padding:0;
+}
+ion-button.setup.md.button.button-clear.ion-activatable.ion.focusabled.hydrated{
+  padding: 0;
+  color: red;
 }
 #start {
   position: fixed;

@@ -1,6 +1,10 @@
 button.button-native{
   padding:0;
 }
+.sc-ion-buttons-md-s ion-button {
+  --padding-start: 20px;
+  --padding-end: 20px;
+} // buttons x & <
 .journeythumbnail {
   width: 95%;
   display: block;
