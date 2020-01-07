@@ -3,6 +3,12 @@
     --padding-end: 20px;
   } // buttons x & <
 
+#chat{
+    background-image: url("/assets/images/LEVT_Header.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+} // Ganzes Chatfenster
+
 .otherMessage b{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 10pt;
@@ -11,39 +17,28 @@
 
 .message{
     padding: 10px;
-    margin-bottom: 4px;
+    margin-bottom: 10px;
     white-space: pre-wrap;
-
-}
+} // Einzelne Message Boxen
 
 .otherMessage{
     background-color: #415f4b;
     color: white;
-
-
-}
+} // Grüne Message
 
 .myMessage{
-
     background-color: #7ba9a9;
-    color: black;
-
-
-}
+    color: #182f30;
+} // Blaue Message
 
 .time{
-    color: #dfdfdf;
+    color: white;
     font-size: small;
-
-
-}
-
-
+} // Zeit & Datumangabe bei Chat
 
 ion-footer{
-
     margin-bottom: 5px;
-    
+    background-color: #eceeef;
 }
 
 .messageInput{
@@ -53,13 +48,12 @@ ion-footer{
  resize: none;
  padding-left: 10px;
  padding-right: 10px;
-
-}
+} // Chat Eingabe fenster 
 
 .msgButton{
-
 --padding-start:0.5em;
 --padding-end:0.5em;
-
-
+} // Button zum Absenden
+.sendButton{
+    color: #7ba9a9;
 }
