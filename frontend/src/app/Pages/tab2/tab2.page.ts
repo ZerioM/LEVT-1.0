@@ -272,7 +272,7 @@ export class Tab2Page {
 
     if (this.data.newJourney.journeyID != null) {
       this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
-      if(this.data.loggedInUser.pioneerBadgeProgress<100){
+      if(this.data.loggedInUser.pioneerBadgeProgress<100&&this.data.loggedInUser.pioneerBadgeProgress >50){
         this.data.loggedInUser.pioneerBadgeProgress=100;
       }
       this.router.navigateByUrl('/tabs/tab1');
