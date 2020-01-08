@@ -182,4 +182,30 @@
 
   </div>
   </div>
+
+  <!-- Gamification: Explorer/IF lower than 100 % progress -->
+  <div class="gamificationBg" *ngIf="data.clickedJourney && data.showedExplorerJourney==false && data.loggedInUser.explorerBadgeProgress<100">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge available!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Yeah! By scrolling through our top 100 journeys, you find quite interesting informations! Look for the other search methods and try them out to reach the "Explorer" Badge! Your progress: ({{data.loggedInUser.explorerBadgeProgress}}%) </p>
+      <ion-progress-bar [value]="data.loggedInUser.explorerBadgeProgress/100"></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <div class="gamificationBg" *ngIf="data.clickedJourney && data.showedExplorerJourney==false && data.loggedInUser.explorerBadgeProgress>=100">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge achieve!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Congratulations! You tried out all of our search methods and maybe learned something new. Visit your profile to see your new achieved Badge! (100%) </p>
+      <ion-progress-bar [value]="data.loggedInUser.explorerBadgeProgress/100"></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
 </ion-content>

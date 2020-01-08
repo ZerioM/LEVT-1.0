@@ -48,16 +48,44 @@
     <ion-icon id="arrowUp" color="#d68900" name="ios-arrow-up" (click)="smoothScrollJS()"></ion-icon>
   </div>
 
+  <!-- Gamification: Pioneer -->
 
   <div class="gamificationBg" *ngIf="data.showedPioneerFinish==false && data.loggedInUser.pioneerBadgeProgress==100">
     <div class="login">
       <ion-title class="tabHeading" no-padding>New Badge achieved!</ion-title>
       <img class="oneBadge" src="/assets/images/badge_pioneer.png">
-      <p>Your journey got a name! (100%) </p>
+      <p>Congrats! You successfully created a journey and shared it with the world for helping other people! Visit your profile to see your new badge! (100%) </p>
       <ion-progress-bar value="1"></ion-progress-bar>
     <br>
     
     <ion-button  (click)="closePioneerFinishToast()" expand="full" >OK</ion-button>
   </div>
   </div>
+
+  <!-- Gamification: Explorer -->
+
+  <div class="gamificationBg" *ngIf="data.clickedSearch==true && data.showedExplorerFulltext==false && data.loggedInUser.explorerBadgeProgress<100">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge available!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Great! You found and used our search by searchbar. Look for the other search methods and try them out to reach the "Explorer" Badge! Your progress: ({{data.loggedInUser.explorerBadgeProgress}}%) </p>
+      <ion-progress-bar [value]="data.loggedInUser.explorerBadgeProgress/100"></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerFinishToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <div class="gamificationBg" *ngIf="data.clickedSearch==true && data.showedExplorerFulltext==false && data.loggedInUser.explorerBadgeProgress>=100">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge achieve!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Congratulations! You tried out all of our search methods and maybe learned something new. Visit your profile to see your new achieved Badge! (100%) </p>
+      <ion-progress-bar [value]="data.loggedInUser.explorerBadgeProgress/100"></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerFinishToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
 </ion-content>

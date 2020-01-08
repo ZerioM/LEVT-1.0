@@ -31,8 +31,8 @@
      <ion-col no-padding no-margin id="badges">
       <ion-label no-padding no-margin><b>My Badges</b></ion-label>
     <ion-item no-padding lines="none">
-      <img class="oneBadge" src="/assets/images/badge_pioneer.png">
-      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <img *ngIf="data.loggedInUser.pioneerBadgeProgress >= 100" class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <img *ngIf="data.loggedInUser.explorerBadgeProgress >= 100" class="oneBadge" src="/assets/images/badge_explorer.png">
     </ion-item>
     <div id="pointsView">Points</div>
   </ion-col>

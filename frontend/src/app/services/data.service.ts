@@ -129,6 +129,13 @@ export class DataService {
   public showedPioneerStep3:boolean=false;
   public showedPioneerFinish:boolean=false;
 
+  public showedExplorerFulltext:boolean=false;
+  public showedExplorerMap:boolean= false;
+  public showedExplorerJourney:boolean = false;
+  public clickedSearch:boolean=false;
+  public clickedMap:boolean=false;
+  public clickedJourney:boolean=false;
+
 
   //search
 
@@ -840,6 +847,10 @@ export class DataService {
   //Search
 
   filterSearch(){
+    if(this.loggedInUser.explorerBadgeProgress < 100 && this.showedExplorerFulltext==false){
+      this.loggedInUser.explorerBadgeProgress+=34;
+      this.clickedSearch = true; 
+    }
     if(this.search.searchEntry == ''){
       this.loadTopPosts();
     } else {
