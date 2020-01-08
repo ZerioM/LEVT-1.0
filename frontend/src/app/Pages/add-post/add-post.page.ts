@@ -27,7 +27,9 @@ const { Camera, Filesystem } = Plugins;
 })
 export class AddPostPage implements OnInit {
 
- 
+  //Gamification
+  public enteredPostDetail:boolean = false;
+
   respData: any;
   image: Image;
   imgArray: Image[];
@@ -74,7 +76,12 @@ export class AddPostPage implements OnInit {
       this.data.loggedInUser.pioneerBadgeProgress=75;
 
       //Progess in die DB speichern 
-  }}
+    }
+
+      this.data.presentGamificationToast("Added an Image! +20 Points!",3000);
+      this.data.loggedInUser.gamificationPoints += 20;
+    
+  }
 
   private async getPhoto(source: CameraSource) {
     const image = await Plugins.Camera.getPhoto({
@@ -219,6 +226,7 @@ export class AddPostPage implements OnInit {
         this.data.newPlace.posts.push(this.data.newPost);
       }
       this.data.newPost = this.postService.newPost(this.data.newPlace);
+      this.data.showPointsChallenge = true;
       this.router.navigateByUrl('/tabs/tab2/add-place');
     } else {
       //Toast ausgeben: Error
@@ -230,7 +238,13 @@ export class AddPostPage implements OnInit {
 
 //Gamification
 
-
+focusOutPostDetail(){
+  if(this.enteredPostDetail == false){
+    this.data.presentGamificationToast("Added a post! +10 Points!",3000);
+    this.data.loggedInUser.gamificationPoints += 10;
+    this.enteredPostDetail = true;
+  }
+}
 
 closePioneerStep3Toast(){
 

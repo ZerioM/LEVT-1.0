@@ -40,7 +40,7 @@
 
   <ion-col no-padding>
   <ion-label><b>How many days did you spend?</b><b class="importantStars">*</b></ion-label>
-    <ion-input id="journeyDuration"  [(ngModel)]="data.newJourney.duration" placeholder="Amount of days "
+    <ion-input id="journeyDuration" (focusout)="focusOutDays()"  [(ngModel)]="data.newJourney.duration" placeholder="Amount of days "
       inputmode="decimal" type="number" no-margin>
     </ion-input>
   </ion-col>
@@ -150,7 +150,7 @@
   </div>
 
   <ion-item no-padding>
-      <ion-textarea [(ngModel)]="data.newJourney.detail" placeholder="Tell us more about your Journey" rows="8"
+      <ion-textarea [(ngModel)]="data.newJourney.detail" (focusout)="focusOutJourneyDetails()" placeholder="Tell us more about your Journey" rows="8"
         background="light" id="journeyDetails" no-padding>
         <ion-label no-padding bo-margin><b>Journey Details</b></ion-label><br>
       </ion-textarea>
@@ -161,7 +161,7 @@
         <div id="journeycostsTotal" *ngIf="showC">
           <ion-label><b>Total costs</b></ion-label>
           <ion-item no-padding>
-            <ion-input [(ngModel)]="data.newJourney.totalCosts" id="totalcosts" inputmode="decimal"
+            <ion-input [(ngModel)]="data.newJourney.totalCosts" (focusout)="focusOutTotalCosts()" id="totalcosts" inputmode="decimal"
               type="number" placeholder="0" no-padding>
             </ion-input>
             <ion-label>€</ion-label>
@@ -175,7 +175,7 @@
         <div *ngIf="divideC" id="journeycostsCategories">
           <ion-item no-padding>
             <ion-label><b>Leisure</b></ion-label>
-            <ion-input id="Leisure" [(ngModel)]="data.newJourney.leisureCosts" class="costcategories" inputmode="decimal"
+            <ion-input id="Leisure" [(ngModel)]="data.newJourney.leisureCosts" (focusout)="focusOutLeisureCosts()" class="costcategories" inputmode="decimal"
               type="number" placeholder="0"></ion-input>
             <ion-label>€</ion-label>
           </ion-item>

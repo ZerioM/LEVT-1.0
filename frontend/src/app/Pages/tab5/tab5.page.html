@@ -34,7 +34,7 @@
       <img *ngIf="data.loggedInUser.pioneerBadgeProgress >= 100" class="oneBadge" src="/assets/images/badge_pioneer.png">
       <img *ngIf="data.loggedInUser.explorerBadgeProgress >= 100" class="oneBadge" src="/assets/images/badge_explorer.png">
     </ion-item>
-    <div id="pointsView">Points</div>
+  <div id="pointsView">{{data.loggedInUser.gamificationPoints}} Points</div>
   </ion-col>
 
   <img id="chatRequestIcon" (click)="chatWith()" src="/assets/images/icon_chatanfrage.svg">
