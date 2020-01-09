@@ -108,3 +108,7 @@ $router->post('/deletePost','DeleteController@deleteOnePost');
 $router->post('/deleteImage','DeleteController@deleteOneImage');
 
 $router->post('/deleteBookmark','DeleteController@deleteOneBookmark');
+
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
