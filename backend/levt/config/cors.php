@@ -36,6 +36,7 @@ return [
             'X-Auth-Token',
             'Origin',
             'Authorization',
+            'enctype'
         ],
 
         'expose_headers' => [
