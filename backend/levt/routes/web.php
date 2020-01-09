@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
+//Auth::routes();
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 
@@ -36,7 +38,7 @@ $router->post('/newBookmark','CreateController@insertBookmark');
 
 $router->post('/uploadImage','CreateController@uploadImage');
 
-$router->post('/register','CreateController@register');
+//$router->post('/register','CreateController@register');
 
 
 //READ

@@ -8,6 +8,12 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+
+    const CREATED_AT = 'created';
+    const UPDATED_AT = 'updated';
+
+    protected $primaryKey = 'userID';
+    
     use Notifiable;
 
     /**
@@ -36,4 +42,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    
 }
