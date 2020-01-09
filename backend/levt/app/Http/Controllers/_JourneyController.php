@@ -262,24 +262,11 @@ class _JourneyController extends BaseController
         $placesArray = json_decode(json_encode($placeController->selectByJourneyIDWithoutChildren($id)->get()),true);
 
         $outputPlacesArray = array();
-        foreach ($placesArray as $placeArray) {
-            $outputPlaceArray = array();
-            $outputPlaceArray = [
-                'placeID' => $placeArray['placeID'],
-                '_journeyID' => null,
-                '_thumbnailID' => $placeArray['_thumbnailID'],
-                '_countryID' => $placeArray['_countryID'],
-                'placeName' => $placeArray['placeName'],
-                'coordinateX' => $placeArray['coordinateX'],
-                'coordinateY' => $placeArray['coordinateY'],
-                'detail' => $placeArray['detail'],
-                'posts' => null,
-                'thumbnailSrc' => $imageController->selectSrcPerImageID($placeArray['_thumbnailID']),
-                'countryName' => $countryController->selectNamePerID($placeArray['_countryID'])
-            ];
 
-            array_push($outputPlacesArray,$outputPlaceArray);
+        foreach($placesArray as $place){
+            array_push($outputPlacesArray,json_decode($placeController->selectOne($place['placeID']),true));
         }
+
 
          $outputArray = [
              //all from journey table

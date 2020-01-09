@@ -44,7 +44,7 @@
   </ion-item>
 
   <ion-item no-padding>
-    <ion-textarea placeholder="Tell us what you experienced here!" [(ngModel)]="data.newPlace.detail" rows="8"
+    <ion-textarea placeholder="Tell us what you experienced here!" (focusout)="focusOutPlaceDetail()" [(ngModel)]="data.newPlace.detail" rows="8"
       background="light" no-padding>
       <ion-label no-margin><b>Place Details</b></ion-label><br>
     </ion-textarea>
@@ -72,4 +72,36 @@
   <ion-button (click)="savePlace()" color="primary" expand="full">
     Finish
   </ion-button>
+
+  <!-- Gamification -->
+
+  <div class="gamificationBg" *ngIf="data.showedPioneerStep2==false && data.loggedInUser.pioneerBadgeProgress==50">
+    <div class="login">
+  
+      <ion-title class="tabHeading" no-padding>One step for a human...</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_pioneer.png">
+      Perfect! Your journey got a place! Add photos and finish your journey to reach the "Pioneer" Badge! Your progress: (50%)<br>
+      <ion-progress-bar value="0.5"></ion-progress-bar>
+    <br>
+    
+    <ion-button (click)="closePioneerStep2Toast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <!-- Gamification: Points Challenge-->
+
+  <div class="gamificationBg" *ngIf="data.showPointsChallenge == true">
+    <div class="login">
+  
+      <ion-title class="tabHeading" no-padding>New challenge available!</ion-title>
+    The user {{data.chatUser.username}} has reached 20 more points than you with his recently added journey. Add 3 more images for winning against him!<br>
+    <br>
+    
+    <ion-button (click)="closeChallengeToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+
+  
+
 </ion-content>

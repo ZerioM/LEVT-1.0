@@ -23,6 +23,12 @@ import { Image } from 'src/app/Interfaces/Image';
 })
 export class Tab2Page {
 
+  //Gamification
+  public enteredAJourneyName:boolean = false;
+  public enteredAmountofDays:boolean = false;
+  public enteredJourneyDetails:boolean = false;
+  public enteredTotalCosts = false;
+  public enteredLeisureCosts = false;
 
   public showC: Boolean = true;
   public divideC: Boolean = false;
@@ -248,6 +254,8 @@ export class Tab2Page {
     console.log(this.data.transportsCheckbox[index]);
   }
 
+  
+
   async finishJourney() {
     //Data binding testen
 
@@ -270,6 +278,9 @@ export class Tab2Page {
 
     if (this.data.newJourney.journeyID != null) {
       this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
+      if(this.data.loggedInUser.pioneerBadgeProgress<100&&this.data.loggedInUser.pioneerBadgeProgress >50){
+        this.data.loggedInUser.pioneerBadgeProgress=100;
+      }
       this.router.navigateByUrl('/tabs/tab1');
     } else {
       //Toast ausgeben: Das Speichern hat nicht funktioniert.
@@ -285,6 +296,66 @@ export class Tab2Page {
 
   }
 
+
+  //Gamification
+
+  focusOutJourneyName(){
+
+    if(this.data.loggedInUser.pioneerBadgeProgress<25){
+
+      this.data.loggedInUser.pioneerBadgeProgress=25;
+
+      //Progess in die DB speichern 
+    }
+
+    if(this.enteredAJourneyName == false){
+      this.data.presentGamificationToast("Added a Journey Name! +5 Points",1000);
+      this.data.loggedInUser.gamificationPoints += 5;
+      this.enteredAJourneyName = true;
+    }
+    
+    
+    
+
+  }
+
+  focusOutDays(){
+    if(this.enteredAmountofDays == false){
+      this.data.presentGamificationToast("Added the Amount of Days! +5 Points!",3000);
+      this.data.loggedInUser.gamificationPoints += 5;
+      this.enteredAmountofDays = true;
+    }
+  }
+
+  focusOutJourneyDetails(){
+    if(this.enteredJourneyDetails == false){
+      this.data.presentGamificationToast("Added more details! +5 Points!",3000);
+      this.data.loggedInUser.gamificationPoints += 5;
+      this.enteredJourneyDetails = true;
+    }
+  }
+
+  focusOutTotalCosts(){
+    if(this.enteredTotalCosts == false){
+      this.data.presentGamificationToast("Added total costs! +5 Points!",3000);
+      this.data.loggedInUser.gamificationPoints += 5;
+      this.enteredTotalCosts = true;
+    }
+  }
+
+  focusOutLeisureCosts(){
+    if(this.enteredLeisureCosts == false){
+      this.data.presentGamificationToast("Added cost details! +5 Points!",3000);
+      this.data.loggedInUser.gamificationPoints += 5;
+      this.enteredLeisureCosts = true;
+    }
+  }
+
+  closePioneerStep1Toast(){
+
+
+    this.data.showedPioneerStep1=true;
+  }
   
 
 
