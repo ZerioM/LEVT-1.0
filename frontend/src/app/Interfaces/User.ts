@@ -2,10 +2,10 @@ export interface User{
     userID:number;
     username:string;
    _profileImageID:number;
-   pwHash:string;
+   password:string;
    emailAddress: string;
    birthday: Date;
-   _countryOfResidenceID: number;
+   _countryOfResidenceID: string;
    sessionID: string;
    explorerBadgeProgress:number;
    pioneerBadgeProgress:number;

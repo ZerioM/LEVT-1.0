@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController, IonInput } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -15,13 +15,14 @@ import { AlertController } from '@ionic/angular';
 import { Capacitor, Plugins, CameraResultType, FilesystemDirectory, CameraSource } from '@capacitor/core';
 import { ImageService } from 'src/app/services/image.service';
 import { Image } from 'src/app/Interfaces/Image';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page {
+export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
 
   public showC: Boolean = true;
@@ -37,11 +38,37 @@ export class Tab2Page {
 
 
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController) {
+  constructor(private journeyService: NewJourneyService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController, private userService:UserService) {
 
     this.loadJSON();
 
 
+  }
+
+  ngAfterViewInit() {
+    if(this.userService.userLoggedIn(this.data.loggedInUser)){
+      console.log("View inited.");
+      this.userService.wantsToLogin=true;
+      this.userService.loginAtTab2OrTab5 = true;
+    }
+   
+  }
+
+  ngAfterViewChecked() {
+    if(this.userService.userLoggedOut){
+      if(this.userService.userLoggedIn(this.data.loggedInUser) == false){
+      console.log("View checked.");
+      this.userService.userLoggedOut= false;
+      this.userService.wantsToLogin=true;
+      this.userService.loginAtTab2OrTab5 = true;
+      }
+    }
+
+    if(this.userService.userRecentlyLoggedInCreateNewJourney){
+      this.userService.userRecentlyLoggedInCreateNewJourney = false;
+      this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
+    }
+    
   }
 
   //Daten laden

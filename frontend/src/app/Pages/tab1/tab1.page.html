@@ -8,7 +8,7 @@
     </ion-buttons>
     <img id="header" src="/assets/images/LEVT_Header.svg" alt="" />
     <ion-searchbar [(ngModel)]="data.search.searchEntry" placeholder="Dream destination" (focusout)="data.filterSearch()" (keyup.enter)="data.filterSearch()"></ion-searchbar>
-    <ion-item lines="none" color="none" style="background-color:0;">
+    <ion-item *ngIf="userService.userLoggedIn(data.loggedInUser)" lines="none" color="none" style="background-color:0;">
       <ion-toggle [(ngModel)]="showBookmarkedJourneys" (ngModelChange)="showMyBookmarks()" color="warning"></ion-toggle> Show bookmarked journeys
     </ion-item>
   </ion-list>

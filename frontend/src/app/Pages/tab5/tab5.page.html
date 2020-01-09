@@ -1,7 +1,7 @@
 <ion-header class="tabHeader">
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
-  <ion-title *ngIf="data.userLoggedIn" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
-  <ion-title *ngIf="data.userLoggedIn == false" class="tabHeading" no-padding>Username</ion-title>
+  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser)" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
+  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) == false" class="tabHeading" no-padding>Your profile</ion-title>
   <ion-buttons slot="end" no-padding>
     <ion-button icon-only no-padding (click)="goToSettings()">
       <ion-icon class="setup" name="md-apps" size="large"></ion-icon>
@@ -14,12 +14,12 @@
 <ion-content class="tabsContent">
   <ion-item id="profilUserpicInformations" color="none" lines="none" no-padding no-margin>
 
-    <ion-item no-padding lines="none" *ngIf="data.userLoggedIn">
+    <ion-item no-padding lines="none" *ngIf="userService.userLoggedIn(data.loggedInUser)">
       <img id="userpicProfil" src={{data.loggedInUser.userImgSrc}} alt="User" />
     </ion-item>
     <!--Profilbild-->
 
-    <ion-list *ngIf="data.userLoggedIn" id="profilAgeResidence" no-padding no-margin>
+    <ion-list *ngIf="userService.userLoggedIn(data.loggedInUser)" id="profilAgeResidence" no-padding no-margin>
       <ion-item lines="none" no-margin no-padding>
         <ion-label no-padding no-margin><b> Age</b><br> {{data.loggedInUser.age}} Years</ion-label>
       </ion-item>
@@ -34,7 +34,7 @@
       <img *ngIf="data.loggedInUser.pioneerBadgeProgress >= 100" class="oneBadge" src="/assets/images/badge_pioneer.png">
       <img *ngIf="data.loggedInUser.explorerBadgeProgress >= 100" class="oneBadge" src="/assets/images/badge_explorer.png">
     </ion-item>
-    <div id="pointsView">Points</div>
+  <div id="pointsView">Points</div>
   </ion-col>
 
   <img id="chatRequestIcon" (click)="chatWith()" src="/assets/images/icon_chatanfrage.svg">
@@ -77,13 +77,8 @@
 
   <!-- login und Register -->
 
-  <div class="loginBg" *ngIf="data.userLoggedIn==false && data.wantsToLogin==true && data.wantsToRegister==false">
+  <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToLogin==true">
     <div class="login">
-      <ion-buttons>
-        <ion-button icon-only>
-          <ion-icon class="cancel" name="ios-close"></ion-icon>
-        </ion-button>
-      </ion-buttons>
       <ion-title class="tabHeading" no-padding>Login</ion-title>
     <ion-list>
       <ion-col no-padding>
@@ -98,21 +93,36 @@
          no-margin maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
       </ion-col>
     
-      <ion-button expand="full" (click)="data.login()">Login</ion-button>
-    
+      <ion-button color="warning" expand="full" (click)="userService.login(data.loggedInUser, data.currentBookmark ,data.url)">Login</ion-button>
+      <ion-button expand="full" (click)="userService.goToResetPw()">Forgot Password</ion-button>
     </ion-list>
-    
-    <ion-button expand="full" (click)="data.goToRegistration()">Register</ion-button>
+    <ion-button expand="full" (click)="userService.goToRegistration()">Register</ion-button>
   </div>
   </div>
 
-  <div class="registerBg" *ngIf="data.wantsToRegister">
-    <div class="register">
+  <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToLogin==false && userService.wantsToResetPw == true">
+    <div class="login">
       <ion-buttons>
-        <ion-button icon-only>
-          <ion-icon class="cancel" name="ios-close"></ion-icon>
+        <ion-button (click)="userService.backToLogin()" icon-only>
+          <ion-icon class="cancel" name="ios-arrow-back"></ion-icon>
         </ion-button>
       </ion-buttons>
+      <ion-title class="tabHeading" no-padding>Forgot Password</ion-title>
+    <ion-list>
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">E-mail Adress</b></ion-label>
+      <ion-input class="inputField" type="email" placeholder="E-mail"
+         no-margin [(ngModel)]="data.loggedInUser.emailAddress"></ion-input>
+      </ion-col>
+    
+      <ion-button color="warning" expand="full" (click)="userService.resetPassword(data.loggedInUser,data.url)">Send E-Mail</ion-button>
+    </ion-list>
+   
+  </div>
+  </div>
+
+  <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) && userService.wantsToRegister && userService.wantsToLogin == true">
+    <div class="register">
       <ion-title class="tabHeading" no-padding>Register</ion-title>
 
     <ion-list>
@@ -131,20 +141,20 @@
       <ion-col no-padding>
         <ion-label><b class="importantThings">Repeat Password</b><b class="importantStars">*</b></ion-label>
       <ion-input class="inputField" type="text" placeholder="repeat password"
-         no-margin maxlength="20" [(ngModel)]="data.secondPw" (focusout)="data.checkPassword()"></ion-input>
+         no-margin maxlength="20" [(ngModel)]="userService.secondPw" (focusout)="userService.checkPassword()"></ion-input>
       </ion-col>
 
-      <ion-col no-padding *ngIf="data.passwordIsTheSame == false">
+      <ion-col no-padding *ngIf="userService.passwordIsTheSame == false">
         <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b></ion-label>
       </ion-col>
 
       <ion-col no-padding>
         <ion-label><b class="importantThings">E-Mail</b><b class="importantStars">*</b></ion-label>
       <ion-input type="e-mail" class="inputField" type="text" placeholder="e-mail"
-         no-margin maxlength="50" [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="data.checkEmail()"></ion-input>
+         no-margin maxlength="50" [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="userService.checkEmail()"></ion-input>
       </ion-col>
 
-      <ion-col no-padding *ngIf="data.emailFormatIsCorrect == false">
+      <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
         <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label>
       </ion-col>
 
@@ -161,7 +171,7 @@
       </div>
   </ion-list>
     
-    <ion-button expand="full" (click)="data.register()">Register</ion-button>
+    <ion-button expand="full" (click)="userService.register(data.loggedInUser,data.url)">Register</ion-button>
     <ion-label class="importantThings">
       * Fields marked with a <b class="importantStars">*</b> are mandatory.
     </ion-label>

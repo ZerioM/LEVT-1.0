@@ -1,19 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, AfterViewInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements OnInit {
+export class SettingsPage implements AfterViewInit, AfterViewChecked {
 
-  constructor(private data: DataService, private navCtrl:NavController, private router: Router, private alertController: AlertController) { }
+  constructor(private data: DataService, private userService: UserService, private navCtrl:NavController, private router: Router, private alertController: AlertController) { }
 
-  ngOnInit() {
+  ngAfterViewInit(){
+    this.userService.wantsToLogin = false;
   }
+
+  ngAfterViewChecked(){
+    if(this.userService.loginAtTab2OrTab5){
+      this.userService.wantsToLogin = false;
+    }
+  }
+
 
   backToProfileOrHomepage(){
 
@@ -33,20 +42,28 @@ export class SettingsPage implements OnInit {
     this.alert();
    }
 
-   showLogin(){
+  showLogin(){
 
-    this.data.wantsToLogin=true;
+    this.userService.wantsToLogin = true;
+    console.log("showed Login");
+    console.log(this.userService.wantsToLogin);
     
+  }
+
+  loginClose(){
+    this.userService.wantsToLogin = false;
+    this.userService.userLoggedOut = true;
   }
 
   cancleWantsToLogin(){
 
-    this.data.wantsToLogin=false;
+    this.userService.wantsToLogin=false;
   }
 
   cancleWantsToRegister(){
 
-    this.data.wantsToRegister=false;
+    this.userService.wantsToLogin=false;
+    this.userService.wantsToRegister=false;
   }
 
    async alert() {
@@ -78,10 +95,9 @@ export class SettingsPage implements OnInit {
 
   logout(){
 
-    this.data.userLoggedIn=false;
-  }
+    this.userService.logout(this.data.loggedInUser,this.data.currentBookmark);
 
-  
+  }
 
   goBacktoSettingsWithoutSaving(){
 

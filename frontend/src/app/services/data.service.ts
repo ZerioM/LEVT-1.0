@@ -34,6 +34,7 @@ import { Search } from '../Interfaces/Search';
 import { Places } from '../Interfaces/Places';
 import { Messages } from '../Interfaces/Messages';
 import { Message } from '../Interfaces/Message';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -57,10 +58,10 @@ export class DataService {
 
   public currentUserJourney:Journey={journeyID:null, _userID:null,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
 
-  public loggedInUser:User={userID:11, username:"Sallie Johns",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",pwHash:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null}
+  public loggedInUser:User={userID:null, username:null,_profileImageID: null, userImgSrc: null,password: null,emailAddress: null, birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName: null, gamificationPoints:null, pwClear:null}
 
   //chat
-  public chatUser:User={userID:2, username:"leo41",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",pwHash:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null}
+  public chatUser:User={userID:2, username:"leo41",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",password:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null}
 
   public currentMessages:Messages={messages:[]};
   public currentMessage:Message={messageID: null, fromUserID: null, fromUsername: '', toUserID: null, createdAt: null, msg: ''}
@@ -113,16 +114,6 @@ export class DataService {
 
   public errorMsg;
 
-  //login
-  public userLoggedIn=true;
-  public wantsToRegister=false;
-  public wantsToLogin = false;
-
-  //register
-  public secondPw: string;
-  public passwordIsTheSame: boolean = true;
-  public emailFormatIsCorrect: boolean = true;
-
   //gamification
   public showedPioneerStep1:boolean=false;
   public showedPioneerStep2:boolean=false;
@@ -158,9 +149,9 @@ export class DataService {
 
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
-  public url: string = this.flock;
+  public url: string = this.homestead;
 
-  constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
+  constructor(private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
 
     this.newJourney= this.journeyService.newJourney(this.loggedInUser);
   
@@ -242,6 +233,7 @@ export class DataService {
 
 
   }
+
   loadActivities() {
     this.http.get(this.url+"/allActivities").subscribe((loadedData: Activities) => {
       if (loadedData != null) {
@@ -289,18 +281,6 @@ export class DataService {
     
     this.currentBookmark._journeyID = this.currentJourney.journeyID;
 
-    if(this.currentJourney.detail==""){
-      this.hasJourneyDetail=false;
-    }else{
-      this.hasJourneyDetail=true;
-    }
-
-    if(this.currentJourney.places.length==0){
-      this.hasPlaces=false;
-    }else{
-      this.hasPlaces=true;
-    }
-
     if(this.loggedInUser.userID==this.currentJourney._userID){
       this.edit=true;
     }else{
@@ -327,18 +307,6 @@ export class DataService {
 
     this.currentBookmark._journeyID = this.currentJourney.journeyID;
 
-    if(this.currentJourney.detail==""){
-      this.hasJourneyDetail=false;
-    }else{
-      this.hasJourneyDetail=true;
-    }
-
-    if(this.currentJourney.places.length==0){
-      this.hasPlaces=false;
-    }else{
-      this.hasPlaces=true;
-    }
-
     if(this.loggedInUser.userID==this.currentJourney._userID){
       this.edit=true;
     }else{
@@ -363,23 +331,7 @@ export class DataService {
       console.log("Post funktioniert");
     }, error => {
       console.log(error);
-    });
-
-
-    if(this.currentUserJourney.detail==""){
-      this.hasUserJourneyDetail=false;
-    }else{
-      this.hasUserJourneyDetail=true;
-    }
-
-    if(this.currentUserJourney.places.length==0){
-      console.log("places sind null")
-      this.hasUserPlaces=false;
-    }else{
-      this.hasUserPlaces=true;
-    }
-  
-     
+    });   
   
   }
 
@@ -398,17 +350,6 @@ export class DataService {
       console.log(error);
     });
 
-    if(this.currentPlace.detail==""){
-      this.hasPlaceDetail=false;
-    }else{
-      this.hasPlaceDetail=true;
-    }
-
-    if(this.currentPlace.posts.length==null){
-      this.hasPosts=false;
-    }else{
-      this.hasPosts=true;
-    }
 
   }
 
@@ -427,18 +368,6 @@ export class DataService {
       console.log(error);
     });
 
-    if(this.currentUserPlace.detail==""){
-      this.hasUserPlaceDetail=false;
-    }else{
-      this.hasUserPlaceDetail=true;
-    }
-
-    if(this.currentUserPlace.posts.length==null){
-      this.hasUserPosts=false;
-    }else{
-      this.hasUserPosts=true;
-    }
-
   }
 
   loadOnePost(postID:number){
@@ -455,12 +384,6 @@ export class DataService {
     }, error => {
       console.log(error);
     });
-    
-    if(this.currentPost.detail==""){
-      this.hasPostDetail=false;
-    }else{
-      this.hasPostDetail=true;
-    }
 
   }
 
@@ -478,21 +401,14 @@ export class DataService {
     }, error => {
       console.log(error);
     });
-    
-    if(this.currentPost.detail==""){
-      this.hasUserPostDetail=false;
-    }else{
-      this.hasUserPostDetail=true;
-    }
 
   }
 
-  
 
-
+   //HOMEPAGE:
 
   loadTestJSON(){
-//ladet das JSON File mit den Testdaten aus den assets
+    //ladet das JSON File mit den Testdaten aus den assets
     this.http.get("/assets/journeys.json").subscribe( (loadedData: Journeys)=> {
       if(loadedData!=null){
         console.log("Json file wurde geladen");
@@ -528,56 +444,7 @@ export class DataService {
     
 
   }
-
-  async presentNotSavedToast() {
-    const toast = await this.toastController.create({
-      message: 'There was a problem with saving the content to database. Please try again!',
-      duration: 8000
-    });
-    toast.present();
-  }
-
-  async presentValidPlaceToast() {
-    const toast = await this.toastController.create({
-      message: 'The place you entered is not a valid place. Please enter a correct place and try again!',
-      duration: 8000
-    });
-    toast.present();
-  }
-
-  async presentMandatoryToast() {
-    const toast = await this.toastController.create({
-      message: 'You haven`t entered some mandatory fields. Please check if you filled all fields with a * and try again!',
-      duration: 8000
-    });
-    toast.present();
-  }
-
-  async presentGeneralToast(msg: string, dur: number){
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: dur
-    });
-    toast.present();
-  }
-
-  async presentGamificationToast(msg: string, dur: number){
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: dur,
-      cssClass:"gamificationToast"
-    });
-    toast.present();
-  }
-
-  async presentDBErrorToast() {
-    const toast = await this.toastController.create({
-      message: this.errorMsg,
-      duration: 8000
-    });
-    toast.present();
-  }
-
+ 
   loadTopPosts(){
     // http://flock-1427.students.fhstp.ac.at/backend/public/top100 liefert die Daten aus der DB 
     
@@ -614,27 +481,104 @@ export class DataService {
     );
   }
 
-  loadFilteredPosts(){
-    this.http.post(this.url+"/filteredPosts",this.search).toPromise().then( (loadedData: Journeys) => {
-      if(loadedData!=null){
-        console.log("Json file wurde geladen");
-        console.log(loadedData);
-        this.currentJourneys=loadedData;
+  // -> Fisher–Yates shuffle algorithm
+  shuffleArray(array) {
+    let m = array.length, t, i;
+  
+    // While there remain elements to shuffle
+    while (m) {
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+  
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+  
+    return array;
+  }
 
-        console.log(this.currentJourneys);
 
-      }else{
-        this.loadTopPosts();
-        this.presentGeneralToast("We couldn`t find any results for your entered search. Please try again!",5000);
-        console.log("null per http geladen");
-        }
+  //PROFILE
+
+  loadUserJourneys(user:User){
+  
+
+    this.http.post(this.url+"/userJourneys", user).subscribe((loadedData: Journeys) => {
+      console.log(loadedData);
+      this.currentUserJourneys=loadedData;
+      console.log("Post funktioniert");
     }, error => {
       console.log(error);
-      console.info(error);
-      this.errorMsg = error;
-      this.presentGeneralToast("There was a problem with the connection to the database. Please try again later!",5000);
+    });
+
+  }
+
+
+  //Bookmarks
+
+  async setBookmark(){
+    this.currentBookmark._userID=this.loggedInUser.userID;
+    this.currentBookmark._journeyID=this.currentJourney.journeyID;
+    let postData = this.currentBookmark;
+
+    //let bookmarked: boolean = false;
+
+    if(this.userService.userLoggedIn(this.loggedInUser)){
+      await this.http.post(this.url+"/newBookmark", postData).toPromise().then((loadedData: Bookmark) => {
+        this.currentBookmark = loadedData;
+        console.log(this.currentBookmark);
+        console.log("Post funktioniert");
+      }, error => {
+        console.log(error);
+        
+      });
+    } else {
+      this.userService.wantsToLogin = true;
+      console.log("DataService@setBookmark: User isn't logged in.");
     }
-    );
+    
+  }
+
+  async unsetBookmark(){
+    this.currentBookmark._userID=this.loggedInUser.userID;
+    this.currentBookmark._journeyID=this.currentJourney.journeyID;
+    let postData = this.currentBookmark;
+
+    if(this.userService.userLoggedIn(this.loggedInUser)){
+      await this.http.post(this.url+"/deleteBookmark", postData).toPromise().then((loadedData: Bookmark) => {
+        this.currentBookmark = loadedData;
+        console.log(this.currentBookmark);
+        console.log("Post funktioniert");
+      }, error => {
+        console.log(error);
+      });
+    } else {
+    this.userService.wantsToLogin = true;
+    console.log("DataService@unsetBookmark: User isn't logged in.");
+    }
+    
+  }
+
+  async bookmarkExists(){
+    this.currentBookmark._userID=this.loggedInUser.userID;
+    this.currentBookmark._journeyID=this.currentJourney.journeyID;
+    let postData = this.currentBookmark;
+
+    console.log(this.loggedInUser.userID);
+    console.log(this.currentJourney.journeyID);
+
+    let bookmarked: boolean = false;
+
+    await this.http.post(this.url+"/proveBookmarkExists", postData).toPromise().then((loadedData: Bookmark) => {
+      console.log(loadedData);
+      this.currentBookmark = loadedData;
+      console.log(this.currentBookmark);
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
   }
 
   loadBookmarkedPosts(){
@@ -660,89 +604,50 @@ export class DataService {
     );
   }
 
-  loadUserJourneys(loggedInUser:User){
+
+
+
+
+  //TOASTS
+
+  async presentGeneralToast(msg: string, dur: number){
+      const toast = await this.toastController.create({
+        message: msg,
+        duration: dur
+      });
+      toast.present();
+  }
+  
+  async presentNotSavedToast() {
+      this.presentGeneralToast('There was a problem with saving the content to database. Please try again!',8000);
+  }
+  
+  async presentValidPlaceToast() {
+      this.presentGeneralToast('The place you entered is not a valid place. Please enter a correct place and try again!',8000);
+  }
+  
+  async presentMandatoryToast() {
+      this.presentGeneralToast('You haven`t entered some mandatory fields. Please check if you filled all fields with a * and try again!',8000);
+  }
+  
+  async presentDBErrorToast() {
+      this.presentGeneralToast(this.errorMsg,8000);
+  }
+  
+  
+  async presentGamificationToast(msg: string, dur: number){
+      const toast = await this.toastController.create({
+        message: msg,
+        duration: dur,
+        cssClass:"gamificationToast"
+      });
+      toast.present();
+  }
+
+
   
 
-    this.http.post(this.url+"/userJourneys", loggedInUser).subscribe((loadedData: Journeys) => {
-      console.log(loadedData);
-      this.currentUserJourneys=loadedData;
-      console.log("Post funktioniert");
-    }, error => {
-      console.log(error);
-    });
-
-  }
-
-  async setBookmark(){
-    this.currentBookmark._userID=this.loggedInUser.userID;
-    this.currentBookmark._journeyID=this.currentJourney.journeyID;
-    let postData = this.currentBookmark;
-
-    //let bookmarked: boolean = false;
-
-    await this.http.post(this.url+"/newBookmark", postData).toPromise().then((loadedData: Bookmark) => {
-      this.currentBookmark = loadedData;
-      console.log(this.currentBookmark);
-      console.log("Post funktioniert");
-    }, error => {
-      console.log(error);
-      
-    });
-  }
-
-  async unsetBookmark(){
-    this.currentBookmark._userID=this.loggedInUser.userID;
-    this.currentBookmark._journeyID=this.currentJourney.journeyID;
-    let postData = this.currentBookmark;
-    
-   // let bookmarked: boolean = true;
-
-    await this.http.post(this.url+"/deleteBookmark", postData).toPromise().then((loadedData: Bookmark) => {
-      this.currentBookmark = loadedData;
-      console.log(this.currentBookmark);
-      console.log("Post funktioniert");
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  async bookmarkExists(){
-    this.currentBookmark._userID=this.loggedInUser.userID;
-    this.currentBookmark._journeyID=this.currentJourney.journeyID;
-    let postData = this.currentBookmark;
-
-    console.log(this.loggedInUser.userID);
-    console.log(this.currentJourney.journeyID);
-
-    let bookmarked: boolean = false;
-
-    await this.http.post(this.url+"/proveBookmarkExists", postData).toPromise().then((loadedData: Bookmark) => {
-      console.log(loadedData);
-      this.currentBookmark = loadedData;
-      console.log(this.currentBookmark);
-      console.log("Post funktioniert");
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  // -> Fisher–Yates shuffle algorithm
-  shuffleArray(array) {
-    let m = array.length, t, i;
-  
-    // While there remain elements to shuffle
-    while (m) {
-      // Pick a remaining element…
-      i = Math.floor(Math.random() * m--);
-  
-      // And swap it with the current element.
-      t = array[m];
-      array[m] = array[i];
-      array[i] = t;
-    }
-  
-    return array;
-  }
+  //Outsourced to other services:
 
   updateJourneyWorks() {
     return this.journeyService.updateJourneyWorks;
@@ -764,15 +669,19 @@ export class DataService {
     return this.placeService.validatePlace(this.newPlace, this.url);
   }
 
+  loadJourneyWithChildren(newJourney: Journey, journeyID:number) {
+    this.journeyService.loadJourneyWithChildren(newJourney, journeyID,this.url);
+  }
+
+
+  //Loading
+
   async presentLoading() {
     this.loading = await this.loadingController.create({
       spinner: null,
       duration: 20000,
-      /*message: 'Please wait...',
-      content: "<div class="loadingscreen"></div>",*/
       message: '<img src="/assets/images/loadingscreen.gif">',
       translucent: true,
-     // cssClass: 'custom-class custom-loading'
     }); 
 
     return await this.loading.present();
@@ -783,66 +692,7 @@ export class DataService {
     return await this.loading.dismiss();
   }
 
-  //Registrierung und Login
 
-  async login(){
-
-    this.loggedInUser.pwHash = Md5.hashStr(this.loggedInUser.pwClear).toString();  
-
-    this.loggedInUser.pwClear = "";
-    
-    await this.http.post(this.url+"/login", this.loggedInUser).toPromise().then((loadedData: User) => {
-      if(loadedData.userID != null){
-        this.loggedInUser.userID = loadedData.userID;
-        console.log("Login hat funktioniert.");
-        this.userLoggedIn = true;
-      } else {
-        console.log("Login hat nicht funktioniert.");
-      }
-    }, error => {
-      console.log(error);
-      
-    });
-    
-  }
-
-  async register(){
-    if(this.passwordIsTheSame){
-
-    } else {
-      this.presentGeneralToast("The two password phrases aren't identical. Please check and try again!",5000);
-    }
-
-    this.wantsToRegister = false;
-  }
-
-  checkPassword(){
-    if(this.secondPw == this.loggedInUser.pwClear){
-      this.passwordIsTheSame = true;
-    } else {
-      this.passwordIsTheSame = false;
-    }
-  }
-
-  checkEmail(){
-    if(this.loggedInUser.emailAddress == ''){
-      this.emailFormatIsCorrect = true;
-      return;
-    }
-    let regex = /^[a-zA-Z0-9._]+[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if(regex.test(this.loggedInUser.emailAddress)){
-      this.emailFormatIsCorrect = true;
-      console.log("Email is in correct format");
-    } else {
-      this.emailFormatIsCorrect = false;
-      console.log("Email is not in correct format");
-    }
-    
-  }
-
-  goToRegistration(){
-    this.wantsToRegister = true;
-  }
 
   //Search
 
@@ -859,46 +709,28 @@ export class DataService {
 
   }
 
-  loadJourneyWithChildren(newJourney: Journey, journeyID:number) {
-    this.journeyService.loadJourneyWithChildren(newJourney, journeyID,this.url);
+  loadFilteredPosts(){
+    this.http.post(this.url+"/filteredPosts",this.search).toPromise().then( (loadedData: Journeys) => {
+      if(loadedData!=null){
+        console.log("Json file wurde geladen");
+        console.log(loadedData);
+        this.currentJourneys=loadedData;
 
-    // this.writeCostsAndTransports();
+        console.log(this.currentJourneys);
 
+      }else{
+        this.loadTopPosts();
+        this.presentGeneralToast("We couldn`t find any results for your entered search. Please try again!",5000);
+        console.log("null per http geladen");
+        }
+    }, error => {
+      console.log(error);
+      console.info(error);
+      this.errorMsg = error;
+      this.presentGeneralToast("There was a problem with the connection to the database. Please try again later!",5000);
+    }
+    );
   }
 
-  // readCostsAndTransports() {
-  //   this.newJourney.leisureCosts = this.costs[0];
-  //   this.newJourney.accommodationCosts = this.costs[1];
-  //   this.newJourney.mealsanddrinksCosts = this.costs[2];
-  //   this.newJourney.transportationCosts = this.costs[3];
-  //   this.newJourney.otherCosts = this.costs[4];
 
-  //   this.newJourney.plane = this.transportsCheckbox[0];
-  //   this.newJourney.car = this.transportsCheckbox[1];
-  //   this.newJourney.bus = this.transportsCheckbox[2];
-  //   this.newJourney.train = this.transportsCheckbox[3];
-  //   this.newJourney.ship = this.transportsCheckbox[4];
-  //   this.newJourney.motorbike = this.transportsCheckbox[5];
-  //   this.newJourney.campingtrailer = this.transportsCheckbox[6];
-  //   this.newJourney.hiking = this.transportsCheckbox[7];
-  //   this.newJourney.bicycle = this.transportsCheckbox[8];
-  // }
-
-  // writeCostsAndTransports(){
-  //   this.costs[0] = this.newJourney.leisureCosts;
-  //   this.costs[1]=this.newJourney.accommodationCosts;
-  //   this.costs[2]=this.newJourney.mealsanddrinksCosts;
-  //   this.costs[3]=this.newJourney.transportationCosts;
-  //   this.costs[4]=this.newJourney.otherCosts;
-
-  //   this.transportsCheckbox[0]=this.newJourney.plane;
-  //   this.transportsCheckbox[1]=this.newJourney.car;
-  //   this.transportsCheckbox[2]=this.newJourney.bus;
-  //   this.transportsCheckbox[3]=this.newJourney.train;
-  //   this.transportsCheckbox[4]=this.newJourney.ship;
-  //   this.transportsCheckbox[5]=this.newJourney.motorbike;
-  //   this.transportsCheckbox[6]=this.newJourney.campingtrailer;
-  //   this.transportsCheckbox[7]=this.newJourney.hiking;
-  //   this.transportsCheckbox[8]=this.newJourney.bicycle;
-  // }
 }

@@ -1,23 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core'
 import { MessagesService } from 'src/app/services/messages.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-tab5',
   templateUrl: './tab5.page.html',
   styleUrls: ['./tab5.page.scss'],
 })
-export class Tab5Page implements OnInit {
+export class Tab5Page implements AfterViewInit, AfterViewChecked {
 
-  constructor(private data: DataService, private messageService: MessagesService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
+  constructor(private data: DataService, private userService: UserService, private messageService: MessagesService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
 
     this.loadJSON();
    }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    if(this.userService.userLoggedIn(this.data.loggedInUser)){
+      console.log("View initialized.");
+      this.userService.wantsToLogin=true;
+      this.userService.loginAtTab2OrTab5 = true;
+    }
+   
+  }
+
+  ngAfterViewChecked() {
+    if(this.userService.userLoggedOut){
+      if(this.userService.userLoggedIn(this.data.loggedInUser) == false){
+      console.log("View checked.");
+      this.userService.userLoggedOut= false;
+      this.userService.wantsToLogin=true;
+      this.userService.loginAtTab2OrTab5 = true;
+      }
+    }
+
+    if(this.userService.userRecentlyLoggedInOrOutLoadUserJourneys){
+      this.userService.userRecentlyLoggedInOrOutLoadUserJourneys = false;
+      this.data.loadUserJourneys(this.data.loggedInUser);
+    }
+    
   }
 
    //Daten laden

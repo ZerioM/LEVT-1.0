@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-tab1',
@@ -15,7 +16,7 @@ export class Tab1Page {
 
 //@ViewChild (Content) content: Content;
 
-  constructor(private data: DataService, private navCtrl:NavController, private router: Router) {
+  constructor(private data: DataService, private userService: UserService, private navCtrl:NavController, private router: Router) {
 
     this.loadJSON();
 
