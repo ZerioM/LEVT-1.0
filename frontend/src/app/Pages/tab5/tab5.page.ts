@@ -58,6 +58,8 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
   await this.data.presentLoading();  
   await this.data.loadOneUserJourney(journeyID);
   await this.data.dismissLoading();
+  
+  this.data.contentChanged = true;
 
   //go To Journey Detail 
   this.router.navigateByUrl('/tabs/tab5/user-journey-detail');

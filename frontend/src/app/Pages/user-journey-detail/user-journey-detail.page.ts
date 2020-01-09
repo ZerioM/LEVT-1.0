@@ -76,9 +76,9 @@ export class UserJourneyDetailPage implements AfterViewInit, AfterViewChecked {
   
     let bounds = new google.maps.LatLngBounds();
   
-    if(this.data.currentJourney.places != null){
-      if(this.data.currentJourney.places.length != 0){
-        let place1 = this.data.currentJourney.places[0];
+    if(this.data.currentUserJourney.places != null){
+      if(this.data.currentUserJourney.places.length != 0){
+        let place1 = this.data.currentUserJourney.places[0];
         if(place1 != null && place1.coordinateX != null && place1.coordinateY != null){
           centerlat = place1.coordinateX;
           centerlng = place1.coordinateY;
@@ -95,12 +95,12 @@ export class UserJourneyDetailPage implements AfterViewInit, AfterViewChecked {
         });*/
         
   
-      if(this.data.currentJourney.places.length > 1){
+      if(this.data.currentUserJourney.places.length > 1){
   
         let placesLATArray: number[] = new Array();
         let placesLNGArray: number[] = new Array();
   
-        this.data.currentJourney.places.forEach(place => {
+        this.data.currentUserJourney.places.forEach(place => {
           placesLATArray.push(place.coordinateX);
           placesLNGArray.push(place.coordinateY);
         });
@@ -146,8 +146,8 @@ export class UserJourneyDetailPage implements AfterViewInit, AfterViewChecked {
   
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       
-    if(this.data.currentJourney.places != null){
-      this.data.currentJourney.places.forEach(place => {
+    if(this.data.currentUserJourney.places != null){
+      this.data.currentUserJourney.places.forEach(place => {
         if(place.coordinateX != null && place.coordinateY != null){
           let placeLatLng = new google.maps.LatLng(place.coordinateX, place.coordinateY);
           if(place.thumbnailSrc != null && place.thumbnailSrc != ''){
