@@ -123,6 +123,22 @@ export class DataService {
   public passwordIsTheSame: boolean = true;
   public emailFormatIsCorrect: boolean = true;
 
+  //gamification
+  public showedPioneerStep1:boolean=false;
+  public showedPioneerStep2:boolean=false;
+  public showedPioneerStep3:boolean=false;
+  public showedPioneerFinish:boolean=false;
+
+  public showedExplorerFulltext:boolean=false;
+  public showedExplorerMap:boolean= false;
+  public showedExplorerJourney:boolean = false;
+  public clickedSearch:boolean=false;
+  public clickedMap:boolean=false;
+  public clickedJourney:boolean=false;
+
+  public showPointsChallenge:boolean=false;
+
+
   //search
 
   public search: Search = {searchEntry: ''};
@@ -144,7 +160,7 @@ export class DataService {
 
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
-  public url: string = this.homestead;
+  public url: string = this.flock;
 
   constructor(private http: HttpClient, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
 
@@ -547,6 +563,15 @@ export class DataService {
     toast.present();
   }
 
+  async presentGamificationToast(msg: string, dur: number){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: dur,
+      cssClass:"gamificationToast"
+    });
+    toast.present();
+  }
+
   async presentDBErrorToast() {
     const toast = await this.toastController.create({
       message: this.errorMsg,
@@ -824,6 +849,10 @@ export class DataService {
   //Search
 
   filterSearch(){
+    if(this.loggedInUser.explorerBadgeProgress < 100 && this.showedExplorerFulltext==false){
+      this.loggedInUser.explorerBadgeProgress+=34;
+      this.clickedSearch = true; 
+    }
     if(this.search.searchEntry == ''){
       this.loadTopPosts();
     } else {

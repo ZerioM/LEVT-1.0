@@ -85,10 +85,6 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
   vertical-align: middle;
   position: absolute;
 } // < auf Unterseiten
-.sc-ion-buttons-md-s ion-button {
-  --padding-start: 20px;
-  --padding-end: 20px;
-} // buttons x & <
 .tabHeading {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 15pt;
@@ -297,6 +293,18 @@ ion-loading{
   top:0;
 } // Grau Transparenter Hintergrund bei Login
 
+
+.gamificationBg{
+  width: 100%;
+  height: 100%;
+  background-color: #16161699;
+  z-index: 1000;
+  position: fixed;
+  top:0;
+} // Grau Transparenter Hintergrund bei Login
+
+
+
 .login{
   width:85%;
   padding-left: 5px;
@@ -343,3 +351,4 @@ ion-loading{
   line-height: 15px;
   margin-bottom: 20px;
 } // Einzelnen Input Felder bei Login & Registrierung
+

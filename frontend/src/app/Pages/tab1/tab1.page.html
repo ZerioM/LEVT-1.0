@@ -1,19 +1,20 @@
 <ion-header color="none">
-  <ion-list class="headerAll">
-    <ion-buttons slot="end" no-padding>
-      <ion-button class="setup" style="margin-top: 20px; right: 0;" (click)="goToSettings()" icon-only>
-        <ion-icon name="md-apps" size="large"></ion-icon>
+  <ion-list class="headerAll" no-padding no-margin>
+ <ion-buttons no-padding class="setup"  style="margin-top: 0px; right: 0;z-index: 1000;"slot="end" no-padding>
+      <ion-button (click)="goToSettings()" icon-only no-padding>
+        <ion-icon name="settings" size="large"></ion-icon>
+        <!--<ion-icon name="md-apps" size="large"></ion-icon>-->
       </ion-button>
     </ion-buttons>
     <img id="header" src="/assets/images/LEVT_Header.svg" alt="" />
-    <ion-searchbar *ngIf="showBookmarkedJourneys==false" [(ngModel)]="data.search.searchEntry" placeholder="Dream destination" (focusout)="data.filterSearch()"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="data.search.searchEntry" placeholder="Dream destination" (focusout)="data.filterSearch()" (keyup.enter)="data.filterSearch()"></ion-searchbar>
+    <ion-item lines="none" color="none" style="background-color:0;">
+      <ion-toggle [(ngModel)]="showBookmarkedJourneys" (ngModelChange)="showMyBookmarks()" color="warning"></ion-toggle> Show bookmarked journeys
+    </ion-item>
   </ion-list>
 </ion-header>
 
 <ion-content color="none">
-  <ion-item>
-  <ion-toggle [(ngModel)]="showBookmarkedJourneys" (ngModelChange)="showMyBookmarks()" color="warning"></ion-toggle> Show bookmarked journeys
-</ion-item>
   <ion-list lines="none">
     <div class="gallery" *ngFor="let j of data.currentJourneys.journeys">
       <div class="pictureFrame">
@@ -46,4 +47,45 @@
   <div id="start">
     <ion-icon id="arrowUp" color="#d68900" name="ios-arrow-up" (click)="smoothScrollJS()"></ion-icon>
   </div>
+
+  <!-- Gamification: Pioneer -->
+
+  <div class="gamificationBg" *ngIf="data.showedPioneerFinish==false && data.loggedInUser.pioneerBadgeProgress==100">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge achieved!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <p>Congrats! You successfully created a journey and shared it with the world for helping other people! Visit your profile to see your new badge! (100%) </p>
+      <ion-progress-bar value="1"></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closePioneerFinishToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <!-- Gamification: Explorer -->
+
+  <div class="gamificationBg" *ngIf="data.clickedSearch==true && data.showedExplorerFulltext==false && data.loggedInUser.explorerBadgeProgress<100">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge available!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Great! You found and used our search by searchbar. Look for the other search methods and try them out to reach the "Explorer" Badge! Your progress: ({{data.loggedInUser.explorerBadgeProgress}}%) </p>
+      <ion-progress-bar [value]="data.loggedInUser.explorerBadgeProgress/100"></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerFinishToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <div class="gamificationBg" *ngIf="data.clickedSearch==true && data.showedExplorerFulltext==false && data.loggedInUser.explorerBadgeProgress>=100">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge achieve!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Congratulations! You tried out all of our search methods and maybe learned something new. Visit your profile to see your new achieved Badge! (100%) </p>
+      <ion-progress-bar [value]="data.loggedInUser.explorerBadgeProgress/100"></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerFinishToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
 </ion-content>

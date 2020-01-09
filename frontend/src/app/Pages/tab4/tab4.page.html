@@ -1,13 +1,17 @@
 <ion-header class="tabHeader">
-  
+  <ion-buttons>
+    <ion-button icon-only (click)="close()">
+      <ion-icon class="cancel" name="ios-close"></ion-icon>
+    </ion-button>
+  </ion-buttons>
   <ion-title class="tabHeading" no-padding>Chat with {{data.chatUser.username}}</ion-title>
     <img class="headerUserPic" src={{data.chatUser.userImgSrc}} alt="User" />
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
-<ion-content>
+<ion-content id="chat" color="none">
   <ion-grid>
-    <ion-row *ngFor="let message of data.currentMessages.messages" class="footerChat">
+    <ion-row *ngFor="let message of data.currentMessages.messages">
       <ion-col size="9" *ngIf="data.loggedInUser.userID != message.fromUserID" class="message otherMessage">
       <b>{{message.fromUsername}}</b><br>
       <span>{{message.msg}}</span>
@@ -27,22 +31,13 @@
 
 </ion-content>
 
-<ion-footer>
-  <ion-toolbar color="light">
+<ion-footer no-padding no-margin >
     <ion-row align-items-center no-padding>
-      <ion-col size="10">
+      <ion-col>
         <textarea autosize [(ngModel)]="data.currentMessage.msg" class="messageInput"></textarea>
-
       </ion-col>
-      <ion-button expand="block" fill="clear" color="primary" [disabled]="data.currentMessage.msg==='' || data.currentMessage.msg == null" class="msgButton" (click)="sendMessage()">
-        <ion-icon name="md-send" slot="icon-only"></ion-icon>
+      <ion-button expand="block" fill="clear" [disabled]="data.currentMessage.msg==='' || data.currentMessage.msg == null" class="msgButton" (click)="sendMessage()">
+        <ion-icon class="sendButton" name="md-send" slot="icon-only"></ion-icon >
       </ion-button>
-
-      <ion-col size="2">
-        
-
-        
-      </ion-col>
     </ion-row>
-  </ion-toolbar>
 </ion-footer>

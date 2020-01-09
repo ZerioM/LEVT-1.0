@@ -214,6 +214,10 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
 
 
   }
+
+  closeExplorerToast() {
+    this.data.showedExplorerJourney = true;
+  }
  
 
 // /* ------------------------------------- */

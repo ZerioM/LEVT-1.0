@@ -37,14 +37,11 @@
       <div class="frameRight"></div>
     </div>
   </ion-list>
-  <ion-list>
+  <ion-list no-padding>
   
-  <ion-button no-margin style="--border-radius: 0;" *ngIf="data.edit" (click)="editJourney()"><ion-icon name="ios-create"></ion-icon>Edit Journey</ion-button>
+  <ion-button no-margin style="--border-radius: 0;margin-bottom: 10px;" *ngIf="data.edit" (click)="editJourney()"><ion-icon name="ios-create"></ion-icon>Edit Journey</ion-button>
 
   <div id="kostenVisualisierung">
-    <!--<form>
-      <label><input type="radio" name="dataset" id="dataset1" value="option1"> Perrache</label>
-      </form>-->
       
       <script src="https://d3js.org/d3.v4.min.js"></script>
       <script src="script.js"></script>
@@ -80,7 +77,7 @@
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85064.46935152684!2d16.31002052510518!3d48.220778004813376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476d079e5136ca9f%3A0xfdc2e58a51a25b46!2sWien!5e0!3m2!1sde!2sat!4v1574340689609!5m2!1sde!2sat"
       width="600" height="200" frameborder="0" style="border:0; margin-bottom: 10px;" allowfullscreen=""></iframe>-->
 
-    <ion-col no-padding *ngIf="data.hasPlaces">
+    <ion-col no-padding *ngIf="data.currentJourney.places != null && data.currentJourney.places.length > 0">
         <ion-label><b>Click on a place to learn more about it</b></ion-label>
       <div id="alreadyAddedPlaces" class="gridContainer">
         <div class="grid-item" *ngFor="let p of data.currentJourney.places" (click)="showPlace(p.placeID)">
@@ -185,4 +182,30 @@
 
   </div>
   </div>
+
+  <!-- Gamification: Explorer/IF lower than 100 % progress -->
+  <div class="gamificationBg" *ngIf="data.clickedJourney && data.showedExplorerJourney==false && data.loggedInUser.explorerBadgeProgress<100">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge available!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Yeah! By scrolling through our top 100 journeys, you find quite interesting informations! Look for the other search methods and try them out to reach the "Explorer" Badge! Your progress: ({{data.loggedInUser.explorerBadgeProgress}}%) </p>
+      <ion-progress-bar [value]="data.loggedInUser.explorerBadgeProgress/100"></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <div class="gamificationBg" *ngIf="data.clickedJourney && data.showedExplorerJourney==false && data.loggedInUser.explorerBadgeProgress>=100">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge achieve!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Congratulations! You tried out all of our search methods and maybe learned something new. Visit your profile to see your new achieved Badge! (100%) </p>
+      <ion-progress-bar [value]="data.loggedInUser.explorerBadgeProgress/100"></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
 </ion-content>

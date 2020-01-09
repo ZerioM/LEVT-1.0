@@ -2,6 +2,7 @@ import { Component, ViewChild, AfterContentInit, AfterViewInit, AfterContentChec
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { Place } from 'src/app/Interfaces/Place';
+import { thresholdFreedmanDiaconis } from 'd3';
 
 declare var google;
 
@@ -104,6 +105,17 @@ export class Tab3Page implements AfterViewInit, AfterViewChecked {
   async routeToJourneyDetail(place: Place){
     await this.data.loadCurrentJourneyByPlaceID(place);
     this.router.navigateByUrl('/tabs/tab1/journey-detail');
+  }
+
+  clickedMap(){
+    this.data.clickedMap = true;
+    if(this.data.loggedInUser.explorerBadgeProgress < 100 && this.data.showedExplorerMap==false){
+      this.data.loggedInUser.explorerBadgeProgress += 33;
+    }
+  }
+
+  closeExplorerToast(){
+    this.data.showedExplorerMap = true;
   }
 
 

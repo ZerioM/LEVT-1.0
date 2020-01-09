@@ -36,6 +36,11 @@ export class Tab1Page {
    }
 
     async showJourney(journeyID: number){
+
+    this.data.clickedJourney = true;
+    if(this.data.loggedInUser.explorerBadgeProgress < 100 && this.data.showedExplorerJourney==false){
+      this.data.loggedInUser.explorerBadgeProgress += 33;
+    }
     
     await this.data.presentLoading();  
     await this.data.loadOneJourney(journeyID);
@@ -75,5 +80,20 @@ export class Tab1Page {
       this.data.loadTopPosts();
     }
     console.log(this.showBookmarkedJourneys);
+  }
+
+
+  //Gamification
+
+  closePioneerFinishToast(){
+
+
+    this.data.showedPioneerFinish=true;
+  }
+
+  closeExplorerFinishToast(){
+
+
+    this.data.showedExplorerFulltext=true;
   }
 }
