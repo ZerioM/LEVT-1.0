@@ -15,9 +15,7 @@ class AlterTableInUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['firstName', 'lastName', '_genderID']);
-            $table->string('apiToken')->nullable();
             $table->integer('gamificationPoints');
-            $table->string('emailAddress')->unique()->change();
         });
     }
 

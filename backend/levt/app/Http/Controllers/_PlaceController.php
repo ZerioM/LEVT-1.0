@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
@@ -280,5 +280,4 @@ class _PlaceController extends BaseController
         return '{"places": '.json_encode($outputArrays, JSON_PRETTY_PRINT).'}';
 
     }
-
 }
