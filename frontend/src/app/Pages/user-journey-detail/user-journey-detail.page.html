@@ -15,6 +15,10 @@
     </div>
 
   
+      
+    <div #map class="map">
+    </div>
+
     <ion-list lines="none" no-padding no-margin>
       <div class="pictureFrame">
         <div class="frameLeft"></div>
@@ -69,7 +73,9 @@
       </ion-item>
   
       
-      <ion-col no-padding *ngIf="data.hasUserPlaces">
+
+  
+      <ion-col no-padding *ngIf="data.currentUserJourney.places != null && data.currentUserJourney.places.length > 0">
           <ion-label style="margin-bottom: 2px;"><b>Click on a place to learn more about it</b></ion-label>
         <div id="alreadyAddedPlaces" class="gridContainer">
           <div class="grid-item" *ngFor="let p of data.currentUserJourney.places" (click)="showPlace(p.placeID)">

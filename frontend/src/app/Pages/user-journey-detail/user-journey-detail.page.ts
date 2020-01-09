@@ -23,7 +23,7 @@ export class UserJourneyDetailPage implements AfterViewInit, AfterViewChecked {
   constructor(private data: DataService, private navCtrl:NavController, private router: Router, private journeyService:NewJourneyService) { }
 
   ngAfterViewInit() {
-    this.loadMap();
+  this.loadMap();
     console.log("After view has loaded.");
   }
 
@@ -32,7 +32,7 @@ export class UserJourneyDetailPage implements AfterViewInit, AfterViewChecked {
     if(this.data.contentChanged) {
       console.log("After view checked.");
       console.log(this.data.currentJourney);
-      this.loadMap();
+     this.loadMap();
       this.data.contentChanged = false;
     }
   }
