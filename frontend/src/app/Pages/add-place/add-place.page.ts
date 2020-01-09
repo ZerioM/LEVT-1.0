@@ -29,6 +29,10 @@ export class AddPlacePage implements OnInit {
   public placeSuggestions: Place[] = null;
   public image: Image;
 
+  //Gamification
+  public enteredPlaceName:boolean = false;
+  public enteredPlaceDetail:boolean = false;
+
   public delay = ms => new Promise(res => setTimeout(res, ms));
 
   constructor(private journeyService: NewJourneyService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
@@ -211,6 +215,20 @@ export class AddPlacePage implements OnInit {
 
       //Progess in die DB speichern 
     }
+
+    if(this.enteredPlaceName == false){
+      this.data.presentGamificationToast("Added a Place with a name! +10 Points!",3000);
+      this.data.loggedInUser.gamificationPoints += 10;
+      this.enteredPlaceName = true;
+    }
+  }
+
+  focusOutPlaceDetail(){
+    if(this.enteredPlaceDetail == false){
+      this.data.presentGamificationToast("Added more detail! +5 Points!",3000);
+      this.data.loggedInUser.gamificationPoints += 5;
+      this.enteredPlaceDetail = true;
+    }
   }
 
   goBacktoAddJourneyWithoutSaving(){
@@ -288,6 +306,10 @@ export class AddPlacePage implements OnInit {
 
 
     this.data.showedPioneerStep2=true;
+  }
+
+  closeChallengeToast(){
+    this.data.showPointsChallenge = false;
   }
 
 

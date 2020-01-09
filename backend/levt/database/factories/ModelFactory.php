@@ -11,17 +11,17 @@
 |
 */
 
-$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
-    return [
-        '_profileImageID' => $faker->numberBetween($min = 5, $max = 7),
-        'username' => $faker->username,
-        'pwHash' => '123',
-        'emailAddress' => $faker->email,
-        'birthday' => $faker->date,
-        '_countryOfResidenceID' => 'AT',
-        'gamificationPoints' => 0
-    ];
-});
+// $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+//     return [
+//         '_profileImageID' => $faker->numberBetween($min = 5, $max = 7),
+//         'username' => $faker->username,
+//         'pwHash' => '123',
+//         'emailAddress' => $faker->email,
+//         'birthday' => $faker->date,
+//         '_countryOfResidenceID' => 'AT',
+//         'gamificationPoints' => 0
+//     ];
+// });
 
 $factory->define(App\Models\Journey::class, function (Faker\Generator $faker) {
     return [

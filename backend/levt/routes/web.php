@@ -2,21 +2,27 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register all of the routes for an application.
-| It is a breeze. Simply tell Lumen the URIs it should respond to
-| and give it the Closure to call when that URI is requested.
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
 |
 */
 
-$router->get('/', function () use ($router) {
-    // return $router->app->version();
-    return view('picuploadTest');
+
+
+Route::get('/', function () {
+    return view('welcome');
 });
 
-//$router->get('/JSONData','JSONController@returnJSON');
+Auth::routes(['verify' => true]);
+
+//Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
 
 //CREATE
 
@@ -32,7 +38,7 @@ $router->post('/newBookmark','CreateController@insertBookmark');
 
 $router->post('/uploadImage','CreateController@uploadImage');
 
-$router->post('/register','CreateController@register');
+//$router->post('/register','CreateController@register');
 
 
 //READ
@@ -104,3 +110,7 @@ $router->post('/deletePost','DeleteController@deleteOnePost');
 $router->post('/deleteImage','DeleteController@deleteOneImage');
 
 $router->post('/deleteBookmark','DeleteController@deleteOneBookmark');
+
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');

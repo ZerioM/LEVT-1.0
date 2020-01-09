@@ -5,13 +5,13 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
      *
      * @return void
      */
     public function run()
     {
-         $this->call([
+        $this->call([
             ImagesTableSeeder::class,
             CountryTableSeeder::class,
             UserTableSeeder::class,
@@ -25,6 +25,6 @@ class DatabaseSeeder extends Seeder
             PlaceTableSeeder::class,
             PostTableSeeder::class,
             JourneyTransportTableSeeder::class
-            ]);
+        ]);
     }
 }

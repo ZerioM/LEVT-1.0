@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
-
 use App\Http\Controllers;
 use Illuminate\Http\Request;
 

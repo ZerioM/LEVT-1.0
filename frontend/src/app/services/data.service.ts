@@ -127,6 +127,8 @@ export class DataService {
   public clickedMap:boolean=false;
   public clickedJourney:boolean=false;
 
+  public showPointsChallenge:boolean=false;
+
 
   //search
 

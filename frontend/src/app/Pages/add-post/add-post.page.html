@@ -23,7 +23,7 @@
   </ion-item>
 
   <ion-item no-padding>
-    <ion-textarea [(ngModel)]="data.newPost.detail" placeholder="Tell us what you experienced here!" rows="8" background="light" no-padding> 
+    <ion-textarea (focusout)="focusOutPostDetail()" [(ngModel)]="data.newPost.detail" placeholder="Tell us what you experienced here!" rows="8" background="light" no-padding> 
     <ion-label><b>Post Details</b></ion-label></ion-textarea>
   </ion-item>
 

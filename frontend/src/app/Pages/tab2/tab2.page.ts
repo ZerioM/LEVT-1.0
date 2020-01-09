@@ -24,6 +24,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
+  //Gamification
+  public enteredAJourneyName:boolean = false;
+  public enteredAmountofDays:boolean = false;
+  public enteredJourneyDetails:boolean = false;
+  public enteredTotalCosts = false;
+  public enteredLeisureCosts = false;
 
   public showC: Boolean = true;
   public divideC: Boolean = false;
@@ -328,8 +334,48 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
       //Progess in die DB speichern 
     }
+
+    if(this.enteredAJourneyName == false){
+      this.data.presentGamificationToast("Added a Journey Name! +5 Points",1000);
+      this.data.loggedInUser.gamificationPoints += 5;
+      this.enteredAJourneyName = true;
+    }
+    
+    
     
 
+  }
+
+  focusOutDays(){
+    if(this.enteredAmountofDays == false){
+      this.data.presentGamificationToast("Added the Amount of Days! +5 Points!",3000);
+      this.data.loggedInUser.gamificationPoints += 5;
+      this.enteredAmountofDays = true;
+    }
+  }
+
+  focusOutJourneyDetails(){
+    if(this.enteredJourneyDetails == false){
+      this.data.presentGamificationToast("Added more details! +5 Points!",3000);
+      this.data.loggedInUser.gamificationPoints += 5;
+      this.enteredJourneyDetails = true;
+    }
+  }
+
+  focusOutTotalCosts(){
+    if(this.enteredTotalCosts == false){
+      this.data.presentGamificationToast("Added total costs! +5 Points!",3000);
+      this.data.loggedInUser.gamificationPoints += 5;
+      this.enteredTotalCosts = true;
+    }
+  }
+
+  focusOutLeisureCosts(){
+    if(this.enteredLeisureCosts == false){
+      this.data.presentGamificationToast("Added cost details! +5 Points!",3000);
+      this.data.loggedInUser.gamificationPoints += 5;
+      this.enteredLeisureCosts = true;
+    }
   }
 
   closePioneerStep1Toast(){
