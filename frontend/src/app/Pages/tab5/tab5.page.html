@@ -46,7 +46,7 @@
   </div>
 
 
-  <ion-list lines="none" no-padding no-margin>
+  <ion-list lines="none" *ngIf="data.currentUserJourneys.journeys != null && data.currentUserJourneys.journeys.length > 0" no-padding no-margin>
     <ion-item no-padding no-margin>
       <ion-text class="myJourneys" no-padding no-margin><b>My Journeys</b></ion-text>
     </ion-item>
@@ -70,6 +70,10 @@
       </div>
     </div>
   </ion-list>
+
+  <ion-item no-padding lines="none" *ngIf="data.currentUserJourneys.journeys == null || data.currentUserJourneys.journeys.length == 0">
+    <ion-label><b class="importantStars">Add some journeys to see your posted <br/> journeys here.</b></ion-label>
+  </ion-item>
 
   <!-- login und Register -->
 
