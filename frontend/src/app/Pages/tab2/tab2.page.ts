@@ -138,6 +138,20 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     
   }
 
+  private async deletePlace(place: Place, index: number){
+    let isDeleted: boolean;
+
+    this.data.presentLoading();
+    isDeleted = await this.placeService.deletePlace(place, this.data.url);
+    this.data.dismissLoading();
+
+    if(isDeleted){
+      this.data.newJourney.places.splice(index,1);
+    } else {
+      this.data.presentNotSavedToast();
+    }
+  }
+
   //Naviagation 
   async goToAddNewPlace() {
     // this.data.readCostsAndTransports();
@@ -210,9 +224,42 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     }
   }
 
-  goBacktoHomepageWithoutSaving() {
-    this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
-    this.router.navigateByUrl('/tabs/tab1');
+  async goBacktoHomepageWithoutSaving() {
+    if(this.data.newJourney.journeyID != null && this.data.fromEditJourney == false){
+      let isDeleted: boolean;
+
+      this.data.presentLoading();
+      isDeleted = await this.journeyService.deleteJourney(this.data.newJourney, this.data.url);
+      this.data.dismissLoading();
+
+      if(isDeleted){
+        this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
+        this.router.navigateByUrl('/tabs/tab1');
+        this.data.reloadHomePage = true;
+      } else {
+        this.data.presentNotSavedToast();
+      }
+    } else {
+      this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
+      this.router.navigateByUrl('/tabs/tab1');
+    } 
+  }
+
+  async deleteJourney(){
+
+    let isDeleted: boolean;
+
+    this.data.presentLoading();
+    isDeleted = await this.journeyService.deleteJourney(this.data.newJourney, this.data.url);
+    this.data.dismissLoading();
+
+    if(isDeleted){
+      this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
+      this.router.navigateByUrl('/tabs/tab1');
+      this.data.reloadHomePage = true;
+    } else {
+      this.data.presentNotSavedToast();
+    }
   }
 
   close() {

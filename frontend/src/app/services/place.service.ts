@@ -97,5 +97,20 @@ export class PlaceService {
     return false;
   }
 
+  async deletePlace(place: Place, url: string){
+    let isDeleted = false;
+
+    await this.http.post(url+"/deletePlace", place).toPromise().then((loadedData: boolean) => {
+      console.log(loadedData);
+      console.log("Place in DB deleted");
+      isDeleted = loadedData;      
+    }, error => {
+        console.log(error);
+    });
+
+
+    return isDeleted;
+  }
+
   
 }

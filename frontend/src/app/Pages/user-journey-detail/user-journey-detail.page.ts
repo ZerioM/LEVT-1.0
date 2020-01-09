@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -13,6 +13,12 @@ declare var google;
 })
 export class UserJourneyDetailPage implements AfterViewInit, AfterViewChecked {
   [x: string]: any;
+
+  @ViewChild('map',{read: false, static: false}) mapElement: ElementRef;
+  map: any;
+  marker: any;
+  icon: any;
+
 
   constructor(private data: DataService, private navCtrl:NavController, private router: Router, private journeyService:NewJourneyService) { }
 

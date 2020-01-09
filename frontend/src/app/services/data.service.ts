@@ -129,6 +129,8 @@ export class DataService {
 
   public showPointsChallenge:boolean=false;
 
+  //homepage
+  public reloadHomePage = false;
 
   //search
 

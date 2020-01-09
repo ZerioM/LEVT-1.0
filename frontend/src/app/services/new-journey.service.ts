@@ -181,5 +181,20 @@ export class NewJourneyService {
       console.log(error);
     });
   }
+
+  async deleteJourney(journey: Journey, url: string){
+    let isDeleted = false;
+
+    await this.http.post(url+"/deleteJourney", journey).toPromise().then((loadedData: boolean) => {
+      console.log(loadedData);
+      console.log("Journey in DB deleted");
+      isDeleted = loadedData;      
+    }, error => {
+        console.log(error);
+    });
+
+
+    return isDeleted;
+  }
 }
 

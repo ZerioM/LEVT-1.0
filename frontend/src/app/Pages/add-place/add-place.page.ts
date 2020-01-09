@@ -101,6 +101,20 @@ export class AddPlacePage implements OnInit {
     
   }
 
+  private async deletePost(post: Post, index: number){
+    let isDeleted: boolean;
+
+    this.data.presentLoading();
+    isDeleted = await this.postService.deletePost(post, this.data.url);
+    this.data.dismissLoading();
+
+    if(isDeleted){
+      this.data.newPlace.posts.splice(index,1);
+    } else {
+      this.data.presentNotSavedToast();
+    }
+  }
+
   goBackToJourney(){
 
     if(this.data.newPlace.placeName == "" && this.data.newPlace.detail == "" && this.data.newPlace.posts.length==null){

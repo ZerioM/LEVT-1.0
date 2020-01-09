@@ -214,11 +214,14 @@
   </ion-item>
   <ion-item no-padding>
     <div id="alreadyAddedPlaces" class="gridContainer">
-      <div class="grid-item" *ngFor="let p of data.newJourney.places; let in of index" (click)="goToEditPlace(p,in)">
-        <img class="pictureGrid" *ngIf="p.thumbnailSrc == null || p.thumbnailSrc == ''" src="/assets/images/platzhalter_travellocation.png"
+      <div class="grid-item" *ngFor="let p of data.newJourney.places; let in of index" >
+        <img class="pictureGrid" (click)="goToEditPlace(p,in)" *ngIf="p.thumbnailSrc == null || p.thumbnailSrc == ''" src="/assets/images/platzhalter_travellocation.png"
           alt="" />
-        <img class="pictureGrid" *ngIf="p.thumbnailSrc != null && p.thumbnailSrc != ''" src="{{p.thumbnailSrc}}" alt="" />
+        <img class="pictureGrid" (click)="goToEditPlace(p,in)" *ngIf="p.thumbnailSrc != null && p.thumbnailSrc != ''" src="{{p.thumbnailSrc}}" alt="" />
         <div id="visitedPlaceName" class="visitedPlaceName">{{p.placeName}}</div>
+        <ion-button class="trash" icon-only (click)="deletePlace(p,in)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
       </div>
 
       <div class="grid-item" (click)="goToAddNewPlace()">
@@ -234,6 +237,10 @@
 
   <ion-button color="primary" expand="full" (click)="finishJourney()">
     Finish
+  </ion-button>
+
+  <ion-button *ngIf="data.fromEditJourney" color="primary" expand="full" (click)="deleteJourney()">
+    Delete Journey
   </ion-button>
 
   <!-- login und Register -->
