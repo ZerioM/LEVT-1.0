@@ -61,11 +61,11 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
   }
 
   ngAfterViewChecked() {
-    if(this.userService.userLoggedOut){
+    if(this.userService.userLoggedOut || this.userService.wasOnSettingsPage){
       if(this.userService.userLoggedIn(this.data.loggedInUser) == false){
       console.log("View checked.");
-      this.userService.userLoggedOut= false;
-      this.userService.wantsToLogin=true;
+      this.userService.userLoggedOut = false;
+      this.userService.wantsToLogin = true;
       this.userService.loginAtTab2OrTab5 = true;
       }
     }
@@ -368,6 +368,41 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     }
 
 
+  }
+
+  async selectProfileImage(){
+
+    const webPath = await this.getPhoto(CameraSource.Prompt);
+
+    this.data.presentLoading();
+
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    if(this.image.imageID != null){
+      this.data.loggedInUser._profileImageID = this.image.imageID;
+      this.data.loggedInUser.userImgSrc = this.image.imgSrc;
+    } else {
+      this.data.presentNotSavedToast();
+    }
+
+    this.data.dismissLoading();
+    
+    
+
+  }
+
+  async deleteProfileImage(image: Image){
+    let isDeleted: boolean;
+
+    this.data.presentLoading();
+    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    this.data.dismissLoading();
+
+    if(isDeleted){
+      this.data.loggedInUser._profileImageID = null;
+      this.data.loggedInUser.userImgSrc = null;
+    } else {
+      this.data.presentNotSavedToast();
+    }
   }
 
 

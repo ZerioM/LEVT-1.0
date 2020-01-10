@@ -5,6 +5,10 @@ import { Router } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core'
 import { MessagesService } from 'src/app/services/messages.service';
 import { UserService } from 'src/app/services/user.service';
+import { Image } from 'src/app/Interfaces/Image';
+import { ImageService } from 'src/app/services/image.service';
+
+import { Capacitor, Plugins, CameraResultType, FilesystemDirectory, CameraSource } from '@capacitor/core';
 
 @Component({
   selector: 'app-tab5',
@@ -13,7 +17,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class Tab5Page implements AfterViewInit, AfterViewChecked {
 
-  constructor(private data: DataService, private userService: UserService, private messageService: MessagesService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
+  public image: Image;
+
+  constructor(private data: DataService, private userService: UserService, private messageService: MessagesService, private imageService: ImageService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
 
     this.loadJSON();
    }
@@ -28,7 +34,7 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    if(this.userService.userLoggedOut){
+    if(this.userService.userLoggedOut || this.userService.wasOnSettingsPage){
       if(this.userService.userLoggedIn(this.data.loggedInUser) == false){
       console.log("View checked.");
       this.userService.userLoggedOut= false;
@@ -71,13 +77,62 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
   this.data.settingsFromHome=false;
 
   this.router.navigateByUrl('/tabs/tab1/settings');
-}
 
-chatWith(){
+  }
+
+  chatWith(){
   //this.data.chatUser = this.profileuser;
   this.data.currentMessage = this.messageService.newMessage(this.data.loggedInUser,this.data.chatUser);
   //this.router.navigateByUrl('/tabs/tab4');
   //eigentlich navigieren zu Unterseite von tab4, wo sich chat befindet
-}
+  }
+
+  async selectProfileImage(){
+
+    const webPath = await this.getPhoto(CameraSource.Prompt);
+
+    this.data.presentLoading();
+
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    if(this.image.imageID != null){
+      this.data.loggedInUser._profileImageID = this.image.imageID;
+      this.data.loggedInUser.userImgSrc = this.image.imgSrc;
+    } else {
+      this.data.presentNotSavedToast();
+    }
+
+    this.data.dismissLoading();
+    
+    
+
+  }
+
+  private async getPhoto(source: CameraSource) {
+    const image = await Plugins.Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source,
+      //height, width, allowEditing
+    });
+
+    return image.webPath;
+    
+  }
+
+  async deleteProfileImage(image: Image){
+    let isDeleted: boolean;
+
+    this.data.presentLoading();
+    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    this.data.dismissLoading();
+
+    if(isDeleted){
+      this.data.loggedInUser._profileImageID = null;
+      this.data.loggedInUser.userImgSrc = null;
+    } else {
+      this.data.presentNotSavedToast();
+    }
+  }
 
 }

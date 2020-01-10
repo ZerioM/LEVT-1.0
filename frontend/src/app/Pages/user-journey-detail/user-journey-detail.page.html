@@ -14,11 +14,6 @@
     <div #map class="map">
     </div>
 
-  
-      
-    <div #map class="map">
-    </div>
-
     <ion-list lines="none" no-padding no-margin>
       <div class="pictureFrame">
         <div class="frameLeft"></div>
@@ -68,12 +63,10 @@
           <ion-text *ngIf="data.currentUserJourney.bicycle">Bicycle <br></ion-text>
         </ion-label>
       </ion-item>
-      <ion-item *ngIf="data.currentUserJourney.detail != null && data.currentUserJourney.detail != ''" no-padding no-margin lines="none">
+      <ion-item *ngIf="data.currentUserJourney.detail != null && data.currentUserJourney.detail != ''" no-padding no-margin lines="none" style="margin-bottom: 2px;">
         <ion-text><b>Details</b><br> {{data.currentUserJourney.detail}}</ion-text>
       </ion-item>
   
-      
-
   
       <ion-col no-padding *ngIf="data.currentUserJourney.places != null && data.currentUserJourney.places.length > 0">
           <ion-label style="margin-bottom: 2px;"><b>Click on a place to learn more about it</b></ion-label>
