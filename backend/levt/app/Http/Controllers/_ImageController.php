@@ -94,11 +94,9 @@ class _ImageController extends BaseController
 
     public function uploadOne(Request $request){
 
-        // $this->validate($request,[
-
-        //     'picUpload' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-
-        // ]);
+        $userController = new _UserController;
+        $requestArray = $request->all();
+     
 
         $mytime = Carbon::now();
         $mytime->toDateTimeString();
@@ -109,10 +107,15 @@ class _ImageController extends BaseController
         Storage::makeDirectory('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
         $path = $request->file('picUpload')->store('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
         
-        $requestArray = $request->all();
         $array = (json_decode($requestArray['data'],true));
-        //print_r($array['imageID']);
-        //print_r($request->file('picUpload'));
+
+        $userID = $userController->selectIDPerPostID($array['_postID']);
+        //muss am Handy getestet werden
+        // $validateUser = $userController->validateUser($request,$userID);
+        // if($validateUser !== true){
+        //     return $validateUser;
+        // }
+
 
         $insertImagesArray = [
             'src' => "https://flock-1427.students.fhstp.ac.at/backend/storage/app/".$path,

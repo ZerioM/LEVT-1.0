@@ -40,7 +40,7 @@ class _JourneyController extends BaseController
         return '{"journeys": '.json_encode($journeysArray,JSON_PRETTY_PRINT)." \n}";
     }
 
-    public function selectOneByPlaceID(Request $request){
+    public function selectOneByPlaceID(Request $request){ //wird die Funktion verwendet?
         $requestArray = $request->all();
 
         $journeyID = $requestArray['_journeyID'];
@@ -60,7 +60,13 @@ class _JourneyController extends BaseController
         $journeyTransportController = new _JourneyTransportController;
 
         $requestArray = $request->all();
-
+        
+        //Hier wird überprüft ob der User eingeloggt ist
+        $userID = $requestArray['_userID'];
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
 
         //Create DB table object
 
@@ -353,8 +359,17 @@ class _JourneyController extends BaseController
 
         $costController = new _CostController;
         $journeyTransportController = new _JourneyTransportController;
+        $userController = new _UserController;
 
         $requestArray = $request->all();
+
+        
+        //Hier wird überprüft ob der User eingeloggt ist
+        $userID = $requestArray['_userID'];
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
 
         $journey = Journey::find($requestArray['journeyID']);
 

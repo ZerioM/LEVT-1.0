@@ -247,7 +247,7 @@ class CountryTableSeeder extends Seeder
             ['countryName' => 'Ukraine', 'countryID' => 'UA'],
             ['countryName' => 'United Arab Emirates', 'countryID' => 'AE'],
             ['countryName' => 'United Kingdom', 'countryID' => 'GB'],
-            ['countryName' => 'United States', 'countryID' => 'US'],
+            ['countryName' => 'USA', 'countryID' => 'US'],
             ['countryName' => 'United States Minor Outlying Islands', 'countryID' => 'UM'],
             ['countryName' => 'Uruguay', 'countryID' => 'UY'],
             ['countryName' => 'Uzbekistan', 'countryID' => 'UZ'],

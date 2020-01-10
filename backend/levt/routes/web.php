@@ -12,6 +12,20 @@
 */
 
 
+/*
+| Bei allen Routen wo UserFunktion steht, muss der User am Anfang der Funktion überprüft werden:
+| Code dafür:
+|
+$userController = new _UserController;
+
+$validateUser = $userController->validateUser($request,$userID);
+if($validateUser !== true){
+    return $validateUser;
+}
+| userID muss vorher aus dem jeweiligen Kontext entnommen werden
+|
+*/
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,17 +40,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //CREATE
 
-$router->post('/newJourney','CreateController@insertJourney');
+$router->post('/newJourney','CreateController@insertJourney'); //UserFunktion
 
-$router->post('/newPlace','CreateController@insertPlace');
+$router->post('/newPlace','CreateController@insertPlace'); //UserFunktion
 
-$router->post('/newPost','CreateController@insertPost');
+$router->post('/newPost','CreateController@insertPost'); //UserFunktion
 
-$router->post('/newBookmark','CreateController@insertBookmark');
+$router->post('/newBookmark','CreateController@insertBookmark'); //UserFunktion
 
-//$router->post('/newUser','CreateController@insertUser');
-
-$router->post('/uploadImage','CreateController@uploadImage');
+$router->post('/uploadImage','CreateController@uploadImage'); //UserFunktion //Muss noch am Handy getestet werden
 
 $router->post('/register','CreateController@insertUser');
 
@@ -58,6 +70,8 @@ $router->get('/allSeasons','ReadController@selectSeasons');
 $router->get('/allGenders','ReadController@selectGenders');
 
 $router->get('/allPlaces','ReadController@selectAllPlaces');
+
+$router->get('/allCountries','ReadController@selectAllCountries');
 
 $router->post('/oneJourney','ReadController@selectOneJourney');
 
@@ -85,31 +99,34 @@ $router->post('/filteredPosts','ReadController@journeysPerSearch');
 
 $router->post('/postsBetweenCoordinates','ReadController@postsPerCoordinates');
 
+$router->post('/login','ReadController@loginUser');
+
+$router->post('/logout','ReadController@logoutUser'); //UserFunktion
 
 
 //UPDATE
 
-$router->post('/updateJourney','UpdateController@updateOneJourney');
+$router->post('/updateJourney','UpdateController@updateOneJourney'); //UserFunktion u
 
-$router->post('/updatePlace','UpdateController@updateOnePlace');
+$router->post('/updatePlace','UpdateController@updateOnePlace'); //UserFunktion u
 
-$router->post('/updatePost','UpdateController@updateOnePost');
+$router->post('/updatePost','UpdateController@updateOnePost'); //UserFunktion u
 
-$router->post('/updateImage','UpdateController@updateOneImage');
+$router->post('/updateImage','UpdateController@updateOneImage'); //UserFunktion u
 
 
 
 //DELETE
 
-$router->post('/deleteJourney','DeleteController@deleteOneJourney');
+$router->post('/deleteJourney','DeleteController@deleteOneJourney'); //UserFunktion u
 
-$router->post('/deletePlace','DeleteController@deleteOnePlace');
+$router->post('/deletePlace','DeleteController@deleteOnePlace'); //UserFunktion u
 
-$router->post('/deletePost','DeleteController@deleteOnePost');
+$router->post('/deletePost','DeleteController@deleteOnePost'); //UserFunktion u
 
-$router->post('/deleteImage','DeleteController@deleteOneImage');
+$router->post('/deleteImage','DeleteController@deleteOneImage'); //UserFunktion u
 
-$router->post('/deleteBookmark','DeleteController@deleteOneBookmark');
+$router->post('/deleteBookmark','DeleteController@deleteOneBookmark'); //UserFunktion u
 
 // Auth::routes();
 

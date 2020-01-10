@@ -13,8 +13,17 @@ use App\Models\Post as Post;
 class _PostController extends BaseController
 {
     public function insertOne(Request $request){
+        $userController = new _UserController;
 
         $requestArray = $request->all();
+
+        $userID = $userController->selectIDPerPlaceID($requestArray['_placeID']);
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+
 
         $insertPostArray = [
             '_activityID' => $requestArray['_activityID'],

@@ -21,7 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username', 'email', 'password', 'birthday', '_countryOfResidenceID', '_profileImageID',
-        'remember_token', 'gamificationPoints'
+        'remember_token', 'gamificationPoints', 'sessionID'
     ];
 
     /**
