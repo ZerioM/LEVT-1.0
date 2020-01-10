@@ -9,8 +9,6 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
 
-    const CREATED_AT = 'created';
-    const UPDATED_AT = 'updated';
 
     protected $primaryKey = 'userID';
     
@@ -22,7 +20,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password', 'birthday', '_countryOfResidenceID', '_profileImageID',
+        'remember_token', 'gamificationPoints'
     ];
 
     /**
@@ -31,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', //'remember_token',
     ];
 
     /**

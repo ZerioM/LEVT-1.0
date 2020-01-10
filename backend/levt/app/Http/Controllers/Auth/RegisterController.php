@@ -73,7 +73,7 @@ class RegisterController extends Controller
         $user = User::create([
             'username' => $data['name'],
             'email' => $data['email'],
-            'pwHash' => Hash::make($data['password']),
+            'password' => Hash::make($data['password']),
         ]);
 
         $user->sendEmailVerificationNotification();

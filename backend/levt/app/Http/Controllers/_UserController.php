@@ -5,13 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
-
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
+use App\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
-use App\Models\User as User;
+
+
+//use App\Models\User as User;
+
 
 class _UserController extends BaseController
 {
+
+    //protected $redirectTo = RouteServiceProvider::HOME;
+
+    use RegistersUsers;
     public function selectUsernamePerID($id){
         return DB::table('users')->where('userid',$id)->value('username');
     }
@@ -74,25 +85,44 @@ class _UserController extends BaseController
     //     return json_encode($outputArray,JSON_PRETTY_PRINT);
     // }
 
-    // public function insertOne(Request $request){
-    //     $imageController = new _ImageController;
 
-    //     $requestArray = $request->all();
+    public function insertOne(Request $request){
+        //$imageController = new _ImageController;
+        //$registerController = new RegisterController;
 
-    //     //Create DB table object
-    //     $insertUserArray = [
-    //         'username' => $requestArray['username'],
-    //         'pwHash' => $requestArray['pwHash'],
-    //         '_profileImageID' => $imageController->selectIDPerSrc($requestArray['userImgSrc']),
-    //         'emailAddress' => $requestArray['emailAddress'],
-    //         'birthday' => $requestArray['birthday'],
-    //         '_countryOfResidence' => $requestArray['_countryOfResidence'],
-    //         '_genderID' => $requestArray['_genderID'],
-    //         'firstName' => $requestArray['firstName'],
-    //         'lastName' => $requestArray['lastName']
-    //     ];
+        $requestArray = $request->all();
 
-    //     //return $this->existsOne($requestArray['username']);
+        //Create DB table object
+
+
+        $user = User::create([
+            'username' => $requestArray['name'],
+            'password' => Hash::make($requestArray['password']),
+            'email' => $requestArray['email'],
+            'birthday' => $requestArray['birthday'],
+            '_countryOfResidenceID' => $requestArray['_countryOfResidenceID'],
+            'remember_token' => $requestArray['remember_token'],
+            'gamificationPoints' => $requestArray['gamificationPoints'],
+            '_profileImageID' => $requestArray['_profileImageID']
+        ]);
+
+        // $insertUserArray = [
+        //     'username' => $requestArray['name'],
+        //     'password' => $requestArray['password'],
+        //     'email' => $requestArray['email'],
+        // ];
+
+        //$user = DB::table('users')->insertGetId($insertUserArray);
+
+        
+
+        $user->sendEmailVerificationNotification();
+
+        return $user;
+
+    }
+
+    //     return $this->existsOne($requestArray['username']);
     //     if($this->existsOne($requestArray['username'])=="false"){
     //     $id = DB::table('users')->insertGetId($insertUserArray);
 
