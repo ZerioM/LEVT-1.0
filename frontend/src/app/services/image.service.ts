@@ -19,6 +19,7 @@ export class ImageService {
   }
 
  async uploadImage(imageString:string, post: Post, url: string){
+
    let image:Image;
   
    if(post != null){

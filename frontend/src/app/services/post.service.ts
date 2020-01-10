@@ -49,5 +49,20 @@ export class PostService {
 
   }
 
+  async deletePost(post: Post, url: string){
+    let isDeleted = false;
+
+    await this.http.post(url+"/deletePost", post).toPromise().then((loadedData: boolean) => {
+      console.log(loadedData);
+      console.log("Post in DB deleted");
+      isDeleted = loadedData;      
+    }, error => {
+        console.log(error);
+    });
+
+
+    return isDeleted;
+  }
+
 
 }

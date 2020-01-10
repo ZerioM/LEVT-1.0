@@ -57,12 +57,16 @@
   </ion-item>
   <ion-item no-padding lines="none">
     <div id="alreadyAddedPlaces" class="gridContainer">
-      <div class="grid-item" *ngFor="let po of data.newPlace.posts; let in of index" (click)="goToEditPost(po,in)">
+      <div class="grid-item" *ngFor="let po of data.newPlace.posts; let in of index">
         <!--muss noch auf posts geändert werden-->
-        <img class="pictureGrid" *ngIf="po.images[0] != null" alt="" src="{{po.images[0].imgSrc}}" />
-        <img class="pictureGrid" *ngIf="po.images[0] == null" alt="" src="/assets/images/platzhalter_activity.png" />
+        <img class="pictureGrid" (click)="goToEditPost(po,in)" *ngIf="po.images[0] != null" alt="" src="{{po.images[0].imgSrc}}" />
+        <img class="pictureGrid" (click)="goToEditPost(po,in)" *ngIf="po.images[0] == null" alt="" src="/assets/images/platzhalter_activity.png" />
         <ion-icon id="visitedPlaceName" class="visitedPlaceName" name="{{po.iconName}}"></ion-icon>
+        <ion-button class="trash" icon-only (click)="deletePost(po,in)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
       </div>
+
       <div class="grid-item" (click)="goToAddNewPost()">
         <ion-icon name="ios-add" class="addPlace"></ion-icon>
       </div>

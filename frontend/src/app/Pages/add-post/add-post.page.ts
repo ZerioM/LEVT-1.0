@@ -1,6 +1,6 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { NewJourneyService } from 'src/app/services/new-journey.service';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { PostService } from 'src/app/services/post.service';
@@ -37,8 +37,9 @@ export class AddPostPage implements OnInit {
 
   photo:SafeResourceUrl=null;
   photos:SafeResourceUrl[]=[];
+  public cropPath:string;
 
-  constructor(private domSanitizer: DomSanitizer, private journeyService: NewJourneyService, private imageService:ImageService, private data: DataService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router, private alertController:AlertController, private crop: Crop, private imagePicker: ImagePicker, private transfer: FileTransfer) {
+  constructor(private domSanitizer: DomSanitizer, private journeyService: NewJourneyService, private imageService:ImageService, private data: DataService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router, private alertController:AlertController, private crop: Crop, private imagePicker: ImagePicker, private transfer: FileTransfer, public actionSheetController: ActionSheetController) {
     this.data.loadActivities();
     if(this.data.postInserted){
 
@@ -56,6 +57,9 @@ export class AddPostPage implements OnInit {
   async selectPhoto(){
 
     const webPath = await this.getPhoto(CameraSource.Prompt);
+    
+    
+  
 
     this.data.presentLoading();
     await this.postService.savePost(this.data.newPost, this.data.url);
@@ -96,6 +100,19 @@ export class AddPostPage implements OnInit {
     
   }
 
+  // cropImage(fileUrl) {
+  //   this.crop.crop(fileUrl, { quality: 50 })
+  //     .then(
+  //       newPath => {
+  //         this.cropPath=newPath;
+  //       },
+  //       error => {
+  //         alert('Error cropping image' + error);
+  //       }
+  //     );
+  // }
+
+  
   
 
   private showImage(image: Image){

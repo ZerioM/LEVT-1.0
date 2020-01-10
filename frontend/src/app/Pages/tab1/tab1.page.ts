@@ -1,21 +1,22 @@
-import { Component} from '@angular/core';
+import { Component, AfterViewChecked} from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page {
+export class Tab1Page implements AfterViewChecked {
 
   public showBookmarkedJourneys=false;
 
 
 //@ViewChild (Content) content: Content;
 
-  constructor(private data: DataService, private navCtrl:NavController, private router: Router) {
+  constructor(private data: DataService, private userService: UserService, private navCtrl:NavController, private router: Router) {
 
     this.loadJSON();
 
@@ -24,6 +25,13 @@ export class Tab1Page {
       if(this.data.settingsFromHome==false){
         this.router.navigateByUrl('/tabs/tab5');
       }
+    }
+  }
+
+  ngAfterViewChecked(){
+    if(this.data.reloadHomePage){
+      this.data.reloadHomePage = false;
+      this.data.loadTopPosts();
     }
   }
 

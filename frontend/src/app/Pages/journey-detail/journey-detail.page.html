@@ -14,6 +14,7 @@
   
   <div #map class="map">
   </div>
+  
   <ion-list lines="none" no-padding>
     <div class="pictureFrame">
       <div class="frameLeft"></div>
@@ -69,13 +70,9 @@
         <ion-text *ngIf="data.currentJourney.bicycle">Bicycle <br></ion-text>
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="data.hasJourneyDetail">
+    <ion-item *ngIf="data.currentJourney.detail != null && data.currentJourney.detail != ''">
       <ion-text><b>Details</b><br> {{data.currentJourney.detail}}</ion-text>
     </ion-item>
-
-    <!--<iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d85064.46935152684!2d16.31002052510518!3d48.220778004813376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476d079e5136ca9f%3A0xfdc2e58a51a25b46!2sWien!5e0!3m2!1sde!2sat!4v1574340689609!5m2!1sde!2sat"
-      width="600" height="200" frameborder="0" style="border:0; margin-bottom: 10px;" allowfullscreen=""></iframe>-->
 
     <ion-col no-padding *ngIf="data.currentJourney.places != null && data.currentJourney.places.length > 0">
         <ion-label><b>Click on a place to learn more about it</b></ion-label>
@@ -89,12 +86,15 @@
     </ion-col>
   </ion-list>
 
+
+
+
   <!-- login und Register -->
 
-  <div class="loginBg" *ngIf="data.userLoggedIn==false && data.wantsToRegister==false">
+  <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToLogin==true">
     <div class="login">
       <ion-buttons>
-        <ion-button icon-only>
+        <ion-button (click)="loginClose()" icon-only>
           <ion-icon class="cancel" name="ios-close"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -112,18 +112,18 @@
          no-margin maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
       </ion-col>
     
-      <ion-button expand="full" (click)="data.login()">Login</ion-button>
+      <ion-button expand="full" (click)="userService.login(data.loggedInUser, data.currentBookmark ,data.url)">Login</ion-button>
     
     </ion-list>
     
-    <ion-button expand="full" (click)="data.goToRegistration()">Register</ion-button>
+    <ion-button expand="full" (click)="userService.goToRegistration()">Register</ion-button>
   </div>
   </div>
 
-  <div class="registerBg" *ngIf="data.wantsToRegister">
+  <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) && userService.wantsToRegister && userService.wantsToLogin == true">
     <div class="register">
       <ion-buttons>
-        <ion-button icon-only>
+        <ion-button (click)="loginClose()"  icon-only>
           <ion-icon class="cancel" name="ios-close"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -145,20 +145,20 @@
       <ion-col no-padding>
         <ion-label><b class="importantThings">Repeat Password</b><b class="importantStars">*</b></ion-label>
       <ion-input class="inputField" type="text" placeholder="repeat password"
-         no-margin maxlength="20" [(ngModel)]="data.secondPw" (focusout)="data.checkPassword()"></ion-input>
+         no-margin maxlength="20" [(ngModel)]="userService.secondPw" (focusout)="userService.checkPassword()"></ion-input>
       </ion-col>
 
-      <ion-col no-padding *ngIf="data.passwordIsTheSame == false">
+      <ion-col no-padding *ngIf="userService.passwordIsTheSame == false">
         <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b></ion-label>
       </ion-col>
 
       <ion-col no-padding>
         <ion-label><b class="importantThings">E-Mail</b><b class="importantStars">*</b></ion-label>
       <ion-input type="e-mail" class="inputField" type="text" placeholder="e-mail"
-         no-margin maxlength="50" [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="data.checkEmail()"></ion-input>
+         no-margin maxlength="50" [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="userService.checkEmail()"></ion-input>
       </ion-col>
 
-      <ion-col no-padding *ngIf="data.emailFormatIsCorrect == false">
+      <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
         <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label>
       </ion-col>
 
@@ -175,7 +175,7 @@
       </div>
   </ion-list>
     
-    <ion-button expand="full" (click)="data.register()">Register</ion-button>
+    <ion-button expand="full" (click)="userService.register(data.loggedInUser,data.url)">Register</ion-button>
     <ion-label class="importantThings">
       * Fields marked with a <b class="importantStars">*</b> are mandatory.
     </ion-label>
@@ -184,6 +184,7 @@
   </div>
 
   <!-- Gamification: Explorer/IF lower than 100 % progress -->
+
   <div class="gamificationBg" *ngIf="data.clickedJourney && data.showedExplorerJourney==false && data.loggedInUser.explorerBadgeProgress<100">
     <div class="login">
       <ion-title class="tabHeading" no-padding>New Badge available!</ion-title>

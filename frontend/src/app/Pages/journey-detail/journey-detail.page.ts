@@ -7,6 +7,7 @@ import { NewJourneyService } from 'src/app/services/new-journey.service';
 import * as d3 from 'd3';
 import { preserveWhitespacesDefault } from '@angular/compiler';
 import { zoom } from 'd3';
+import { UserService } from 'src/app/services/user.service';
 //import {Geolocation}from '@ionic-native/geolocation/ngx';
 //import {d3} from 'https://d3js.org/d3.v4.min.js';
 
@@ -28,11 +29,12 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
 
   public focusIsOut: boolean = false;
 
-  constructor(private data: DataService, private navCtrl:NavController, private router: Router, private journeyService:NewJourneyService) {
+  constructor(private data: DataService, private userService: UserService, private navCtrl:NavController, private router: Router, private journeyService:NewJourneyService) {
     
-   }
+  }
 
   ngAfterViewInit() {
+    this.loadMap();
     console.log("After view has loaded.");
   }
 
@@ -145,41 +147,49 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
 
   async bookmarken(){
     console.log("Auf Bookmark geklickt.");
+
+    if(this.data.loggedInUser.userID != null && this.data.loggedInUser.sessionID != null){
     
     
-    if(this.data.currentBookmark.bookmarkID == null){
-
-      console.log("Bookmark ist false.");
-      this.data.bookmarkIcon = this.data.bookmarkSaved;
-
-      await this.data.setBookmark()
-      if(this.data.currentBookmark.bookmarkID != null){
-        console.log("Bookmark gesetzt.");
-        
-      } else {
-        console.log("Bookmark setzen hat nicht funktioniert.");
-        this.data.bookmarkIcon = this.data.bookmarkUnsaved;
-        this.data.presentNotSavedToast();
-      }
-
-    } else {
-
-      console.log("Bookmark ist true");
-      this.data.bookmarkIcon = this.data.bookmarkUnsaved;
-
-      await this.data.unsetBookmark()
       if(this.data.currentBookmark.bookmarkID == null){
-        console.log("Bookmark entfernt.");
-        
-      } else {
-        console.log("Bookmark entfernen hat nicht funktioniert.");
+
+        console.log("Bookmark ist false.");
         this.data.bookmarkIcon = this.data.bookmarkSaved;
-        this.data.presentNotSavedToast();
-      }
+
+        await this.data.setBookmark()
+        if(this.data.currentBookmark.bookmarkID != null){
+          console.log("Bookmark gesetzt.");
+        
+        } else {
+          console.log("Bookmark setzen hat nicht funktioniert.");
+          this.data.bookmarkIcon = this.data.bookmarkUnsaved;
+          this.data.presentNotSavedToast();
+        }
+
+      } else {
+
+        console.log("Bookmark ist true");
+        this.data.bookmarkIcon = this.data.bookmarkUnsaved;
+
+        await this.data.unsetBookmark()
+        if(this.data.currentBookmark.bookmarkID == null){
+          
+          console.log("Bookmark entfernt.");
+        
+        } else {
+          console.log("Bookmark entfernen hat nicht funktioniert.");
+          this.data.bookmarkIcon = this.data.bookmarkSaved;
+          this.data.presentNotSavedToast();
+        }
       
+      }
+
+      
+    }else{
+
+      this.userService.wantsToLogin = true; 
+  
     }
-
-
   }
 
   async showPlace(placeID: number){
@@ -215,9 +225,15 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
 
   }
 
+  loginClose(){
+    this.userService.wantsToLogin = false;
+  }
+
   closeExplorerToast() {
     this.data.showedExplorerJourney = true;
   }
+
+
  
 
 // /* ------------------------------------- */

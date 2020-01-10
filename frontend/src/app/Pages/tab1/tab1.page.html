@@ -8,14 +8,14 @@
     </ion-buttons>
     <img id="header" src="/assets/images/LEVT_Header.svg" alt="" />
     <ion-searchbar [(ngModel)]="data.search.searchEntry" placeholder="Dream destination" (focusout)="data.filterSearch()" (keyup.enter)="data.filterSearch()"></ion-searchbar>
-    <ion-item lines="none" color="none" style="background-color:0;">
+    <ion-item *ngIf="userService.userLoggedIn(data.loggedInUser)" lines="none" color="none" style="background-color:0;">
       <ion-toggle [(ngModel)]="showBookmarkedJourneys" (ngModelChange)="showMyBookmarks()" color="warning"></ion-toggle> Show bookmarked journeys
     </ion-item>
   </ion-list>
 </ion-header>
 
 <ion-content color="none">
-  <ion-list lines="none">
+  <ion-list lines="none" *ngIf="data.currentJourneys.journeys != null && data.currentJourneys.journeys.length > 0">
     <div class="gallery" *ngFor="let j of data.currentJourneys.journeys">
       <div class="pictureFrame">
         <div class="frameLeft"></div>
@@ -47,6 +47,10 @@
   <div id="start">
     <ion-icon id="arrowUp" color="#d68900" name="ios-arrow-up" (click)="smoothScrollJS()"></ion-icon>
   </div>
+
+  <ion-item lines="none" no-padding *ngIf="data.currentJourneys.journeys == null || data.currentJourneys.journeys.length == 0">
+    <ion-label><b class="importantStars">This search has no results. Please try again!</b></ion-label>
+  </ion-item>
 
   <!-- Gamification: Pioneer -->
 
