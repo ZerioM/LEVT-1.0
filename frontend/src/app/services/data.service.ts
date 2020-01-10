@@ -35,6 +35,7 @@ import { Places } from '../Interfaces/Places';
 import { Messages } from '../Interfaces/Messages';
 import { Message } from '../Interfaces/Message';
 import { UserService } from './user.service';
+import { Countries } from '../Interfaces/Countries';
 
 @Injectable({
   providedIn: 'root'
@@ -107,6 +108,7 @@ export class DataService {
   public transports: Transports = { transports: [] };
   public activities: Activities = { activities: [] };
   public seasons: Seasons = { seasons: [] };
+  public countries: Countries = { countries: [] };
 
   public placeInserted:boolean =false;
   public postInserted:boolean = false;
@@ -153,9 +155,11 @@ export class DataService {
 
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
-  public url: string = this.homestead;
+  public url: string = this.flock;
 
   constructor(private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
+
+    this.loadCentralData();
 
     this.newJourney= this.journeyService.newJourney(this.loggedInUser);
   
@@ -167,6 +171,14 @@ export class DataService {
     //for englisch Date:
     registerLocaleData(localeEN);
     this.locale = 'en';
+  }
+
+  loadCentralData(){
+    this.loadJourneyCategories();
+    this.loadSeasons();
+    this.loadCompanionships();
+    this.loadCountries();
+    this.loadTransports();
   }
 
   loadJourneyCategories() {
@@ -190,6 +202,25 @@ export class DataService {
 
 
 
+  }
+
+  loadCountries() {
+    this.http.get(this.url+"/allCountries").subscribe((loadedData: Countries) => {
+      if (loadedData != null) {
+        console.log("Json file wurde geladen");
+        //console.log(JSON.stringify(loadedData));
+        this.countries = loadedData;
+
+        console.log("Countries wurden überschrieben");
+
+        //console.log(loadedData);
+
+        console.log(this.countries);
+      } else {
+
+        console.log("null per http geladen");
+      }
+    });
   }
 
 

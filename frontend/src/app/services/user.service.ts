@@ -17,6 +17,7 @@ export class UserService {
   public userRecentlyLoggedInCreateNewJourney = false;
   public userRecentlyLoggedInOrOutLoadUserJourneys = false;
   public loginAtTab2OrTab5 = false;
+  public wasOnSettingsPage = false;
 
   //ForgotPW
   public wantsToResetPw:boolean = false;
@@ -146,6 +147,10 @@ export class UserService {
     this.wantsToLogin=false;
   }
 
+  checkUsername(loggedInUser: User){
+    //POST REQUEST IF UNIQUE
+  }
+
   checkPassword(loggedInUser: User){
     if(this.secondPw == loggedInUser.pwClear){
       this.passwordIsTheSame = true;
@@ -155,6 +160,8 @@ export class UserService {
   }
 
   checkEmail(loggedInUser: User){
+    
+
     if(loggedInUser.emailAddress == ''){
       this.emailFormatIsCorrect = true;
       return;
@@ -168,6 +175,7 @@ export class UserService {
       console.log("Email is not in correct format");
     }
 
+    //POST REQUEST IF UNIQUE
     
     
   }
