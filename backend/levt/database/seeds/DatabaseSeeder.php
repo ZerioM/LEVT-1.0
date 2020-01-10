@@ -12,19 +12,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            ImagesTableSeeder::class,
+            //ImagesTableSeeder::class,
             CountryTableSeeder::class,
-            UserTableSeeder::class,
+            //UserTableSeeder::class,
             SeasonsTableSeeder::class,
             JourneyCategoriesTableSeeder::class,
             CompanionTableSeeder::class,
-            JourneyTableSeeder::class,
-            BookmarkTableSeeder::class,
+            //JourneyTableSeeder::class,
+            //BookmarkTableSeeder::class,
             ActivityTableSeeder::class,
             TransportTableSeeder::class,
-            PlaceTableSeeder::class,
-            PostTableSeeder::class,
-            JourneyTransportTableSeeder::class
+            //PlaceTableSeeder::class,
+            //PostTableSeeder::class,
+            //JourneyTransportTableSeeder::class
         ]);
     }
 }

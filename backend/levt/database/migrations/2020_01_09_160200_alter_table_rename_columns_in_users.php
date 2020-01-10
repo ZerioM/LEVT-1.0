@@ -15,8 +15,8 @@ class AlterTableRenameColumnsInUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('pwHash', 'password');
-            $table->renameColumn('created_at', 'created');
-            $table->renameColumn('updated_at', 'updated');
+            //$table->renameColumn('created_at', 'created');
+            //$table->renameColumn('updated_at', 'updated');
         });
     }
 

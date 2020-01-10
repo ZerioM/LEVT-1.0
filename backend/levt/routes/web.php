@@ -38,7 +38,7 @@ $router->post('/newBookmark','CreateController@insertBookmark');
 
 $router->post('/uploadImage','CreateController@uploadImage');
 
-//$router->post('/register','CreateController@register');
+$router->post('/register','CreateController@insertUser');
 
 
 //READ
