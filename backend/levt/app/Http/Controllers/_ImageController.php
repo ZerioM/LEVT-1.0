@@ -52,8 +52,15 @@ class _ImageController extends BaseController
     }
 
     public function updateOne(Request $request){
-
+        $userController = new _UserController;
         $requestArray = $request->all();
+
+        $userID = $userController->selectIDPerPostID($requestArray['_postID']);
+        //muss am Handy getestet werden
+        // $validateUser = $userController->validateUser($request,$userID);
+        // if($validateUser !== true){
+        //     return $validateUser;
+        // }
 
         $image = Image::find($requestArray['imageID']);
 
@@ -70,6 +77,15 @@ class _ImageController extends BaseController
     public function deleteOne(Request $request){
 
         $requestArray = $request->all();
+
+        $userController = new _UserController;
+
+        $userID = $userController->selectIDPerPostID($requestArray['_postID']);
+
+        // $validateUser = $userController->validateUser($request,$userID);
+        // if($validateUser !== true){
+        //     return $validateUser;
+        // }
 
         $image = Image::find($requestArray['imageID']);
         

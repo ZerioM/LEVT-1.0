@@ -445,8 +445,16 @@ class _JourneyController extends BaseController
     }
 
     public function ifExistsDeleteOne(Request $request){
-
+        
+        $userController = new _UserController;
+        
         $requestArray = $request->all();
+        $userID = $userController->selectIDPerJourneyID($requestArray['journeyID']);
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
 
         $journey = Journey::find($requestArray['journeyID']);
 

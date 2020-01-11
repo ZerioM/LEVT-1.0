@@ -103,30 +103,37 @@ $router->post('/login','ReadController@loginUser');
 
 $router->post('/logout','ReadController@logoutUser'); //UserFunktion
 
+$router->post('/checkUsername','ReadController@checkUsername');
+
+$router->post('/checkEmail','ReadController@checkEmail');
+
+
 
 //UPDATE
 
-$router->post('/updateJourney','UpdateController@updateOneJourney'); //UserFunktion u
+$router->post('/updateJourney','UpdateController@updateOneJourney'); //UserFunktion
 
-$router->post('/updatePlace','UpdateController@updateOnePlace'); //UserFunktion u
+$router->post('/updatePlace','UpdateController@updateOnePlace'); //UserFunktion
 
-$router->post('/updatePost','UpdateController@updateOnePost'); //UserFunktion u
+$router->post('/updatePost','UpdateController@updateOnePost'); //UserFunktion
 
-$router->post('/updateImage','UpdateController@updateOneImage'); //UserFunktion u
+$router->post('/updateImage','UpdateController@updateOneImage'); //UserFunktion //Muss noch am Handy getestet werden
+
+$router->post('/password/change','UpdateController@updateOnePassword'); //UserFunktion //noch nicht erledigt
 
 
 
 //DELETE
 
-$router->post('/deleteJourney','DeleteController@deleteOneJourney'); //UserFunktion u
+$router->post('/deleteJourney','DeleteController@deleteOneJourney'); //UserFunktion
 
-$router->post('/deletePlace','DeleteController@deleteOnePlace'); //UserFunktion u
+$router->post('/deletePlace','DeleteController@deleteOnePlace'); //UserFunktion
 
-$router->post('/deletePost','DeleteController@deleteOnePost'); //UserFunktion u
+$router->post('/deletePost','DeleteController@deleteOnePost'); //UserFunktion
 
-$router->post('/deleteImage','DeleteController@deleteOneImage'); //UserFunktion u
+$router->post('/deleteImage','DeleteController@deleteOneImage'); //UserFunktion //Muss noch am Handy getestet werden
 
-$router->post('/deleteBookmark','DeleteController@deleteOneBookmark'); //UserFunktion u
+$router->post('/deleteBookmark','DeleteController@deleteOneBookmark'); //UserFunktion
 
 // Auth::routes();
 

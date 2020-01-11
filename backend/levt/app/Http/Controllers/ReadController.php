@@ -142,5 +142,14 @@ class ReadController extends BaseController
         return $pc->selectBetweenCoordinates($leftX,$leftY,$rightX,$rightY);
     }
 
+    public function checkUsername(Request $request){
+        $uc = new _UserController;
+        return $uc->checkIfExistsPerUsername($request);
+    }
+
+    public function checkEmail(Request $request){
+        $uc = new _UserController;
+        return $uc->checkIfExistsPerEmail($request);
+    }
 
 }

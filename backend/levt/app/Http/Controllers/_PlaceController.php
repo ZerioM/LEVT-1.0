@@ -158,6 +158,15 @@ class _PlaceController extends BaseController
 
         $requestArray = $request->all();
 
+        $userController = new _UserController;
+
+        $userID = $userController->selectIDPerPlaceID($requestArray['placeID']);
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+
         $place = Place::find($requestArray['placeID']);
 
         $place->delete();

@@ -24,6 +24,7 @@ class VerifyCsrfToken extends Middleware
         '/proveBookmarkExists','/onePost','/onePlace','/oneJourneyByPlaceID','/oneJourneyWithChildren','/oneJourneyWithChildren',
         '/oneJourney','/postsBetweenCoordinates','/filteredPosts','/userJourneys','/autocompletePlace','/validatePlace', '/updateImage',
         '/updatePost','/updatePlace','/updateJourney','/deleteBookmark','/deleteImage','/deletePost','/deletePlace','/deleteJourney', 
-        '/login', '/logout', '/register', '/password/reset', '/password/email', '/password/reset/{token}', '/password/reset'
+        '/login', '/logout', '/register', '/password/reset', '/password/email', '/password/reset/{token}', '/password/reset', 
+        '/checkUsername', '/checkEmail', '/password/change'
     ];
 }

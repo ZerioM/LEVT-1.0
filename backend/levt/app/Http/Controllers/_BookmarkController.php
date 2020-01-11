@@ -61,6 +61,13 @@ class _BookmarkController extends BaseController
         $journeyID = $requestArray['_journeyID'];
         $userID = $requestArray['_userID'];
 
+        $userController = new _UserController;
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+
         $bookmarks= $this->selectBookmarkIDPerUserIDAndJourneyID($userID,$journeyID);
         $bookmark = Bookmark::find($bookmarks);
         if($this->existsOne($journeyID,$userID)=="true"){

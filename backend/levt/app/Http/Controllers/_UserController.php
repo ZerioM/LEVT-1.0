@@ -216,23 +216,26 @@ class _UserController extends BaseController
         return '{"user": '.json_encode($outputArray,JSON_PRETTY_PRINT)." \n}"; 
     }
 
-    //     return $this->existsOne($requestArray['username']);
-    //     if($this->existsOne($requestArray['username'])=="false"){
-    //     $id = DB::table('users')->insertGetId($insertUserArray);
+    public function checkIfExistsPerUsername(Request $request){
+        $requestArray = $request->all();
+        $username = $requestArray['username'];
+        if(DB::table('users')->where('username',$username)->count() == 0){
+            return '"free" : true';
+        } else {
+            return '"free" : false';
+        }
+    }
 
-    //     return $this->selectOne($id);
-    //     } 
-    //     else {
-    //         $outputArray = [
-    //             //"freeUsername" => $this->existsOne('username')
-    //             "freeUsername ".$requestArray['username'] => $this->existsOne('username')
-    //         ];
-    //         return json_encode($outputArray,JSON_PRETTY_PRINT);
-    //     }
-    // }
+    public function checkIfExistsPerEmail(Request $request){
+        $requestArray = $request->all();
+        $email = $requestArray['emailAddress'];
+        if(DB::table('users')->where('email',$email)->count() == 0){
+            return '"free" : true';
+        } else {
+            return '"free" : false';
+        }
+    }
 
-    // public function existsOne($username){
-    //     $user = User::where([['username', '=',$username]]);
-    //     return JSON_ENCODE($user->exists());
-    // }
+    public function updatePassword(Request $request){
+    }
 }

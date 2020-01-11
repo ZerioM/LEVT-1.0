@@ -29,4 +29,9 @@ class UpdateController extends BaseController
         $ic = new _ImageController;
         return $ic->updateOne($request);
     }
+
+    public function updateOnePassword(Request $request){
+        $uc = new _UserController;
+        return $uc->updatePassword($request);
+    }
 }
