@@ -51,12 +51,10 @@ class _UserController extends BaseController
     public function validateUser(Request $request, $userID){
         $header = getallheaders();
         $headerSessionID = $header['Sessionid'];
-        $headerUserID = $header['Userid'];
-        $DBsessionID = DB::table('users')->where('userID',$headerUserID)->value('sessionID');
+        $DBsessionID = DB::table('users')->where('userID',$userID)->value('sessionID');
         //wenn Sessions nicht übereinstimmen
         //Wenn Session in DB leer is
-        //wenn userID im Header nicht mit userID im content übereinstimmt
-        if($headerSessionID != $DBsessionID || $DBsessionID == null || $userID != $headerUserID){
+        if($headerSessionID != $DBsessionID || $DBsessionID == null){
             $outputArray = [
                 'userID' => null,
                 'username' => null,
