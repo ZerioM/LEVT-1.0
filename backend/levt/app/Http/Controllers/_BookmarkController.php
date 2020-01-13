@@ -31,11 +31,20 @@ class _BookmarkController extends BaseController
         $journeyID = $requestArray['_journeyID'];
         $userID = $requestArray['_userID'];
 
+        $userController = new _UserController;
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+
+
         $insertBookmarkArray = [
             '_userID' => $userID,
             '_journeyID' => $journeyID
         ];
-        if($this->existsOne($journeyID,$userID)=="false"){
+        $journeyUserID = $userController->selectIDPerJourneyID($journeyID);
+        if($this->existsOne($journeyID,$userID)=="false" && $userID != $journeyUserID){
             $id = DB::table('bookmarks')->insertGetId($insertBookmarkArray);
         }
         $outputArray = [
@@ -51,6 +60,13 @@ class _BookmarkController extends BaseController
         $requestArray = $request->all();
         $journeyID = $requestArray['_journeyID'];
         $userID = $requestArray['_userID'];
+
+        $userController = new _UserController;
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
 
         $bookmarks= $this->selectBookmarkIDPerUserIDAndJourneyID($userID,$journeyID);
         $bookmark = Bookmark::find($bookmarks);

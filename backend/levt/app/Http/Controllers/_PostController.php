@@ -13,8 +13,17 @@ use App\Models\Post as Post;
 class _PostController extends BaseController
 {
     public function insertOne(Request $request){
+        $userController = new _UserController;
 
         $requestArray = $request->all();
+
+        $userID = $userController->selectIDPerPlaceID($requestArray['_placeID']);
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+
 
         $insertPostArray = [
             '_activityID' => $requestArray['_activityID'],
@@ -91,8 +100,16 @@ class _PostController extends BaseController
     }
 
     public function updateOne(Request $request){
+        $userController = new _UserController;
 
         $requestArray = $request->all();
+
+        $userID = $userController->selectIDPerPlaceID($requestArray['_placeID']);
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
 
         $post = Post::find($requestArray['postID']);
 
@@ -105,8 +122,17 @@ class _PostController extends BaseController
     }
 
     public function deleteOne(Request $request){
-
+        
+        $userController = new _UserController;
+        
         $requestArray = $request->all();
+
+        $userID = $userController->selectIDPerPostID($requestArray['postID']);
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
 
         $post = Post::find($requestArray['postID']);
 

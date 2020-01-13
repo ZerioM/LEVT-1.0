@@ -22,6 +22,11 @@ class ReadController extends BaseController
         return $pc->selectAll($request);
     }
 
+    public function selectAllCountries(Request $request) {
+        $cc = new _CountryController();
+        return $cc->selectAllAsObject($request);
+    }
+
     public function selectOneJourney(Request $request){
         $jc = new _JourneyController;
         $requestArray = $request->all();
@@ -54,7 +59,17 @@ class ReadController extends BaseController
     public function selectOneUser(Request $request){
         $uc = new _UserController;
         $requestArray = $request->all();
-        return $uc->selectOne($requestArray['userID']);//username?
+        return $uc->selectOne($requestArray['username']);
+    }
+
+    public function loginUser(Request $request){
+        $uc = new _UserController;
+        return $uc->login($request);
+    }
+
+    public function logoutUser(Request $request){
+        $uc = new _UserController;
+        return $uc->logout($request);
     }
 
     public function selectJourneyCategories(){
@@ -127,5 +142,14 @@ class ReadController extends BaseController
         return $pc->selectBetweenCoordinates($leftX,$leftY,$rightX,$rightY);
     }
 
+    public function checkUsername(Request $request){
+        $uc = new _UserController;
+        return $uc->checkIfExistsPerUsername($request);
+    }
+
+    public function checkEmail(Request $request){
+        $uc = new _UserController;
+        return $uc->checkIfExistsPerEmail($request);
+    }
 
 }

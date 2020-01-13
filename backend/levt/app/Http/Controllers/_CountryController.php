@@ -23,4 +23,8 @@ class _CountryController extends BaseController
     public function selectAll(){
         return Country::all();
     }
+
+    public function selectAllAsObject(){
+        return '{"countries": '.json_encode(Country::all(),JSON_PRETTY_PRINT)." \n}";
+    }
 }

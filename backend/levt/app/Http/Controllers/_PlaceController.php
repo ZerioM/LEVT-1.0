@@ -35,9 +35,15 @@ class _PlaceController extends BaseController
     public function insertOne(Request $request){
         $countryController = new _CountryController;
         $imageController = new _ImageController;
+        $userController = new _UserController;
 
         $requestArray = $request->all();
 
+        $userID = $userController->selectIDPerJourneyID($requestArray['_journeyID']);
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
 
         //Create DB table object
         $insertPlacesArray = [
@@ -124,8 +130,15 @@ class _PlaceController extends BaseController
     }
 
     public function updateOne(Request $request){
+        $userController = new _UserController;
 
         $requestArray = $request->all();
+
+        $userID = $userController->selectIDPerJourneyID($requestArray['_journeyID']);
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
 
         $place = Place::find($requestArray['placeID']);
 
@@ -144,6 +157,15 @@ class _PlaceController extends BaseController
     public function deleteOne(Request $request){
 
         $requestArray = $request->all();
+
+        $userController = new _UserController;
+
+        $userID = $userController->selectIDPerPlaceID($requestArray['placeID']);
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
 
         $place = Place::find($requestArray['placeID']);
 
