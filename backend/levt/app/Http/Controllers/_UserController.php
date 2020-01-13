@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 
 //use App\Models\User as User;
@@ -101,7 +102,7 @@ class _UserController extends BaseController
             'sessionID' => $this->createSessionID(),
             'explorerBadgeProgress' => null, //aus DB
             'pioneerBadgeProgress' => null, // aus DB
-            'age' => null, //Berechnen
+            'age' => Carbon::parse($outputUser['birthday'])->age,
             'countryName' => $countryController->selectNamePerID($outputUser['_countryOfResidenceID']),
             'userImgSrc' => $imageController->selectSrcPerUserID($outputUser['userID']),
             'pwClear' => null,
@@ -238,7 +239,7 @@ class _UserController extends BaseController
         $user->_profileImageID = $requestArray['_profileImageID'];
         //explorerBadgeProgress
         //pioneerBadgeProgress
-        
+
         $user->save();
         return $this->selectOne($user->username);
     }
