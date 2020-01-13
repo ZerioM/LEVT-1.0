@@ -103,7 +103,7 @@ class _UserController extends BaseController
             'pioneerBadgeProgress' => null, // aus DB
             'age' => null, //Berechnen
             'countryName' => $countryController->selectNamePerID($outputUser['_countryOfResidenceID']),
-            'userImgSrc' => null, //aus DB
+            'userImgSrc' => $imageController->selectSrcPerUserID($outputUser['userID']),
             'pwClear' => null,
         ];
 
@@ -216,13 +216,41 @@ class _UserController extends BaseController
         return '{"user": '.json_encode($outputArray,JSON_PRETTY_PRINT)." \n}"; 
     }
 
+
+    public function updateOne(Request $request){
+        $userController = new _UserController;
+
+        $requestArray = $request->all();
+
+        $userID = $requestArray['userID'];
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+
+        $user = User::find($userID);
+        $user->username = $requestArray['username'];
+        $user->email = $requestArray['emailAddress'];
+        $user->birthday = $requestArray['birthday'];
+        $user->_countryOfResidenceID = $requestArray['_countryOfResidenceID'];
+        $user->gamificationPoints = $requestArray['gamificationPoints'];
+        $user->_profileImageID = $requestArray['_profileImageID'];
+        //explorerBadgeProgress
+        //pioneerBadgeProgress
+        
+        $user->save();
+        return $this->selectOne($user->username);
+    }
+
+
     public function checkIfExistsPerUsername(Request $request){
         $requestArray = $request->all();
         $username = $requestArray['username'];
         if(DB::table('users')->where('username',$username)->count() == 0){
-            return '"free" : true';
+            return '{"free" : true}';
         } else {
-            return '"free" : false';
+            return '{"free" : false}';
         }
     }
 
@@ -230,12 +258,34 @@ class _UserController extends BaseController
         $requestArray = $request->all();
         $email = $requestArray['emailAddress'];
         if(DB::table('users')->where('email',$email)->count() == 0){
-            return '"free" : true';
+            return '{"free" : true}';
         } else {
-            return '"free" : false';
+            return '{"free" : false}';
         }
     }
 
     public function updatePassword(Request $request){
+        $userController = new _UserController;
+
+        $requestArray = $request->all();
+
+        //$email = $requestArray['emailAddress'];
+        $userID = $requestArray['userID'];
+        $oldPassword = $requestArray['oldPassword'];
+        $newPassword = $requestArray['newPassword'];
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+        $user = User::find($userID);
+        //$user = json_decode(json_encode(DB::table('users')->where('userID',$userID)->get()),true);
+        if ($oldPassword == $user['password']){
+            $user->password = $newPassword;
+            $user->save();
+            return $this->selectOne($user->username);
+        } else {
+            return '{"oldPassword" : false}';
+        }
     }
 }

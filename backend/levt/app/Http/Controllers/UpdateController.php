@@ -30,6 +30,11 @@ class UpdateController extends BaseController
         return $ic->updateOne($request);
     }
 
+    public function updateOneUser(Request $request){
+        $uc = new _UserController;
+        return $uc->updateOne($request);
+    }
+
     public function updateOnePassword(Request $request){
         $uc = new _UserController;
         return $uc->updatePassword($request);

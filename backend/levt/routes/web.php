@@ -119,6 +119,8 @@ $router->post('/updatePost','UpdateController@updateOnePost'); //UserFunktion
 
 $router->post('/updateImage','UpdateController@updateOneImage'); //UserFunktion //Muss noch am Handy getestet werden
 
+$router->post('/updateUser','UpdateController@updateOneUser'); //UserFunktion
+
 $router->post('/password/change','UpdateController@updateOnePassword'); //UserFunktion //noch nicht erledigt
 
 
