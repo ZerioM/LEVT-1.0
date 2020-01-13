@@ -272,8 +272,8 @@ class _UserController extends BaseController
 
         //$email = $requestArray['emailAddress'];
         $userID = $requestArray['userID'];
-        $oldPassword = $requestArray['oldPassword'];
-        $newPassword = $requestArray['newPassword'];
+        $oldPassword = $requestArray['pwClear'];
+        $newPassword = $requestArray['password'];
 
         $validateUser = $userController->validateUser($request,$userID);
         if($validateUser !== true){
