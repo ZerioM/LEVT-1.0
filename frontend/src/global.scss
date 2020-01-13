@@ -326,6 +326,7 @@ ion-loading{
   z-index: 1000;
   position: fixed;
   top:0;
+  overflow: scroll;
 } // Grau Transparenter Hintergrund bei Registrierung
 
 .register{
