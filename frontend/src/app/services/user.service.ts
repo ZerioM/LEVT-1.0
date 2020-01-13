@@ -79,21 +79,21 @@ export class UserService {
       
     // });
 
-    loggedInUser.userID = 24;
-    loggedInUser.username = "ivi21";
-    loggedInUser._profileImageID = 6;
+    loggedInUser.userID = 21;
+    loggedInUser.username = "lola33";
+    loggedInUser._profileImageID = null;
     loggedInUser.password = null;
-    loggedInUser.emailAddress = "ofeeney@hermiston.biz";
-    loggedInUser.birthday = new Date("1976-03-15");
-    loggedInUser._countryOfResidenceID = "AT";
-    loggedInUser.sessionID = "ajdoadofjaojfdao";
+    loggedInUser.emailAddress = "lola@gmail.com";
+    loggedInUser.birthday = new Date("2001-09-04");
+    loggedInUser._countryOfResidenceID = "DE";
+    loggedInUser.sessionID = "fsdfsadfsadfsdfsd";
     loggedInUser.explorerBadgeProgress = 0;
     loggedInUser.pioneerBadgeProgress = 0;
     loggedInUser.gamificationPoints = 0;
 
-    loggedInUser.age = 43;
-    loggedInUser.countryName = "Austria";
-    loggedInUser.userImgSrc = "/assets/images/sarah3110.jpg";
+    loggedInUser.age = 18;
+    loggedInUser.countryName = "Germany";
+    loggedInUser.userImgSrc = "";
     loggedInUser.pwClear = null;
 
     currentBookmark._userID = loggedInUser.userID;
