@@ -6,7 +6,8 @@
   </ion-buttons>
   
   <ion-title class="tabHeading" no-padding>{{data.currentJourney.journeyName}}</ion-title>
-    <img class="headerUserPic" src={{data.currentJourney.userImgSrc}} alt="User" />
+    <img *ngIf="data.currentJourney.userImgSrc != null && data.currentJourney.userImgSrc != ''" class="headerUserPic" src={{data.currentJourney.userImgSrc}} alt="User" />
+    <img *ngIf="data.currentJourney.userImgSrc == null || data.currentJourney.userImgSrc == ''" class="headerUserPic" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
@@ -112,7 +113,7 @@
          no-margin maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
       </ion-col>
     
-      <ion-button expand="full" (click)="userService.login(data.loggedInUser, data.currentBookmark ,data.url)">Login</ion-button>
+      <ion-button expand="full" (click)="login()">Login</ion-button>
     
     </ion-list>
     
@@ -197,7 +198,7 @@
   </div>
   </div>
 
-  <div class="gamificationBg" *ngIf="data.clickedJourney && data.showedExplorerJourney==false && data.loggedInUser.explorerBadgeProgress>=100">
+  <div class="gamificationBg" *ngIf="data.loggedInUser.explorerBadgeProgress>=100 && data.clickedJourney && data.showedExplorerJourney==false">
     <div class="login">
       <ion-title class="tabHeading" no-padding>New Badge achieve!</ion-title>
       <img class="oneBadge" src="/assets/images/badge_explorer.png">

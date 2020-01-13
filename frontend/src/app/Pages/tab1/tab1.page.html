@@ -29,7 +29,8 @@
           <div class="picInformations">
             <div class="userpicAndName">
               <ion-item color="none">
-                <img src={{j.userImgSrc}} alt="User" class="userpic" />
+                <img *ngIf="j.userImgSrc != null && j.userImgSrc != ''" src={{j.userImgSrc}} alt="User" class="userpic" />
+                <img *ngIf="j.userImgSrc == null || j.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" class="userpic" />
               </ion-item>
               <ion-item color="none">
                 <ion-label>{{j.username}}</ion-label>
@@ -81,7 +82,7 @@
   </div>
   </div>
 
-  <div class="gamificationBg" *ngIf="data.clickedSearch==true && data.showedExplorerFulltext==false && data.loggedInUser.explorerBadgeProgress>=100">
+  <div class="gamificationBg" *ngIf="data.loggedInUser.explorerBadgeProgress>=100 && data.clickedSearch==true && data.showedExplorerFulltext==false">
     <div class="login">
       <ion-title class="tabHeading" no-padding>New Badge achieve!</ion-title>
       <img class="oneBadge" src="/assets/images/badge_explorer.png">

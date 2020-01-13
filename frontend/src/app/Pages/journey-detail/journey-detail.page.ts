@@ -225,6 +225,12 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
 
   }
 
+  async login(){
+    await this.userService.login(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
+    this.bookmarken();
+  }
+  
+
   loginClose(){
     this.userService.wantsToLogin = false;
   }
