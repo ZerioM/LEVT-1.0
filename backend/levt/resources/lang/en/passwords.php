@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'reset' => 'Your password has been reset!',
+    'reset' => 'Your password has been reset! Please go to your app and login with your new password!',
     'sent' => 'We have e-mailed your password reset link!',
     'throttled' => 'Please wait before retrying.',
     'token' => 'This password reset token is invalid.',
