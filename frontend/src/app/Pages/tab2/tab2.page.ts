@@ -61,14 +61,6 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
   }
 
   ngAfterViewChecked() {
-    if(this.userService.userLoggedOut || this.userService.wasOnSettingsPage){
-      if(this.userService.userLoggedIn(this.data.loggedInUser) == false){
-      console.log("View checked.");
-      this.userService.userLoggedOut = false;
-      this.userService.wantsToLogin = true;
-      this.userService.loginAtTab2OrTab5 = true;
-      }
-    }
 
     if(this.userService.userRecentlyLoggedInCreateNewJourney){
       this.userService.userRecentlyLoggedInCreateNewJourney = false;

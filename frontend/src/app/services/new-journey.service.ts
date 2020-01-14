@@ -64,6 +64,7 @@ export class NewJourneyService {
     
     //Abfragen, ob journeyID == null, dann newJourney aufrufen, sonst updateJourney aufrufen
     if(journey.journeyID == null){
+      
       await this.http.post(url+"/newJourney", journey).toPromise().then((loadedData: Journey) => {
         console.log("Loaded Data:");
         console.log(loadedData);

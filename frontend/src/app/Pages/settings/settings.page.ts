@@ -150,6 +150,11 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
     
   }
 
+  checkEmail(){
+    this.userService.checkEmail(this.data.loggedInUser);
+    this.userService.checkEmailAvailable(this.data.loggedInUser, this.data.url);
+  }
+
   async deleteProfileImage(image: Image){
     let isDeleted: boolean;
 

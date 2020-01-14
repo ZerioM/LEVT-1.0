@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Image } from 'src/app/Interfaces/Image';
 import { Journey } from 'src/app/Interfaces/Journey';
 import { Journeys } from 'src/app/Interfaces/Journeys';
@@ -60,6 +60,9 @@ export class DataService {
   public currentUserJourney:Journey={journeyID:null, _userID:null,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
 
   public loggedInUser:User={userID:null, username:null,_profileImageID: null, userImgSrc: null,password: null,emailAddress: null, birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName: null, gamificationPoints:null, pwClear:null}
+  public loginHeaders = {
+    headers: new HttpHeaders({})
+  };
 
   //chat
   public chatUser:User={userID:2, username:"leo41",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",password:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null}
@@ -561,6 +564,9 @@ export class DataService {
     //let bookmarked: boolean = false;
 
     if(this.userService.userLoggedIn(this.loggedInUser)){
+
+      //this.userService.setHttpHeaders(this.loggedInUser, this.loginHeaders);
+
       await this.http.post(this.url+"/newBookmark", postData).toPromise().then((loadedData: Bookmark) => {
         this.currentBookmark = loadedData;
         console.log(this.currentBookmark);
@@ -582,6 +588,9 @@ export class DataService {
     let postData = this.currentBookmark;
 
     if(this.userService.userLoggedIn(this.loggedInUser)){
+
+      //this.userService.setHttpHeaders(this.loggedInUser,this.loginHeaders);
+
       await this.http.post(this.url+"/deleteBookmark", postData).toPromise().then((loadedData: Bookmark) => {
         this.currentBookmark = loadedData;
         console.log(this.currentBookmark);
@@ -617,6 +626,9 @@ export class DataService {
   }
 
   loadBookmarkedPosts(){
+
+    //VIELLEICHT NOCH ÜBERPRÜFEN DURCH SESSION-KEY
+
     this.http.post(this.url+"/allBookmarkedJourneys",this.loggedInUser).toPromise().then( (loadedData: Journeys) => {
       if(loadedData!=null){
         console.log("Json file wurde geladen");

@@ -79,7 +79,7 @@
 
   <!-- login und Register -->
 
-  <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToLogin==true">
+  <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false">
     <div class="login">
       <ion-title class="tabHeading" no-padding>Login</ion-title>
     <ion-list>
@@ -102,7 +102,7 @@
   </div>
   </div>
 
-  <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToLogin==false && userService.wantsToResetPw == true">
+  <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToResetPw == true">
     <div class="login">
       <ion-buttons>
         <ion-button (click)="userService.backToLogin()" icon-only>
@@ -123,7 +123,7 @@
   </div>
   </div>
 
-  <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister && userService.wantsToLogin == true">
+  <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister">
     <div class="register">
       <ion-title class="tabHeading" no-padding>Register</ion-title>
 

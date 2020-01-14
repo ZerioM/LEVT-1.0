@@ -99,7 +99,11 @@
       <ion-col no-padding>
         <ion-label><b class="importantThings">Username</b><b class="importantStars">*</b></ion-label>
       <ion-input class="inputField" type="text" placeholder="username" 
-         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.username" (focusout)="userService.checkUsername(data.loggedInUser)"></ion-input>
+         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.username" (focusout)="userService.checkUsername(data.loggedInUser,data.url)"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding *ngIf="userService.usernameAvailable == false">
+        <ion-label><b class="importantStars">This username is already used by another user. Please click on forgot password or use another username!</b></ion-label>
       </ion-col>
     
       <ion-col no-padding>
@@ -121,12 +125,16 @@
       <ion-col no-padding>
         <ion-label><b class="importantThings">E-Mail</b><b class="importantStars">*</b></ion-label>
       <ion-input type="e-mail" class="inputField" type="text" placeholder="e-mail"
-         no-margin [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="userService.checkEmail(data.loggedInUser)"></ion-input>
+         no-margin [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="checkEmail()"></ion-input>
       </ion-col>
 
       <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
         <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label>
       </ion-col>
+      <ion-col no-padding *ngIf="userService.emailAvailable == false">
+        <ion-label><b class="importantStars">This email is already used by another user. Please click on forgot password or use another E-Mail!</b></ion-label>
+      </ion-col>
+
 
       <ion-col>
         <ion-label><b class="importantThings">Country of Residence</b><b class="importantStars">*</b></ion-label>
