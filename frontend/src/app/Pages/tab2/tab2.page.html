@@ -59,7 +59,8 @@
 
 <ion-item no-padding lines="none" no-margin>
     <div id="journeyYear" lines="none">
-    <ion-datetime [(ngModel)]="data.newJourney.year" value="2019" placeholder="Year" displayFormat="YYYY"
+      <ion-label><b class="importantThings">Year</b><b class="importantStars">*</b></ion-label> 
+    <ion-datetime [(ngModel)]="data.newJourney.year" displayFormat="YYYY" value="Year" placholder="Year"
        no-padding ></ion-datetime>
     </div>
   </ion-item>
@@ -243,7 +244,6 @@
     Delete Journey
   </ion-button>
 
-  <!-- login und Register -->
 
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false">
     <div class="login">
@@ -296,7 +296,7 @@
 
     <ion-list>
       <ion-col no-padding>
-        <ion-item lines="none">
+        <ion-item lines="none" no-padding>
           <ion-label><b class="importantThings" position="floating">Upload your Profile Picture here</b></ion-label>
         </ion-item>
         <ion-item no-padding lines="none">
@@ -352,10 +352,10 @@
         </ion-select>
       </ion-col>
     
-      <div id="journeyYear" lines="none">
+      <div class="birthdayRegister" lines="none">
         <ion-label><b class="importantThings">Birthday</b><b class="importantStars">*</b></ion-label>
         <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
-          id="journeyYear" no-padding ></ion-datetime>
+           no-padding ></ion-datetime>
       </div>
   </ion-list>
     

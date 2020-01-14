@@ -25,7 +25,7 @@
 
 
   <!-- login und Register -->
-
+ <!-- LOGIN -->
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToLogin==true">
     <div class="login">
       <ion-buttons>
@@ -75,6 +75,7 @@
   </div>
   </div>
 
+  <!-- REGISTER -->
   <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister && userService.wantsToLogin == true">
     <div class="register">
       <ion-title class="tabHeading" no-padding>Register</ion-title>
@@ -145,10 +146,10 @@
         </ion-select>
       </ion-col>
     
-      <div id="journeyYear" lines="none">
+      <div class="birthdayRegister" lines="none">
         <ion-label><b class="importantThings">Birthday</b><b class="importantStars">*</b></ion-label>
         <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
-          id="journeyYear" no-padding></ion-datetime>
+           no-padding></ion-datetime>
       </div>
   </ion-list>
     

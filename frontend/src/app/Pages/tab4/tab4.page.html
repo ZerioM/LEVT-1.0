@@ -9,7 +9,7 @@
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
-<ion-content id="chat" color="none">
+<ion-content id="chat" color="none" class="tabsContent">
   <ion-grid>
     <ion-row *ngFor="let message of data.currentMessages.messages">
       <ion-col size="9" *ngIf="data.loggedInUser.userID != message.fromUserID" class="message otherMessage">

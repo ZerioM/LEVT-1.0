@@ -71,7 +71,7 @@
         <ion-text *ngIf="data.currentJourney.bicycle">Bicycle <br></ion-text>
       </ion-label>
     </ion-item>
-    <ion-item *ngIf="data.currentJourney.detail != null && data.currentJourney.detail != ''">
+    <ion-item *ngIf="data.currentJourney.detail != null && data.currentJourney.detail != ''" lines="none">
       <ion-text><b>Details</b><br> {{data.currentJourney.detail}}</ion-text>
     </ion-item>
 
