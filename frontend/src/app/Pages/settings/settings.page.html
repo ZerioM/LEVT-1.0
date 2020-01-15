@@ -97,7 +97,7 @@
             </div>
         </ion-item>
       </ion-col>
-      
+
       <ion-col no-padding>
         <ion-label><b class="importantThings">Username</b><b class="importantStars">*</b></ion-label>
       <ion-input class="inputField" type="text" placeholder="username" 
@@ -131,7 +131,7 @@
         <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label><br>
       </ion-col>
       <ion-col no-padding *ngIf="userService.emailAvailable == false">
-        <ion-label><b class="importantStars">This email is already used by another user. Please click on forgot password or use another E-Mail!</b></ion-label><br>
+        <ion-label><b class="importantStars">This email is already assigned. Please use another E-Mail adress!</b></ion-label><br>
       </ion-col>
 
 
@@ -145,7 +145,7 @@
       </ion-col>
     
       <div class="birthdayRegister" lines="none">
-        <ion-label><b class="importantThings">Birthday</b><b class="importantStars">*</b></ion-label>
+        <ion-label><b class="importantThings">Birthday</b><!--<b class="importantStars">*</b>--></ion-label>
         <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
            no-padding></ion-datetime>
       </div>
