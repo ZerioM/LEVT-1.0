@@ -269,6 +269,8 @@
   </div>
   </div>
 
+    <!-- LOGIN & REGISTER -->
+    <!-- LOGIN -->
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToResetPw == true">
     <div class="login">
       <ion-buttons>
@@ -290,6 +292,7 @@
   </div>
   </div>
 
+  <!-- REGISTER -->
   <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister">
     <div class="register">
       <ion-title class="tabHeading" no-padding>Register</ion-title>
@@ -316,6 +319,10 @@
       <ion-input class="inputField" type="text" placeholder="username" 
          no-margin maxlength="20" [(ngModel)]="data.loggedInUser.username" (focusout)="userService.checkUsername(data.loggedInUser)"></ion-input>
       </ion-col>
+
+      <ion-col no-padding no-margin *ngIf="userService.usernameAvailable == false">
+        <ion-label><b class="importantStars">This username is already assigned. Please pick another username!</b></ion-label><br>
+      </ion-col>
     
       <ion-col no-padding>
         <ion-label><b class="importantThings">Password</b><b class="importantStars">*</b></ion-label>
@@ -330,7 +337,7 @@
       </ion-col>
 
       <ion-col no-padding *ngIf="userService.passwordIsTheSame == false">
-        <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b></ion-label>
+        <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b></ion-label><br>
       </ion-col>
 
       <ion-col no-padding>
@@ -340,7 +347,7 @@
       </ion-col>
 
       <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
-        <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label>
+        <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label><br>
       </ion-col>
 
       <ion-col>
