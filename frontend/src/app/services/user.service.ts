@@ -6,6 +6,9 @@ import { Md5 } from 'ts-md5';
 import { Bookmark } from '../Interfaces/Bookmark';
 import { BoolObj } from '../Interfaces/BoolObj';
 
+import { Storage } from '@ionic/storage';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -30,8 +33,10 @@ export class UserService {
   public usernameAvailable: boolean = true;
   public emailAvailable: boolean = true;
 
+  
 
-  constructor(private http: HttpClient, public toastController: ToastController) { }
+
+  constructor(private storage: Storage, private http: HttpClient, public toastController: ToastController) { }
 
   newUser(){
   let newUser:User={userID:null, username:null,_profileImageID:null, userImgSrc:null,password:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null, gamificationPoints:null, pwClear:null}
@@ -81,6 +86,8 @@ export class UserService {
     loggedInUser.userImgSrc = null;
     loggedInUser.pwClear = null;
 
+    this.storage.set("myUser", loggedInUser);
+
     currentBookmark._userID = null;
 
     this.userRecentlyLoggedInOrOutLoadUserJourneys = true;
@@ -123,6 +130,8 @@ export class UserService {
     });
 
     loggedInUser.password = '';
+
+    this.storage.set("myUser", loggedInUser);
 
     currentBookmark._userID = loggedInUser.userID;
 
