@@ -81,7 +81,7 @@
       <ion-title class="tabHeading" no-padding>Register</ion-title>
 
     <ion-list>
-      <!-- <ion-col no-padding>
+      <ion-col no-padding>
         <ion-item lines="none">
           <ion-label><b class="importantThings" position="floating">Upload your Profile Picture here</b></ion-label>
         </ion-item>
@@ -96,15 +96,16 @@
               <ion-icon name="ios-add" class="addPlace"></ion-icon>
             </div>
         </ion-item>
-      </ion-col> -->
+      </ion-col>
+      
       <ion-col no-padding>
         <ion-label><b class="importantThings">Username</b><b class="importantStars">*</b></ion-label>
       <ion-input class="inputField" type="text" placeholder="username" 
          no-margin maxlength="20" [(ngModel)]="data.loggedInUser.username" (focusout)="userService.checkUsername(data.loggedInUser,data.url)"></ion-input>
       </ion-col>
 
-      <ion-col no-padding *ngIf="userService.usernameAvailable == false">
-        <ion-label><b class="importantStars">This username is already used by another user. Please click on forgot password or use another username!</b></ion-label>
+      <ion-col no-padding no-margin *ngIf="userService.usernameAvailable == false">
+        <ion-label><b class="importantStars">This username is already assigned. Please pick another username!</b></ion-label><br>
       </ion-col>
     
       <ion-col no-padding>
@@ -117,10 +118,7 @@
         <ion-label><b class="importantThings">Repeat Password</b><b class="importantStars">*</b></ion-label>
       <ion-input class="inputField" type="text" placeholder="repeat password"
          no-margin [(ngModel)]="userService.secondPw" (focusout)="userService.checkPassword(data.loggedInUser)"></ion-input>
-      </ion-col>
-
-      <ion-col no-padding *ngIf="userService.passwordIsTheSame == false">
-        <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b></ion-label>
+         <ion-text *ngIf="userService.passwordIsTheSame == false"><b class="importantStars">The passwords are not identical. Please check your entry!</b></ion-text><br>
       </ion-col>
 
       <ion-col no-padding>
@@ -130,10 +128,10 @@
       </ion-col>
 
       <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
-        <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label>
+        <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label><br>
       </ion-col>
       <ion-col no-padding *ngIf="userService.emailAvailable == false">
-        <ion-label><b class="importantStars">This email is already used by another user. Please click on forgot password or use another E-Mail!</b></ion-label>
+        <ion-label><b class="importantStars">This email is already used by another user. Please click on forgot password or use another E-Mail!</b></ion-label><br>
       </ion-col>
 
 

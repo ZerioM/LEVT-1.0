@@ -49,8 +49,21 @@ export class UserService {
     }
   }
 
-  logout(loggedInUser: User, currentBookmark: Bookmark){
+  async logout(loggedInUser: User, currentBookmark: Bookmark, url: string){
     this.userLoggedOut = true;
+
+    await this.http.post(url+"/logout", loggedInUser).toPromise().then((loadedData: User) => {
+      if(loadedData.userID == null && loadedData.sessionID == null){
+
+        console.log("Logout hat funktioniert.");
+      } else {
+        console.log("Logout hat nicht funktioniert.");
+        this.presentGeneralToast("Logout did not work, please try again!",5000);
+      }
+    }, error => {
+      console.log(error);
+      
+    });
 
     loggedInUser.userID = null;
     loggedInUser.username = null;
@@ -71,6 +84,7 @@ export class UserService {
     currentBookmark._userID = null;
 
     this.userRecentlyLoggedInOrOutLoadUserJourneys = true;
+    this.wantsToLogin = false;
   }
 
   async login(loggedInUser: User, currentBookmark: Bookmark,url: string){
