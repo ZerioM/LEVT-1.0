@@ -73,7 +73,7 @@ class _UserController extends BaseController
                 'userImgSrc' => null,
                 'pwClear' => null
             ];
-            return '{"user": '.json_encode($outputArray,JSON_PRETTY_PRINT)." \n}";
+            return json_encode($outputArray,JSON_PRETTY_PRINT);
         } else {
             return true;
         }
@@ -116,7 +116,6 @@ class _UserController extends BaseController
 
     public function insertOne(Request $request){
         $imageController = new _ImageController;
-        //$registerController = new RegisterController;
         $countryController = new _CountryController;
 
         $requestArray = $request->all();
