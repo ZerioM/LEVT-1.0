@@ -202,6 +202,7 @@ export class UserService {
 
     loggedInUser.password = '';
 
+    this.userRecentlyLoggedInCreateNewJourney = true;
     this.wantsToRegister = false;
     this.wantsToLogin=false;
   }
