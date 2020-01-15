@@ -97,7 +97,7 @@ class _UserController extends BaseController
             //'remember_token' => $outputUser['remember_token'],
             'gamificationPoints' => $outputUser['gamificationPoints'],
             '_profileImageID' => $outputUser['_profileImageID'],
-            'sessionID' => $this->createSessionID(),
+            'sessionID' => $outputUser['sessionID'],
             'explorerBadgeProgress' => null, //aus DB
             'pioneerBadgeProgress' => null, // aus DB
             'age' => Carbon::parse($outputUser['birthday'])->age,
@@ -106,7 +106,7 @@ class _UserController extends BaseController
             'pwClear' => null,
         ];
 
-        return '{"user": '.json_encode($outputArray,JSON_PRETTY_PRINT)." \n}"; 
+        return json_encode($outputArray,JSON_PRETTY_PRINT); 
     }
 
     public function createSessionID(){
@@ -162,7 +162,6 @@ class _UserController extends BaseController
                 'emailAddress' => $requestArray['emailAddress'],
                 'birthday' => $requestArray['birthday'],
                 '_countryOfResidenceID' => $requestArray['_countryOfResidenceID'],
-                //'remember_token' => $requestArray['remember_token'],
                 'gamificationPoints' => $requestArray['gamificationPoints'],
                 '_profileImageID' => $requestArray['_profileImageID'],
                 'sessionID' => null,
@@ -200,7 +199,6 @@ class _UserController extends BaseController
             'emailAddress' => null,
             'birthday' => null,
             '_countryOfResidenceID' => null,
-            //'remember_token' => null,
             'gamificationPoints' => null,
             '_profileImageID' => null,
             'sessionID' => null,
@@ -212,12 +210,14 @@ class _UserController extends BaseController
             'pwClear' => null,
         ];
 
-        return '{"user": '.json_encode($outputArray,JSON_PRETTY_PRINT)." \n}"; 
+        return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 
 
     public function updateOne(Request $request){
         $userController = new _UserController;
+
+        $mail = false;
 
         $requestArray = $request->all();
 
@@ -229,6 +229,10 @@ class _UserController extends BaseController
         }
 
         $user = User::find($userID);
+        if ($user->email != $requestArray['emailAddress']){
+            $mail = true;
+            $user->email_verified_at = null;
+        }
         $user->username = $requestArray['username'];
         $user->email = $requestArray['emailAddress'];
         $user->birthday = $requestArray['birthday'];
@@ -237,8 +241,8 @@ class _UserController extends BaseController
         $user->_profileImageID = $requestArray['_profileImageID'];
         //explorerBadgeProgress
         //pioneerBadgeProgress
-
         $user->save();
+        if ($mail) $user->sendEmailVerificationNotification();
         return $this->selectOne($user->username);
     }
 
@@ -278,7 +282,6 @@ class _UserController extends BaseController
             return $validateUser;
         }
         $user = User::find($userID);
-        //$user = json_decode(json_encode(DB::table('users')->where('userID',$userID)->get()),true);
         if ($oldPassword == $user['password']){
             $user->password = $newPassword;
             $user->save();
