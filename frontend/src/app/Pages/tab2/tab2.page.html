@@ -314,7 +314,7 @@
       <ion-col no-padding>
         <ion-label><b class="importantThings">Username</b><b class="importantStars">*</b></ion-label>
       <ion-input class="inputField" type="text" placeholder="username" 
-         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.username" (focusout)="userService.checkUsername(data.loggedInUser)"></ion-input>
+         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.username" (focusout)="userService.checkUsername(data.loggedInUser, data.url)"></ion-input>
       </ion-col>
     
       <ion-col no-padding>
