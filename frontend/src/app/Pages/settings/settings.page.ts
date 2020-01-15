@@ -108,7 +108,7 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
 
   logout(){
 
-    this.userService.logout(this.data.loggedInUser,this.data.currentBookmark);
+    this.userService.logout(this.data.loggedInUser,this.data.currentBookmark, this.data.url);
 
   }
 

@@ -73,7 +73,7 @@ class _UserController extends BaseController
                 'userImgSrc' => null,
                 'pwClear' => null
             ];
-            return '{"user": '.json_encode($outputArray,JSON_PRETTY_PRINT)." \n}";
+            return json_encode($outputArray,JSON_PRETTY_PRINT);
         } else {
             return true;
         }
@@ -106,7 +106,7 @@ class _UserController extends BaseController
             'pwClear' => null,
         ];
 
-        return json_encode($outputArray,JSON_PRETTY_PRINT); 
+        return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 
     public function createSessionID(){
@@ -116,7 +116,6 @@ class _UserController extends BaseController
 
     public function insertOne(Request $request){
         $imageController = new _ImageController;
-        //$registerController = new RegisterController;
         $countryController = new _CountryController;
 
         $requestArray = $request->all();
@@ -127,7 +126,7 @@ class _UserController extends BaseController
             'email' => $requestArray['emailAddress'],
             'birthday' => $requestArray['birthday'],
             '_countryOfResidenceID' => $requestArray['_countryOfResidenceID'],
-            'remember_token' => $requestArray['remember_token'],
+            //'remember_token' => $requestArray['remember_token'],
             'gamificationPoints' => $requestArray['gamificationPoints'],
             '_profileImageID' => $requestArray['_profileImageID'],
             'sessionID' => $this->createSessionID()

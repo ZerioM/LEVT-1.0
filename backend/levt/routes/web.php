@@ -99,7 +99,7 @@ $router->post('/filteredPosts','ReadController@journeysPerSearch');
 
 $router->post('/postsBetweenCoordinates','ReadController@postsPerCoordinates');
 
-$router->post('/login','ReadController@loginUser');
+$router->post('/loginUser','ReadController@loginUser');
 
 $router->post('/logout','ReadController@logoutUser'); //UserFunktion
 

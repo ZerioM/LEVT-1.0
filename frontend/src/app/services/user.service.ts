@@ -49,8 +49,21 @@ export class UserService {
     }
   }
 
-  logout(loggedInUser: User, currentBookmark: Bookmark){
+  async logout(loggedInUser: User, currentBookmark: Bookmark, url: string){
     this.userLoggedOut = true;
+
+    await this.http.post(url+"/logout", loggedInUser).toPromise().then((loadedData: User) => {
+      if(loadedData.userID == null && loadedData.sessionID == null){
+
+        console.log("Logout hat funktioniert.");
+      } else {
+        console.log("Logout hat nicht funktioniert.");
+        this.presentGeneralToast("Logout did not work, please try again!",5000);
+      }
+    }, error => {
+      console.log(error);
+      
+    });
 
     loggedInUser.userID = null;
     loggedInUser.username = null;
@@ -71,15 +84,20 @@ export class UserService {
     currentBookmark._userID = null;
 
     this.userRecentlyLoggedInOrOutLoadUserJourneys = true;
+    this.wantsToLogin = false;
   }
 
   async login(loggedInUser: User, currentBookmark: Bookmark,url: string){
 
     loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
 
+    console.log(loggedInUser.password);
+
     loggedInUser.pwClear = "";
+
+    this.secondPw = '';
     
-    await this.http.post(url+"/login", loggedInUser).toPromise().then((loadedData: User) => {
+    await this.http.post(url+"/loginUser", loggedInUser).toPromise().then((loadedData: User) => {
       if(loadedData.userID != null && loadedData.sessionID != null){
         loggedInUser.userID = loadedData.userID;
         loggedInUser._profileImageID = loadedData._profileImageID;
@@ -105,23 +123,6 @@ export class UserService {
     });
 
     loggedInUser.password = '';
-
-    loggedInUser.userID = 1;
-    loggedInUser.username = "lola33";
-    loggedInUser._profileImageID = null;
-    loggedInUser.password = null;
-    loggedInUser.emailAddress = "lola@gmail.com";
-    loggedInUser.birthday = new Date("2001-09-04");
-    loggedInUser._countryOfResidenceID = "DE";
-    loggedInUser.sessionID = "abc";
-    loggedInUser.explorerBadgeProgress = 0;
-    loggedInUser.pioneerBadgeProgress = 0;
-    loggedInUser.gamificationPoints = 0;
-
-    loggedInUser.age = 18;
-    loggedInUser.countryName = "Germany";
-    loggedInUser.userImgSrc = "";
-    loggedInUser.pwClear = null;
 
     currentBookmark._userID = loggedInUser.userID;
 
@@ -157,6 +158,15 @@ export class UserService {
   //Registrierung
 
   async register(loggedInUser: User, url:string){
+
+    loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
+
+    loggedInUser.pwClear = "";
+
+    this.secondPw = '';
+
+    loggedInUser.gamificationPoints = 100;
+
     if(this.passwordIsTheSame){
       if(this.emailFormatIsCorrect){
         if(this.usernameAvailable){
@@ -189,6 +199,8 @@ export class UserService {
     } else {
       this.presentGeneralToast("The two password phrases aren't identical. Please check and try again!",5000);
     }
+
+    loggedInUser.password = '';
 
     this.wantsToRegister = false;
     this.wantsToLogin=false;
