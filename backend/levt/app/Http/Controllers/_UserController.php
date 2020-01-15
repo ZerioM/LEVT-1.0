@@ -106,7 +106,7 @@ class _UserController extends BaseController
             'pwClear' => null,
         ];
 
-        return json_encode($outputArray,JSON_PRETTY_PRINT); 
+        return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
 
     public function createSessionID(){
@@ -127,7 +127,7 @@ class _UserController extends BaseController
             'email' => $requestArray['emailAddress'],
             'birthday' => $requestArray['birthday'],
             '_countryOfResidenceID' => $requestArray['_countryOfResidenceID'],
-            'remember_token' => $requestArray['remember_token'],
+            //'remember_token' => $requestArray['remember_token'],
             'gamificationPoints' => $requestArray['gamificationPoints'],
             '_profileImageID' => $requestArray['_profileImageID'],
             'sessionID' => $this->createSessionID()
