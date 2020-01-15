@@ -77,9 +77,13 @@ export class UserService {
 
     loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
 
+    console.log(loggedInUser.password);
+
     loggedInUser.pwClear = "";
+
+    this.secondPw = '';
     
-    await this.http.post(url+"/login", loggedInUser).toPromise().then((loadedData: User) => {
+    await this.http.post(url+"/loginUser", loggedInUser).toPromise().then((loadedData: User) => {
       if(loadedData.userID != null && loadedData.sessionID != null){
         loggedInUser.userID = loadedData.userID;
         loggedInUser._profileImageID = loadedData._profileImageID;
@@ -105,23 +109,6 @@ export class UserService {
     });
 
     loggedInUser.password = '';
-
-    loggedInUser.userID = 1;
-    loggedInUser.username = "lola33";
-    loggedInUser._profileImageID = null;
-    loggedInUser.password = null;
-    loggedInUser.emailAddress = "lola@gmail.com";
-    loggedInUser.birthday = new Date("2001-09-04");
-    loggedInUser._countryOfResidenceID = "DE";
-    loggedInUser.sessionID = "abc";
-    loggedInUser.explorerBadgeProgress = 0;
-    loggedInUser.pioneerBadgeProgress = 0;
-    loggedInUser.gamificationPoints = 0;
-
-    loggedInUser.age = 18;
-    loggedInUser.countryName = "Germany";
-    loggedInUser.userImgSrc = "";
-    loggedInUser.pwClear = null;
 
     currentBookmark._userID = loggedInUser.userID;
 
@@ -157,6 +144,15 @@ export class UserService {
   //Registrierung
 
   async register(loggedInUser: User, url:string){
+
+    loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
+
+    loggedInUser.pwClear = "";
+
+    this.secondPw = '';
+
+    loggedInUser.gamificationPoints = 100;
+
     if(this.passwordIsTheSame){
       if(this.emailFormatIsCorrect){
         if(this.usernameAvailable){
@@ -189,6 +185,8 @@ export class UserService {
     } else {
       this.presentGeneralToast("The two password phrases aren't identical. Please check and try again!",5000);
     }
+
+    loggedInUser.password = '';
 
     this.wantsToRegister = false;
     this.wantsToLogin=false;
