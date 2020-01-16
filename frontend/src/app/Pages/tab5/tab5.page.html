@@ -113,7 +113,7 @@
       <ion-title class="tabHeading" no-padding>Forgot Password</ion-title>
     <ion-list>
       <ion-col no-padding>
-        <ion-label><b class="importantThings">E-mail Adress</b></ion-label>
+        <ion-label><b class="importantThings">E-mail Address</b></ion-label>
       <ion-input class="inputField" type="email" placeholder="E-mail"
          no-margin [(ngModel)]="data.loggedInUser.emailAddress"></ion-input>
       </ion-col>
@@ -182,7 +182,7 @@
         <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label><br>
       </ion-col>
       <ion-col no-padding *ngIf="userService.emailAvailable == false">
-        <ion-label><b class="importantStars">This email is already assigned. Please use another E-Mail adress!</b></ion-label><br>
+        <ion-label><b class="importantStars">This email is already assigned. Please use another E-Mail address!</b></ion-label><br>
       </ion-col>
 
       <ion-col>
