@@ -52,6 +52,8 @@ $router->post('/uploadImage','CreateController@uploadImage'); //UserFunktion //M
 
 $router->post('/register','CreateController@insertUser');
 
+$router->post('/sendEmailAgain','CreateController@sendEmail');
+
 
 //READ
 

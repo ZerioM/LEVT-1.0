@@ -290,4 +290,15 @@ class _UserController extends BaseController
             return '{"oldPassword" : false}';
         }
     }
+
+    public function sendEmail(Request $request){
+        $requestArray = $request->all();
+        $username = $requestArray['username'];
+        $userID = $this->selectIDPerUsername($username);
+        $user = User::find($userID);
+        $user->email_verified_at = null;
+        $user->save();
+        $user->sendEmailVerificationNotification();
+        return '"email" : "resent"';
+    }
 }
