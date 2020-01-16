@@ -169,7 +169,7 @@
       </ion-col>
 
       <ion-col no-padding *ngIf="userService.passwordIsTheSame == false">
-        <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b></ion-label><br>
+        <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b><br></ion-label>
       </ion-col>
 
       <ion-col no-padding>
@@ -185,7 +185,7 @@
         <ion-label><b class="importantStars">This email is already assigned. Please use another E-Mail address!</b></ion-label><br>
       </ion-col>
 
-      <ion-col>
+      <ion-col no-padding>
         <ion-label><b class="importantThings">Country of residence</b><b class="importantStars">*</b></ion-label>
         <ion-select placeholder="Country of Residence" [(ngModel)]="data.loggedInUser._countryOfResidenceID">
           <ion-select-option *ngFor="let c of data.countries.countries" [value]="c.countryID">
