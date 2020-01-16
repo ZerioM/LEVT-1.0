@@ -160,7 +160,7 @@ export class DataService {
 
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
-  public url: string = this.flock;
+  public url: string = this.homestead;
 
   constructor(private storage: Storage, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
 
@@ -806,7 +806,7 @@ export class DataService {
         console.log(this.currentJourneys);
 
       }else{
-        this.loadTopPosts();
+        this.currentJourneys.journeys=loadedData.journeys;
         this.presentGeneralToast("We couldn`t find any results for your entered search. Please try again!",5000);
         console.log("null per http geladen");
         }
