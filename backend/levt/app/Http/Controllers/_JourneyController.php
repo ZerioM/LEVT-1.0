@@ -489,6 +489,7 @@ class _JourneyController extends BaseController
         $countryController = new _CountryController;
         $userController = new _UserController;
         $placeController = new _PlaceController;
+        $journeysArray = array();
 
         $requestArray = $request->all();
         $searchEntry = $requestArray['searchEntry'];
@@ -524,9 +525,7 @@ class _JourneyController extends BaseController
 
                 $placesBetweenCoordinates = json_decode(json_encode($placeController->selectBetweenCoordinates($latSW,$lngSW,$latNE,$lngNE)),true);
 
-                $journeyIDs = array();
-
-                $journeysArray = array();
+                $journeyIDs = array();              
 
                 foreach($placesBetweenCoordinates as $place){
                     $journeyIDofPlace = $place['_journeyID'];
@@ -541,7 +540,7 @@ class _JourneyController extends BaseController
                 return '{"journeys": '.json_encode($journeysArray,JSON_PRETTY_PRINT)." \n}";
             }
 
-        return null;
+        return '{"journeys": '.json_encode($journeysArray,JSON_PRETTY_PRINT)." \n}";
 
     }
 

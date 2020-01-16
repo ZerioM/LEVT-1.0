@@ -96,7 +96,8 @@ export class UserService {
 
   async login(loggedInUser: User, currentBookmark: Bookmark,url: string){
 
-    loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
+    //loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
+    loggedInUser.password = loggedInUser.pwClear;
 
     console.log(loggedInUser.password);
 
@@ -168,7 +169,8 @@ export class UserService {
 
   async register(loggedInUser: User, url:string){
 
-    loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
+    //loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
+    loggedInUser.password = loggedInUser.pwClear;
 
     loggedInUser.pwClear = "";
 
