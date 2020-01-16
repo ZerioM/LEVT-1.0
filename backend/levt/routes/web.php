@@ -50,7 +50,7 @@ $router->post('/newBookmark','CreateController@insertBookmark'); //UserFunktion
 
 $router->post('/uploadImage','CreateController@uploadImage'); //UserFunktion //Muss noch am Handy getestet werden
 
-$router->post('/register','CreateController@insertUser');
+$router->post('/registerUser','CreateController@insertUser');
 
 $router->post('/sendEmailAgain','CreateController@sendEmail');
 

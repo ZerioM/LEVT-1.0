@@ -12,13 +12,13 @@
 
 <ion-content>
   <ion-list>
-    <ion-item *ngIf="userService.userLoggedIn(data.loggedInUser) == false">
+    <ion-item *ngIf="userService.userLoggedIn(data.loggedInUser) == false" no-padding lines="none">
       <ion-button (click)="showLogin()">Login</ion-button>
     </ion-item>
-    <ion-item *ngIf="userService.userLoggedIn(data.loggedInUser)">
+    <ion-item *ngIf="userService.userLoggedIn(data.loggedInUser)" no-padding lines="none">
       <ion-button (click)="showLogoutAlert()">Logout</ion-button>
     </ion-item>
-    <ion-item>
+    <ion-item no-padding lines="none">
       <ion-button>About Gamfication</ion-button>
     </ion-item>
   </ion-list>
@@ -28,12 +28,15 @@
  <!-- LOGIN -->
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToLogin==true">
     <div class="login">
-      <ion-buttons>
-        <ion-button (click)="loginClose()" icon-only>
-          <ion-icon class="cancel" name="ios-close"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title class="tabHeading" no-padding>Login</ion-title>
+
+      <ion-title class="tabHeading" no-padding> 
+        <ion-buttons>
+          <ion-button (click)="loginClose()" icon-only>
+            <ion-icon class="cancel" name="ios-close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        Login</ion-title>
+        
     <ion-list>
       <ion-col no-padding>
         <ion-label><b class="importantThings">Username</b></ion-label>
@@ -64,7 +67,7 @@
       <ion-title class="tabHeading" no-padding>Forgot Password</ion-title>
     <ion-list>
       <ion-col no-padding>
-        <ion-label><b class="importantThings">E-mail Adress</b></ion-label>
+        <ion-label><b class="importantThings">E-mail Address</b></ion-label>
       <ion-input class="inputField" type="email" placeholder="E-mail"
          no-margin [(ngModel)]="data.loggedInUser.emailAddress"></ion-input>
       </ion-col>
@@ -78,11 +81,18 @@
   <!-- REGISTER -->
   <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister && userService.wantsToLogin == true">
     <div class="register">
+
+      <ion-buttons>
+        <ion-button (click)="loginClose()" icon-only>
+          <ion-icon class="cancel" name="ios-close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
       <ion-title class="tabHeading" no-padding>Register</ion-title>
 
     <ion-list>
       <ion-col no-padding>
-        <ion-item lines="none">
+        <ion-item lines="none" no-padding >
           <ion-label><b class="importantThings" position="floating">Upload your Profile Picture here</b></ion-label>
         </ion-item>
         <ion-item no-padding lines="none">
@@ -105,7 +115,7 @@
       </ion-col>
 
       <ion-col no-padding no-margin *ngIf="userService.usernameAvailable == false">
-        <ion-label><b class="importantStars">This username is already assigned. Please pick another username!</b></ion-label><br>
+        <b class="importantStars">This username is already assigned. Please pick another username!</b><br>
       </ion-col>
     
       <ion-col no-padding>
@@ -118,7 +128,7 @@
         <ion-label><b class="importantThings">Repeat Password</b><b class="importantStars">*</b></ion-label>
       <ion-input class="inputField" type="text" placeholder="repeat password"
          no-margin [(ngModel)]="userService.secondPw" (focusout)="userService.checkPassword(data.loggedInUser)"></ion-input>
-         <ion-text *ngIf="userService.passwordIsTheSame == false"><b class="importantStars">The passwords are not identical. Please check your entry!</b></ion-text><br>
+         <ion-text *ngIf="userService.passwordIsTheSame == false"><b class="importantStars">The passwords are not identical. Please check your entry!</b> <br></ion-text>
       </ion-col>
 
       <ion-col no-padding>
@@ -131,11 +141,11 @@
         <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label><br>
       </ion-col>
       <ion-col no-padding *ngIf="userService.emailAvailable == false">
-        <ion-label><b class="importantStars">This email is already assigned. Please use another E-Mail adress!</b></ion-label><br>
+        <ion-label><b class="importantStars">This email is already assigned. Please use another E-Mail address!</b></ion-label><br>
       </ion-col>
 
 
-      <ion-col>
+      <ion-col no-padding>
         <ion-label><b class="importantThings">Country of Residence</b><b class="importantStars">*</b></ion-label>
         <ion-select placeholder="Country of Residence" [(ngModel)]="data.loggedInUser._countryOfResidenceID">
           <ion-select-option *ngFor="let c of data.countries.countries" [value]="c.countryID">
