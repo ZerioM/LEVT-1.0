@@ -1,12 +1,19 @@
 
 import { Post } from './Post';
+import { SafeUrl } from '@angular/platform-browser';
 
 export interface Place{
     placeID: number;
-    name: string;
+    _journeyID: number;
+    _thumbnailID: number;
+    _countryID:string;
+    placeName:string;
     coordinateX: number;
     coordinateY: number;
+    detail: string;
+   
     posts:Post[];
-    thumbnailSrc:string;
+    thumbnailSrc: string;
+    countryName:string;
 
 }

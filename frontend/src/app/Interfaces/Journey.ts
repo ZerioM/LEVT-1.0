@@ -3,22 +3,42 @@ import {Image} from './Image';
 
 export interface Journey{
     journeyID: number;
-    name: string;
-    username: string;
-    userImgSrc:string;
-    bookmarks: number;
-    season: string;
-    year: number;
-    duration: number;
-    companionship: string;
-    detail: string;
-    totalCosts: number;
-    activityCosts: number;
-    accommodationgCosts: number;
-    foodCosts: number;
-    transportCosts: number;
+    _userID:number;
+    _thumbnailID:number;
+    _seasonID:number;
+    _journeyCategoryID:number;
+    _companionshipID:number;
+    journeyName:string;
+    year:number;
+    duration:number;
+    detail:string;
+    totalCosts:number;
+    leisureCosts: number;
+    accommodationCosts:number;
+    mealsanddrinksCosts: number;
+    transportationCosts: number;
     otherCosts: number
+    plane: boolean;
+    car: boolean;
+    bus: boolean;
+    train: boolean;
+    ship: boolean;
+    motorbike:boolean;
+    campingtrailer: boolean;
+    hiking:boolean;
+    bicycle: boolean;
+
+
+    
     places: Place[];
     thumbnailSrc: string;
+    username: string;
+    userImgSrc:string;
+    seasonName: string;
+    journeyCategoryName: string;
+    companionshipType: string;
+    bookmarks: number;
+    
+    
     
 }

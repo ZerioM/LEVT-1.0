@@ -1,0 +1,82 @@
+<ion-header class="tabHeader">
+    <ion-buttons>
+        <ion-button icon-only (click)="goBackToPlace()">
+          <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    <ion-title *ngIf="data.fromNewJourney" class="tabHeading" no-padding>Add A Post</ion-title>
+    <ion-title *ngIf="data.fromEditJourney" class="tabHeading" no-padding>Edit A Post</ion-title>
+    <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
+</ion-header>
+<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
+<ion-content>
+  <ion-label><b>What is your post about?</b><b class="importantStars">   (mandatory)</b></ion-label>
+  <ion-item no-padding lines="none">
+    <ion-select placeholder="Post Category" [(ngModel)]="data.newPost._activityID">
+      <ion-select-option *ngFor="let a of data.activities.activities" [value]="a.activityID">
+        {{a.activityName}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item no-padding>
+    <ion-textarea (focusout)="focusOutPostDetail()" [(ngModel)]="data.newPost.detail" placeholder="Tell us what you experienced here!" rows="8" background="light" no-padding> 
+    <ion-label><b>Post Details</b></ion-label></ion-textarea>
+  </ion-item>
+
+
+  <!-- <ion-card>
+      <img *ngIf="!fileUrl" src="assets/no-image.jpeg"/>
+      <img *ngIf="fileUrl" src="{{fileUrl}}"/>
+      <ion-card-content>
+        <ion-button color="medium" size="large" (click)="cropUpload()">
+          <ion-icon slot="icon-only" name="camera"></ion-icon>
+        </ion-button>
+      </ion-card-content>
+      
+  </ion-card> -->
+
+  <ion-item lines="none" no-padding>
+    <ion-label position="floating"><b>Images</b></ion-label><br>
+   <br><p *ngIf="showNoImageWarning()" id="NoPlace" no-margin> Click the plus to add a new image!</p>
+  </ion-item>
+
+
+  <ion-item no-padding lines="none">
+    <div id="alreadyAddedPlaces" class="gridContainer">
+      <div class="grid-item" *ngFor="let i of data.newPost.images; let in of index"> <!--muss noch auf posts geändert werden-->
+        <img class="pictureGrid" alt="" src="{{i.imgSrc}}" (click)="showImage(i)">
+        <ion-button class="trash" icon-only (click)="deleteImage(i,in)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </div>
+      <div class="grid-item" (click)="selectPhoto()">
+        <ion-icon name="ios-add" class="addPlace"></ion-icon>
+      </div>
+    </div>
+  </ion-item>
+
+  <ion-label class="importantThings">
+      * Fields marked with a <b class="importantStars">*</b> are mandatory.
+    </ion-label>
+
+  <ion-button (click)="savePost()" color="primary" expand="full">
+    Finish
+  </ion-button>
+
+  <!-- Gamification -->
+
+  <div class="gamificationBg" *ngIf="data.showedPioneerStep3==false && data.loggedInUser.pioneerBadgeProgress==75">
+    <div class="login">
+
+      <ion-title class="tabHeading" no-padding>Do good, feel good!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <p>Your journey got a foto and now helps other people at their trip planning! Just finish the journey to reach the "Pioneer" badge! Your progress: (75%) </p>
+      <ion-progress-bar value="0.75"></ion-progress-bar>
+    <br>
+    
+    <ion-button (click)="closePioneerStep3Toast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+</ion-content>

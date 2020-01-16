@@ -1,9 +1,212 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Mein Profil</ion-title>
-  </ion-toolbar>
+<ion-header class="tabHeader">
+  <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
+  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser)" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
+  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) == false" class="tabHeading" no-padding>Your profile</ion-title>
+  <ion-buttons slot="end" no-padding>
+    <ion-button icon-only no-padding (click)="goToSettings()">
+     <!-- <ion-icon name="settings" size="large" style="color:#182f30"></ion-icon>-->
+     <ion-icon name="md-more" size="large" style="color:#182f30"></ion-icon>
+    </ion-button>
+  </ion-buttons>
 </ion-header>
+<hr>
+<!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
-<ion-content>
+<ion-content class="tabsContent">
+  <ion-item id="profilUserpicInformations" color="none" lines="none" no-padding no-margin>
+
+    <ion-item no-padding lines="none" *ngIf="userService.userLoggedIn(data.loggedInUser)">
+      <img id="userpicProfil" *ngIf="data.loggedInUser.userImgSrc != null && data.loggedInUser.userImgSrc != ''" src={{data.loggedInUser.userImgSrc}} alt="User" />
+      <img id="userpicProfil" *ngIf="data.loggedInUser.userImgSrc == null || data.loggedInUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
+    </ion-item>
+    <!--Profilbild-->
+
+    <ion-list *ngIf="userService.userLoggedIn(data.loggedInUser)" id="profilAgeResidence" no-padding no-margin>
+      <ion-item lines="none" no-margin no-padding>
+        <ion-label no-padding no-margin><b> Age</b><br> {{data.loggedInUser.age}} Years</ion-label>
+      </ion-item>
+      <ion-item lines="none" no-margin no-padding>
+        <ion-label no-padding no-margin><b>Residence</b><br>{{data.loggedInUser.countryName}}</ion-label>
+      </ion-item>
+    </ion-list>
+
+     <ion-col no-padding no-margin id="badges">
+      <ion-label no-padding no-margin><b>My Badges</b></ion-label>
+    <ion-item no-padding lines="none">
+      <img *ngIf="data.loggedInUser.pioneerBadgeProgress >= 100" class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <img *ngIf="data.loggedInUser.explorerBadgeProgress >= 100" class="oneBadge" src="/assets/images/badge_explorer.png">
+    </ion-item>
+  <div id="pointsView">{{data.loggedInUser.gamificationPoints}} Points</div>
+  </ion-col>
+
+  <img id="chatRequestIcon" (click)="chatWith()" src="/assets/images/icon_chatanfrage.svg">
+
+  </ion-item>
+
+  <div id="PlatzhalterKartenVis">
+    <img src="/assets/images/kartenvisualisierung.png">
+  </div>
+
+
+  <ion-list lines="none" *ngIf="data.currentUserJourneys.journeys != null && data.currentUserJourneys.journeys.length > 0" no-padding no-margin>
+    <ion-item no-padding no-margin>
+      <ion-label class="myJourneys" no-padding no-margin><b>My Journeys</b></ion-label>
+    </ion-item>
+    <div class="gallery" *ngFor="let j of data.currentUserJourneys.journeys">
+      <div class="pictureFrame">
+        <div class="frameLeft"></div>
+        <div class="imgAndInfo">
+          <ion-item class="thumbnailImg" color="none" (click)="showJourney(j.journeyID)" no-padding no-margin>
+            <img *ngIf="j.thumbnailSrc != null" src="{{j.thumbnailSrc}}" alt="Reise" />
+            <img *ngIf="j.thumbnailSrc == null" src="/assets/images/platzhalter_journey.png" alt="Reise" />
+            <div class="travelTitle">{{j.journeyName}}</div>
+          </ion-item>
+          <div class="picInformations">
+            <ion-item color="none" class="travelTime" no-padding no-margin>
+              <ion-icon name="md-time" class="timeIcon"></ion-icon>
+              <ion-label no-padding>{{j.seasonName}} - {{j.year}}</ion-label>
+            </ion-item>
+          </div>
+        </div>
+        <div class="frameRight"></div>
+      </div>
+    </div>
+  </ion-list>
+
+  <ion-item no-padding lines="none" *ngIf="data.currentUserJourneys.journeys == null || data.currentUserJourneys.journeys.length == 0">
+    <ion-label><b class="importantStars">Add some journeys to see your posted <br/> journeys here.</b></ion-label>
+  </ion-item>
+
+
+  <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>Login</ion-title>
+    <ion-list>
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Username</b></ion-label>
+      <ion-input class="inputField" type="email" placeholder="Username"
+         no-margin [(ngModel)]="data.loggedInUser.username"></ion-input>
+      </ion-col>
+    
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Password</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="password"
+         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+      </ion-col>
+    
+      <ion-button color="warning" expand="full" (click)="userService.login(data.loggedInUser, data.currentBookmark ,data.url)">Login</ion-button>
+      <ion-button expand="full" (click)="userService.goToResetPw()">Forgot Password</ion-button>
+    </ion-list>
+    <ion-button expand="full" (click)="userService.goToRegistration()">Register</ion-button>
+  </div>
+  </div>
+
+    <!-- LOGIN & REGISTER -->
+    <!-- LOGIN -->
+  <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToResetPw == true">
+    <div class="login">
+      <ion-buttons>
+        <ion-button (click)="userService.backToLogin()" icon-only>
+          <ion-icon class="cancel" name="ios-arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="tabHeading" no-padding>Forgot Password</ion-title>
+    <ion-list>
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">E-mail Address</b></ion-label>
+      <ion-input class="inputField" type="email" placeholder="E-mail"
+         no-margin [(ngModel)]="data.loggedInUser.emailAddress"></ion-input>
+      </ion-col>
+    
+      <ion-button color="warning" expand="full" (click)="userService.resetPassword(data.loggedInUser,data.url)">Send E-Mail</ion-button>
+    </ion-list>
+   
+  </div>
+  </div>
+
+    <!-- REGISTER -->
+  <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister">
+    <div class="register">
+      <ion-title class="tabHeading" no-padding>Register</ion-title>
+
+    <ion-list>
+      <ion-col no-padding>
+        <ion-item lines="none" no-padding>
+          <ion-label><b class="importantThings" position="floating">Upload your profile picture here</b></ion-label>
+        </ion-item>
+        <ion-item no-padding lines="none">
+          <div *ngIf="data.loggedInUser.userImgSrc != '' && data.loggedInUser.userImgSrc != null" id="placeThumbnails" class="gridContainer">
+              <img class="pictureGrid" alt="" src="{{data.loggedInUser.userImgSrc}}" >
+              <ion-button class="trash" icon-only (click)="deleteProfileImage(image)">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </div>
+            <div *ngIf="data.loggedInUser.userImgSrc == '' || data.loggedInUser.userImgSrc == null" class="grid-item" (click)="selectProfileImage()">
+              <ion-icon name="ios-add" class="addPlace"></ion-icon>
+            </div>
+        </ion-item>
+      </ion-col>
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Username</b><b class="importantStars">*</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="username" 
+         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.username" (focusout)="userService.checkUsername(data.loggedInUser, data.url)"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding no-margin *ngIf="userService.usernameAvailable == false">
+        <ion-label><b class="importantStars">This username is already assigned. Please pick another username!</b></ion-label><br>
+      </ion-col>
+    
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Password</b><b class="importantStars">*</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="password"
+         no-margin [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Repeat Password</b><b class="importantStars">*</b></ion-label>
+      <ion-input class="inputField" type="text" placeholder="repeat password"
+         no-margin [(ngModel)]="userService.secondPw" (focusout)="userService.checkPassword(data.loggedInUser)"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding *ngIf="userService.passwordIsTheSame == false">
+        <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b><br></ion-label>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">E-Mail</b><b class="importantStars">*</b></ion-label>
+      <ion-input type="e-mail" class="inputField" type="text" placeholder="e-mail"
+         no-margin [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="userService.checkEmail(data.loggedInUser, data.url)"></ion-input>
+      </ion-col>
+
+      <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
+        <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label><br>
+      </ion-col>
+      <ion-col no-padding *ngIf="userService.emailAvailable == false">
+        <ion-label><b class="importantStars">This email is already assigned. Please use another E-Mail address!</b></ion-label><br>
+      </ion-col>
+
+      <ion-col no-padding>
+        <ion-label><b class="importantThings">Country of residence</b><b class="importantStars">*</b></ion-label>
+        <ion-select placeholder="Country of Residence" [(ngModel)]="data.loggedInUser._countryOfResidenceID">
+          <ion-select-option *ngFor="let c of data.countries.countries" [value]="c.countryID">
+            {{c.countryName}}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+    
+      <div class="birthdayRegister"  lines="none">
+        <ion-label><b class="importantThings">Birthday</b><!--<b class="importantStars">*</b>--></ion-label>
+        <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
+           no-padding ></ion-datetime>
+      </div>
+  </ion-list>
+    
+    <ion-button expand="full" (click)="userService.register(data.loggedInUser,data.url)">Register</ion-button>
+    <ion-label class="importantThings">
+      * Fields marked with a <b class="importantStars">*</b> are mandatory.
+    </ion-label>
+
+  </div>
+  </div>
 
 </ion-content>

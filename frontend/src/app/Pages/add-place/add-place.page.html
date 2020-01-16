@@ -1,0 +1,109 @@
+<ion-header class="tabHeader">
+  <ion-buttons>
+    <ion-button icon-only (click)="goBackToJourney()">
+      <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title *ngIf="data.fromNewJourney" class="tabHeading" no-padding>Add A Place</ion-title>
+  <ion-title *ngIf="data.fromEditJourney" class="tabHeading" no-padding>Edit A Place</ion-title>
+  <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
+</ion-header>
+<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
+<ion-content>
+      
+    <ion-item lines="none" no-padding>
+      <ion-label><b class="importantThings" position="floating">Upload a Thumbnail for this Place</b></ion-label>
+    </ion-item>
+    <ion-item no-padding lines="none">
+      <div *ngIf="data.newPlace.thumbnailSrc != '' && data.newPlace.thumbnailSrc != null" id="placeThumbnails" class="gridContainer">
+          <img class="pictureGrid" alt="" src="{{data.newPlace.thumbnailSrc}}" >
+          <ion-button class="trash" icon-only (click)="deleteImage(image)">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+        </div>
+        <div *ngIf="data.newPlace.thumbnailSrc == '' || data.newPlace.thumbnailSrc == null" class="grid-item" (click)="selectThumbnail()">
+          <ion-icon name="ios-add" class="addPlace"></ion-icon>
+        </div>
+    </ion-item>
+    <!--<ion-item no-padding lines="none">
+      <ion-label no-margin><b>General</b></ion-label>
+    </ion-item>-->
+  <ion-label><b>Visited Place</b><b class="importantStars"> (mandatory)</b></ion-label>
+  <ion-item no-padding no-margin>
+    <ion-input [(ngModel)]="data.newPlace.placeName" placeholder="Unnamed Place" background="light"
+      (ngModelChange)="keyUpPlaceName($event)" (focusout)="focusOutPlaceName()">
+      <ion-icon *ngIf="placeValidated" name="md-checkmark" style="color:#415f4b; margin-right: 2px;"></ion-icon>
+    </ion-input>
+  </ion-item>
+  <ion-item *ngFor="let p of this.placeSuggestions" lines="none">
+    <ion-button (click)="setAutocompletion(p.placeName)">
+      {{p.placeName}}
+    </ion-button>
+  </ion-item>
+
+  <ion-item no-padding>
+    <ion-textarea placeholder="Tell us what you experienced here!" (focusout)="focusOutPlaceDetail()" [(ngModel)]="data.newPlace.detail" rows="8"
+      background="light" no-padding>
+      <ion-label no-margin><b>Place Details</b></ion-label><br>
+    </ion-textarea>
+  </ion-item>
+
+  <ion-item lines="none" no-padding>
+    <ion-label position="floating"><b>Posts</b></ion-label><br>
+    <br>
+    <p *ngIf="showNoPostWarning()" id="NoPlace" no-margin> Click the plus to add a new post!</p>
+  </ion-item>
+  <ion-item no-padding lines="none">
+    <div id="alreadyAddedPlaces" class="gridContainer">
+      <div class="grid-item" *ngFor="let po of data.newPlace.posts; let in of index">
+        <!--muss noch auf posts geändert werden-->
+        <img class="pictureGrid" (click)="goToEditPost(po,in)" *ngIf="po.images[0] != null" alt="" src="{{po.images[0].imgSrc}}" />
+        <img class="pictureGrid" (click)="goToEditPost(po,in)" *ngIf="po.images[0] == null" alt="" src="/assets/images/platzhalter_activity.png" />
+        <ion-icon id="visitedPlaceName" class="visitedPlaceName" name="{{po.iconName}}"></ion-icon>
+        <ion-button class="trash" icon-only (click)="deletePost(po,in)">
+          <ion-icon name="trash" ></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="grid-item" (click)="goToAddNewPost()">
+        <ion-icon name="ios-add" class="addPlace"></ion-icon>
+      </div>
+    </div>
+  </ion-item>
+
+  <ion-button (click)="savePlace()" color="primary" expand="full">
+    Finish
+  </ion-button>
+
+  <!-- Gamification -->
+
+  <div class="gamificationBg" *ngIf="data.showedPioneerStep2==false && data.loggedInUser.pioneerBadgeProgress==50">
+    <div class="login">
+  
+      <ion-title class="tabHeading" no-padding>One step for a human...</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_pioneer.png">
+      Perfect! Your journey got a place! Add photos and finish your journey to reach the "Pioneer" Badge! Your progress: (50%)<br>
+      <ion-progress-bar value="0.5"></ion-progress-bar>
+    <br>
+    
+    <ion-button (click)="closePioneerStep2Toast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <!-- Gamification: Points Challenge
+
+  <div class="gamificationBg" *ngIf="data.showPointsChallenge == true">
+    <div class="login">
+    <img class="oneBadge" src="/assets/images/icon_fight.png">
+      <ion-title class="tabHeading" no-padding>New challenge available!</ion-title>
+    The user {{data.chatUser.username}} has reached 20 more points than you with his recently added journey. Add 3 more images for winning against him!<br>
+    <br>
+    
+    <ion-button (click)="closeChallengeToast()" expand="full" >OK</ion-button>
+  </div>
+  </div> -->
+
+
+  
+
+</ion-content>
