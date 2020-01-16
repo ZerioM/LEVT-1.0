@@ -16,6 +16,11 @@
 </ion-header>
 
 <ion-content color="none">
+
+  <ion-item lines="none" no-padding *ngIf="data.search.searchEntry !==''">
+  <ion-label><b class="importantStars">Journeys which include "{{data.search.searchEntry}}"</b></ion-label>
+  </ion-item>
+
   <ion-list lines="none" *ngIf="data.currentJourneys.journeys != null && data.currentJourneys.journeys.length > 0">
     <div class="gallery" *ngFor="let j of data.currentJourneys.journeys">
       <div class="pictureFrame">
