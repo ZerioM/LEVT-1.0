@@ -18,7 +18,7 @@ jobs:
       CURRENT_DIR: $PROJECT_ROOT_DIR/current
       BUILD_DIR: $GITHUB_WORKSPACE
     steps:
-      - uses: actions/checkout
+      - uses: actions/checkout@v2
       - run: mkdir -p $RELEASES_DIR
       - run: mkdir -p $NEW_RELEASE_DIR && cp -r $BUILD_DIR/. $NEW_RELEASE_DIR/
       - run: cd $NEW_RELEASE_DIR
