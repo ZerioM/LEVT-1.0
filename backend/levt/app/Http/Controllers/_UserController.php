@@ -122,7 +122,8 @@ class _UserController extends BaseController
 
         $user = User::create([
             'username' => $requestArray['username'],
-            'password' => $requestArray['password'],
+            //'password' => $requestArray['password'],
+            'password' => Hash::make($requestArray['password']),
             'email' => $requestArray['emailAddress'],
             'birthday' => $requestArray['birthday'],
             '_countryOfResidenceID' => $requestArray['_countryOfResidenceID'],
