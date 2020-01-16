@@ -1,0 +1,32 @@
+name: main.yml
+
+on: 
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    name: Deploy to server
+    runs-on: self-hosted
+    env: 
+      PROJECT_ROOT_DIR: /var/www/levt
+      RELEASES_DIR: $PROJECT_ROOT_DIR/releases
+      NEW_RELEASE_DIR: $PROJECT_ROOT_DIR/releases/$GITHUB_SHA
+      STORAGE_DIR: $PROJECT_ROOT_DIR/storage
+      ENV_FILE: $PROJECT_ROOT_DIR/.env
+      CURRENT_DIR: $PROJECT_ROOT_DIR/current
+      BUILD_DIR: $GITHUB_WORKSPACE
+    steps:
+      - uses: actions/checkout
+      - run: mkdir -p $RELEASES_DIR
+      - run: mkdir -p $NEW_RELEASE_DIR && cp -r $BUILD_DIR/. $NEW_RELEASE_DIR/
+      - run: cd $NEW_RELEASE_DIR
+      - run: rm -rf ./storage
+      - run: ln -nfs $STORAGE_DIR $NEW_RELEASE_DIR/storage
+      - run: ln -nfs $ENV_FILE $NEW_RELEASE_DIR/.env
+      - run: ln -nfs $NEW_RELEASE_DIR $CURRENT_DIR
+      - run: cd $CURRENT_DIR
+      - run: composer install --prefer-dist --no-scripts -q -o
+      - run: php artisan migrate
+      - run: php artisan storage:link
