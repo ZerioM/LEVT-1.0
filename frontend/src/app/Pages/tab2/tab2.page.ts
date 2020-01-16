@@ -162,7 +162,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
     this.data.placeInserted = false;
     await this.data.presentLoading();
-    await this.journeyService.saveJourney(this.data.newJourney, this.data.url);
+    await this.journeyService.saveJourney(this.data.newJourney, this.data.url, this.data.loggedInUser);
     await this.data.dismissLoading();
 
     if (this.data.newJourney.journeyID != null && this.data.updateJourneyWorks()) {
@@ -196,7 +196,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     //let seasonID = this.data.newJourney._seasonID;
     //let journeyCategoryID = this.data.newJourney._journeyCategoryID;
     //let companionshipID = this.data.newJourney._companionshipID;
-    await this.journeyService.saveJourney(this.data.newJourney, this.data.url);
+    await this.journeyService.saveJourney(this.data.newJourney, this.data.url, this.data.loggedInUser);
     //this.data.newJourney._seasonID = seasonID;
     //this.data.newJourney._journeyCategoryID = journeyCategoryID;
     //this.data.newJourney._companionshipID = companionshipID;
@@ -339,7 +339,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     }
 
     await this.data.presentLoading();
-    await this.journeyService.saveJourney(this.data.newJourney, this.data.url);
+    await this.journeyService.saveJourney(this.data.newJourney, this.data.url, this.data.loggedInUser);
     await this.data.dismissLoading();
 
     if (this.data.newJourney.journeyID != null) {

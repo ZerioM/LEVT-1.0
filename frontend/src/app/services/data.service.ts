@@ -37,6 +37,8 @@ import { Message } from '../Interfaces/Message';
 import { UserService } from './user.service';
 import { Countries } from '../Interfaces/Countries';
 
+import { Storage } from '@ionic/storage';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -160,7 +162,7 @@ export class DataService {
   public homestead: string = "http://levt.test";
   public url: string = this.flock;
 
-  constructor(private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
+  constructor(private storage: Storage, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
 
     this.loadCentralData();
 
@@ -182,6 +184,44 @@ export class DataService {
     this.loadCompanionships();
     this.loadCountries();
     this.loadTransports();
+    this.loadUser();
+  }
+
+  // public saveUser() {
+  //   this.storage.set("myUser",this.loggedInUser);
+  // }
+
+  public loadUser() {
+    this.storage.get("myUser").then((someData: User) => {
+      if(someData != null){
+        this.loggedInUser.userID = someData.userID;
+        this.loggedInUser.username = someData.username;
+        this.loggedInUser._profileImageID = someData._profileImageID;
+        this.loggedInUser.password = someData.password;
+        this.loggedInUser.emailAddress = someData.emailAddress;
+        this.loggedInUser.birthday = someData.birthday;
+        this.loggedInUser._countryOfResidenceID = someData._countryOfResidenceID;
+        this.loggedInUser.sessionID = someData.sessionID;
+        this.loggedInUser.explorerBadgeProgress = someData.explorerBadgeProgress;
+        this.loggedInUser.pioneerBadgeProgress = someData.pioneerBadgeProgress;
+        this.loggedInUser.gamificationPoints = someData.gamificationPoints;
+        
+        this.loggedInUser.age = someData.age;
+        this.loggedInUser.countryName = someData.countryName;
+        this.loggedInUser.userImgSrc = someData.userImgSrc;
+        this.loggedInUser.pwClear = someData.pwClear;
+
+        console.log("Hehe, Daten geladen!");
+        console.log(JSON.stringify(this.loggedInUser));
+
+        this.currentBookmark._userID = this.loggedInUser.userID;
+      } else {
+        console.log("someData war null");
+      }
+    }).catch((r)=>{
+      console.log("catch");
+      console.log(r);
+    });
   }
 
   loadJourneyCategories() {

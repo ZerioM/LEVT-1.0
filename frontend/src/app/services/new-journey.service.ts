@@ -54,7 +54,7 @@ export class NewJourneyService {
   
   
   
-  async saveJourney(journey:Journey, url: string) {// als Übergabeparameter eine Journey Übergeben
+  async saveJourney(journey:Journey, url: string, loggedInUser: User) {// als Übergabeparameter eine Journey Übergeben
     
     journey.year = parseInt(journey.year.toString().substring(0,4));
 
@@ -65,7 +65,11 @@ export class NewJourneyService {
     //Abfragen, ob journeyID == null, dann newJourney aufrufen, sonst updateJourney aufrufen
     if(journey.journeyID == null){
       
-      await this.http.post(url+"/newJourney", journey).toPromise().then((loadedData: Journey) => {
+      console.log("LoggedIn User Session ID: ");
+      console.log(loggedInUser.sessionID);
+
+      const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
+      await this.http.post(url+"/newJourney", journey, loginHeaders).toPromise().then((loadedData: Journey) => {
         console.log("Loaded Data:");
         console.log(loadedData);
         this.updateJourneyWorks = true;
