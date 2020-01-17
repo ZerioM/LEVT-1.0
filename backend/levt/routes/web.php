@@ -31,6 +31,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/verified', function () {
+    return view('emailVerified');
+});
+
+Route::get('/reset/password', function () {
+    return view('passwordReset');
+});
+
 Auth::routes(['verify' => true]);
 
 //Auth::routes();
@@ -52,7 +60,9 @@ $router->post('/uploadImage','CreateController@uploadImage'); //UserFunktion //M
 
 $router->post('/registerUser','CreateController@insertUser');
 
-$router->post('/sendEmailAgain','CreateController@sendEmail');
+$router->post('/sendEmailAgain','CreateController@sendEmail'); //UserFunktion?
+
+$router->post('/forgotPassword','CreateController@forgotPassword');
 
 
 //READ
@@ -124,6 +134,7 @@ $router->post('/updateImage','UpdateController@updateOneImage'); //UserFunktion 
 $router->post('/updateUser','UpdateController@updateOneUser'); //UserFunktion
 
 $router->post('/password/change','UpdateController@updateOnePassword'); //UserFunktion //noch nicht erledigt
+
 
 
 

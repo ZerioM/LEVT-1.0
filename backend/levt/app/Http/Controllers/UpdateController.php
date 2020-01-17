@@ -39,4 +39,5 @@ class UpdateController extends BaseController
         $uc = new _UserController;
         return $uc->updatePassword($request);
     }
+
 }
