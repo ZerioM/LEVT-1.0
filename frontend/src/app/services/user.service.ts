@@ -39,7 +39,7 @@ export class UserService {
   constructor(private storage: Storage, private http: HttpClient, public toastController: ToastController) { }
 
   newUser(){
-  let newUser:User={userID:null, username:null,_profileImageID:null, userImgSrc:null,password:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null, gamificationPoints:null, pwClear:null}
+  let newUser:User={userID:null, username:null,_profileImageID:null, userImgSrc:null,password:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null, gamificationPoints:null, pwClear:null,email_verified_at:null}
 
   return newUser;
 
@@ -86,6 +86,7 @@ export class UserService {
     loggedInUser.countryName = null;
     loggedInUser.userImgSrc = null;
     loggedInUser.pwClear = null;
+    loggedInUser.email_verified_at=null;
 
     this.storage.set("myUser", loggedInUser);
 
@@ -120,6 +121,7 @@ export class UserService {
         loggedInUser.age = loadedData.age;
         loggedInUser.countryName = loadedData.countryName;
         loggedInUser.userImgSrc = loadedData.userImgSrc;
+        loggedInUser.email_verified_at=loadedData.email_verified_at;
         
 
         console.log("Login hat funktioniert.");
@@ -183,7 +185,7 @@ export class UserService {
       if(this.emailFormatIsCorrect){
         if(this.usernameAvailable){
           if(this.emailAvailable){
-            await this.http.post(url+"/register", loggedInUser).toPromise().then((loadedData: User) => {
+            await this.http.post(url+"/registerUser", loggedInUser).toPromise().then((loadedData: User) => {
               if(loadedData.userID != null && loadedData.sessionID != null){
                 loggedInUser.userID = loadedData.userID;
                 loggedInUser.sessionID = loadedData.sessionID;

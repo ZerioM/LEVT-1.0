@@ -39,6 +39,17 @@ class CreateController extends BaseController
         return $imageController->uploadOne($request);
     }
 
+    public function sendEmail(Request $request) {
+        $userController = new _UserController;
+        return $userController->sendEmail($request);
+    }
+
+    public function forgotPassword(Request $request) {
+        $userController = new _UserController;
+        return $userController->forgotPassword($request);
+    }
+
+
     /*
     //Post Requests und Module work:
 

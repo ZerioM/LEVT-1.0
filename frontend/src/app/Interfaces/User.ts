@@ -10,6 +10,7 @@ export interface User{
    explorerBadgeProgress:number;
    pioneerBadgeProgress:number;
    gamificationPoints:number;
+   email_verified_at:Date;
    
    age:number;
    countryName:string;

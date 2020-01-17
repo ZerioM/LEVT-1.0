@@ -19,12 +19,12 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        '/register','/uploadImage','/newBookmark','/newPost','/newPlace','/newJourney','/allPlaces','/allGenders','/allSeasons',
+        '/registerUser','/uploadImage','/newBookmark','/newPost','/newPlace','/newJourney','/allPlaces','/allGenders','/allSeasons',
         '/allActivities','/allTransports','/allCompanionships','/allJourneyCategories','/top100','/oneUser','/allBookmarkedJourneys',
         '/proveBookmarkExists','/onePost','/onePlace','/oneJourneyByPlaceID','/oneJourneyWithChildren','/oneJourneyWithChildren',
         '/oneJourney','/postsBetweenCoordinates','/filteredPosts','/userJourneys','/autocompletePlace','/validatePlace', '/updateImage',
         '/updatePost','/updatePlace','/updateJourney','/deleteBookmark','/deleteImage','/deletePost','/deletePlace','/deleteJourney',
         '/loginUser', '/logout', '/register', '/password/reset', '/password/email', '/password/reset/{token}', '/password/reset',
-        '/checkUsername', '/checkEmail', '/password/change', '/updateUser'
+        '/checkUsername', '/checkEmail', '/password/change', '/updateUser', '/sendEmailAgain', '/forgotPassword', '/emailVerified','/loadMessages'
     ];
 }

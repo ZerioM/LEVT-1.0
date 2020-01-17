@@ -6,14 +6,13 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header"></div>
-
+                Your Email is validated. Please login to your Levt app!
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
-
                     
                 </div>
             </div>
