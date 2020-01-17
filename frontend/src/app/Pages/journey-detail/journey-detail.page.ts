@@ -221,12 +221,12 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
     console.log(this.data.newJourney)
 
     this.router.navigateByUrl('tabs/tab2');
-
-
   }
 
   async login(){
+    await this.data.presentLoading();
     await this.userService.login(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
+    await this.data.dismissLoading();
     this.bookmarken();
   }
   
@@ -237,6 +237,12 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
 
   closeExplorerToast() {
     this.data.showedExplorerJourney = true;
+  }
+
+  async register(){
+    await this.data.presentLoading();
+    await this.userService.register(this.data.loggedInUser, this.data.url);
+    await this.data.dismissLoading();
   }
 
 

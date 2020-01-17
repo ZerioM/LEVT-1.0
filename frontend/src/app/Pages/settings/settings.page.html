@@ -47,7 +47,7 @@
          no-margin maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
       </ion-col>
     
-      <ion-button color="warning" expand="full" (click)="userService.login(data.loggedInUser, data.currentBookmark ,data.url)">Login</ion-button>
+      <ion-button color="warning" expand="full" (click)="login()">Login</ion-button>
       <ion-button expand="full" (click)="userService.goToResetPw()">Forgot Password</ion-button>
     </ion-list>
     <ion-button expand="full" (click)="userService.goToRegistration()">Register</ion-button>
@@ -151,7 +151,7 @@
       </div>
   </ion-list>
     
-    <ion-button expand="full" (click)="userService.register(data.loggedInUser,data.url)">Register</ion-button>
+    <ion-button expand="full" (click)="register()">Register</ion-button>
     <ion-label class="importantThings">
       * Fields marked with a <b class="importantStars">*</b> are mandatory.
     </ion-label>

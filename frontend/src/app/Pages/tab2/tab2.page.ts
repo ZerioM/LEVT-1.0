@@ -457,6 +457,18 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
     this.data.showedPioneerStep1=true;
   }
+
+  async login(){
+    await this.data.presentLoading();
+    await this.userService.login(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
+    await this.data.dismissLoading();
+  }
+
+  async register(){
+    await this.data.presentLoading();
+    await this.userService.register(this.data.loggedInUser, this.data.url);
+    await this.data.dismissLoading();
+  }
   
 
 

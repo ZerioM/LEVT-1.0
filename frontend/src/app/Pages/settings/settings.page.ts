@@ -106,10 +106,22 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
     await alert.present();
   }
 
-  logout(){
+  async login(){
+    await this.data.presentLoading();
+    await this.userService.login(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
+    await this.data.dismissLoading();
+  }
 
-    this.userService.logout(this.data.loggedInUser,this.data.currentBookmark, this.data.url);
+  async register(){
+    await this.data.presentLoading();
+    await this.userService.register(this.data.loggedInUser, this.data.url);
+    await this.data.dismissLoading();
+  }
 
+  async logout(){
+    await this.data.presentLoading();
+    await this.userService.logout(this.data.loggedInUser,this.data.currentBookmark, this.data.url);
+    await this.data.dismissLoading();
   }
 
   goBacktoSettingsWithoutSaving(){
@@ -123,7 +135,7 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
 
     this.data.presentLoading();
 
-    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
     if(this.image.imageID != null){
       this.data.loggedInUser._profileImageID = this.image.imageID;
       this.data.loggedInUser.userImgSrc = this.image.imgSrc;
@@ -159,7 +171,7 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
