@@ -161,11 +161,11 @@ class _UserController extends BaseController
             $user = User::find($userID);
             $user->sessionID = $this->createSessionID();
             $user->save();
-            if($user->email_verified_at == null){
-                return '"verified" : false';
-            } else {
+            // if($user->email_verified_at == null){
+            //     return '"verified" : false';
+            // } else {
                 return $this->selectOne($username);
-            }
+            //}
         } else {
             $outputArray = [
                 'userID' => null,
