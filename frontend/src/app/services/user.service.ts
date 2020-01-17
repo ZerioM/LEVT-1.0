@@ -182,7 +182,7 @@ export class UserService {
       if(this.emailFormatIsCorrect){
         if(this.usernameAvailable){
           if(this.emailAvailable){
-            await this.http.post(url+"/register", loggedInUser).toPromise().then((loadedData: User) => {
+            await this.http.post(url+"/registerUser", loggedInUser).toPromise().then((loadedData: User) => {
               if(loadedData.userID != null && loadedData.sessionID != null){
                 loggedInUser.userID = loadedData.userID;
                 loggedInUser.sessionID = loadedData.sessionID;
