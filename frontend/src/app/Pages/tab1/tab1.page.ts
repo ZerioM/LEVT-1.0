@@ -3,6 +3,7 @@ import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { BookmarkService } from 'src/app/services/bookmark.service';
 
 @Component({
   selector: 'app-tab1',
@@ -16,7 +17,7 @@ export class Tab1Page implements AfterViewChecked {
 
 //@ViewChild (Content) content: Content;
 
-  constructor(private data: DataService, private userService: UserService, private navCtrl:NavController, private router: Router) {
+  constructor(private data: DataService, private bookmarkService: BookmarkService, private userService: UserService, private navCtrl:NavController, private router: Router) {
 
     this.loadJSON();
 
@@ -52,7 +53,7 @@ export class Tab1Page implements AfterViewChecked {
     
     await this.data.presentLoading();  
     await this.data.loadOneJourney(journeyID);
-    await this.data.bookmarkExists();
+    await this.bookmarkService.bookmarkExists(this.data.currentBookmark, this.data.currentJourney, this.data.url, this.data.loggedInUser);
     await this.data.dismissLoading();
     if(this.data.currentBookmark.bookmarkID != null){
       this.data.bookmarkIcon = this.data.bookmarkSaved;

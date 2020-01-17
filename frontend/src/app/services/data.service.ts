@@ -38,6 +38,7 @@ import { UserService } from './user.service';
 import { Countries } from '../Interfaces/Countries';
 
 import { Storage } from '@ionic/storage';
+import { BookmarkService } from './bookmark.service';
 
 @Injectable({
   providedIn: 'root'
@@ -162,7 +163,7 @@ export class DataService {
   public homestead: string = "http://levt.test";
   public url: string = this.homestead;
 
-  constructor(private storage: Storage, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
+  constructor(private storage: Storage, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
 
     this.loadCentralData();
 
@@ -215,6 +216,7 @@ export class DataService {
         console.log(JSON.stringify(this.loggedInUser));
 
         this.currentBookmark._userID = this.loggedInUser.userID;
+        this.newJourney = this.journeyService.newJourney(this.loggedInUser);
       } else {
         console.log("someData war null");
       }
@@ -597,102 +599,35 @@ export class DataService {
   //Bookmarks
 
   async setBookmark(){
-    this.currentBookmark._userID=this.loggedInUser.userID;
-    this.currentBookmark._journeyID=this.currentJourney.journeyID;
-    let postData = this.currentBookmark;
-
-    //let bookmarked: boolean = false;
-
     if(this.userService.userLoggedIn(this.loggedInUser)){
-
-      //this.userService.setHttpHeaders(this.loggedInUser, this.loginHeaders);
-
-      await this.http.post(this.url+"/newBookmark", postData).toPromise().then((loadedData: Bookmark) => {
-        this.currentBookmark = loadedData;
-        console.log(this.currentBookmark);
-        console.log("Post funktioniert");
-      }, error => {
-        console.log(error);
-        
-      });
+      await this.bookmarkService.setBookmark(this.loggedInUser, this.currentBookmark, this.currentJourney, this.url);      
     } else {
       this.userService.wantsToLogin = true;
       console.log("DataService@setBookmark: User isn't logged in.");
     }
-    
   }
 
   async unsetBookmark(){
-    this.currentBookmark._userID=this.loggedInUser.userID;
-    this.currentBookmark._journeyID=this.currentJourney.journeyID;
-    let postData = this.currentBookmark;
-
     if(this.userService.userLoggedIn(this.loggedInUser)){
-
-      //this.userService.setHttpHeaders(this.loggedInUser,this.loginHeaders);
-
-      await this.http.post(this.url+"/deleteBookmark", postData).toPromise().then((loadedData: Bookmark) => {
-        this.currentBookmark = loadedData;
-        console.log(this.currentBookmark);
-        console.log("Post funktioniert");
-      }, error => {
-        console.log(error);
-      });
+      await this.bookmarkService.unsetBookmark(this.loggedInUser, this.currentBookmark, this.currentJourney, this.url);
     } else {
-    this.userService.wantsToLogin = true;
-    console.log("DataService@unsetBookmark: User isn't logged in.");
+      this.userService.wantsToLogin = true;
+      console.log("DataService@unsetBookmark: User isn't logged in.");
     }
-    
   }
 
-  async bookmarkExists(){
-    this.currentBookmark._userID=this.loggedInUser.userID;
-    this.currentBookmark._journeyID=this.currentJourney.journeyID;
-    let postData = this.currentBookmark;
+  async loadBookmarkedPosts(){
 
-    console.log(this.loggedInUser.userID);
-    console.log(this.currentJourney.journeyID);
-
-    let bookmarked: boolean = false;
-
-    await this.http.post(this.url+"/proveBookmarkExists", postData).toPromise().then((loadedData: Bookmark) => {
-      console.log(loadedData);
-      this.currentBookmark = loadedData;
-      console.log(this.currentBookmark);
-      console.log("Post funktioniert");
-    }, error => {
-      console.log(error);
-    });
-  }
-
-  loadBookmarkedPosts(){
+    let loadWorked = await this.bookmarkService.loadBookmarkedPosts(this.currentJourneys, this.url, this.loggedInUser);
 
     //VIELLEICHT NOCH ÜBERPRÜFEN DURCH SESSION-KEY
-
-    this.http.post(this.url+"/allBookmarkedJourneys",this.loggedInUser).toPromise().then( (loadedData: Journeys) => {
-      if(loadedData!=null){
-        console.log("Json file wurde geladen");
-        console.log(loadedData);
-        this.currentJourneys=loadedData;
-
-        console.log(this.currentJourneys);
-
-      }else{
-        this.loadTopPosts();
-        this.presentGeneralToast("We couldn`t find any results for your entered search. Please try again!",5000);
-        console.log("null per http geladen");
-        }
-    }, error => {
-      console.log(error);
-      console.info(error);
-      this.errorMsg = error;
+    if(loadWorked == 0){
+      this.loadTopPosts();
+      this.presentGeneralToast("We couldn`t find any results for your entered search. Please try again!",5000);
+    }else if(loadWorked == 2){
       this.presentGeneralToast("There was a problem with the connection to the database. Please try again later!",5000);
     }
-    );
   }
-
-
-
 
 
   //TOASTS

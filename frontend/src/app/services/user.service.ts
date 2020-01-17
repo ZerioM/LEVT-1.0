@@ -56,8 +56,9 @@ export class UserService {
 
   async logout(loggedInUser: User, currentBookmark: Bookmark, url: string){
     this.userLoggedOut = true;
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
 
-    await this.http.post(url+"/logout", loggedInUser).toPromise().then((loadedData: User) => {
+    await this.http.post(url+"/logout", loggedInUser, loginHeaders).toPromise().then((loadedData: User) => {
       if(loadedData.userID == null && loadedData.sessionID == null){
 
         console.log("Logout hat funktioniert.");
