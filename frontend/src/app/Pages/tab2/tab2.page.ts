@@ -86,7 +86,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
     this.data.presentLoading();
 
-    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
     if(this.image.imageID != null){
       this.data.newJourney._thumbnailID = this.image.imageID;
       this.data.newJourney.thumbnailSrc = this.image.imgSrc;
@@ -118,7 +118,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -134,7 +134,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.placeService.deletePlace(place, this.data.url);
+    isDeleted = await this.placeService.deletePlace(place, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -221,7 +221,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
       let isDeleted: boolean;
 
       this.data.presentLoading();
-      isDeleted = await this.journeyService.deleteJourney(this.data.newJourney, this.data.url);
+      isDeleted = await this.journeyService.deleteJourney(this.data.newJourney, this.data.url, this.data.loggedInUser);
       this.data.dismissLoading();
 
       if(isDeleted){
@@ -242,7 +242,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.journeyService.deleteJourney(this.data.newJourney, this.data.url);
+    isDeleted = await this.journeyService.deleteJourney(this.data.newJourney, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -368,7 +368,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
     this.data.presentLoading();
 
-    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
     if(this.image.imageID != null){
       this.data.loggedInUser._profileImageID = this.image.imageID;
       this.data.loggedInUser.userImgSrc = this.image.imgSrc;
@@ -386,7 +386,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){

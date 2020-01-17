@@ -85,7 +85,7 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
 
     this.data.presentLoading();
 
-    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
     if(this.image.imageID != null){
       this.data.loggedInUser._profileImageID = this.image.imageID;
       this.data.loggedInUser.userImgSrc = this.image.imgSrc;
@@ -116,7 +116,7 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){

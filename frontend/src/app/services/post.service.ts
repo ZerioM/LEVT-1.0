@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Place } from '../Interfaces/Place';
 import { Post } from '../Interfaces/Post';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { post } from 'selenium-webdriver/http';
+import { User } from '../Interfaces/User';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,12 @@ export class PostService {
     return newPost;
   }
 
-  async savePost(post: Post, url: string){
+  async savePost(post: Post, url: string, loggedInUser: User){
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
 
     //Abfragen, ob postID == null, dann newPost aufrufen, sonst updatePost aufrufen
     if(post.postID == null){
-      await this.http.post(url+"/newPost", post).toPromise().then((loadedData: Post) => {
+      await this.http.post(url+"/newPost", post, loginHeaders).toPromise().then((loadedData: Post) => {
         console.log(loadedData);
         console.log("New Post in DB inserted");
         post.postID = loadedData.postID;
@@ -31,10 +33,10 @@ export class PostService {
         this.updatePostWorks = true;      
       }, error => {
         console.log(error);
-        this.updatePostWorks = true;
+        this.updatePostWorks = false;
       });
     } else {
-      await this.http.post(url+"/updatePost", post).toPromise().then((loadedData: Post) => {
+      await this.http.post(url+"/updatePost", post, loginHeaders).toPromise().then((loadedData: Post) => {
         console.log(loadedData);
         console.log("Post with ID: ");
         console.log(post.postID);
@@ -49,10 +51,11 @@ export class PostService {
 
   }
 
-  async deletePost(post: Post, url: string){
+  async deletePost(post: Post, url: string, loggedInUser: User){
     let isDeleted = false;
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
 
-    await this.http.post(url+"/deletePost", post).toPromise().then((loadedData: boolean) => {
+    await this.http.post(url+"/deletePost", post, loginHeaders).toPromise().then((loadedData: boolean) => {
       console.log(loadedData);
       console.log("Post in DB deleted");
       isDeleted = loadedData;      

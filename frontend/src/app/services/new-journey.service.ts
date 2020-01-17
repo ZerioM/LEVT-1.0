@@ -63,12 +63,12 @@ export class NewJourneyService {
     console.log(journey);
     
     //Abfragen, ob journeyID == null, dann newJourney aufrufen, sonst updateJourney aufrufen
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
     if(journey.journeyID == null){
       
       console.log("LoggedIn User Session ID: ");
       console.log(loggedInUser.sessionID);
 
-      const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
       await this.http.post(url+"/newJourney", journey, loginHeaders).toPromise().then((loadedData: Journey) => {
         console.log("Loaded Data:");
         console.log(loadedData);
@@ -83,7 +83,7 @@ export class NewJourneyService {
         console.log(error);
       });
     } else {
-      await this.http.post(url+"/updateJourney", journey).toPromise().then((loadedData: Journey) => {
+      await this.http.post(url+"/updateJourney", journey, loginHeaders).toPromise().then((loadedData: Journey) => {
         console.log(loadedData);
         console.log("Journey with ID: ");
         console.log(journey.journeyID);
@@ -113,7 +113,7 @@ export class NewJourneyService {
 
   newJourney(currentUser:User){
   
-    let myJourney:Journey={journeyID:null, _userID:currentUser.userID,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:2019,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:false, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
+    let myJourney:Journey={journeyID:null, _userID:currentUser.userID,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:false, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
 
     console.log("new Journey");
     console.log(myJourney._userID);
@@ -187,10 +187,11 @@ export class NewJourneyService {
     });
   }
 
-  async deleteJourney(journey: Journey, url: string){
+  async deleteJourney(journey: Journey, url: string, loggedInUser: User){
     let isDeleted = false;
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
 
-    await this.http.post(url+"/deleteJourney", journey).toPromise().then((loadedData: boolean) => {
+    await this.http.post(url+"/deleteJourney", journey, loginHeaders).toPromise().then((loadedData: boolean) => {
       console.log(loadedData);
       console.log("Journey in DB deleted");
       isDeleted = loadedData;      

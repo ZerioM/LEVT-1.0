@@ -62,9 +62,9 @@ export class AddPostPage implements OnInit {
   
 
     this.data.presentLoading();
-    await this.postService.savePost(this.data.newPost, this.data.url);
+    await this.postService.savePost(this.data.newPost, this.data.url, this.data.loggedInUser);
     if(this.data.newPost.postID != null){
-      this.image = await this.imageService.uploadImage(webPath, this.data.newPost, this.data.url);
+      this.image = await this.imageService.uploadImage(webPath, this.data.newPost, this.data.url, this.data.loggedInUser);
       if(this.image.imageID != null){
       this.data.newPost.images.push(this.image);
       } else {
@@ -128,7 +128,7 @@ export class AddPostPage implements OnInit {
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -231,7 +231,7 @@ export class AddPostPage implements OnInit {
 
     await this.data.presentLoading();
 
-    await this.postService.savePost(this.data.newPost, this.data.url);
+    await this.postService.savePost(this.data.newPost, this.data.url, this.data.loggedInUser);
     await this.data.dismissLoading();
 
     if(this.data.newPost.postID != null && this.data.updatePostWorks()){

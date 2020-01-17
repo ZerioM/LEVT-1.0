@@ -57,7 +57,7 @@ export class AddPlacePage implements OnInit {
 
     this.data.presentLoading();
 
-    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
     if(this.image.imageID != null){
       this.data.newPlace._thumbnailID = this.image.imageID;
       this.data.newPlace.thumbnailSrc = this.image.imgSrc;
@@ -89,7 +89,7 @@ export class AddPlacePage implements OnInit {
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -105,7 +105,7 @@ export class AddPlacePage implements OnInit {
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.postService.deletePost(post, this.data.url);
+    isDeleted = await this.postService.deletePost(post, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -135,7 +135,7 @@ export class AddPlacePage implements OnInit {
     this.data.postInserted = false;
     if(this.placeValidated || this.data.newPlace.placeID != null){
       await this.data.presentLoading();
-      await this.placeService.savePlace(this.data.newPlace, this.data.url);
+      await this.placeService.savePlace(this.data.newPlace, this.data.url, this.data.loggedInUser);
       await this.data.dismissLoading();
       if(this.data.newPlace.placeID != null && this.data.updatePlaceWorks()){
         this.postService.newPost(this.data.newPlace);
@@ -164,7 +164,7 @@ export class AddPlacePage implements OnInit {
     this.data.postInserted = true;
     if(this.placeValidated || this.data.newPlace.placeID != null){
       await this.data.presentLoading();
-      await this.placeService.savePlace(this.data.newPlace, this.data.url);
+      await this.placeService.savePlace(this.data.newPlace, this.data.url, this.data.loggedInUser);
       await this.data.dismissLoading();
       if(this.data.newPlace.placeID != null && this.data.updatePlaceWorks()){
         this.data.newPost = po;
@@ -289,7 +289,7 @@ export class AddPlacePage implements OnInit {
     if(this.placeValidated || this.data.newPlace.placeID != null){
 
       await this.data.presentLoading();
-      await this.placeService.savePlace(this.data.newPlace, this.data.url);
+      await this.placeService.savePlace(this.data.newPlace, this.data.url, this.data.loggedInUser);
       await this.data.dismissLoading();
 
       if(this.data.newPlace.placeID != null){

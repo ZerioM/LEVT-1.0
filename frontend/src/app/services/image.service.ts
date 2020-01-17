@@ -3,13 +3,14 @@ import { Image } from '../Interfaces/Image';
 import { DataService } from './data.service';
 import { Post } from '../Interfaces/Post';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../Interfaces/User';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageService {
 
-
+  public updateImageWorks: boolean = true;
 
   constructor(private http: HttpClient) { }
 
@@ -18,7 +19,7 @@ export class ImageService {
     return image;
   }
 
- async uploadImage(imageString:string, post: Post, url: string){
+ async uploadImage(imageString:string, post: Post, url: string, loggedInUser: User){
 
    let image:Image;
   
@@ -27,35 +28,49 @@ export class ImageService {
    } else {
     image={imageID:null,_postID:null,imgSrc:null,date:null,coordinateX:null, coordinateY:null};
    }
-          
-
 
     const blob = await fetch(imageString).then(r => r.blob());
-    
 
     const formData = new FormData();
     formData.append('picUpload', blob);
     formData.append('data',JSON.stringify(image));
 
-    const httpOptions= {headers:new HttpHeaders({'enctype':'multipart/form-data;'})};
+    const httpOptions= {headers:new HttpHeaders({'enctype':'multipart/form-data', 'Sessionid': loggedInUser.sessionID})};
 
-    await this.http.post(url+"/uploadImage", formData,httpOptions).toPromise().then((loadedData: Image) => {
+   if(image.imageID == null){
+      await this.http.post(url+"/uploadImage", formData, httpOptions).toPromise().then((loadedData: Image) => {
         console.log(loadedData);
         console.log("New Image in DB inserted");
         image.imageID = loadedData.imageID;
-        image.imgSrc = loadedData.imgSrc      
+        image.imgSrc = loadedData.imgSrc  
+        this.updateImageWorks = true;    
       }, error => {
         console.log(error);
+        this.updateImageWorks = false;
       });
+    }else{
+      await this.http.post(url+"/updateImage", formData, httpOptions).toPromise().then((loadedData: Image) => {
+        console.log(loadedData);
+        console.log("Post with ID: ");
+        console.log(image.imageID);
+        console.log(" in DB updated");
+        image.imageID = loadedData.imageID;
+        this.updateImageWorks = true;
+      }, error => {
+        console.log(error);
+        this.updateImageWorks = false;
+      });
+    }
 
-      return image;
+    return image;
  
   }
 
-  async deleteImage(image: Image, url: string){
+  async deleteImage(image: Image, url: string, loggedInUser: User){
     let isDeleted;
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
 
-    await this.http.post(url+"/deleteImage", image).toPromise().then((loadedData: boolean) => {
+    await this.http.post(url+"/deleteImage", image, loginHeaders).toPromise().then((loadedData: boolean) => {
       console.log(loadedData);
       console.log("Image in DB deleted");
       isDeleted = loadedData;      

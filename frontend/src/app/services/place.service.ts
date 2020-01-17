@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Place } from '../Interfaces/Place';
 import { Places } from '../Interfaces/Places';
 import { Journey } from '../Interfaces/Journey';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { User } from '../Interfaces/User'; //new
+
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +34,11 @@ export class PlaceService {
     return places;
   }
 
-  async savePlace(place: Place, url: string){
+  async savePlace(place: Place, url: string, loggedInUser: User){
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
     //Abfragen, ob placeID == null, dann newPlace aufrufen, sonst updatePlace aufrufen
     if(place.placeID == null){
-      await this.http.post(url+"/newPlace", place).toPromise().then((loadedData: Place) => {
+      await this.http.post(url+"/newPlace", place, loginHeaders).toPromise().then((loadedData: Place) => {
         console.log(loadedData);
         console.log("New Place in DB inserted");
         this.updatePlaceWorks = true;
@@ -45,7 +48,7 @@ export class PlaceService {
         console.log(error);
       });
     } else {
-      await this.http.post(url+"/updatePlace", place).toPromise().then((loadedData: Place) => {
+      await this.http.post(url+"/updatePlace", place, loginHeaders).toPromise().then((loadedData: Place) => {
         console.log(loadedData);
         console.log("Place with ID: ");
         console.log(place.placeID);
@@ -97,10 +100,11 @@ export class PlaceService {
     return false;
   }
 
-  async deletePlace(place: Place, url: string){
+  async deletePlace(place: Place, url: string, loggedInUser: User){
     let isDeleted = false;
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
 
-    await this.http.post(url+"/deletePlace", place).toPromise().then((loadedData: boolean) => {
+    await this.http.post(url+"/deletePlace", place, loginHeaders).toPromise().then((loadedData: boolean) => {
       console.log(loadedData);
       console.log("Place in DB deleted");
       isDeleted = loadedData;      
