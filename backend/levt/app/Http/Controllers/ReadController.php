@@ -157,4 +157,9 @@ class ReadController extends BaseController
         return $uc->emailVerified($request);
     }
 
+    public function loadMessages(Request $request){
+        $mc =new _MessageController;
+        return $mc->loadMessages($request);
+    }
+
 }
