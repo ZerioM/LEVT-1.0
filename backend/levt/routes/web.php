@@ -119,6 +119,8 @@ $router->post('/checkUsername','ReadController@checkUsername');
 
 $router->post('/checkEmail','ReadController@checkEmail');
 
+$router->post('/emailVerified','ReadController@emailVerified');
+
 
 
 //UPDATE

@@ -322,4 +322,16 @@ class _UserController extends BaseController
         $user->sendPasswordResetNotification($token);
         return '"email" : true';
     }
+
+    public function emailVerified(Request $request){
+        $requestArray = $request->all();
+        $username = $requestArray['username'];
+        $emailVerifiedAt=DB::table('users')->where('username',$username)->value('email_verified_at');
+        if($emailVerifiedAt==null){
+            return '"email_verified_at":false';
+        }else{
+            return '"email_verified_at":true';
+        }
+
+    }
 }
