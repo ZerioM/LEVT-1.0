@@ -77,10 +77,20 @@
     <ion-label><b class="importantStars">Add some journeys to see your posted <br/> journeys here.</b></ion-label>
   </ion-item>
 
-
+    <!-- LOGIN & REGISTER -->
+    <!-- LOGIN -->
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false">
     <div class="login">
-      <ion-title class="tabHeading" no-padding>Login</ion-title>
+      
+      <div class="loginRegisterHeader">
+        <ion-buttons>
+          <ion-button (click)="loginClose()" icon-only>
+            <ion-icon class="cancel" name="ios-close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="tabHeading" no-padding> Login</ion-title>
+      </div> <!-- HEADER: X & Login -->
+
     <ion-list>
       <ion-col no-padding>
         <ion-label><b class="importantThings">Username</b></ion-label>
@@ -101,8 +111,6 @@
   </div>
   </div>
 
-    <!-- LOGIN & REGISTER -->
-    <!-- LOGIN -->
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToResetPw == true">
     <div class="login">
       <ion-buttons>
@@ -127,7 +135,15 @@
     <!-- REGISTER -->
   <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister">
     <div class="register">
-      <ion-title class="tabHeading" no-padding>Register</ion-title>
+      
+      <div class="loginRegisterHeader">
+        <ion-buttons>
+          <ion-button (click)="loginClose()" icon-only>
+            <ion-icon class="cancel" name="ios-close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="tabHeading" no-padding> Register</ion-title>
+      </div> <!-- HEADER: X & Register -->
 
     <ion-list>
       <ion-col no-padding>

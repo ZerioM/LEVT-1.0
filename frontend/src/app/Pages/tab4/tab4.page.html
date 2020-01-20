@@ -13,14 +13,15 @@
   <ion-grid>
     <ion-row *ngFor="let message of data.currentMessages.messages">
       <ion-col size="9" *ngIf="data.loggedInUser.userID != message.fromUserID" class="message otherMessage">
-      <b>{{message.fromUsername}}</b><br>
+      <div id="fromUser">{{message.fromUsername}}</div><br>
       <span>{{message.msg}}</span>
       <div class="time" text-right><br>
       {{message.createdAt |date:'short'}}</div>
       </ion-col>
 
       <ion-col offset="3" *ngIf="data.loggedInUser.userID == message.fromUserID" class="message myMessage">
-        <b>{{message.fromUsername}}</b><br>
+        <!--<div id="meUser">{{message.fromUsername}}</div><br>-->
+        <div id="meUser">{{data.loggedInUser.username}}</div><br>
         <span>{{message.msg}}</span>
         <div class="time" text-right><br>
         {{message.createdAt |date:'short'}}</div>

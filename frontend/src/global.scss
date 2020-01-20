@@ -34,6 +34,7 @@
   right: 0;
   margin-top: 5px;
 } // Setup Button auf Startseite & Profil
+
 .setup ion-button{
   //--padding-start: 0;
   //--padding-end: 0;
@@ -41,152 +42,33 @@
   right:0; 
 
 } // Setup Button padding auf Startseite & Profil
+
 ion-item {
   font-size: 10pt;
   --inner-padding-end: none;
   background-color: none;
 }
+
 input {
   background-color: none;
 }
+
 b{
   color: #161616;
 } // Bold = Fett geschriebene Sachen
-div.tabs-inner {
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-} // => Content auf allen Seiten
-ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
-  background: #415f4b66;
-  height: 1px;
-} //Linie nach Header
-.tabHeader {
-  height: 60px;
-  margin: -10px auto 0 auto; // top-right-bottom-left
-  padding-top: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-} // Header auf allen Seiten
-.cancel {
-  justify-content: left;
-  color: #d68900;
-  font-size: 50pt;
-  vertical-align: middle;
-  position: absolute;
-} // X auf Unterseiten
-.back {
-  justify-content: left;
-  color: #7ba9a9;
-  font-size: 30pt;
-  vertical-align: middle;
-  position: absolute;
-} // < auf Unterseiten
-.tabHeading {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 15pt;
-  text-align: center;
-  font-variant: small-caps;
-  vertical-align: middle;
-} // Headerüberschrift auf allen Seiten
-.headerLogo {
-  height: 50px;
-  vertical-align: middle;
-} // Logo im Header auf allen Seiten
-.headerUserPic {
-  height: 30px;
-  width: 30px;
-  align-self: center;
-  object-fit: cover;
-} // User Pic im Header auf allen Seiten
-.gallery {
-  width: 100%;
-} // Alle Beiträge auf der Startseite & Profil
-.pictureFrame {
-  width: 100%;
-  margin-bottom: 50px;
-  position: relative;
-} // Bilderrahmen mit Rahmen, Bild & Text auf Startseite
-.frameLeft .frameRight {
-  position: absolute;
-} // Bilderrahmen link und rechts
-.frameLeft {
-  width: 30px;
-  height: 30px;
-  top: 0;
-  left: 0;
-  border-top: 4px solid #182f30;
-  border-left: 4px solid #182f30;
-} //Rahmen Links
-.frameRight {
-  float: right;
-  width: 30px;
-  height: 30px;
-  bottom: 0;
-  right: 0;
-  border-bottom: 4px solid #182f30;
-  border-right: 4px solid #182f30;
-} // Rahmen Rechts
-.imgAndInfo {
-  width: 95%;
-  display: block;
-  margin-top: -20px;
-  margin-left: auto;
-  margin-right: auto;
-}// Bild und Infotext
-.travelTitle{
-  width: 100%;
-  margin-top: 50px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 18pt;
-  line-height: 26pt;
-  text-align:center;
-  background-color: #eceeefbf;
-  font-variant: small-caps;
-  position:absolute;
-} // Titel der Reise im Bild Startseite & Profil
-.thumbnailImg {
-  margin-top: -10px;
-  padding: 0px !important;
-}// Titelbild der Reise
-.picInformations {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: -35px;
-  margin-top: -5px;
-} // Username & Season
-.userpicAndName {
-  display: flex;
-  flex-direction: row;
-} // Profilbild & Username
-.userpic {
-  width: 20px;
-  height: 20px;
-  object-fit: cover;
-  margin-right: 5px;
-} // Profilbild unter Beiträgen
-.travelTime {
-  display: flex;
-  flex-direction: row;
-} // Season & Year
-.timeIcon {
-  margin-right: 5px;
-  color: #7ba9a9;
-} // Uhr Icon
+
 .alignright {
   float: right !important;
 }
+
 div .item-native {
   padding-left: -16px;
 }
+
 * {
   border-radius: 0px;
 } //macht radiobutton eckig
+
 button {
   padding: none;
 }
@@ -196,50 +78,6 @@ ion-chip {
   background: 0;
   margin-right: 5px;
 }
-
-.gridContainer {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  //flex-wrap: wrap;
-  flex-flow: row wrap;
-  justify-content: space-between;
-}
-.grid-item {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 30px;
-  background: #7ba9a9bf;
-} //=> Bild & Text
-.grid-item .addPlace {
-  width: 100px;
-  height: 100px;
-  background-color: #7ba9a9bf;
-  vertical-align: middle;
-  text-align: center;
-  color: #182f30;
-  font-size: 70pt;
-  font-weight: bolder;
-}// Add a Place
-.pictureGrid {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-} //=> Bild alleine
-
-.visitedPlaceName {
-  width: 100%;
-  margin-top: -30px;
-  align-self: center;
-  background-color: #eceeefbf;
-  vertical-align: middle;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 10pt;
-  text-align: center;
-  position: relative;
-  z-index: 100; 
-}//Text auf transparenten Hintergrund
 
 b{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -269,32 +107,242 @@ p{
   color:#d68900;
 }// Sternchen *
 
-//Map
 .map {
   height: 100%;
-}
+} //Map
 
 ion-loading{
   width: 100%;
   height: 100%;
 --background: url("/assets/images/loadingscreen.gif");
-}
+} // Animation des Ladens
 
 .kostenVisualisierung{
   height: 200px;
   border: 1px solid #182f30;
-}
+} // Visualisierung der Kosten
 
-.loginBg{
+.gamificationBg{
   width: 100%;
   height: 100%;
   background-color: #16161699;
   z-index: 1000;
   position: fixed;
   top:0;
-} // Grau Transparenter Hintergrund bei Login
+} // Hintergrund bei Gamification Badges
 
-.gamificationBg{
+
+
+/* -------- HEADER & CONTENT auf allen Seiten ----------*/
+div.tabs-inner {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+} // => Content auf allen Seiten
+
+ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
+  background: #415f4b66;
+  height: 1px;
+} //Linie nach Header
+
+.tabHeader {
+  height: 60px;
+  margin: -10px auto 0 auto; // top-right-bottom-left
+  padding-top: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+} // Header auf allen Seiten
+
+.cancel {
+  justify-content: left;
+  color: #d68900;
+  font-size: 50pt;
+  vertical-align: middle;
+  position: absolute;
+} // X auf Unterseiten
+
+.back {
+  justify-content: left;
+  color: #7ba9a9;
+  font-size: 30pt;
+  vertical-align: middle;
+  position: absolute;
+} // < auf Unterseiten
+
+.tabHeading {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15pt;
+  text-align: center;
+  font-variant: small-caps;
+  vertical-align: middle;
+} // Headerüberschrift auf allen Seiten
+
+.headerLogo {
+  height: 50px;
+  vertical-align: middle;
+} // Logo im Header auf allen Seiten
+
+.headerUserPic {
+  height: 30px;
+  width: 30px;
+  align-self: center;
+  object-fit: cover;
+} // User Pic im Header auf allen Seiten
+
+
+
+/* -------- Reisen mit Titelbild, Ecken, Bildinformationen ----------*/
+.gallery {
+  width: 100%;
+} // Alle Beiträge auf der Startseite & Profil
+
+.pictureFrame {
+  width: 100%;
+  margin-bottom: 50px;
+  position: relative;
+} // Bilderrahmen mit Rahmen, Bild & Text auf Startseite
+
+.frameLeft .frameRight {
+  position: absolute;
+} // Bilderrahmen link und rechts
+
+.frameLeft {
+  width: 30px;
+  height: 30px;
+  top: 0;
+  left: 0;
+  border-top: 4px solid #182f30;
+  border-left: 4px solid #182f30;
+} //Rahmen Links
+
+.frameRight {
+  float: right;
+  width: 30px;
+  height: 30px;
+  bottom: 0;
+  right: 0;
+  border-bottom: 4px solid #182f30;
+  border-right: 4px solid #182f30;
+} // Rahmen Rechts
+
+.imgAndInfo {
+  width: 95%;
+  display: block;
+  margin-top: -20px;
+  margin-left: auto;
+  margin-right: auto;
+}// Bild und Infotext
+
+.travelTitle{
+  width: 100%;
+  margin-top: 50px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 18pt;
+  line-height: 26pt;
+  text-align:center;
+  background-color: #eceeefbf;
+  font-variant: small-caps;
+  position:absolute;
+} // Titel der Reise im Bild Startseite & Profil
+
+.thumbnailImg {
+  margin-top: -10px;
+  padding: 0px !important;
+}// Titelbild der Reise
+
+.picInformations {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: -35px;
+  margin-top: -5px;
+} // Username & Season
+
+.userpicAndName {
+  display: flex;
+  flex-direction: row;
+} // Profilbild & Username
+
+.userpic {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  margin-right: 5px;
+} // Profilbild unter Beiträgen
+
+.travelTime {
+  display: flex;
+  flex-direction: row;
+} // Season & Year
+
+.timeIcon {
+  margin-right: 5px;
+  color: #7ba9a9;
+} // Uhr Icon
+
+
+
+/* -------- Visited Places, Posts bei ADD JOURNEY ----------*/
+.gridContainer {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  //flex-wrap: wrap;
+  flex-flow: row wrap;
+  justify-content: space-between;
+} // Container von Visited Places, Posts bei Erstellen einer Reise
+
+.grid-item {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 30px;
+  background: #7ba9a9bf;
+} //=> Bild & Text
+
+.grid-item .addPlace {
+  width: 100px;
+  height: 100px;
+  background-color: #7ba9a9bf;
+  vertical-align: middle;
+  text-align: center;
+  color: #182f30;
+  font-size: 70pt;
+  font-weight: bolder;
+}// Add a Place
+
+.pictureGrid {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+} //=> Bild alleine
+
+.visitedPlaceName {
+  width: 100%;
+  margin-top: -30px;
+  align-self: center;
+  background-color: #eceeefbf;
+  vertical-align: middle;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  text-align: center;
+  position: relative;
+  z-index: 100; 
+}//Text auf transparenten Hintergrund
+
+
+
+/* -------- LOGIN & REGISTRIERUNG ----------*/
+.loginRegisterHeader{
+  display: flex;
+  flex-direction: row;
+} // Überschriften Login oder Register bei den jeweiligen Kästen
+
+.loginBg{
   width: 100%;
   height: 100%;
   background-color: #16161699;
@@ -360,4 +408,3 @@ ion-loading{
   line-height: 15px;
   margin-bottom: 20px;
 } // Einzelnen Input Felder bei Login & Registrierung
-

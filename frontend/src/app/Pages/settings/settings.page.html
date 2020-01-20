@@ -21,6 +21,12 @@
     <ion-item no-padding lines="none">
       <ion-button>About Gamfication</ion-button>
     </ion-item>
+    <ion-item no-padding lines="none">
+      <ion-button>Data privacy</ion-button>
+    </ion-item>
+    <ion-item no-padding lines="none">
+      <ion-button>Terms of use</ion-button>
+    </ion-item>
   </ion-list>
 
 
@@ -29,13 +35,14 @@
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToLogin==true">
     <div class="login">
 
-      <ion-title class="tabHeading" no-padding> 
-        <ion-buttons>
-          <ion-button (click)="loginClose()" icon-only>
-            <ion-icon class="cancel" name="ios-close"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-        Login</ion-title>
+      <div class="loginRegisterHeader">
+      <ion-buttons>
+        <ion-button (click)="loginClose()" icon-only>
+          <ion-icon class="cancel" name="ios-close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="tabHeading" no-padding> Login</ion-title>
+    </div> <!-- HEADER: X & Login -->
         
     <ion-list>
       <ion-col no-padding>
@@ -82,13 +89,14 @@
   <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister && userService.wantsToLogin == true">
     <div class="register">
 
-      <ion-buttons>
-        <ion-button (click)="loginClose()" icon-only>
-          <ion-icon class="cancel" name="ios-close"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-
-      <ion-title class="tabHeading" no-padding>Register</ion-title>
+      <div class="loginRegisterHeader">
+        <ion-buttons>
+          <ion-button (click)="loginClose()" icon-only>
+            <ion-icon class="cancel" name="ios-close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="tabHeading" no-padding> Register</ion-title>
+      </div> <!-- HEADER: X & Register -->
 
     <ion-list>
       <ion-col no-padding>
