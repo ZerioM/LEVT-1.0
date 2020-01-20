@@ -64,6 +64,8 @@ $router->post('/sendEmailAgain','CreateController@sendEmail'); //UserFunktion?
 
 $router->post('/forgotPassword','CreateController@forgotPassword');
 
+$router->post('/saveMessage','CreateController@saveMessage');
+
 
 //READ
 

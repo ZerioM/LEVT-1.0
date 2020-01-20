@@ -46,4 +46,23 @@ class _MessageController extends BaseController
         return '{"messages": '.json_encode($outputMessagesArray, JSON_PRETTY_PRINT).'}';
        // var_dump($outputMessagesArray);
     }
+
+    public function saveMessage(Request $request){
+
+        $requestArray=$request->all();
+
+        $insertMessageArray=[
+            '_fromUserID'=>$requestArray['fromUserID'],
+            '_toUserID'=>$requestArray['toUserID'],
+            'message'=>$requestArray['msg']
+        ];
+
+
+        $messageID= DB::table('messages')->insertGetId($insertMessageArray);
+
+        return $this->loadMessages($request);
+
+
+
+    }
 }
