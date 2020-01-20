@@ -47,7 +47,26 @@ const routes: Routes = [
               {
                 path:'',
                 loadChildren:()=>
-                import('../Pages/settings/settings.module').then (m => m.SettingsPageModule)}
+                import('../Pages/settings/settings.module').then (m => m.SettingsPageModule)
+          },
+              {
+                path: 'data-privacy-page',
+                children:[
+                  {
+                    path:'',
+                    loadChildren:()=>
+                    import('../Pages/data-privacy-page/data-privacy-page.module').then (m => m.DataPrivacyPagePageModule)}
+                ]
+              },
+              {
+                path: 'terms-of-use-page',
+                children:[
+                  {
+                    path:'',
+                    loadChildren:()=>
+                    import('../Pages/terms-of-use-page/terms-of-use-page.module').then (m => m.TermsOfUsePagePageModule)}
+                ]
+              }
             ]
           }
         ]
@@ -108,9 +127,18 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../Pages/tab4/tab4.module').then(m => m.Tab4PageModule)
-          }
-        ]
-      },
+    },
+    {
+      path: 'chat-page',
+      children:[
+        {
+          path:'',
+          loadChildren:()=>
+          import('../Pages/chat-page/chat-page.module').then (m => m.ChatPagePageModule)}
+      ]
+    }
+  ]
+},
 
 
       {
