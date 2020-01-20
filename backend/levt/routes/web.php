@@ -123,7 +123,7 @@ $router->post('/checkEmail','ReadController@checkEmail');
 
 $router->post('/emailVerified','ReadController@emailVerified');
 
-$router->post('/loadMessages','ReadController@loadMessages');
+$router->post('/loadMessages','ReadController@loadMessages'); //UserFunktion //
 
 //UPDATE
 
