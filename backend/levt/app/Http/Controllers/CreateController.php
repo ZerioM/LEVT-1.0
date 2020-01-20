@@ -49,6 +49,11 @@ class CreateController extends BaseController
         return $userController->forgotPassword($request);
     }
 
+    public function saveMessage(Request $request){
+        $messageController = new _MessageController;
+        return $messageController->saveMessage($request);
+    }
+
 
     /*
     //Post Requests und Module work:
