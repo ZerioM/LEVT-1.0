@@ -9,6 +9,16 @@
     background-position: center;
 } // Ganzes Chatfenster
 
+#fromUser{
+    font-weight: bolder;
+    color: #eceeef;
+} // Nachrichten von User die man bekommt, Username
+
+#meUser{
+    font-weight: bolder;
+    color: #182f30;
+} // Nachrichten die ich sende, Username
+
 .otherMessage b{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 10pt;
