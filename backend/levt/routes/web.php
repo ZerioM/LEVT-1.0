@@ -64,7 +64,7 @@ $router->post('/sendEmailAgain','CreateController@sendEmail'); //UserFunktion?
 
 $router->post('/forgotPassword','CreateController@forgotPassword');
 
-$router->post('/saveMessage','CreateController@saveMessage');
+$router->post('/saveMessage','CreateController@saveMessage'); //UserFunktion
 
 
 //READ
@@ -123,7 +123,7 @@ $router->post('/checkEmail','ReadController@checkEmail');
 
 $router->post('/emailVerified','ReadController@emailVerified');
 
-$router->post('/loadMessages','ReadController@loadMessages'); //UserFunktion //
+$router->post('/loadMessages','ReadController@loadMessages'); //UserFunktion
 
 //UPDATE
 

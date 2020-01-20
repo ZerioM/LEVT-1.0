@@ -21,6 +21,12 @@ class _MessageController extends BaseController
         $fromUserID=$requestArray['fromUserID'];
         $toUserID=$requestArray['toUserID'];
 
+
+        $validateUser = $userController->validateUser($request,$fromUserID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+
        $messagesArray= json_decode(DB::table('messages')->where('_fromUserID',$fromUserID)->where('_toUserID',$toUserID)
         ->orWhere('_fromUserID',$toUserID)->where('_toUserID',$fromUserID)->get(),true);
 
@@ -48,8 +54,13 @@ class _MessageController extends BaseController
     }
 
     public function saveMessage(Request $request){
-
+        $userController=new _UserController;
         $requestArray=$request->all();
+
+        $validateUser = $userController->validateUser($request,$requestArray['fromUserID']);
+        if($validateUser !== true){
+            return $validateUser;
+        }
 
         $insertMessageArray=[
             '_fromUserID'=>$requestArray['fromUserID'],
