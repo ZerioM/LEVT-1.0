@@ -244,11 +244,21 @@
     Delete Journey
   </ion-button>
 
-
+    <!-- LOGIN & REGISTER -->
+    <!-- LOGIN -->
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false">
     <div class="login">
-      <ion-title class="tabHeading" no-padding>Login</ion-title>
-    <ion-list>
+      
+      <div class="loginRegisterHeader">
+        <ion-buttons>
+          <ion-button (click)="loginClose()" icon-only>
+            <ion-icon class="cancel" name="ios-close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="tabHeading" no-padding> Login</ion-title>
+      </div> <!-- HEADER: X & Login -->
+    
+      <ion-list>
       <ion-col no-padding>
         <ion-label><b class="importantThings">Username</b></ion-label>
       <ion-input class="inputField" type="text" placeholder="username"
@@ -269,8 +279,6 @@
   </div>
   </div>
 
-    <!-- LOGIN & REGISTER -->
-    <!-- LOGIN -->
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToResetPw == true">
     <div class="login">
       <ion-buttons>
@@ -295,7 +303,15 @@
   <!-- REGISTER -->
   <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister">
     <div class="register">
-      <ion-title class="tabHeading" no-padding>Register</ion-title>
+      
+      <div class="loginRegisterHeader">
+        <ion-buttons>
+          <ion-button (click)="loginClose()" icon-only>
+            <ion-icon class="cancel" name="ios-close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="tabHeading" no-padding> Register</ion-title>
+      </div> <!-- HEADER: X & Register -->
 
     <ion-list>
       <ion-col no-padding>
@@ -363,7 +379,7 @@
       </ion-col>
     
       <div class="birthdayRegister" lines="none">
-        <ion-label><b class="importantThings">Birthday</b><!--<b class="importantStars">*</b>--></ion-label>
+        <ion-label><b class="importantThings">Birthday</b></ion-label>
         <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
            no-padding ></ion-datetime>
       </div>

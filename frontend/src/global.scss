@@ -285,16 +285,21 @@ ion-loading{
   border: 1px solid #182f30;
 }
 
-.loginBg{
+.gamificationBg{
   width: 100%;
   height: 100%;
   background-color: #16161699;
   z-index: 1000;
   position: fixed;
   top:0;
-} // Grau Transparenter Hintergrund bei Login
+} 
 
-.gamificationBg{
+.loginRegisterHeader{
+  display: flex;
+  flex-direction: row;
+}
+
+.loginBg{
   width: 100%;
   height: 100%;
   background-color: #16161699;
