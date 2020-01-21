@@ -334,4 +334,19 @@ class _UserController extends BaseController
         }
 
     }
+
+    public function loadLoggedInUser(Request $request){
+        $requestArray = $request->all();
+        $username=$requestArray['username'];
+        $userID=$requestArray['userID'];
+
+        $validateUser = $this->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+
+       return  $this->selectOne($username);
+
+
+    }
 }

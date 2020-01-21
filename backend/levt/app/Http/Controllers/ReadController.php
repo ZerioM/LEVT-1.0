@@ -167,4 +167,9 @@ class ReadController extends BaseController
         return $mc->loadUserChats($request);
     }
 
+    public function loadLoggedInUser(Request $request){
+        $uc = new _UserController;
+        return $uc->loadLoggedInUser($request);
+    }
+
 }
