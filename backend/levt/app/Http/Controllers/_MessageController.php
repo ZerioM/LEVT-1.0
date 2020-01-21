@@ -72,8 +72,13 @@ class _MessageController extends BaseController
         $messageID= DB::table('messages')->insertGetId($insertMessageArray);
 
         return $this->loadMessages($request);
+    }
 
 
+    public function loadChatUsers(Request $request) {
 
+        $requestArray = $request->all();
+        $userID = $requestArray['fromUserID'];
+        
     }
 }

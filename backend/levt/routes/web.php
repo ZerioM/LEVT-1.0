@@ -125,6 +125,10 @@ $router->post('/emailVerified','ReadController@emailVerified');
 
 $router->post('/loadMessages','ReadController@loadMessages'); //UserFunktion
 
+$router->post('/loadUserChats','ReadController@loadUserChats'); //UserFunktion
+
+
+
 //UPDATE
 
 $router->post('/updateJourney','UpdateController@updateOneJourney'); //UserFunktion
