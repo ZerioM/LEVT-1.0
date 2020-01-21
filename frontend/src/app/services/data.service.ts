@@ -180,21 +180,22 @@ export class DataService {
     this.locale = 'en';
   }
 
-  loadCentralData(){
+  async loadCentralData(){
     this.loadJourneyCategories();
     this.loadSeasons();
     this.loadCompanionships();
     this.loadCountries();
     this.loadTransports();
-    this.loadUser();
+    await this.loadUser();
+    await this.loadUserJourneys(this.loggedInUser);
   }
 
   // public saveUser() {
   //   this.storage.set("myUser",this.loggedInUser);
   // }
 
-  public loadUser() {
-    this.storage.get("myUser").then((someData: User) => {
+  async loadUser() {
+    await this.storage.get("myUser").then((someData: User) => {
       if(someData != null){
         this.loggedInUser.userID = someData.userID;
         this.loggedInUser.username = someData.username;

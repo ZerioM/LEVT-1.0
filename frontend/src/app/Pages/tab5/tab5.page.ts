@@ -43,9 +43,8 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
   }
 
    //Daten laden
-   loadJSON(){
-
-    this.data.loadUserJourneys(this.data.loggedInUser);
+   async loadJSON(){
+    await this.data.loadUserJourneys(this.data.loggedInUser);
    // this.data.loadTopPosts();
     
 
