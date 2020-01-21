@@ -75,10 +75,89 @@ class _MessageController extends BaseController
     }
 
 
-    public function loadChatUsers(Request $request) {
+    public function loadUserChats(Request $request) {
 
+        $userController = new _UserController;
         $requestArray = $request->all();
-        $userID = $requestArray['fromUserID'];
-        
+        $userID = $requestArray['userID'];
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+
+
+
+
+        $fromUserIdArray= json_decode(json_encode(DB::table('messages')->where('_toUserID',$userID)->select('_fromUserID as userID')->distinct()->get()),true);
+
+        $toUserIdArray= json_decode(json_encode(DB::table('messages')->where('_fromUserID',$userID)->select('_toUserID as userID')->distinct()->get()),true);
+
+
+        $userIdsArray=array();
+
+        foreach($fromUserIdArray as $fromUserID){
+            array_push($userIdsArray,$fromUserID);
+        }
+
+        foreach($toUserIdArray as $toUserID){
+            array_push($userIdsArray,$toUserID);
+        }
+
+        $userIDs = array();
+
+        foreach($userIdsArray as $userID){
+            if(!in_array($userID,$userIDs)){
+                array_push($userIDs,$userID);
+            }
+        }
+
+
+        $outputArray = array();
+
+        // $otherUserID = 1;
+
+        // $message = json_decode(json_encode(DB::table('messages')->where('_toUserID',$otherUserID)->where('_fromUserID',$userID)->orWhere('_fromUserID',$otherUserID)->where('_toUserID',$userID)->orderbyDesc('created')->first()),true);
+
+        // return $message;
+        $createdArray=array();
+
+        foreach($userIDs as $otherUserID){
+            $username = $userController->selectUsernamePerID($otherUserID);
+
+            $userArray = json_decode($userController->selectOne($username),true);
+
+            $userID = $requestArray['userID'];
+            $message = json_decode(json_encode(DB::table('messages')->where('_toUserID',$otherUserID)->where('_fromUserID',$userID)->orWhere('_fromUserID',$otherUserID)->where('_toUserID',$userID)->orderbyDesc('created')->first()),true);
+
+            $messageArray = [
+                'messageID' => $message['messageID'],
+                'fromUserID' => $message['_fromUserID'],
+                'fromUsername' => $userController->selectUsernamePerID($message['_fromUserID']),
+                'toUserID' => $message['_toUserID'],
+                'createdAt' => $message['created'],
+                'msg'=>$message['message']
+            ];
+
+            array_push($createdArray,$messageArray['createdAt']);
+
+
+            $userMessageArray = [
+                'user' => $userArray,
+                'message' => $messageArray
+            ];
+
+
+            array_push($outputArray,$userMessageArray);
+
+        }
+
+        array_multisort($createdArray,SORT_DESC, $outputArray);
+
+
+        //return $outputArray[0]['message']['createdAt'];
+
+        return '{"userMessages":'.json_encode($outputArray)."}";
+
     }
 }
