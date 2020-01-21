@@ -17,6 +17,12 @@
 
 <ion-content color="none">
 
+  
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content>
+      </ion-refresher-content>
+    </ion-refresher>
+
   <ion-item lines="none" no-padding *ngIf="data.search.searchEntry !==''">
   <ion-label><b class="importantStars">Journeys which include "{{data.search.searchEntry}}"</b></ion-label>
   </ion-item>
@@ -98,5 +104,7 @@
     <ion-button  (click)="closeExplorerFinishToast()" expand="full" >OK</ion-button>
   </div>
   </div>
+
+
 
 </ion-content>

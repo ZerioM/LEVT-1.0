@@ -12,7 +12,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class BookmarkService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastController: ToastController) { }
 
   async setBookmark(loggedInUser: User, currentBookmark: Bookmark, currentJourney: Journey, url: string){
     currentBookmark._userID = loggedInUser.userID;
@@ -20,9 +20,13 @@ export class BookmarkService {
     let postData = currentBookmark;
     const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
     await this.http.post(url+"/newBookmark", postData, loginHeaders).toPromise().then((loadedData: Bookmark) => {
+      if(loadedData == null){
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+      } else {
       currentBookmark.bookmarkID = loadedData.bookmarkID;
       console.log(currentBookmark);
       console.log("Post funktioniert");
+      }
     }, error => {
       console.log(error);
     });    
@@ -34,9 +38,13 @@ export class BookmarkService {
     let postData = currentBookmark;
     const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
     await this.http.post(url+"/deleteBookmark", postData, loginHeaders).toPromise().then((loadedData: Bookmark) => {
+      if(loadedData == null){
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+      } else {
       currentBookmark.bookmarkID = loadedData.bookmarkID;
       console.log(currentBookmark);
       console.log("Post funktioniert");
+      }
     }, error => {
       console.log(error);
     });    
@@ -89,6 +97,14 @@ export class BookmarkService {
     }
     );
     return 3;
+  }
+
+  async presentGeneralToast(msg: string, dur: number){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: dur
+    });
+    toast.present();
   }
   
 }

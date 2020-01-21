@@ -43,9 +43,8 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
   }
 
    //Daten laden
-   loadJSON(){
-
-    this.data.loadUserJourneys(this.data.loggedInUser);
+   async loadJSON(){
+    await this.data.loadUserJourneys(this.data.loggedInUser);
    // this.data.loadTopPosts();
     
 
@@ -137,6 +136,18 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
     await this.data.presentLoading();
     await this.userService.register(this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+      this.data.loadUser();
+      this.data.loadUserJourneys(this.data.loggedInUser);
+    }, 500);
   }
 
 }

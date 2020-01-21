@@ -188,22 +188,12 @@ export class DataService {
     this.loadCountries();
     this.loadTransports();
     await this.loadUser();
-    this.loadUserMessages();
+    await this.loadUserJourneys(this.loggedInUser);
   }
 
   // public saveUser() {
   //   this.storage.set("myUser",this.loggedInUser);
   // }
-
-  public loadUserMessages(){
-    this.http.post(this.url+"/loadUserChats",this.loggedInUser).subscribe((loadedData: UserMessages) => {
-      console.log(loadedData);
-      console.log(loadedData.userMessages);
-     console.log("User Messages loaded");
-    },error => {
-      console.log(error);
-    });
-  }
 
   async loadUser() {
     await this.storage.get("myUser").then((someData: User) => {
@@ -655,7 +645,7 @@ export class DataService {
   }
   
   async presentNotSavedToast() {
-      this.presentGeneralToast('There was a problem with saving the content to database. Please try again!',8000);
+      this.presentGeneralToast('There was a problem with saving the content to database. Please try again!',3000);
   }
   
   async presentValidPlaceToast() {

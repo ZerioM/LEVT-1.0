@@ -4,6 +4,7 @@ import { Places } from '../Interfaces/Places';
 import { Journey } from '../Interfaces/Journey';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../Interfaces/User'; //new
+import { ToastController } from '@ionic/angular';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class PlaceService {
 
   public updatePlaceWorks: boolean = true;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastController: ToastController) { }
 
   newPlace(journey: Journey) {
     let newPlace: Place = { placeID: null,_journeyID:journey.journeyID,_thumbnailID: null,_countryID: null ,detail: "", coordinateX: null, coordinateY: null, posts: [], thumbnailSrc: "" ,placeName:"",countryName:""}
@@ -40,9 +41,14 @@ export class PlaceService {
     if(place.placeID == null){
       await this.http.post(url+"/newPlace", place, loginHeaders).toPromise().then((loadedData: Place) => {
         console.log(loadedData);
+        if(loadedData == null){
+          this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+          this.updatePlaceWorks = true;
+        } else {
         console.log("New Place in DB inserted");
         this.updatePlaceWorks = true;
-        place.placeID = loadedData.placeID;      
+        place.placeID = loadedData.placeID; 
+        }     
       }, error => {
         this.updatePlaceWorks = true;
         console.log(error);
@@ -50,13 +56,17 @@ export class PlaceService {
     } else {
       await this.http.post(url+"/updatePlace", place, loginHeaders).toPromise().then((loadedData: Place) => {
         console.log(loadedData);
+        if(loadedData == null){
+          this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+          this.updatePlaceWorks = false;
+        } else {
         console.log("Place with ID: ");
         console.log(place.placeID);
         console.log(" in DB updated");
         this.updatePlaceWorks = true;
 
         place.placeID = loadedData.placeID;
-
+        }
       }, error => {
         this.updatePlaceWorks = false;
         console.log(error);
@@ -105,15 +115,27 @@ export class PlaceService {
     const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
 
     await this.http.post(url+"/deletePlace", place, loginHeaders).toPromise().then((loadedData: boolean) => {
+      if(loadedData == null){
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+      } else {
       console.log(loadedData);
       console.log("Place in DB deleted");
-      isDeleted = loadedData;      
+      isDeleted = loadedData; 
+      }     
     }, error => {
         console.log(error);
     });
 
 
     return isDeleted;
+  }
+
+  async presentGeneralToast(msg: string, dur: number){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: dur
+    });
+    toast.present();
   }
 
   

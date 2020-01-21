@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { BookmarkService } from 'src/app/services/bookmark.service';
 
+
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -104,5 +105,16 @@ export class Tab1Page implements AfterViewChecked {
 
 
     this.data.showedExplorerFulltext=true;
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+      this.data.loadTopPosts();
+    }, 500);
   }
 }

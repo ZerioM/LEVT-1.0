@@ -18,6 +18,10 @@
       <div class="time" text-right><br>
       {{message.createdAt |date:'short'}}</div>
       </ion-col>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
 
       <ion-col offset="3" *ngIf="data.loggedInUser.userID == message.fromUserID" class="message myMessage">
         <!--<div id="meUser">{{message.fromUsername}}</div><br>-->

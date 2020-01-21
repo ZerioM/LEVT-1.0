@@ -13,6 +13,10 @@
 <!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
 <ion-content class="tabsContent">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-item id="profilUserpicInformations" color="none" lines="none" no-padding no-margin>
 
     <ion-item no-padding lines="none" *ngIf="userService.userLoggedIn(data.loggedInUser)">
@@ -83,11 +87,6 @@
     <div class="login">
       
       <div class="loginRegisterHeader">
-        <ion-buttons>
-          <ion-button (click)="loginClose()" icon-only>
-            <ion-icon class="cancel" name="ios-close"></ion-icon>
-          </ion-button>
-        </ion-buttons>
         <ion-title class="tabHeading" no-padding> Login</ion-title>
       </div> <!-- HEADER: X & Login -->
 
@@ -137,11 +136,6 @@
     <div class="register">
       
       <div class="loginRegisterHeader">
-        <ion-buttons>
-          <ion-button (click)="loginClose()" icon-only>
-            <ion-icon class="cancel" name="ios-close"></ion-icon>
-          </ion-button>
-        </ion-buttons>
         <ion-title class="tabHeading" no-padding> Register</ion-title>
       </div> <!-- HEADER: X & Register -->
 
