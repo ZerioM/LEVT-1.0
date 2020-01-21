@@ -643,7 +643,7 @@ export class DataService {
   }
   
   async presentNotSavedToast() {
-      this.presentGeneralToast('There was a problem with saving the content to database. Please try again!',8000);
+      this.presentGeneralToast('There was a problem with saving the content to database. Please try again!',3000);
   }
   
   async presentValidPlaceToast() {
