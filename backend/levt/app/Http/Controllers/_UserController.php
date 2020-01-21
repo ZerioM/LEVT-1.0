@@ -75,6 +75,17 @@ class _UserController extends BaseController
         $outputUserArray = json_decode(json_encode(DB::table('users')->where('username',$username)->get()),true);
 
         $outputUser = $outputUserArray[0];
+
+        $explorerBadgeProgress =DB::table('userbadges')->where([
+            ['_userID',$outputUser['userID']],
+            ['_badgeID',2]])->value('progress');
+
+
+        $pioneerBadgeProgress= DB::table('userbadges')->where([
+            ['_userID',$outputUser['userID']],
+            ['_badgeID',1]])->value('progress');
+
+
         $outputArray = [
             'userID' => $outputUser['userID'],
             'username' => $outputUser['username'],
@@ -86,8 +97,8 @@ class _UserController extends BaseController
             'gamificationPoints' => $outputUser['gamificationPoints'],
             '_profileImageID' => $outputUser['_profileImageID'],
             'sessionID' => $outputUser['sessionID'],
-            'explorerBadgeProgress' => null, //aus DB
-            'pioneerBadgeProgress' => null, // aus DB
+            'explorerBadgeProgress' => $explorerBadgeProgress,
+            'pioneerBadgeProgress' => $pioneerBadgeProgress ,
             'age' => Carbon::parse($outputUser['birthday'])->age,
             'countryName' => $countryController->selectNamePerID($outputUser['_countryOfResidenceID']),
             'userImgSrc' => $imageController->selectSrcPerUserID($outputUser['userID']),
@@ -122,6 +133,24 @@ class _UserController extends BaseController
             'sessionID' => $this->createSessionID()
         ]);
 
+
+
+        $insertPioneerArray=[
+            '_badgeID' => 1,
+            '_userID'=> $this->selectIDPerUsername($requestArray['username']),
+            'progress' => $requestArray['pioneerBadgeProgress']
+
+        ];
+
+        $insertExplorerArray=[
+            '_badgeID' => 2,
+            '_userID'=> $this->selectIDPerUsername($requestArray['username']),
+            'progress' => $requestArray['explorerBadgeProgress']
+
+        ];
+
+        DB::table('userbadges')->insert($insertPioneerArray);
+        DB::table('userbadges')->insert($insertExplorerArray);
 
 
         $user->sendEmailVerificationNotification();
@@ -236,6 +265,18 @@ class _UserController extends BaseController
         //explorerBadgeProgress
         //pioneerBadgeProgress
         $user->save();
+
+        DB::table('userbadges')->where([
+            ['_userID',$requestArray['userID']],
+            ['_badgeID',2]])->update(['progress'=>$requestArray['explorerBadgeProgress']]);
+
+        DB::table('userbadges')->where([
+            ['_userID',$requestArray['userID']],
+            ['_badgeID',1]])->update(['progress'=>$requestArray['pioneerBadgeProgress']]);
+
+
+
+
         if ($mail) $user->sendEmailVerificationNotification();
         return $this->selectOne($user->username);
     }
