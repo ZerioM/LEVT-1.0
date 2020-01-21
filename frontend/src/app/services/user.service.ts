@@ -101,8 +101,6 @@ export class UserService {
     //loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
     loggedInUser.password = loggedInUser.pwClear;
 
-    console.log(loggedInUser.password);
-
     loggedInUser.pwClear = "";
 
     this.secondPw = '';

@@ -65,6 +65,7 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
 
   loginClose(){
     this.userService.wantsToLogin = false;
+    this.userService.wantsToRegister = false;
     this.userService.userLoggedOut = true;
   }
 
