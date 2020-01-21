@@ -76,11 +76,18 @@ class _MessageController extends BaseController
 
 
     public function loadUserChats(Request $request) {
+
         $userController = new _UserController;
-
-
         $requestArray = $request->all();
         $userID = $requestArray['userID'];
+
+        $validateUser = $userController->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+
+
+
 
         $fromUserIdArray= json_decode(json_encode(DB::table('messages')->where('_toUserID',$userID)->select('_fromUserID as userID')->distinct()->get()),true);
 
