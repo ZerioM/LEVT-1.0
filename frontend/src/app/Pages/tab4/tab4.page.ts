@@ -98,4 +98,16 @@ export class Tab4Page implements OnInit, AfterViewChecked{
 
   }
 
+  //////////////////
+  doRefresh(event) {
+    console.log('Begin async operation');
+    
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+      this.data.loadTopPosts();
+    }, 500);
+  }
+
 }

@@ -139,4 +139,16 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
     await this.data.dismissLoading();
   }
 
+  doRefresh(event) {
+    console.log('Begin async operation');
+    
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+      this.data.loadUser();
+      this.data.loadUserJourneys(this.data.loggedInUser);
+    }, 500);
+  }
+
 }
