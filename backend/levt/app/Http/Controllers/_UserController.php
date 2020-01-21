@@ -56,26 +56,8 @@ class _UserController extends BaseController
         //wenn Sessions nicht übereinstimmen
         //Wenn Session in DB leer is
         if($headerSessionID != $DBsessionID || $DBsessionID == null){
-            $outputArray = [
-                'userID' => null,
-                'username' => null,
-                'password' => null,
-                'emailAddress' => null,
-                'birthday' => null,
-                '_countryOfResidenceID' => null,
-                //'remember_token' => null,
-                'gamificationPoints' => null,
-                '_profileImageID' => null,
-                'sessionID' => null,
-                'explorerBadgeProgress' => null,
-                'pioneerBadgeProgress' => null,
-                'age' => null,
-                'countryName' => null,
-                'userImgSrc' => null,
-                'pwClear' => null,
-                //'email_verified_at' => null
-            ];
-            return json_encode($outputArray,JSON_PRETTY_PRINT);
+
+            return null;
         } else {
             // if(DB::table('users')->where('userID',$userID)->value('email_verified_at') == null){
             //     return '"verified" : false';
@@ -139,6 +121,8 @@ class _UserController extends BaseController
             '_profileImageID' => $requestArray['_profileImageID'],
             'sessionID' => $this->createSessionID()
         ]);
+
+
 
         $user->sendEmailVerificationNotification();
 
