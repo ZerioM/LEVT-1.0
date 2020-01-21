@@ -40,6 +40,8 @@ import { Countries } from '../Interfaces/Countries';
 import { Storage } from '@ionic/storage';
 import { BookmarkService } from './bookmark.service';
 import { UserMessages } from '../Interfaces/UserMessages';
+import { UserMessage } from '../Interfaces/UserMessage';
+import { MessagesService } from './messages.service';
 
 @Injectable({
   providedIn: 'root'
@@ -69,10 +71,11 @@ export class DataService {
   };
 
   //chat
-  public chatUser:User={userID:2, username:"leo41",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",password:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null, email_verified_at:null}
+  public chatUser:User={userID:null, username:null,_profileImageID:null, userImgSrc:null,password:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null,gamificationPoints:null, pwClear:null, email_verified_at:null}
 
   public currentMessages:Messages={messages:[]};
   public currentMessage:Message={messageID: null, fromUserID: null, fromUsername: '', toUserID: null, createdAt: null, msg: ''}
+  public currentUserMessages:UserMessages = {userMessages: null};
 
   public newUser:User;
 
@@ -157,6 +160,7 @@ export class DataService {
   public edit: boolean=false;
   public fromEditJourney:boolean=false;
   public fromNewJourney:boolean=true;
+
   
   private locale : string;
 
@@ -165,7 +169,7 @@ export class DataService {
   public url: string = this.homestead;
   
 
-  constructor(private storage: Storage, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
+  constructor(private storage: Storage, private messagesService: MessagesService, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
 
     this.loadCentralData();
 
@@ -189,6 +193,7 @@ export class DataService {
     this.loadTransports();
     await this.loadUser();
     await this.loadUserJourneys(this.loggedInUser);
+    await this.messagesService.loadUserChatted(this.currentUserMessages, this.loggedInUser, this.url);
   }
 
   // public saveUser() {

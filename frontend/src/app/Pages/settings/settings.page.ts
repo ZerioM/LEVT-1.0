@@ -7,6 +7,7 @@ import { Image } from 'src/app/Interfaces/Image';
 
 import { Capacitor, Plugins, CameraResultType, FilesystemDirectory, CameraSource } from '@capacitor/core';
 import { ImageService } from 'src/app/services/image.service';
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-settings',
@@ -21,7 +22,7 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
 
   public delay = ms => new Promise(res => setTimeout(res, ms));
 
-  constructor(private data: DataService, private userService: UserService, private imageService: ImageService, private navCtrl:NavController, private router: Router, private alertController: AlertController) {
+  constructor(private data: DataService, private messagesService: MessagesService, private userService: UserService, private imageService: ImageService, private navCtrl:NavController, private router: Router, private alertController: AlertController) {
 
    }
 
@@ -110,12 +111,14 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
   async login(){
     await this.data.presentLoading();
     await this.userService.login(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
+    await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
 
   async register(){
     await this.data.presentLoading();
     await this.userService.register(this.data.loggedInUser, this.data.url);
+    await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
 

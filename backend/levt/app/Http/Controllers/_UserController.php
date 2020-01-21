@@ -178,11 +178,6 @@ class _UserController extends BaseController
         $requestArray = $request->all();
         $userID = $requestArray['userID'];
 
-        $validateUser = $this->validateUser($request,$userID);
-        if($validateUser !== true){
-            return $validateUser;
-        }
-
         DB::table('users')->where('userID',$userID)->update([
             'sessionID' => null
         ]);
