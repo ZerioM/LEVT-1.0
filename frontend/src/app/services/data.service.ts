@@ -39,6 +39,7 @@ import { Countries } from '../Interfaces/Countries';
 
 import { Storage } from '@ionic/storage';
 import { BookmarkService } from './bookmark.service';
+import { UserMessages } from '../Interfaces/UserMessages';
 
 @Injectable({
   providedIn: 'root'
@@ -161,7 +162,7 @@ export class DataService {
 
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
-  public url: string = this.flock;
+  public url: string = this.homestead;
   
 
   constructor(private storage: Storage, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
@@ -180,21 +181,22 @@ export class DataService {
     this.locale = 'en';
   }
 
-  loadCentralData(){
+  async loadCentralData(){
     this.loadJourneyCategories();
     this.loadSeasons();
     this.loadCompanionships();
     this.loadCountries();
     this.loadTransports();
-    this.loadUser();
+    await this.loadUser();
+    await this.loadUserJourneys(this.loggedInUser);
   }
 
   // public saveUser() {
   //   this.storage.set("myUser",this.loggedInUser);
   // }
 
-  public loadUser() {
-    this.storage.get("myUser").then((someData: User) => {
+  async loadUser() {
+    await this.storage.get("myUser").then((someData: User) => {
       if(someData != null){
         this.loggedInUser.userID = someData.userID;
         this.loggedInUser.username = someData.username;
@@ -643,7 +645,7 @@ export class DataService {
   }
   
   async presentNotSavedToast() {
-      this.presentGeneralToast('There was a problem with saving the content to database. Please try again!',8000);
+      this.presentGeneralToast('There was a problem with saving the content to database. Please try again!',3000);
   }
   
   async presentValidPlaceToast() {

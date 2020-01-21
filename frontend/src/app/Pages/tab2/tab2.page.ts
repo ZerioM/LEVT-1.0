@@ -226,6 +226,8 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
       if(isDeleted){
         this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
+        this.data.loadTopPosts();
+        this.data.loadUserJourneys(this.data.loggedInUser);
         this.router.navigateByUrl('/tabs/tab1');
         this.data.reloadHomePage = true;
       } else {
@@ -233,6 +235,8 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
       }
     } else {
       this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
+      this.data.loadTopPosts();
+      this.data.loadUserJourneys(this.data.loggedInUser);
       this.router.navigateByUrl('/tabs/tab1');
     } 
   }
@@ -247,6 +251,8 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
     if(isDeleted){
       this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
+      this.data.loadTopPosts();
+      this.data.loadUserJourneys(this.data.loggedInUser);
       this.router.navigateByUrl('/tabs/tab1');
       this.data.reloadHomePage = true;
     } else {
@@ -347,6 +353,8 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
       if(this.data.loggedInUser.pioneerBadgeProgress<100&&this.data.loggedInUser.pioneerBadgeProgress >50){
         this.data.loggedInUser.pioneerBadgeProgress=100;
       }
+      this.data.loadTopPosts();
+      this.data.loadUserJourneys(this.data.loggedInUser);
       this.router.navigateByUrl('/tabs/tab1');
     } else {
       //Toast ausgeben: Das Speichern hat nicht funktioniert.

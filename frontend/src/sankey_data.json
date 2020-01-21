@@ -1,0 +1,7 @@
+{"nodes":[
+{"name":"totalCosts"},
+{"name":"accommodationCosts"}
+],
+"links":[
+    {"source":"totalCosts","target":"accommodationCosts","value":100}
+]}

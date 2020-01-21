@@ -159,9 +159,17 @@ class ReadController extends BaseController
 
     public function loadMessages(Request $request){
         $mc =new _MessageController;
-        //$mc->loadMessages($request);
         return $mc->loadMessages($request);
+    }
 
+    public function loadUserChats(Request $request){
+        $mc =new _MessageController;
+        return $mc->loadUserChats($request);
+    }
+
+    public function loadLoggedInUser(Request $request){
+        $uc = new _UserController;
+        return $uc->loadLoggedInUser($request);
     }
 
 }

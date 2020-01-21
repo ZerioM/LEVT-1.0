@@ -233,6 +233,7 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
 
   loginClose(){
     this.userService.wantsToLogin = false;
+    this.userService.wantsToRegister = false;
   }
 
   closeExplorerToast() {
