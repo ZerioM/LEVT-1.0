@@ -212,7 +212,6 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
       console.log(this.data.newPlace);
       this.router.navigateByUrl('/tabs/tab2/add-place');
     } else {
-      //TO DO: Toast ausgeben: "Das Speichern hat nicht funktioniert"
       this.data.presentNotSavedToast();
       console.log("Das Speichern hat nicht funktioniert.");
     }
@@ -352,7 +351,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
     if (this.data.newJourney.journeyID != null) {
       this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
-      if(this.data.loggedInUser.pioneerBadgeProgress<100&&this.data.loggedInUser.pioneerBadgeProgress >50){
+      if(this.data.loggedInUser.pioneerBadgeProgress==76){
         this.data.loggedInUser.pioneerBadgeProgress=100;
          //Update User
       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
@@ -416,7 +415,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
   async focusOutJourneyName(){
 
-    if(this.data.loggedInUser.pioneerBadgeProgress<25){
+    if(this.data.loggedInUser.pioneerBadgeProgress==0){
 
       this.data.loggedInUser.pioneerBadgeProgress=25;
 
@@ -498,10 +497,15 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     }
   }
 
-  closePioneerStep1Toast(){
+  async closePioneerStep1Toast(){
 
 
-    this.data.showedPioneerStep1=true;
+   this.data.loggedInUser.pioneerBadgeProgress=26;
+
+      //Update User
+      if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
   }
 
   async login(){
