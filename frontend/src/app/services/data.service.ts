@@ -39,6 +39,9 @@ import { Countries } from '../Interfaces/Countries';
 
 import { Storage } from '@ionic/storage';
 import { BookmarkService } from './bookmark.service';
+import { UserMessages } from '../Interfaces/UserMessages';
+import { UserMessage } from '../Interfaces/UserMessage';
+import { MessagesService } from './messages.service';
 
 @Injectable({
   providedIn: 'root'
@@ -68,10 +71,11 @@ export class DataService {
   };
 
   //chat
-  public chatUser:User={userID:2, username:"leo41",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",password:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null, email_verified_at:null}
+  public chatUser:User={userID:null, username:null,_profileImageID:null, userImgSrc:null,password:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null,gamificationPoints:null, pwClear:null, email_verified_at:null}
 
   public currentMessages:Messages={messages:[]};
   public currentMessage:Message={messageID: null, fromUserID: null, fromUsername: '', toUserID: null, createdAt: null, msg: ''}
+  public currentUserMessages:UserMessages = {userMessages: null};
 
   public newUser:User;
 
@@ -156,15 +160,16 @@ export class DataService {
   public edit: boolean=false;
   public fromEditJourney:boolean=false;
   public fromNewJourney:boolean=true;
+
   
   private locale : string;
 
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
-  public url: string = this.flock;
+  public url: string = this.homestead;
   
 
-  constructor(private storage: Storage, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
+  constructor(private storage: Storage, private messagesService: MessagesService, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
 
     this.loadCentralData();
 
@@ -180,21 +185,23 @@ export class DataService {
     this.locale = 'en';
   }
 
-  loadCentralData(){
+  async loadCentralData(){
     this.loadJourneyCategories();
     this.loadSeasons();
     this.loadCompanionships();
     this.loadCountries();
     this.loadTransports();
-    this.loadUser();
+    await this.loadUser();
+    await this.loadUserJourneys(this.loggedInUser);
+    await this.messagesService.loadUserChatted(this.currentUserMessages, this.loggedInUser, this.url);
   }
 
   // public saveUser() {
   //   this.storage.set("myUser",this.loggedInUser);
   // }
 
-  public loadUser() {
-    this.storage.get("myUser").then((someData: User) => {
+  async loadUser() {
+    await this.storage.get("myUser").then((someData: User) => {
       if(someData != null){
         this.loggedInUser.userID = someData.userID;
         this.loggedInUser.username = someData.username;
@@ -216,6 +223,32 @@ export class DataService {
 
         console.log("Hehe, Daten geladen!");
         console.log(JSON.stringify(this.loggedInUser));
+        const loginHeaders = {headers: new HttpHeaders({'Sessionid': this.loggedInUser.sessionID})};
+
+        this.http.post(this.url+"/loadLoggedInUser", this.loggedInUser,loginHeaders).toPromise().then((loadedData: User) => {
+          console.log(loadedData);
+          this.loggedInUser.userID = loadedData.userID;
+          this.loggedInUser.username = loadedData.username;
+          this.loggedInUser._profileImageID = loadedData._profileImageID;
+          this.loggedInUser.password = loadedData.password;
+          this.loggedInUser.emailAddress = loadedData.emailAddress;
+          this.loggedInUser.birthday = loadedData.birthday;
+          this.loggedInUser._countryOfResidenceID = loadedData._countryOfResidenceID;
+          this.loggedInUser.sessionID = loadedData.sessionID;
+          this.loggedInUser.explorerBadgeProgress = loadedData.explorerBadgeProgress;
+          this.loggedInUser.pioneerBadgeProgress = loadedData.pioneerBadgeProgress;
+          this.loggedInUser.gamificationPoints = loadedData.gamificationPoints;
+          this.loggedInUser.email_verified_at=loadedData.email_verified_at;
+          
+          this.loggedInUser.age = loadedData.age;
+          this.loggedInUser.countryName = loadedData.countryName;
+          this.loggedInUser.userImgSrc = loadedData.userImgSrc;
+          this.loggedInUser.pwClear = loadedData.pwClear;
+
+          console.log("Post funktioniert - loadLoggedInUser");
+        }, error => {
+          console.log(error);
+        });
 
         this.currentBookmark._userID = this.loggedInUser.userID;
         this.newJourney = this.journeyService.newJourney(this.loggedInUser);
@@ -643,7 +676,7 @@ export class DataService {
   }
   
   async presentNotSavedToast() {
-      this.presentGeneralToast('There was a problem with saving the content to database. Please try again!',8000);
+      this.presentGeneralToast('There was a problem with saving the content to database. Please try again!',3000);
   }
   
   async presentValidPlaceToast() {
@@ -720,9 +753,14 @@ export class DataService {
 
   //Search
 
-  filterSearch(){
+  async filterSearch(){
     if(this.loggedInUser.explorerBadgeProgress < 100 && this.showedExplorerFulltext==false){
       this.loggedInUser.explorerBadgeProgress+=34;
+
+       //Update User
+       if(this.userService.updateUser(this.loggedInUser,this.url)!=null){
+        await this.userService.updateUser(this.loggedInUser,this.url);
+        }
       this.clickedSearch = true; 
     }
     if(this.search.searchEntry == ''){

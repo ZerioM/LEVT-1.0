@@ -101,8 +101,6 @@ export class UserService {
     //loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
     loggedInUser.password = loggedInUser.pwClear;
 
-    console.log(loggedInUser.password);
-
     loggedInUser.pwClear = "";
 
     this.secondPw = '';
@@ -287,5 +285,46 @@ export class UserService {
       duration: dur
     });
     toast.present();
+  }
+
+  async updateUser(loggedInUser: User, url: string){
+
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid':loggedInUser.sessionID})};
+       
+    await this.http.post(url+"/updateUser", loggedInUser,loginHeaders).toPromise().then((loadedData: User) => {
+      console.log(loadedData);
+      if(loadedData == null){
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+      } else {
+      console.log("Post funktioniert - UpdateUser");
+      loggedInUser.userID = loadedData.userID;
+      loggedInUser.username = loadedData.username;
+      loggedInUser._profileImageID = loadedData._profileImageID;
+      loggedInUser.password = loadedData.password;
+      loggedInUser.emailAddress = loadedData.emailAddress;
+      loggedInUser.birthday = loadedData.birthday;
+      loggedInUser._countryOfResidenceID = loadedData._countryOfResidenceID;
+      loggedInUser.sessionID = loadedData.sessionID;
+      loggedInUser.explorerBadgeProgress = loadedData.explorerBadgeProgress;
+      loggedInUser.pioneerBadgeProgress = loadedData.pioneerBadgeProgress;
+      loggedInUser.gamificationPoints = loadedData.gamificationPoints;
+      loggedInUser.email_verified_at=loadedData.email_verified_at;
+      
+      loggedInUser.age = loadedData.age;
+      loggedInUser.countryName = loadedData.countryName;
+      loggedInUser.userImgSrc = loadedData.userImgSrc;
+      loggedInUser.pwClear = loadedData.pwClear;
+      
+        console.log("Pioneer");
+        console.log(loadedData.pioneerBadgeProgress);
+
+        console.log("Explorer");
+        console.log(loadedData.explorerBadgeProgress);
+      }
+    }, error => {
+      console.log(error);
+
+    });
+    
   }
 }

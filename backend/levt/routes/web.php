@@ -127,6 +127,9 @@ $router->post('/loadMessages','ReadController@loadMessages'); //UserFunktion
 
 $router->post('/loadUserChats','ReadController@loadUserChats'); //UserFunktion
 
+$router->post('/loadLoggedInUser','ReadController@loadLoggedInUser');
+
+
 
 
 //UPDATE

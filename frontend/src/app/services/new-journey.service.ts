@@ -10,6 +10,7 @@ import { Place } from '../Interfaces/Place';
 import { TouchSequence } from 'selenium-webdriver';
 import { DataService } from './data.service';
 import { User } from '../Interfaces/User';
+import { ToastController } from '@ionic/angular';
 
 
 @Injectable({
@@ -23,7 +24,7 @@ export class NewJourneyService {
 
   public updateJourneyWorks: boolean = true;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private toastController: ToastController) {}
 
 
 
@@ -65,31 +66,40 @@ export class NewJourneyService {
     //Abfragen, ob journeyID == null, dann newJourney aufrufen, sonst updateJourney aufrufen
     const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
     if(journey.journeyID == null){
-      
-      console.log("LoggedIn User Session ID: ");
-      console.log(loggedInUser.sessionID);
 
       await this.http.post(url+"/newJourney", journey, loginHeaders).toPromise().then((loadedData: Journey) => {
         console.log("Loaded Data:");
         console.log(loadedData);
-        this.updateJourneyWorks = true;
-        journey.journeyID = loadedData.journeyID;
-        console.log("New Journey in DB inserted.");
-        console.log("Journey after insert:");
-        console.log(journey);
+        if(loadedData == null){
+          //journey = loadedData;
+          this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+          this.updateJourneyWorks = true;
+        } else {
+          this.updateJourneyWorks = true;
+          journey.journeyID = loadedData.journeyID;
+          console.log("New Journey in DB inserted.");
+          console.log("Journey after insert:");
+          console.log(journey);
+        }
+        
       }, error => {
         this.updateJourneyWorks = true;
-        console.log("Ich bin in dieses Error-Feld gegangen.");
         console.log(error);
       });
     } else {
       await this.http.post(url+"/updateJourney", journey, loginHeaders).toPromise().then((loadedData: Journey) => {
         console.log(loadedData);
+        if(loadedData == null){
+          //journey = loadedData;
+          this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+          this.updateJourneyWorks = false;
+        } else {
         console.log("Journey with ID: ");
         console.log(journey.journeyID);
         console.log(" in DB updated.");
         this.updateJourneyWorks = true;
         journey.journeyID = loadedData.journeyID;
+        }
       }, error => {
         this.updateJourneyWorks = false;
         console.log(error);
@@ -193,8 +203,12 @@ export class NewJourneyService {
 
     await this.http.post(url+"/deleteJourney", journey, loginHeaders).toPromise().then((loadedData: boolean) => {
       console.log(loadedData);
+      if(loadedData == null){
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+      } else {
       console.log("Journey in DB deleted");
-      isDeleted = loadedData;      
+      isDeleted = loadedData;
+      }      
     }, error => {
         console.log(error);
     });
@@ -202,5 +216,15 @@ export class NewJourneyService {
 
     return isDeleted;
   }
+
+  async presentGeneralToast(msg: string, dur: number){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: dur
+    });
+    toast.present();
+  }
+
 }
+
 

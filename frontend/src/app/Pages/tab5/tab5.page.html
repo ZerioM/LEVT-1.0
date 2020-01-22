@@ -17,6 +17,10 @@
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
 <ion-content class="tabsContent">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>
   <ion-item id="profilUserpicInformations" color="none" lines="none" no-padding no-margin>
 
     <ion-item no-padding lines="none" *ngIf="userService.userLoggedIn(data.loggedInUser)">

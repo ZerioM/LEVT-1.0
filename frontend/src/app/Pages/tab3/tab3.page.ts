@@ -3,6 +3,8 @@ import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { Place } from 'src/app/Interfaces/Place';
 import { thresholdFreedmanDiaconis } from 'd3';
+import { User } from 'src/app/Interfaces/User';
+import { UserService } from 'src/app/services/user.service';
 
 declare var google;
 
@@ -17,7 +19,7 @@ export class Tab3Page implements AfterViewInit, AfterViewChecked {
   map: any;
   public clicked: boolean = false;
 
-  constructor(private data: DataService, private router: Router) {
+  constructor(private data: DataService, private router: Router, private userService:UserService) {
     
   }
 
@@ -107,10 +109,14 @@ export class Tab3Page implements AfterViewInit, AfterViewChecked {
     this.router.navigateByUrl('/tabs/tab1/journey-detail');
   }
 
-  clickedMap(){
+  async clickedMap(){
     this.data.clickedMap = true;
     if(this.data.loggedInUser.explorerBadgeProgress < 100 && this.data.showedExplorerMap==false){
       this.data.loggedInUser.explorerBadgeProgress += 33;
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
   }
 
