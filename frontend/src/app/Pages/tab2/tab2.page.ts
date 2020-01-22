@@ -17,6 +17,7 @@ import { ImageService } from 'src/app/services/image.service';
 import { Image } from 'src/app/Interfaces/Image';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/Interfaces/User';
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-tab2',
@@ -42,7 +43,10 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
   test: any;
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController, private userService:UserService) {
+
+
+
+  constructor(private journeyService: NewJourneyService, private messagesService: MessagesService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController, private userService:UserService) {
 
     this.loadJSON();
 
@@ -503,12 +507,14 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
   async login(){
     await this.data.presentLoading();
     await this.userService.login(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
+    await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
 
   async register(){
     await this.data.presentLoading();
     await this.userService.register(this.data.loggedInUser, this.data.url);
+    await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
   

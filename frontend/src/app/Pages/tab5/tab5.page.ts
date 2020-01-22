@@ -19,7 +19,7 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
 
   public image: Image;
 
-  constructor(private data: DataService, private userService: UserService, private messageService: MessagesService, private imageService: ImageService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
+  constructor(private data: DataService, private messagesService: MessagesService, private userService: UserService, private messageService: MessagesService, private imageService: ImageService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
 
     this.loadJSON();
    }
@@ -129,12 +129,14 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
   async login(){
     await this.data.presentLoading();
     await this.userService.login(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
+    await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
 
   async register(){
     await this.data.presentLoading();
     await this.userService.register(this.data.loggedInUser, this.data.url);
+    await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
 

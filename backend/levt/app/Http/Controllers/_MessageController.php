@@ -53,6 +53,24 @@ class _MessageController extends BaseController
        // var_dump($outputMessagesArray);
     }
 
+    public function loadMessage($id){
+        $userController=new _UserController;
+
+        $messageArray = json_decode(json_encode(DB::table('messages')->where('messageID',$id)->first()),true);
+        //$messageArray = $messagesArray[0];
+
+        $outputArray = [
+            'messageID' => $id,
+            'toUserID' => $messageArray['_toUserID'],
+            'fromUserID' => $messageArray['_fromUserID'],
+            'fromUsername' => $userController->selectUsernamePerID($messageArray['_fromUserID']),
+            'createdAt' => $messageArray['created'],
+            'msg' => $messageArray['message']
+        ];
+
+        return json_encode($outputArray);
+    }
+
     public function saveMessage(Request $request){
         $userController=new _UserController;
         $requestArray=$request->all();
@@ -71,7 +89,7 @@ class _MessageController extends BaseController
 
         $messageID= DB::table('messages')->insertGetId($insertMessageArray);
 
-        return $this->loadMessages($request);
+        return $this->loadMessage($messageID);
     }
 
 
