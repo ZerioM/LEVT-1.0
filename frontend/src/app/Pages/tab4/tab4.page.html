@@ -1,6 +1,8 @@
 <ion-header class="tabHeader">
-  <ion-title class="tabHeading" no-padding>Chats</ion-title>
-    <img class="headerUserPic" src='/assets/images/LEVT_Logo_ohneSchrift.svg' alt="User" />
+  <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
+  <ion-title class="tabHeading" no-padding> Your chats</ion-title>
+  <img class="headerUserPic" *ngIf="data.chatUser.userImgSrc != null && data.chatUser.userImgSrc != ''" src={{data.chatUser.userImgSrc}} alt="User" />
+  <img class="headerUserPic" *ngIf="data.chatUser.userImgSrc == null || data.chatUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
