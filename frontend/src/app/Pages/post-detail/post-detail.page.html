@@ -6,8 +6,9 @@
    </ion-buttons>
 
  <ion-title class="tabHeading" no-padding>{{data.currentPlace.placeName}}</ion-title>
- <img *ngIf="data.currentJourney.userImgSrc != null && data.currentJourney.userImgSrc != ''" class="headerUserPic" src={{data.currentJourney.userImgSrc}} alt="User" />
- <img *ngIf="data.currentJourney.userImgSrc == null || data.currentJourney.userImgSrc == ''" class="headerUserPic" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
+    <img *ngIf="data.currentJourney._userID != null && data.currentJourney.userImgSrc != null && data.currentJourney.userImgSrc != ''" class="headerUserPic" (click)="goToUserPage()" src={{data.currentJourney.userImgSrc}} alt="User" />
+    <img *ngIf="data.currentJourney._userID != null && data.currentJourney.userImgSrc == null || data.currentJourney.userImgSrc == ''" class="headerUserPic" (click)="goToUserPage()" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
+    <img *ngIf="data.currentJourney._userID == null" class="headerUserPic" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 

@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { BookmarkService } from 'src/app/services/bookmark.service';
+import { Journey } from 'src/app/Interfaces/Journey';
 
 
 @Component({
@@ -47,10 +48,9 @@ export class Tab1Page implements AfterViewChecked {
 
     async showJourney(journeyID: number){
 
-    this.data.clickedJourney = true;
-    if(this.data.loggedInUser.explorerBadgeProgress < 100 && this.data.showedExplorerJourney==false){
-      this.data.loggedInUser.explorerBadgeProgress += 33;
-      this.data.showedExplorerJourney=true; //eventuell in Storage speichern!
+    if(this.data.loggedInUser.explorerBadgeProgress==0 || this.data.loggedInUser.explorerBadgeProgress==22||this.data.loggedInUser.explorerBadgeProgress==28||this.data.loggedInUser.explorerBadgeProgress==50){
+    this.data.loggedInUser.explorerBadgeProgress += 25;
+     
        //Update User
        if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
         await this.userService.updateUser(this.data.loggedInUser,this.data.url);
@@ -111,11 +111,15 @@ export class Tab1Page implements AfterViewChecked {
         }
   }
 
-  closeExplorerFinishToast(){
+  async closeExplorerFinishToast(){
 
 
-    this.data.showedExplorerFulltext=true;
-    //Eventuell in Storage Speichern 
+    this.data.loggedInUser.explorerBadgeProgress +=1;
+    //Update User
+    if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+      await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+      }
+
   }
 
   doRefresh(event) {
@@ -127,5 +131,11 @@ export class Tab1Page implements AfterViewChecked {
       event.target.complete();
       this.data.loadTopPosts();
     }, 500);
+  }
+
+  async goToUserPage(journey:Journey){
+    this.data.currentJourney = journey;
+    this.data.goToUserPage();
+    this.router.navigateByUrl('/tabs/tab1/user');
   }
 }

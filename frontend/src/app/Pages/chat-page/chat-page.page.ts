@@ -33,6 +33,12 @@ export class ChatPagePage implements OnInit, AfterViewChecked{
       console.log("Checking for updates...");
       await this.messagesService.loadMessages(this.data.currentMessages,this.data.url,this.data.loggedInUser,this.data.chatUser);
     } 
+    if(this.data.chatOpened){
+      this.data.chatOpened = false;
+      setTimeout(()=>{
+        this.content.scrollToBottom(200);
+      });
+    }
   }
 
   async sendMessage(){
@@ -74,5 +80,15 @@ export class ChatPagePage implements OnInit, AfterViewChecked{
   close(){
     this.router.navigateByUrl('/tabs/tab4');
   }
+
+  async goToUserPage(){
+    await this.data.presentLoading();
+    await this.data.loadOneOtherUser(this.data.chatUser);
+    await this.data.loadOtherUserJourneys(this.data.otherUser);
+    await this.data.dismissLoading();
+    this.router.navigateByUrl('/tabs/tab1/user');
+  }
+    
+  
 
 }

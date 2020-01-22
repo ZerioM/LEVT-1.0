@@ -124,6 +124,8 @@ export class Tab4Page implements OnInit, AfterViewChecked{
     await this.messagesService.loadMessages(this.data.currentMessages, this.data.url, this.data.loggedInUser, this.data.chatUser);
     await this.data.dismissLoading();
 
+    this.data.chatOpened = true;
+
     this.router.navigateByUrl('/tabs/tab4/chat-page');
   }
 

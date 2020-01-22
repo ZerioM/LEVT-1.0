@@ -65,6 +65,10 @@ export class DataService {
 
   public currentUserJourney:Journey={journeyID:null, _userID:null,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
 
+  public otherUser:User = {userID:null, username:null,_profileImageID: null, userImgSrc: null,password: null,emailAddress: null, birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName: null, gamificationPoints:null, pwClear:null,email_verified_at:null};
+
+  public otherUserJourneys: Journeys = {journeys:[]};
+
   public loggedInUser:User={userID:null, username:null,_profileImageID: null, userImgSrc: null,password: null,emailAddress: null, birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName: null, gamificationPoints:null, pwClear:null,email_verified_at:null}
   public loginHeaders = {
     headers: new HttpHeaders({})
@@ -76,6 +80,7 @@ export class DataService {
   public currentMessages:Messages={messages:[]};
   public currentMessage:Message={messageID: null, fromUserID: null, fromUsername: '', toUserID: null, createdAt: null, msg: ''}
   public currentUserMessages:UserMessages = {userMessages: null};
+  public chatOpened:boolean = false;
 
   public newUser:User;
 
@@ -127,10 +132,6 @@ export class DataService {
   public errorMsg;
 
   //gamification
-  public showedPioneerStep1:boolean=false;
-  public showedPioneerStep2:boolean=false;
-  public showedPioneerStep3:boolean=false;
-  public showedPioneerFinish:boolean=false;
 
   public showedExplorerFulltext:boolean=false;
   public showedExplorerMap:boolean= false;
@@ -630,6 +631,36 @@ export class DataService {
 
   }
 
+  async loadOtherUserJourneys(user:User){
+    await this.http.post(this.url+"/userJourneys", user).subscribe((loadedData: Journeys) => {
+      console.log(loadedData);
+      this.otherUserJourneys.journeys=loadedData.journeys;
+      console.log("Post funktioniert");
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  async loadOneOtherUser(user:User){
+    await this.http.post(this.url+"/oneUser", user).subscribe((loadedData: User) => {
+      console.log(loadedData);
+      this.otherUser=loadedData;
+      console.log("User geladen");
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  async goToUserPage(){
+    let user:User = {userID:null, username:null,_profileImageID:null, userImgSrc:null,password:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null,gamificationPoints:null, pwClear:null, email_verified_at:null};
+    user.userID = this.currentJourney._userID;
+    user.username = this.currentJourney.username;
+    await this.presentLoading();
+    await this.loadOneOtherUser(user);
+    await this.loadOtherUserJourneys(this.otherUser);
+    await this.dismissLoading();
+  }
+
 
   //Bookmarks
 
@@ -754,16 +785,16 @@ export class DataService {
   //Search
 
   async filterSearch(){
-    if(this.loggedInUser.explorerBadgeProgress < 100 && this.showedExplorerFulltext==false){
-      this.loggedInUser.explorerBadgeProgress+=34;
-      this.showedExplorerFulltext=true; //Eventuell im Storage speichern!
+    if(this.loggedInUser.explorerBadgeProgress==0 || this.loggedInUser.explorerBadgeProgress==22||this.loggedInUser.explorerBadgeProgress==26||this.loggedInUser.explorerBadgeProgress==48){
+      this.loggedInUser.explorerBadgeProgress += 27;
+       
+         //Update User
+         if(this.userService.updateUser(this.loggedInUser,this.url)!=null){
+          await this.userService.updateUser(this.loggedInUser,this.url);
+          }
+      }
 
-       //Update User
-       if(this.userService.updateUser(this.loggedInUser,this.url)!=null){
-        await this.userService.updateUser(this.loggedInUser,this.url);
-        }
-      this.clickedSearch = true; 
-    }
+
     if(this.search.searchEntry == ''){
       this.loadTopPosts();
     } else {
