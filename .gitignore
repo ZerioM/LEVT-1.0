@@ -45,5 +45,4 @@ npm-debug.log*
 /plugins
 /www
 .env.flock
-backend/levt/public/css/style.css
 backend/levt/resources/views/auth/login.blade.php
