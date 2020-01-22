@@ -48,10 +48,22 @@
    text-align: center;
    margin-bottom: -20px;
  } // Heading My Journeys 
-  #PlatzhalterKartenVis{
-    width: 100%;
-    max-height: 200px;
+  
+ /*
+ #PlatzhalterKartenVis{
+    //width: 100%;
+    //max-height: 200px;
     padding: 2px;
     border: 1px solid #182f30;
     object-fit: cover;
   } // dies ist nur ein Platzhalter
+  */
+
+  #my_dataviz{
+    //width: 100%;
+    //max-height: 200px;
+    background-color: #182f30;
+    padding: 2px;
+    border: 1px solid #182f30;
+    object-fit: cover;
+  }
