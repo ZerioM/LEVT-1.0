@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { BookmarkService } from 'src/app/services/bookmark.service';
+import { Journey } from 'src/app/Interfaces/Journey';
 
 
 @Component({
@@ -130,5 +131,11 @@ export class Tab1Page implements AfterViewChecked {
       event.target.complete();
       this.data.loadTopPosts();
     }, 500);
+  }
+
+  async goToUserPage(journey:Journey){
+    this.data.currentJourney = journey;
+    this.data.goToUserPage();
+    this.router.navigateByUrl('/tabs/tab1/user');
   }
 }

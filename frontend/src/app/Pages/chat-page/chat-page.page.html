@@ -5,8 +5,8 @@
     </ion-button>
   </ion-buttons>
   <ion-title class="tabHeading" no-padding>Chat with {{data.chatUser.username}}</ion-title>
-    <img class="headerUserPic" *ngIf="data.chatUser.userImgSrc != null && data.chatUser.userImgSrc != ''" src={{data.chatUser.userImgSrc}} alt="User" />
-    <img class="headerUserPic" *ngIf="data.chatUser.userImgSrc == null || data.chatUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
+    <img class="headerUserPic" *ngIf="data.chatUser.userImgSrc != null && data.chatUser.userImgSrc != ''" src={{data.chatUser.userImgSrc}} alt="User" (click)="goToUserPage()"/>
+    <img class="headerUserPic" *ngIf="data.chatUser.userImgSrc == null || data.chatUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" (click)="goToUserPage()"/>
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
@@ -30,7 +30,7 @@
         <!--<div id="meUser">{{message.fromUsername}}</div><br>-->
         <div id="meUser">{{data.loggedInUser.username}}</div><br>
         <span>{{message.msg}}</span>
-        <div class="time" text-right><br>
+        <div class="timeMeUser" text-right><br>
         {{message.createdAt |date:'short'}}</div>
         </ion-col>
 

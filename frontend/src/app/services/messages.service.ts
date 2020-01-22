@@ -68,7 +68,7 @@ export class MessagesService {
     await this.http.post(url+"/loadUserChats", loggedInUser, loginHeaders).toPromise().then((loadedData: UserMessages) => {
       console.log(loadedData);
       if(loadedData == null){
-        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",5000);
       } else {
       console.log("Loaded Messages from DB");
       currentUserMessages.userMessages = loadedData.userMessages;

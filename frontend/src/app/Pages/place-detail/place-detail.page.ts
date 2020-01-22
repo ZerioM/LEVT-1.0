@@ -30,4 +30,9 @@ export class PlaceDetailPage implements OnInit {
      this.router.navigateByUrl('/tabs/tab1/journey-detail');
    }
 
+   async goToUserPage(){
+    this.data.goToUserPage();
+    this.router.navigateByUrl('/tabs/tab1/user');
+  }
+
 }

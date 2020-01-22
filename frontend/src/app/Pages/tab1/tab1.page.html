@@ -38,10 +38,10 @@
             <div class="travelTitle">{{j.journeyName}}</div>
           </ion-item>
           <div class="picInformations">
-            <div class="userpicAndName">
+            <div class="userpicAndName" (click)="goToUserPage(j)">
               <ion-item color="none">
-                <img *ngIf="j.userImgSrc != null && j.userImgSrc != ''" src={{j.userImgSrc}} alt="User" class="userpic" />
-                <img *ngIf="j.userImgSrc == null || j.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" class="userpic" />
+                <img *ngIf="j.userImgSrc != null && j.userImgSrc != ''" src={{j.userImgSrc}} alt="User" class="userpic"/>
+                <img *ngIf="j.userImgSrc == null || j.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" class="userpic"/>
               </ion-item>
               <ion-item color="none">
                 <ion-label>{{j.username}}</ion-label>

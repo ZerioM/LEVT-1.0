@@ -71,13 +71,6 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
 
   }
 
-  chatWith(){
-  //this.data.chatUser = this.profileuser;
-  this.data.currentMessage = this.messageService.newMessage(this.data.loggedInUser,this.data.chatUser);
-  //this.router.navigateByUrl('/tabs/tab4');
-  //eigentlich navigieren zu Unterseite von tab4, wo sich chat befindet
-  }
-
   async selectProfileImage(){
 
     const webPath = await this.getPhoto(CameraSource.Prompt);
@@ -135,7 +128,7 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
 
   async register(){
     await this.data.presentLoading();
-    await this.userService.register(this.data.loggedInUser, this.data.url);
+    await this.userService.register(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
     await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }

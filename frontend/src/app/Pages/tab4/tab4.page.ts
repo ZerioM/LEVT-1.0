@@ -34,7 +34,7 @@ export class Tab4Page implements OnInit, AfterViewChecked{
   }
 
   async ngAfterViewChecked(){
-    if(this.currentTime <= (new Date().getTime()-3000)){
+    if(this.currentTime <= (new Date().getTime()-10000)){
       this.currentTime = new Date().getTime();
       console.log("Checking for updates...");
       await this.messagesService.loadUserChatted(this.data.currentUserMessages,this.data.loggedInUser,this.data.url);
@@ -62,7 +62,7 @@ export class Tab4Page implements OnInit, AfterViewChecked{
 
   async register(){
     await this.data.presentLoading();
-    await this.userService.register(this.data.loggedInUser, this.data.url);
+    await this.userService.register(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
     await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
@@ -123,6 +123,8 @@ export class Tab4Page implements OnInit, AfterViewChecked{
     await this.data.presentLoading();
     await this.messagesService.loadMessages(this.data.currentMessages, this.data.url, this.data.loggedInUser, this.data.chatUser);
     await this.data.dismissLoading();
+
+    this.data.chatOpened = true;
 
     this.router.navigateByUrl('/tabs/tab4/chat-page');
   }
