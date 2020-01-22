@@ -218,6 +218,32 @@ export class DataService {
 
         console.log("Hehe, Daten geladen!");
         console.log(JSON.stringify(this.loggedInUser));
+        const loginHeaders = {headers: new HttpHeaders({'Sessionid': this.loggedInUser.sessionID})};
+
+        this.http.post(this.url+"/loadLoggedInUser", this.loggedInUser,loginHeaders).toPromise().then((loadedData: User) => {
+          console.log(loadedData);
+          this.loggedInUser.userID = loadedData.userID;
+          this.loggedInUser.username = loadedData.username;
+          this.loggedInUser._profileImageID = loadedData._profileImageID;
+          this.loggedInUser.password = loadedData.password;
+          this.loggedInUser.emailAddress = loadedData.emailAddress;
+          this.loggedInUser.birthday = loadedData.birthday;
+          this.loggedInUser._countryOfResidenceID = loadedData._countryOfResidenceID;
+          this.loggedInUser.sessionID = loadedData.sessionID;
+          this.loggedInUser.explorerBadgeProgress = loadedData.explorerBadgeProgress;
+          this.loggedInUser.pioneerBadgeProgress = loadedData.pioneerBadgeProgress;
+          this.loggedInUser.gamificationPoints = loadedData.gamificationPoints;
+          this.loggedInUser.email_verified_at=loadedData.email_verified_at;
+          
+          this.loggedInUser.age = loadedData.age;
+          this.loggedInUser.countryName = loadedData.countryName;
+          this.loggedInUser.userImgSrc = loadedData.userImgSrc;
+          this.loggedInUser.pwClear = loadedData.pwClear;
+
+          console.log("Post funktioniert - loadLoggedInUser");
+        }, error => {
+          console.log(error);
+        });
 
         this.currentBookmark._userID = this.loggedInUser.userID;
         this.newJourney = this.journeyService.newJourney(this.loggedInUser);
@@ -722,9 +748,14 @@ export class DataService {
 
   //Search
 
-  filterSearch(){
+  async filterSearch(){
     if(this.loggedInUser.explorerBadgeProgress < 100 && this.showedExplorerFulltext==false){
       this.loggedInUser.explorerBadgeProgress+=34;
+
+       //Update User
+       if(this.userService.updateUser(this.loggedInUser,this.url)!=null){
+        await this.userService.updateUser(this.loggedInUser,this.url);
+        }
       this.clickedSearch = true; 
     }
     if(this.search.searchEntry == ''){

@@ -138,14 +138,14 @@ class _UserController extends BaseController
         $insertPioneerArray=[
             '_badgeID' => 1,
             '_userID'=> $this->selectIDPerUsername($requestArray['username']),
-            'progress' => $requestArray['pioneerBadgeProgress']
+            'progress' => 0
 
         ];
 
         $insertExplorerArray=[
             '_badgeID' => 2,
             '_userID'=> $this->selectIDPerUsername($requestArray['username']),
-            'progress' => $requestArray['explorerBadgeProgress']
+            'progress' => 0
 
         ];
 
@@ -206,11 +206,6 @@ class _UserController extends BaseController
     public function logout(Request $request){
         $requestArray = $request->all();
         $userID = $requestArray['userID'];
-
-        $validateUser = $this->validateUser($request,$userID);
-        if($validateUser !== true){
-            return $validateUser;
-        }
 
         DB::table('users')->where('userID',$userID)->update([
             'sessionID' => null

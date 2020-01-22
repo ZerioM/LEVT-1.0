@@ -13,6 +13,7 @@ import { Image } from 'src/app/Interfaces/Image';
 
 import { Capacitor, Plugins, CameraResultType, FilesystemDirectory, CameraSource } from '@capacitor/core';
 import { ImageService } from 'src/app/services/image.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 
@@ -35,7 +36,7 @@ export class AddPlacePage implements OnInit {
 
   public delay = ms => new Promise(res => setTimeout(res, ms));
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
+  constructor(private journeyService: NewJourneyService, private userService:UserService,private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
     if(this.data.placeInserted){
 
     } else {
@@ -227,21 +228,34 @@ export class AddPlacePage implements OnInit {
 
       this.data.loggedInUser.pioneerBadgeProgress=50;
 
-      //Progess in die DB speichern 
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
 
     if(this.enteredPlaceName == false){
       this.data.presentGamificationToast("Added a Place with a name! +10 Points!",3000);
       this.data.loggedInUser.gamificationPoints += 10;
       this.enteredPlaceName = true;
+
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
   }
 
-  focusOutPlaceDetail(){
+  async focusOutPlaceDetail(){
     if(this.enteredPlaceDetail == false){
       this.data.presentGamificationToast("Added more detail! +5 Points!",3000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredPlaceDetail = true;
+
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
   }
 

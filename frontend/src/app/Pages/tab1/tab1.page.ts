@@ -50,6 +50,10 @@ export class Tab1Page implements AfterViewChecked {
     this.data.clickedJourney = true;
     if(this.data.loggedInUser.explorerBadgeProgress < 100 && this.data.showedExplorerJourney==false){
       this.data.loggedInUser.explorerBadgeProgress += 33;
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
     
     await this.data.presentLoading();  

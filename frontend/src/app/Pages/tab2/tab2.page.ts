@@ -16,6 +16,7 @@ import { Capacitor, Plugins, CameraResultType, FilesystemDirectory, CameraSource
 import { ImageService } from 'src/app/services/image.service';
 import { Image } from 'src/app/Interfaces/Image';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/Interfaces/User';
 
 @Component({
   selector: 'app-tab2',
@@ -40,9 +41,6 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
   public transports = [false, false, false, false, false, false, false, false, false];
 
   test: any;
-
-
-
 
   constructor(private journeyService: NewJourneyService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController, private userService:UserService) {
 
@@ -352,6 +350,10 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
       this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
       if(this.data.loggedInUser.pioneerBadgeProgress<100&&this.data.loggedInUser.pioneerBadgeProgress >50){
         this.data.loggedInUser.pioneerBadgeProgress=100;
+         //Update User
+      if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
       }
       this.data.loadTopPosts();
       this.data.loadUserJourneys(this.data.loggedInUser);
@@ -408,55 +410,87 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
   //Gamification
 
-  focusOutJourneyName(){
+  async focusOutJourneyName(){
 
     if(this.data.loggedInUser.pioneerBadgeProgress<25){
 
       this.data.loggedInUser.pioneerBadgeProgress=25;
 
-      //Progess in die DB speichern 
-    }
+      //Update User
+      if(await this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+      
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+      
+    }}
 
     if(this.enteredAJourneyName == false){
       this.data.presentGamificationToast("Added a Journey Name! +5 Points",1000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredAJourneyName = true;
+
+      //Update User
+      if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
+    
     }
-    
-    
-    
 
+
+      
   }
+    
+    
+    
 
-  focusOutDays(){
+  async focusOutDays(){
     if(this.enteredAmountofDays == false){
       this.data.presentGamificationToast("Added the Amount of Days! +5 Points!",3000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredAmountofDays = true;
+
+      //Update User
+      if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
   }
 
-  focusOutJourneyDetails(){
+  async focusOutJourneyDetails(){
     if(this.enteredJourneyDetails == false){
       this.data.presentGamificationToast("Added more details! +5 Points!",3000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredJourneyDetails = true;
+
+      //Update User
+      if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
   }
 
-  focusOutTotalCosts(){
+  async focusOutTotalCosts(){
     if(this.enteredTotalCosts == false){
       this.data.presentGamificationToast("Added total costs! +5 Points!",3000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredTotalCosts = true;
+
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
   }
 
-  focusOutLeisureCosts(){
+ async focusOutLeisureCosts(){
     if(this.enteredLeisureCosts == false){
       this.data.presentGamificationToast("Added cost details! +5 Points!",3000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredLeisureCosts = true;
+
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
   }
 
