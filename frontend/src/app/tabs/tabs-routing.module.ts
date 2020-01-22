@@ -41,6 +41,17 @@ const routes: Routes = [
                 import('../Pages/post-detail/post-detail.module').then (m => m.PostDetailPageModule)}
             ]
           },
+
+          {
+            path: 'user',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/user/user.module').then (m => m.UserPageModule)}
+            ]
+          },
+          
           {
             path: 'settings',
             children:[
@@ -66,7 +77,8 @@ const routes: Routes = [
                     loadChildren:()=>
                     import('../Pages/terms-of-use-page/terms-of-use-page.module').then (m => m.TermsOfUsePagePageModule)}
                 ]
-              }
+              },
+
             ]
           }
         ]
@@ -158,6 +170,16 @@ const routes: Routes = [
                 import('../Pages/user-journey-detail/user-journey-detail.module').then (m => m.UserJourneyDetailPageModule)}
             ]
           },
+
+          {
+            path: 'edit-profile',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/edit-profile/edit-profile.module').then (m => m.EditProfilePageModule)}
+            ]
+          },
           {
             path: 'user-place-detail',
             children:[
@@ -175,7 +197,7 @@ const routes: Routes = [
                 loadChildren:()=>
                 import('../Pages/user-post-detail/user-post-detail.module').then (m => m.UserPostDetailPageModule)}
             ]
-          }
+          },
         ]
       },
       {

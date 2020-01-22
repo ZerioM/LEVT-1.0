@@ -18,6 +18,8 @@ const routes: Routes = [
   { path: 'chat-page', loadChildren: './Pages/chat-page/chat-page.module#ChatPagePageModule' },
   { path: 'data-privacy-page', loadChildren: './Pages/data-privacy-page/data-privacy-page.module#DataPrivacyPagePageModule' },
   { path: 'terms-of-use-page', loadChildren: './Pages/terms-of-use-page/terms-of-use-page.module#TermsOfUsePagePageModule' },
+  { path: 'user', loadChildren: './Pages/user/user.module#UserPageModule' },
+  { path: 'edit-profile', loadChildren: './Pages/edit-profile/edit-profile.module#EditProfilePageModule' },
 
   
 
