@@ -71,13 +71,6 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
 
   }
 
-  chatWith(){
-  //this.data.chatUser = this.profileuser;
-  this.data.currentMessage = this.messageService.newMessage(this.data.loggedInUser,this.data.chatUser);
-  //this.router.navigateByUrl('/tabs/tab4');
-  //eigentlich navigieren zu Unterseite von tab4, wo sich chat befindet
-  }
-
   async selectProfileImage(){
 
     const webPath = await this.getPhoto(CameraSource.Prompt);

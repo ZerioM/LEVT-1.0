@@ -8,6 +8,7 @@ import * as d3 from 'd3';
 import { preserveWhitespacesDefault } from '@angular/compiler';
 import { zoom } from 'd3';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/Interfaces/User';
 //import {Geolocation}from '@ionic-native/geolocation/ngx';
 //import {d3} from 'https://d3js.org/d3.v4.min.js';
 
@@ -236,14 +237,23 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
     this.userService.wantsToRegister = false;
   }
 
-  closeExplorerToast() {
-    this.data.showedExplorerJourney = true;
+  async closeExplorerToast() {
+    this.data.loggedInUser.explorerBadgeProgress +=1;
+    //Update User
+    if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+      await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+      }
   }
 
   async register(){
     await this.data.presentLoading();
     await this.userService.register(this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
+  }
+
+  async goToUserPage(){
+    this.data.goToUserPage();
+    this.router.navigateByUrl('/tabs/tab1/user');
   }
 
 
