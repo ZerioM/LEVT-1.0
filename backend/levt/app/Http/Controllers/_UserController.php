@@ -255,8 +255,6 @@ class _UserController extends BaseController
         $user->_countryOfResidenceID = $requestArray['_countryOfResidenceID'];
         $user->gamificationPoints = $requestArray['gamificationPoints'];
         $user->_profileImageID = $requestArray['_profileImageID'];
-        //explorerBadgeProgress
-        //pioneerBadgeProgress
         $user->save();
 
         DB::table('userbadges')->where([
