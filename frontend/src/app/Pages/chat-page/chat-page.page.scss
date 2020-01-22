@@ -26,6 +26,7 @@
   } // dicker Text
 
 .message{
+    width: 70%;
     padding: 10px;
     margin-bottom: 10px;
     white-space: pre-wrap;
@@ -44,7 +45,12 @@
 .time{
     color: white;
     font-size: small;
-} // Zeit & Datumangabe bei Chat
+} // Zeit & Datumangabe bei Chat von anderen User
+
+.timeMeUser{
+    color:  #182f30;
+    font-size: small;
+} // Zeit & Datumangabe bei Chat von mir
 
 ion-footer{
     margin-bottom: 5px;
