@@ -46,7 +46,7 @@
     "cordova-plugin-telerik-imagepicker": "^2.3.3",
     "cordova-sqlite-storage": "^4.0.0",
     "core-js": "^2.5.4",
-    "d3": "^5.14.2",
+    "d3": "^5.15.0",
     "exif-js": "^2.3.0",
     "ionic-scrolling-header": "^0.2.3",
     "ngx-autosize": "^1.7.2",
