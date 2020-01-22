@@ -110,18 +110,22 @@ export class Tab3Page implements AfterViewInit, AfterViewChecked {
   }
 
   async clickedMap(){
-    this.data.clickedMap = true;
-    if(this.data.loggedInUser.explorerBadgeProgress < 100 && this.data.showedExplorerMap==false){
-      this.data.loggedInUser.explorerBadgeProgress += 33;
-       //Update User
-       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
-        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
-        }
-    }
+    if(this.data.loggedInUser.explorerBadgeProgress==0 || this.data.loggedInUser.explorerBadgeProgress==28||this.data.loggedInUser.explorerBadgeProgress==26||this.data.loggedInUser.explorerBadgeProgress==54){
+      this.data.loggedInUser.explorerBadgeProgress += 21;
+       
+         //Update User
+         if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+          await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+          }
+      }
   }
 
-  closeExplorerToast(){
-    this.data.showedExplorerMap = true;
+  async closeExplorerToast(){
+    this.data.loggedInUser.explorerBadgeProgress +=1;
+    //Update User
+    if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+      await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+      }
   }
 
 

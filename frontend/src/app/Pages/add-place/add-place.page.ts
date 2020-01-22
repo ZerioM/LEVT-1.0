@@ -224,7 +224,7 @@ export class AddPlacePage implements OnInit {
     
     console.log(this.placeValidated);
     //Gamification
-    if(this.data.loggedInUser.pioneerBadgeProgress<50){
+    if(this.data.loggedInUser.pioneerBadgeProgress==26){
 
       this.data.loggedInUser.pioneerBadgeProgress=50;
 
@@ -330,10 +330,15 @@ export class AddPlacePage implements OnInit {
 
   //Gamification
 
-  closePioneerStep2Toast(){
+  async closePioneerStep2Toast(){
 
 
-    this.data.showedPioneerStep2=true;
+    this.data.loggedInUser.pioneerBadgeProgress=51;
+
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
   }
 
   closeChallengeToast(){

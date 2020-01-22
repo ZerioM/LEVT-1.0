@@ -48,9 +48,9 @@ export class Tab1Page implements AfterViewChecked {
 
     async showJourney(journeyID: number){
 
-    this.data.clickedJourney = true;
-    if(this.data.loggedInUser.explorerBadgeProgress < 100 && this.data.showedExplorerJourney==false){
-      this.data.loggedInUser.explorerBadgeProgress += 33;
+    if(this.data.loggedInUser.explorerBadgeProgress==0 || this.data.loggedInUser.explorerBadgeProgress==22||this.data.loggedInUser.explorerBadgeProgress==28||this.data.loggedInUser.explorerBadgeProgress==50){
+    this.data.loggedInUser.explorerBadgeProgress += 25;
+     
        //Update User
        if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
         await this.userService.updateUser(this.data.loggedInUser,this.data.url);
@@ -100,16 +100,26 @@ export class Tab1Page implements AfterViewChecked {
 
   //Gamification
 
-  closePioneerFinishToast(){
+  async closePioneerFinishToast(){
 
 
-    this.data.showedPioneerFinish=true;
+    this.data.loggedInUser.pioneerBadgeProgress=101;
+
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
   }
 
-  closeExplorerFinishToast(){
+  async closeExplorerFinishToast(){
 
 
-    this.data.showedExplorerFulltext=true;
+    this.data.loggedInUser.explorerBadgeProgress +=1;
+    //Update User
+    if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+      await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+      }
+
   }
 
   doRefresh(event) {

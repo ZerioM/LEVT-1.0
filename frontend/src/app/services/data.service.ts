@@ -132,10 +132,6 @@ export class DataService {
   public errorMsg;
 
   //gamification
-  public showedPioneerStep1:boolean=false;
-  public showedPioneerStep2:boolean=false;
-  public showedPioneerStep3:boolean=false;
-  public showedPioneerFinish:boolean=false;
 
   public showedExplorerFulltext:boolean=false;
   public showedExplorerMap:boolean= false;
@@ -789,15 +785,16 @@ export class DataService {
   //Search
 
   async filterSearch(){
-    if(this.loggedInUser.explorerBadgeProgress < 100 && this.showedExplorerFulltext==false){
-      this.loggedInUser.explorerBadgeProgress+=34;
+    if(this.loggedInUser.explorerBadgeProgress==0 || this.loggedInUser.explorerBadgeProgress==22||this.loggedInUser.explorerBadgeProgress==26||this.loggedInUser.explorerBadgeProgress==48){
+      this.loggedInUser.explorerBadgeProgress += 27;
+       
+         //Update User
+         if(this.userService.updateUser(this.loggedInUser,this.url)!=null){
+          await this.userService.updateUser(this.loggedInUser,this.url);
+          }
+      }
 
-       //Update User
-       if(this.userService.updateUser(this.loggedInUser,this.url)!=null){
-        await this.userService.updateUser(this.loggedInUser,this.url);
-        }
-      this.clickedSearch = true; 
-    }
+
     if(this.search.searchEntry == ''){
       this.loadTopPosts();
     } else {
