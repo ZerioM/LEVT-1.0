@@ -242,7 +242,7 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
 
   async register(){
     await this.data.presentLoading();
-    await this.userService.register(this.data.loggedInUser, this.data.url);
+    await this.userService.register(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
     await this.data.dismissLoading();
   }
 

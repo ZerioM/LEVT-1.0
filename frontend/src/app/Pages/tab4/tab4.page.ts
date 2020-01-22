@@ -62,7 +62,7 @@ export class Tab4Page implements OnInit, AfterViewChecked{
 
   async register(){
     await this.data.presentLoading();
-    await this.userService.register(this.data.loggedInUser, this.data.url);
+    await this.userService.register(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
     await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
