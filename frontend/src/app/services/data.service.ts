@@ -756,6 +756,7 @@ export class DataService {
   async filterSearch(){
     if(this.loggedInUser.explorerBadgeProgress < 100 && this.showedExplorerFulltext==false){
       this.loggedInUser.explorerBadgeProgress+=34;
+      this.showedExplorerFulltext=true; //Eventuell im Storage speichern!
 
        //Update User
        if(this.userService.updateUser(this.loggedInUser,this.url)!=null){

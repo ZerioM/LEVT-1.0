@@ -50,6 +50,7 @@ export class Tab1Page implements AfterViewChecked {
     this.data.clickedJourney = true;
     if(this.data.loggedInUser.explorerBadgeProgress < 100 && this.data.showedExplorerJourney==false){
       this.data.loggedInUser.explorerBadgeProgress += 33;
+      this.data.showedExplorerJourney=true; //eventuell in Storage speichern!
        //Update User
        if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
         await this.userService.updateUser(this.data.loggedInUser,this.data.url);
@@ -99,16 +100,22 @@ export class Tab1Page implements AfterViewChecked {
 
   //Gamification
 
-  closePioneerFinishToast(){
+  async closePioneerFinishToast(){
 
 
-    this.data.showedPioneerFinish=true;
+    this.data.loggedInUser.pioneerBadgeProgress=101;
+
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
   }
 
   closeExplorerFinishToast(){
 
 
     this.data.showedExplorerFulltext=true;
+    //Eventuell in Storage Speichern 
   }
 
   doRefresh(event) {
