@@ -74,6 +74,7 @@ class _UserController extends BaseController
 
         $outputUserArray = json_decode(json_encode(DB::table('users')->where('username',$username)->get()),true);
 
+        if($outputUserArray != null){
         $outputUser = $outputUserArray[0];
 
         $explorerBadgeProgress =DB::table('userbadges')->where([
@@ -105,6 +106,27 @@ class _UserController extends BaseController
             'pwClear' => null,
             'email_verified_at' => $outputUser['email_verified_at']
         ];
+        }else{
+            $outputArray = [
+                'userID' => null,
+                'username' => null,
+                'password' => null,
+                'emailAddress' => null,
+                'birthday' => null,
+                '_countryOfResidenceID' => null,
+                //'remember_token' => $outputUser['remember_token'],
+                'gamificationPoints' => null,
+                '_profileImageID' => null,
+                'sessionID' => null,
+                'explorerBadgeProgress' => null,
+                'pioneerBadgeProgress' => null,
+                'age' => null,
+                'countryName' => null,
+                'userImgSrc' => null,
+                'pwClear' => null,
+                'email_verified_at' => null 
+            ];
+        }
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
@@ -149,8 +171,8 @@ class _UserController extends BaseController
 
         ];
 
-        DB::table('userbadges')->insert($insertPioneerArray);
-        DB::table('userbadges')->insert($insertExplorerArray);
+        DB::table('userbadges')->insertGetId($insertPioneerArray);
+        DB::table('userbadges')->insertGetId($insertExplorerArray);
 
 
         $user->sendEmailVerificationNotification();
