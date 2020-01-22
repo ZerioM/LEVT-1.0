@@ -21,4 +21,9 @@ export class PostDetailPage implements OnInit {
   
   }
 
+  async goToUserPage(){
+    this.data.goToUserPage();
+    this.router.navigateByUrl('/tabs/tab1/user');
+  }
+
 }

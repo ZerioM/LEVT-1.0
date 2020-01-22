@@ -12,14 +12,20 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-list>
-    <ion-item *ngFor='let um of data.currentUserMessages.userMessages' (click)='loadUserChat(um.user)'> 
+  <ion-list no-padding color="none">
+    <ion-item class="chatsBg" *ngFor='let um of data.currentUserMessages.userMessages' (click)='loadUserChat(um.user)' no-padding color="none"> 
+      <ion-col color="none">
     <img src='{{um.user.userImgSrc}}'>
       <ion-label><b class="importantThings">{{um.user.username}}</b></ion-label>
       <br/>
+      <div class="letzteNachricht">
       {{um.message.msg}}
+    </div>
       <br/>
+      <div class="timeAllChats" text-right>
       {{um.message.createdAt}}
+    </div>
+    </ion-col>
     </ion-item>
   </ion-list>
  
