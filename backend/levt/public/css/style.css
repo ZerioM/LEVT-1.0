@@ -1,0 +1,55 @@
+body{
+    background-image: url("/images/LEVT_Header.svg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: auto;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12pt;
+    color: #161616;
+} 
+
+.container{
+    width: 12em;
+    padding: 5px;
+    background-color: #ffffffe3;
+    margin: auto;
+}
+.card-header{
+    background-color: white;
+    font-size: 20pt;
+    font-variant: small-caps;
+    text-align: center;
+    margin-bottom: 10px;  
+}
+
+label{
+    font-weight: bold;
+    color: #415f4b;
+}
+
+input{
+    border: none;
+    border-bottom: 1px solid #16161650;
+    border-left: 1px solid #16161650;
+    border-right: 1px solid #16161650;
+    line-height: 15px;
+    margin-bottom: 20px;
+}
+
+button{
+    font-size: 12pt;
+}
+
+a:link{
+ color: #7ba9a9;
+}
+
+/* visited link */
+a:visited {
+    color: #7ba9a9;
+  }
+
+ /* wenn link geklickt */ 
+a:active {
+    color: #415f4b;
+  }
