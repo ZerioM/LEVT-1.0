@@ -41,8 +41,16 @@
      <ion-col no-padding no-margin id="badges">
       <ion-label no-padding no-margin><b>My Badges</b></ion-label>
     <ion-item no-padding lines="none">
-      <img *ngIf="data.loggedInUser.pioneerBadgeProgress >= 100" class="oneBadge" src="/assets/images/badge_pioneer.png">
-      <img *ngIf="data.loggedInUser.explorerBadgeProgress >= 100" class="oneBadge" src="/assets/images/badge_explorer.png">
+      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 101" class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 76" class="oneBadge" src="/assets/images/pioneer_75.png">
+      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 51" class="oneBadge" src="/assets/images/pioneer_50.png">
+      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 26" class="oneBadge" src="/assets/images/pioneer_25.png">
+
+      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 76" class="oneBadge" src="/assets/images/badge_explorer.png">
+
+      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 28 || data.loggedInUser.explorerBadgeProgress == 22 || data.loggedInUser.explorerBadgeProgress == 26" class="oneBadge" src="/assets/images/explorer_33.png">
+
+      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 50 || data.loggedInUser.explorerBadgeProgress == 54 || data.loggedInUser.explorerBadgeProgress == 48" class="oneBadge" src="/assets/images/explorer_66.png">
     </ion-item>
   <div id="pointsView">{{data.loggedInUser.gamificationPoints}} Points</div>
   </ion-col>
