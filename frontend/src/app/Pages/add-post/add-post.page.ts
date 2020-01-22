@@ -76,7 +76,7 @@ export class AddPostPage implements OnInit {
     }
     this.data.dismissLoading();
     
-    if(this.data.loggedInUser.pioneerBadgeProgress<75){
+    if(this.data.loggedInUser.pioneerBadgeProgress==51){
 
       this.data.loggedInUser.pioneerBadgeProgress=75;
 
@@ -272,10 +272,15 @@ focusOutPostDetail(){
   }
 }
 
-closePioneerStep3Toast(){
+async closePioneerStep3Toast(){
 
 
-  this.data.showedPioneerStep3=true;
+  this.data.loggedInUser.pioneerBadgeProgress=76;
+
+     //Update User
+     if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+      await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+      }
 }
 
 }

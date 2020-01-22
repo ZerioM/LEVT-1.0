@@ -62,12 +62,12 @@
   </div>
 
   <ion-item lines="none" no-padding *ngIf="data.currentJourneys.journeys == null || data.currentJourneys.journeys.length == 0">
-    <ion-label><b class="importantStars">This search has no results. Please try again!</b></ion-label>
+    <ion-label><b class="importantStars">This search has no results. <br> Please try again!</b></ion-label>
   </ion-item>
 
   <!-- Gamification: Pioneer -->
 
-  <div class="gamificationBg" *ngIf="data.showedPioneerFinish==false && data.loggedInUser.pioneerBadgeProgress==100">
+  <div class="gamificationBg" *ngIf="data.loggedInUser.pioneerBadgeProgress==100">
     <div class="login">
       <ion-title class="tabHeading" no-padding>New Badge achieved!</ion-title>
       <img class="oneBadge" src="/assets/images/badge_pioneer.png">

@@ -166,7 +166,7 @@ export class DataService {
 
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
-  public url: string = this.homestead;
+  public url: string = this.flock;
   
 
   constructor(private storage: Storage, private messagesService: MessagesService, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
@@ -756,6 +756,7 @@ export class DataService {
   async filterSearch(){
     if(this.loggedInUser.explorerBadgeProgress < 100 && this.showedExplorerFulltext==false){
       this.loggedInUser.explorerBadgeProgress+=34;
+      this.showedExplorerFulltext=true; //Eventuell im Storage speichern!
 
        //Update User
        if(this.userService.updateUser(this.loggedInUser,this.url)!=null){

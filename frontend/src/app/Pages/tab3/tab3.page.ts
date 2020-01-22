@@ -113,6 +113,7 @@ export class Tab3Page implements AfterViewInit, AfterViewChecked {
     this.data.clickedMap = true;
     if(this.data.loggedInUser.explorerBadgeProgress < 100 && this.data.showedExplorerMap==false){
       this.data.loggedInUser.explorerBadgeProgress += 33;
+      this.data.showedExplorerMap=true; //Eventuell im Storage speichern
        //Update User
        if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
         await this.userService.updateUser(this.data.loggedInUser,this.data.url);
