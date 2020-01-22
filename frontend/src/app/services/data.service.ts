@@ -127,10 +127,6 @@ export class DataService {
   public errorMsg;
 
   //gamification
-  public showedPioneerStep1:boolean=false;
-  public showedPioneerStep2:boolean=false;
-  public showedPioneerStep3:boolean=false;
-  public showedPioneerFinish:boolean=false;
 
   public showedExplorerFulltext:boolean=false;
   public showedExplorerMap:boolean= false;
@@ -166,7 +162,7 @@ export class DataService {
 
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
-  public url: string = this.flock;
+  public url: string = this.homestead;
   
 
   constructor(private storage: Storage, private messagesService: MessagesService, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
@@ -754,16 +750,16 @@ export class DataService {
   //Search
 
   async filterSearch(){
-    if(this.loggedInUser.explorerBadgeProgress < 100 && this.showedExplorerFulltext==false){
-      this.loggedInUser.explorerBadgeProgress+=34;
-      this.showedExplorerFulltext=true; //Eventuell im Storage speichern!
+    if(this.loggedInUser.explorerBadgeProgress==0 || this.loggedInUser.explorerBadgeProgress==22||this.loggedInUser.explorerBadgeProgress==26||this.loggedInUser.explorerBadgeProgress==48){
+      this.loggedInUser.explorerBadgeProgress += 27;
+       
+         //Update User
+         if(this.userService.updateUser(this.loggedInUser,this.url)!=null){
+          await this.userService.updateUser(this.loggedInUser,this.url);
+          }
+      }
 
-       //Update User
-       if(this.userService.updateUser(this.loggedInUser,this.url)!=null){
-        await this.userService.updateUser(this.loggedInUser,this.url);
-        }
-      this.clickedSearch = true; 
-    }
+
     if(this.search.searchEntry == ''){
       this.loadTopPosts();
     } else {

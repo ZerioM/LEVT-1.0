@@ -236,8 +236,12 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
     this.userService.wantsToRegister = false;
   }
 
-  closeExplorerToast() {
-    this.data.showedExplorerJourney = true;
+  async closeExplorerToast() {
+    this.data.loggedInUser.explorerBadgeProgress +=1;
+    //Update User
+    if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+      await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+      }
   }
 
   async register(){

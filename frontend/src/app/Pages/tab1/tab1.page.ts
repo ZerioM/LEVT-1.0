@@ -47,10 +47,9 @@ export class Tab1Page implements AfterViewChecked {
 
     async showJourney(journeyID: number){
 
-    this.data.clickedJourney = true;
-    if(this.data.loggedInUser.explorerBadgeProgress < 100 && this.data.showedExplorerJourney==false){
-      this.data.loggedInUser.explorerBadgeProgress += 33;
-      this.data.showedExplorerJourney=true; //eventuell in Storage speichern!
+    if(this.data.loggedInUser.explorerBadgeProgress==0 || this.data.loggedInUser.explorerBadgeProgress==22||this.data.loggedInUser.explorerBadgeProgress==28||this.data.loggedInUser.explorerBadgeProgress==50){
+    this.data.loggedInUser.explorerBadgeProgress += 25;
+     
        //Update User
        if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
         await this.userService.updateUser(this.data.loggedInUser,this.data.url);
@@ -111,11 +110,15 @@ export class Tab1Page implements AfterViewChecked {
         }
   }
 
-  closeExplorerFinishToast(){
+  async closeExplorerFinishToast(){
 
 
-    this.data.showedExplorerFulltext=true;
-    //Eventuell in Storage Speichern 
+    this.data.loggedInUser.explorerBadgeProgress +=1;
+    //Update User
+    if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+      await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+      }
+
   }
 
   doRefresh(event) {
