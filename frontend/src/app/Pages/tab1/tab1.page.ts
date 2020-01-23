@@ -148,4 +148,17 @@ export class Tab1Page implements AfterViewChecked {
     this.data.loadTopPosts();
     this.router.navigateByUrl('/tabs/tab1/user');
   }
+
+  async logout(){
+    this.data.showsVerifyEmailWindow = false;
+    await this.data.presentLoading();
+    await this.userService.logout(this.data.loggedInUser,this.data.currentBookmark, this.data.url);
+    await this.data.dismissLoading();
+  }
+
+  async closeVerifyEmailWindow(){
+    await this.data.presentLoading();
+    await this.data.loadUser();
+    await this.data.dismissLoading();
+  }
 }
