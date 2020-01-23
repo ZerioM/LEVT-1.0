@@ -26,6 +26,8 @@ export class Tab1Page implements AfterViewChecked {
     if(this.data.resetTab){
       this.data.resetTab=false;
       if(this.data.settingsFromHome==false){
+        this.data.search.searchEntry = '';
+        this.data.loadTopPosts();
         this.router.navigateByUrl('/tabs/tab5');
       }
     }
@@ -69,6 +71,8 @@ export class Tab1Page implements AfterViewChecked {
 
  
     //go To Journey Detail 
+    this.data.search.searchEntry = '';
+    this.data.loadTopPosts();
     this.router.navigateByUrl('/tabs/tab1/journey-detail');
   
    }
@@ -83,7 +87,8 @@ export class Tab1Page implements AfterViewChecked {
   goToSettings(){
 
     this.data.settingsFromHome=true;
-
+    this.data.search.searchEntry = '';
+    this.data.loadTopPosts();
     this.router.navigateByUrl('/tabs/tab1/settings');
   }
 
@@ -129,6 +134,7 @@ export class Tab1Page implements AfterViewChecked {
     setTimeout(() => {
       console.log('Async operation has ended');
       event.target.complete();
+      this.data.search.searchEntry = '';
       this.data.loadTopPosts();
     }, 500);
   }
@@ -136,6 +142,8 @@ export class Tab1Page implements AfterViewChecked {
   async goToUserPage(journey:Journey){
     this.data.currentJourney = journey;
     this.data.goToUserPage();
+    this.data.search.searchEntry = '';
+    this.data.loadTopPosts();
     this.router.navigateByUrl('/tabs/tab1/user');
   }
 }
