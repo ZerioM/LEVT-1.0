@@ -24,7 +24,7 @@ ion-list{
 
 .chatsBg{
     margin-bottom: 10px;
-    background-color: #7ba9a9cc;
+    background-color: #7ba9a9d8;
     border-top: 1px solid#415f4b;
     border-bottom: 1px solid#415f4b;
 }
@@ -38,4 +38,12 @@ img.chatUserPic{
 .username{
     margin-top: 10px;
     margin-left: 5px;
+}
+
+.chatFett{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 10pt !important;
+    font-weight: bold;
+    color:#182f30;
+
 }
