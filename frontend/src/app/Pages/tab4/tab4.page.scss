@@ -28,3 +28,13 @@ ion-list{
     border-top: 1px solid#415f4b;
     border-bottom: 1px solid#415f4b;
 }
+
+img.chatUserPic{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.username{
+    margin-top: 10px;
+}
