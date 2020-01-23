@@ -45,11 +45,8 @@
       <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 76" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_75.png">
       <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 51" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_50.png">
       <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 26" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_25.png">
-
       <img *ngIf="data.loggedInUser.explorerBadgeProgress == 76" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/badge_explorer.png">
-
       <img *ngIf="data.loggedInUser.explorerBadgeProgress == 28 || data.loggedInUser.explorerBadgeProgress == 22 || data.loggedInUser.explorerBadgeProgress == 26" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_33.png">
-
       <img *ngIf="data.loggedInUser.explorerBadgeProgress == 50 || data.loggedInUser.explorerBadgeProgress == 54 || data.loggedInUser.explorerBadgeProgress == 48" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_66.png">
     </ion-item>
   <div id="pointsView">{{data.loggedInUser.gamificationPoints}} Points</div>
