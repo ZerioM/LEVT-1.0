@@ -34,7 +34,7 @@ export class Tab4Page implements OnInit, AfterViewChecked{
   }
 
   async ngAfterViewChecked(){
-    if(this.currentTime <= (new Date().getTime()-3000)){
+    if(this.currentTime <= (new Date().getTime()-10000)){
       this.currentTime = new Date().getTime();
       console.log("Checking for updates...");
       await this.messagesService.loadUserChatted(this.data.currentUserMessages,this.data.loggedInUser,this.data.url);

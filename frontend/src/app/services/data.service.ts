@@ -133,13 +133,6 @@ export class DataService {
 
   //gamification
 
-  public showedExplorerFulltext:boolean=false;
-  public showedExplorerMap:boolean= false;
-  public showedExplorerJourney:boolean = false;
-  public clickedSearch:boolean=false;
-  public clickedMap:boolean=false;
-  public clickedJourney:boolean=false;
-
   public showPointsChallenge:boolean=false;
 
   //homepage
@@ -167,7 +160,7 @@ export class DataService {
 
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
-  public url: string = this.flock;
+  public url: string = this.homestead;
   
 
   constructor(private storage: Storage, private messagesService: MessagesService, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
@@ -644,7 +637,23 @@ export class DataService {
   async loadOneOtherUser(user:User){
     await this.http.post(this.url+"/oneUser", user).subscribe((loadedData: User) => {
       console.log(loadedData);
-      this.otherUser=loadedData;
+
+      this.otherUser.userID=loadedData.userID;
+      this.otherUser.username=loadedData.username;
+      this.otherUser._profileImageID=loadedData._profileImageID;
+      this.otherUser.password=loadedData.password;
+      this.otherUser.emailAddress=loadedData.emailAddress;
+      this.otherUser.birthday=loadedData.birthday;
+      this.otherUser._countryOfResidenceID=loadedData._countryOfResidenceID;
+      this.otherUser.sessionID=loadedData.sessionID;
+      this.otherUser.explorerBadgeProgress=loadedData.explorerBadgeProgress;
+      this.otherUser.pioneerBadgeProgress=loadedData.pioneerBadgeProgress;
+      this.otherUser.email_verified_at=loadedData.email_verified_at;
+      this.otherUser.age=loadedData.age;
+      this.otherUser.countryName=loadedData.countryName;
+      this.otherUser.userImgSrc=loadedData.userImgSrc;
+      this.otherUser.pwClear=loadedData.pwClear;
+      
       console.log("User geladen");
     }, error => {
       console.log(error);
