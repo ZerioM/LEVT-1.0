@@ -118,12 +118,11 @@
   </div>
 
   <!-- EMAIL VERIFICATION INFO -->
-  <div class="gamificationBg" *ngIf="data.showsVerifyEmailWindow" >
+  <div class="verifyEmailBG" *ngIf="data.showsVerifyEmailWindow" >
     <div class="login">
-      <ion-title class="tabHeading" no-padding>Please verify your E-Mail!</ion-title>
+      <ion-title class="tabHeading" no-padding>Please verify <br> your E-Mail!</ion-title>
       <p>Please click on the link in the E-Mail we sent you or click on the button to send a new E-Mail to your account in order to verify your E-Mail.</p>
-    <br>
-    
+  
     <ion-button (click)="userService.sendVerificationEmail(data.loggedInUser,data.url)" expand="full"> Send new E-Mail</ion-button>
     <ion-button  (click)="closeVerifyEmailWindow()" expand="full" >Ok! Check if verified</ion-button>
     <ion-button (click)="logout()" expand="full"> Logout </ion-button>
