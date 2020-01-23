@@ -38,7 +38,8 @@
     </ion-list>
 
      <ion-col no-padding no-margin id="badges">
-      <ion-label no-padding no-margin><b>{{data.otherUser.username}}'s Badges</b></ion-label>
+      <!-- <ion-label no-padding no-margin><b>{{data.otherUser.username}}'s Badges</b></ion-label> -->
+      <ion-label no-padding no-margin><b>Badges</b></ion-label>
     <ion-item no-padding lines="none">
       <img *ngIf="data.otherUser.pioneerBadgeProgress == 101" class="oneBadge" src="/assets/images/badge_pioneer.png">
       <img *ngIf="data.otherUser.explorerBadgeProgress ==76" class="oneBadge" src="/assets/images/badge_explorer.png">
