@@ -20,12 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: mkdir -p $RELEASES_DIR
-      - run: mkdir -p $NEW_RELEASE_DIR && cp -r $GITHUB_WORKSPACE/* $NEW_RELEASE_DIR/
-      - run: cd $NEW_RELEASE_DIR
+      - run: mkdir -p /var/www/levt/releases/$GITHUB_SHA && cp -r $GITHUB_WORKSPACE/* /var/www/levt/releases/$GITHUB_SHA/
+      - run: cd /var/www/levt/releases/$GITHUB_SHA
       - run: rm -rf ./storage
-      - run: ln -nfs $STORAGE_DIR $NEW_RELEASE_DIR/storage
-      - run: ln -nfs $ENV_FILE $NEW_RELEASE_DIR/.env
-      - run: ln -nfs $NEW_RELEASE_DIR $CURRENT_DIR
+      - run: ln -nfs $STORAGE_DIR /var/www/levt/releases/$GITHUB_SHA/storage
+      - run: ln -nfs $ENV_FILE /var/www/levt/releases/$GITHUB_SHA/.env
+      - run: ln -nfs /var/www/levt/releases/$GITHUB_SHA $CURRENT_DIR
       - run: cd $CURRENT_DIR
       - run: composer install --prefer-dist --no-scripts -q -o
       - run: php artisan migrate
