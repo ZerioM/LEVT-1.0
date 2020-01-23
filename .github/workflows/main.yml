@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: mkdir -p $RELEASES_DIR
-      - run: mkdir -p $NEW_RELEASE_DIR && cp -r $BUILD_DIR/* $NEW_RELEASE_DIR/
+      - run: mkdir -p $NEW_RELEASE_DIR && cp -r $GITHUB_WORKSPACE/* $NEW_RELEASE_DIR/
       - run: cd $NEW_RELEASE_DIR
       - run: rm -rf ./storage
       - run: ln -nfs $STORAGE_DIR $NEW_RELEASE_DIR/storage
