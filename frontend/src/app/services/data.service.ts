@@ -155,6 +155,9 @@ export class DataService {
   public fromEditJourney:boolean=false;
   public fromNewJourney:boolean=true;
 
+  //verifyEmail
+  public showsVerifyEmailWindow:boolean = false;
+
   
   private locale : string;
 
@@ -195,8 +198,11 @@ export class DataService {
   // }
 
   async loadUser() {
+    let someDataNotNull:boolean = false;
+
     await this.storage.get("myUser").then((someData: User) => {
       if(someData != null){
+        someDataNotNull = true;
         this.loggedInUser.userID = someData.userID;
         this.loggedInUser.username = someData.username;
         this.loggedInUser._profileImageID = someData._profileImageID;
@@ -217,9 +223,20 @@ export class DataService {
 
         console.log("Hehe, Daten geladen!");
         console.log(JSON.stringify(this.loggedInUser));
-        const loginHeaders = {headers: new HttpHeaders({'Sessionid': this.loggedInUser.sessionID})};
+        
+      } else {
+        someDataNotNull = false;
+        console.log("someData war null");
+      }
+    }).catch((r)=>{
+      console.log("catch");
+      console.log(r);
+    });
 
-        this.http.post(this.url+"/loadLoggedInUser", this.loggedInUser,loginHeaders).toPromise().then((loadedData: User) => {
+    if(someDataNotNull){
+      const loginHeaders = {headers: new HttpHeaders({'Sessionid': this.loggedInUser.sessionID})};
+
+      await this.http.post(this.url+"/loadLoggedInUser", this.loggedInUser,loginHeaders).toPromise().then((loadedData: User) => {
           console.log(loadedData);
           this.loggedInUser.userID = loadedData.userID;
           this.loggedInUser.username = loadedData.username;
@@ -244,15 +261,17 @@ export class DataService {
           console.log(error);
         });
 
+        if(this.loggedInUser.email_verified_at == null){
+          this.showsVerifyEmailWindow = true;
+          this.presentGeneralToast("Email is not verified. Please try again!",3000);
+        } else {
+          this.showsVerifyEmailWindow = false;
+        }
+
         this.currentBookmark._userID = this.loggedInUser.userID;
         this.newJourney = this.journeyService.newJourney(this.loggedInUser);
-      } else {
-        console.log("someData war null");
-      }
-    }).catch((r)=>{
-      console.log("catch");
-      console.log(r);
-    });
+    }
+
   }
 
   loadJourneyCategories() {
