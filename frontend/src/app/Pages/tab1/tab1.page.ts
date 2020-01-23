@@ -141,7 +141,9 @@ export class Tab1Page implements AfterViewChecked {
 
   async goToUserPage(journey:Journey){
     this.data.currentJourney = journey;
-    this.data.goToUserPage();
+    await this.data.presentLoading();
+    await this.data.goToUserPage();
+    await this.data.dismissLoading();
     this.data.search.searchEntry = '';
     this.data.loadTopPosts();
     this.router.navigateByUrl('/tabs/tab1/user');
