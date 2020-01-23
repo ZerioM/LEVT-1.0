@@ -59,9 +59,8 @@
 
 <ion-item no-padding lines="none" no-margin>
     <div id="journeyYear" lines="none">
-      <ion-label><b class="importantThings">Year</b><b class="importantStars">*</b></ion-label> 
-    <ion-datetime [(ngModel)]="data.newJourney.year" displayFormat="YYYY" value="Year" placholder="Year"
-       no-padding ></ion-datetime>
+      <ion-label margin-top="10px" *ngIf="data.newJourney.year == null"><b class="importantThings">Year</b><b class="importantStars">*</b></ion-label> 
+    <ion-datetime [(ngModel)]="data.newJourney.year" displayFormat="YYYY" no-padding ></ion-datetime>
     </div>
   </ion-item>
 
