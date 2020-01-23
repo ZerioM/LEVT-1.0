@@ -33,6 +33,10 @@ class _UserController extends BaseController
         return DB::table('users')->where('username',$username)->value('userID');
     }
 
+    public function selectIDPerEmail($email){
+        return DB::table('users')->where('email',$email)->value('userID');
+    }
+
     public function selectIDPerJourneyID($id){
         return DB::table('journeys')->where('journeyID',$id)->value('_userID');
     }
@@ -339,8 +343,8 @@ class _UserController extends BaseController
 
     public function sendEmail(Request $request){
         $requestArray = $request->all();
-        $username = $requestArray['username'];
-        $userID = $this->selectIDPerUsername($username);
+        $email = $requestArray['emailAddress'];
+        $userID = $this->selectIDPerEmail($email);
         $user = User::find($userID);
         $user->email_verified_at = null;
         $user->save();
