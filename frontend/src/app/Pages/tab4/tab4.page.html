@@ -12,7 +12,7 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-list no-padding color="none">
+  <ion-list no-padding color="none" *ngIf='userService.userLoggedIn(data.loggedInUser)'>
     <ion-item class="chatsBg" *ngFor='let um of data.currentUserMessages.userMessages' (click)='loadUserChat(um.user)' no-padding color="none" lines ="none"> 
       <ion-col color="none">
         <ion-row>
