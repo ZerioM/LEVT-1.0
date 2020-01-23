@@ -14,8 +14,7 @@ export class MessagesService {
 
   constructor(private http: HttpClient, private toastController: ToastController) { }
 
-  public newMessage(fromUser: User,toUser: User){
-    let message: Message;
+  public newMessage(message: Message, fromUser: User,toUser: User){
 
     message = {
       messageID: null,
@@ -34,8 +33,13 @@ export class MessagesService {
 
     await this.http.post(url+"/saveMessage", message, loginHeaders).toPromise().then((loadedData: Message) => {
       console.log(loadedData);
-      console.log("Loaded Messages from DB");
-      message.messageID = loadedData.messageID;
+      if(loadedData != null){
+        console.log("Loaded Messages from DB");
+        message.messageID = loadedData.messageID;
+      } else {
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",5000);
+      }
+      
     }, error => {
       console.log(error);
     });
@@ -54,8 +58,13 @@ export class MessagesService {
     
     await this.http.post(url+"/loadMessages", postData, loginHeaders).toPromise().then((loadedData: Messages) => {
       console.log(loadedData);
-      console.log("Loaded Messages from DB");
-      messages.messages = loadedData.messages;
+      if(loadedData != null){
+        console.log("Loaded Messages from DB");
+        messages.messages = loadedData.messages;
+      } else {
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",5000);
+      }
+      
     }, error => {
       console.log(error);
     });
