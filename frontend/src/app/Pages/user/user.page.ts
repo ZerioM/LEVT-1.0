@@ -34,10 +34,12 @@ export class UserPage{
 
  }
 
- chatWith(){
+ async chatWith(){
   this.data.chatUser = this.data.otherUser;
   this.data.currentMessage = this.messagesService.newMessage(this.data.loggedInUser,this.data.chatUser);
-  this.messagesService.loadMessages(this.data.currentMessages,this.data.url, this.data.loggedInUser,this.data.chatUser);
+  await this.data.presentLoading();
+  await this.messagesService.loadMessages(this.data.currentMessages,this.data.url, this.data.loggedInUser,this.data.chatUser);
+  await this.data.dismissLoading();
   this.router.navigateByUrl('/tabs/tab4/chat-page');
   //eigentlich navigieren zu Unterseite von tab4, wo sich chat befindet
   }
