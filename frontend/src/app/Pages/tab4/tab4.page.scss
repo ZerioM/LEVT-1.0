@@ -5,6 +5,12 @@
     width: 100%;
     text-overflow: ellipsis;
 }
+
+ion-list{
+    display: contents;
+    content: none;
+}
+
 #chat{
     background-image: url("/assets/images/LEVT_Header.svg");
     background-repeat: no-repeat;
@@ -18,5 +24,7 @@
 
 .chatsBg{
     margin-bottom: 10px;
-    background-color: #7ba9a97F;
+    background-color: #7ba9a9cc;
+    border-top: 1px solid#415f4b;
+    border-bottom: 1px solid#415f4b;
 }
