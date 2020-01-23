@@ -168,7 +168,7 @@ export class UserService {
 
   //Registrierung
 
-  async register(loggedInUser: User, url:string){
+  async register(loggedInUser: User, currentBookmark: Bookmark, url:string){
 
     //loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
     loggedInUser.password = loggedInUser.pwClear;
@@ -212,7 +212,11 @@ export class UserService {
       this.presentGeneralToast("The two password phrases aren't identical. Please check and try again!",5000);
     }
 
+    this.storage.set("myUser", loggedInUser);
+
     loggedInUser.password = '';
+
+    currentBookmark._userID = loggedInUser.userID;
 
     this.userRecentlyLoggedInCreateNewJourney = true;
     this.wantsToRegister = false;
