@@ -18,7 +18,7 @@
         <ion-row>
     <img class="chatUserPic" *ngIf="um.user.userImgSrc != null && um.user.userImgSrc != ''" src='{{um.user.userImgSrc}}'>
     <img class="chatUserPic" *ngIf="data.chatUser.userImgSrc == null || data.chatUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png">
-      <ion-label class="username"><b class="importantThings">{{um.user.username}}</b></ion-label>
+      <ion-label class="username"><div class="chatFett">{{um.user.username}}</div></ion-label>
     </ion-row>
       <br/>
       <div class="letzteNachricht">
