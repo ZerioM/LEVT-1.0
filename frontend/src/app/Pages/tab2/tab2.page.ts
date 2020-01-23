@@ -46,10 +46,10 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
 
 
+
   constructor(private journeyService: NewJourneyService, private messagesService: MessagesService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController, private userService:UserService) {
 
     this.loadJSON();
-
 
   }
 
