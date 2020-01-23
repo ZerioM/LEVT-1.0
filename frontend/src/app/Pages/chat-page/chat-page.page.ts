@@ -49,7 +49,7 @@ export class ChatPagePage implements OnInit, AfterViewChecked{
     await this.messagesService.saveMessage(this.data.url, this.data.currentMessage, this.data.loggedInUser);
     if(this.data.currentMessage.messageID != null){
       this.data.currentMessages.messages.push(this.data.currentMessage);
-      this.data.currentMessage = this.messagesService.newMessage(this.data.loggedInUser,this.data.chatUser);
+      this.messagesService.newMessage(this.data.currentMessage, this.data.loggedInUser,this.data.chatUser);
     } else {
       this.data.presentNotSavedToast();
     }
