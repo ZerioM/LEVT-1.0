@@ -17,6 +17,7 @@ import { Image } from 'src/app/Interfaces/Image';
 import { ImageService } from 'src/app/services/image.service';
 
 import * as Exif from 'exif-js';
+import { UserService } from 'src/app/services/user.service';
 
 const { Camera, Filesystem } = Plugins;
 
@@ -39,7 +40,7 @@ export class AddPostPage implements OnInit {
   photos:SafeResourceUrl[]=[];
   public cropPath:string;
 
-  constructor(private domSanitizer: DomSanitizer, private journeyService: NewJourneyService, private imageService:ImageService, private data: DataService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router, private alertController:AlertController, private crop: Crop, private imagePicker: ImagePicker, private transfer: FileTransfer, public actionSheetController: ActionSheetController) {
+  constructor(private domSanitizer: DomSanitizer, private journeyService: NewJourneyService, private imageService:ImageService, private data: DataService,private userService:UserService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router, private alertController:AlertController, private crop: Crop, private imagePicker: ImagePicker, private transfer: FileTransfer, public actionSheetController: ActionSheetController) {
     this.data.loadActivities();
     if(this.data.postInserted){
 
@@ -62,9 +63,9 @@ export class AddPostPage implements OnInit {
   
 
     this.data.presentLoading();
-    await this.postService.savePost(this.data.newPost, this.data.url);
+    await this.postService.savePost(this.data.newPost, this.data.url, this.data.loggedInUser);
     if(this.data.newPost.postID != null){
-      this.image = await this.imageService.uploadImage(webPath, this.data.newPost, this.data.url);
+      this.image = await this.imageService.uploadImage(webPath, this.data.newPost, this.data.url, this.data.loggedInUser);
       if(this.image.imageID != null){
       this.data.newPost.images.push(this.image);
       } else {
@@ -75,15 +76,23 @@ export class AddPostPage implements OnInit {
     }
     this.data.dismissLoading();
     
-    if(this.data.loggedInUser.pioneerBadgeProgress<75){
+    if(this.data.loggedInUser.pioneerBadgeProgress==51){
 
       this.data.loggedInUser.pioneerBadgeProgress=75;
 
-      //Progess in die DB speichern 
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
 
       this.data.presentGamificationToast("Added an Image! +20 Points!",3000);
       this.data.loggedInUser.gamificationPoints += 20;
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
+
     
   }
 
@@ -128,7 +137,7 @@ export class AddPostPage implements OnInit {
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -231,7 +240,7 @@ export class AddPostPage implements OnInit {
 
     await this.data.presentLoading();
 
-    await this.postService.savePost(this.data.newPost, this.data.url);
+    await this.postService.savePost(this.data.newPost, this.data.url, this.data.loggedInUser);
     await this.data.dismissLoading();
 
     if(this.data.newPost.postID != null && this.data.updatePostWorks()){
@@ -243,7 +252,7 @@ export class AddPostPage implements OnInit {
         this.data.newPlace.posts.push(this.data.newPost);
       }
       this.data.newPost = this.postService.newPost(this.data.newPlace);
-      this.data.showPointsChallenge = true;
+     // this.data.showPointsChallenge = true;
       this.router.navigateByUrl('/tabs/tab2/add-place');
     } else {
       //Toast ausgeben: Error
@@ -263,10 +272,15 @@ focusOutPostDetail(){
   }
 }
 
-closePioneerStep3Toast(){
+async closePioneerStep3Toast(){
 
 
-  this.data.showedPioneerStep3=true;
+  this.data.loggedInUser.pioneerBadgeProgress=76;
+
+     //Update User
+     if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+      await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+      }
 }
 
 }

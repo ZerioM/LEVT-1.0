@@ -39,7 +39,7 @@ export class UserService {
   constructor(private storage: Storage, private http: HttpClient, public toastController: ToastController) { }
 
   newUser(){
-  let newUser:User={userID:null, username:null,_profileImageID:null, userImgSrc:null,password:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null, gamificationPoints:null, pwClear:null}
+  let newUser:User={userID:null, username:null,_profileImageID:null, userImgSrc:null,password:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null, gamificationPoints:null, pwClear:null,email_verified_at:null}
 
   return newUser;
 
@@ -56,8 +56,9 @@ export class UserService {
 
   async logout(loggedInUser: User, currentBookmark: Bookmark, url: string){
     this.userLoggedOut = true;
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
 
-    await this.http.post(url+"/logout", loggedInUser).toPromise().then((loadedData: User) => {
+    await this.http.post(url+"/logout", loggedInUser, loginHeaders).toPromise().then((loadedData: User) => {
       if(loadedData.userID == null && loadedData.sessionID == null){
 
         console.log("Logout hat funktioniert.");
@@ -85,6 +86,7 @@ export class UserService {
     loggedInUser.countryName = null;
     loggedInUser.userImgSrc = null;
     loggedInUser.pwClear = null;
+    loggedInUser.email_verified_at=null;
 
     this.storage.set("myUser", loggedInUser);
 
@@ -98,8 +100,6 @@ export class UserService {
 
     //loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
     loggedInUser.password = loggedInUser.pwClear;
-
-    console.log(loggedInUser.password);
 
     loggedInUser.pwClear = "";
 
@@ -119,6 +119,7 @@ export class UserService {
         loggedInUser.age = loadedData.age;
         loggedInUser.countryName = loadedData.countryName;
         loggedInUser.userImgSrc = loadedData.userImgSrc;
+        loggedInUser.email_verified_at=loadedData.email_verified_at;
         
 
         console.log("Login hat funktioniert.");
@@ -160,14 +161,42 @@ export class UserService {
     this.wantsToLogin = true;
   }
 
-  resetPassword(loggedInUser: User, url: string){
-    //POST REQUEST HERE
+  async resetPassword(loggedInUser: User, url: string){
+    await this.http.post(url+"/forgotPassword", loggedInUser).toPromise().then((loadedData: BoolObj) => {
+      if(loadedData.free == true){
+        this.presentGeneralToast("An E-Mail has been sent to your account.",5000);
+        console.log("Email sent.");
+      } else {
+        this.presentGeneralToast("The sending of the email did not work.",5000);
+        console.log("Email not sent.");
+      }
+    }, error => {
+      console.log(error);
+      this.presentGeneralToast("The sending of the email did not work.",5000);
+      console.log("Email not sent.");
+    });
+  }
+
+  async sendVerificationEmail(loggedInUser: User, url: string){
+    await this.http.post(url+"/sendEmailAgain", loggedInUser).toPromise().then((loadedData: BoolObj) => {
+      if(loadedData.free == true){
+        this.presentGeneralToast("An E-Mail has been sent to your account. Please click on the link and then click on ok here.",5000);
+        console.log("Email sent.");
+      } else {
+        this.presentGeneralToast("The sending of the email did not work.",5000);
+        console.log("Email not sent.");
+      }
+    }, error => {
+      console.log(error);
+      this.presentGeneralToast("The sending of the email did not work.",5000);
+      console.log("Email not sent.");
+    });
   }
 
 
   //Registrierung
 
-  async register(loggedInUser: User, url:string){
+  async register(loggedInUser: User, currentBookmark: Bookmark, url:string){
 
     //loggedInUser.password = Md5.hashStr(loggedInUser.pwClear).toString();  
     loggedInUser.password = loggedInUser.pwClear;
@@ -182,7 +211,7 @@ export class UserService {
       if(this.emailFormatIsCorrect){
         if(this.usernameAvailable){
           if(this.emailAvailable){
-            await this.http.post(url+"/register", loggedInUser).toPromise().then((loadedData: User) => {
+            await this.http.post(url+"/registerUser", loggedInUser).toPromise().then((loadedData: User) => {
               if(loadedData.userID != null && loadedData.sessionID != null){
                 loggedInUser.userID = loadedData.userID;
                 loggedInUser.sessionID = loadedData.sessionID;
@@ -211,7 +240,11 @@ export class UserService {
       this.presentGeneralToast("The two password phrases aren't identical. Please check and try again!",5000);
     }
 
+    this.storage.set("myUser", loggedInUser);
+
     loggedInUser.password = '';
+
+    currentBookmark._userID = loggedInUser.userID;
 
     this.userRecentlyLoggedInCreateNewJourney = true;
     this.wantsToRegister = false;
@@ -284,5 +317,46 @@ export class UserService {
       duration: dur
     });
     toast.present();
+  }
+
+  async updateUser(loggedInUser: User, url: string){
+
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid':loggedInUser.sessionID})};
+       
+    await this.http.post(url+"/updateUser", loggedInUser,loginHeaders).toPromise().then((loadedData: User) => {
+      console.log(loadedData);
+      if(loadedData == null){
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+      } else {
+      console.log("Post funktioniert - UpdateUser");
+      loggedInUser.userID = loadedData.userID;
+      loggedInUser.username = loadedData.username;
+      loggedInUser._profileImageID = loadedData._profileImageID;
+      loggedInUser.password = loadedData.password;
+      loggedInUser.emailAddress = loadedData.emailAddress;
+      loggedInUser.birthday = loadedData.birthday;
+      loggedInUser._countryOfResidenceID = loadedData._countryOfResidenceID;
+      loggedInUser.sessionID = loadedData.sessionID;
+      loggedInUser.explorerBadgeProgress = loadedData.explorerBadgeProgress;
+      loggedInUser.pioneerBadgeProgress = loadedData.pioneerBadgeProgress;
+      loggedInUser.gamificationPoints = loadedData.gamificationPoints;
+      loggedInUser.email_verified_at=loadedData.email_verified_at;
+      
+      loggedInUser.age = loadedData.age;
+      loggedInUser.countryName = loadedData.countryName;
+      loggedInUser.userImgSrc = loadedData.userImgSrc;
+      loggedInUser.pwClear = loadedData.pwClear;
+      
+        console.log("Pioneer");
+        console.log(loadedData.pioneerBadgeProgress);
+
+        console.log("Explorer");
+        console.log(loadedData.explorerBadgeProgress);
+      }
+    }, error => {
+      console.log(error);
+
+    });
+    
   }
 }

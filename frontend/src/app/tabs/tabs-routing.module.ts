@@ -41,13 +41,44 @@ const routes: Routes = [
                 import('../Pages/post-detail/post-detail.module').then (m => m.PostDetailPageModule)}
             ]
           },
+
+          {
+            path: 'user',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/user/user.module').then (m => m.UserPageModule)}
+            ]
+          },
+          
           {
             path: 'settings',
             children:[
               {
                 path:'',
                 loadChildren:()=>
-                import('../Pages/settings/settings.module').then (m => m.SettingsPageModule)}
+                import('../Pages/settings/settings.module').then (m => m.SettingsPageModule)
+          },
+              {
+                path: 'data-privacy-page',
+                children:[
+                  {
+                    path:'',
+                    loadChildren:()=>
+                    import('../Pages/data-privacy-page/data-privacy-page.module').then (m => m.DataPrivacyPagePageModule)}
+                ]
+              },
+              {
+                path: 'terms-of-use-page',
+                children:[
+                  {
+                    path:'',
+                    loadChildren:()=>
+                    import('../Pages/terms-of-use-page/terms-of-use-page.module').then (m => m.TermsOfUsePagePageModule)}
+                ]
+              },
+
             ]
           }
         ]
@@ -108,9 +139,18 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../Pages/tab4/tab4.module').then(m => m.Tab4PageModule)
-          }
-        ]
-      },
+    },
+    {
+      path: 'chat-page',
+      children:[
+        {
+          path:'',
+          loadChildren:()=>
+          import('../Pages/chat-page/chat-page.module').then (m => m.ChatPagePageModule)}
+      ]
+    }
+  ]
+},
 
 
       {
@@ -130,6 +170,16 @@ const routes: Routes = [
                 import('../Pages/user-journey-detail/user-journey-detail.module').then (m => m.UserJourneyDetailPageModule)}
             ]
           },
+
+          {
+            path: 'edit-profile',
+            children:[
+              {
+                path:'',
+                loadChildren:()=>
+                import('../Pages/edit-profile/edit-profile.module').then (m => m.EditProfilePageModule)}
+            ]
+          },
           {
             path: 'user-place-detail',
             children:[
@@ -147,7 +197,7 @@ const routes: Routes = [
                 loadChildren:()=>
                 import('../Pages/user-post-detail/user-post-detail.module').then (m => m.UserPostDetailPageModule)}
             ]
-          }
+          },
         ]
       },
       {

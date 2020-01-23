@@ -7,6 +7,7 @@ import { Image } from 'src/app/Interfaces/Image';
 
 import { Capacitor, Plugins, CameraResultType, FilesystemDirectory, CameraSource } from '@capacitor/core';
 import { ImageService } from 'src/app/services/image.service';
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-settings',
@@ -21,7 +22,7 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
 
   public delay = ms => new Promise(res => setTimeout(res, ms));
 
-  constructor(private data: DataService, private userService: UserService, private imageService: ImageService, private navCtrl:NavController, private router: Router, private alertController: AlertController) {
+  constructor(private data: DataService, private messagesService: MessagesService, private userService: UserService, private imageService: ImageService, private navCtrl:NavController, private router: Router, private alertController: AlertController) {
 
    }
 
@@ -65,6 +66,7 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
 
   loginClose(){
     this.userService.wantsToLogin = false;
+    this.userService.wantsToRegister = false;
     this.userService.userLoggedOut = true;
   }
 
@@ -106,10 +108,24 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
     await alert.present();
   }
 
-  logout(){
+  async login(){
+    await this.data.presentLoading();
+    await this.userService.login(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
+    await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
+    await this.data.dismissLoading();
+  }
 
-    this.userService.logout(this.data.loggedInUser,this.data.currentBookmark, this.data.url);
+  async register(){
+    await this.data.presentLoading();
+    await this.userService.register(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
+    await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
+    await this.data.dismissLoading();
+  }
 
+  async logout(){
+    await this.data.presentLoading();
+    await this.userService.logout(this.data.loggedInUser,this.data.currentBookmark, this.data.url);
+    await this.data.dismissLoading();
   }
 
   goBacktoSettingsWithoutSaving(){
@@ -123,7 +139,7 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
 
     this.data.presentLoading();
 
-    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
     if(this.image.imageID != null){
       this.data.loggedInUser._profileImageID = this.image.imageID;
       this.data.loggedInUser.userImgSrc = this.image.imgSrc;
@@ -159,7 +175,7 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -168,6 +184,11 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
     } else {
       this.data.presentNotSavedToast();
     }
+  }
+
+  goToDataPrivacy(){
+    console.log("Navigate to DataPrivacyPage...");
+    this.router.navigateByUrl("/tabs/tab1/settings/data-privacy-page");
   }
 
   // async toMySQLDate(){

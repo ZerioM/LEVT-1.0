@@ -19,7 +19,10 @@
       <ion-button (click)="showLogoutAlert()">Logout</ion-button>
     </ion-item>
     <ion-item no-padding lines="none">
-      <ion-button>About Gamfication</ion-button>
+      <ion-button (click)="goToDataPrivacy()">Data privacy</ion-button>
+    </ion-item>
+    <ion-item no-padding lines="none">
+      <ion-button>Terms of use</ion-button>
     </ion-item>
   </ion-list>
 
@@ -29,13 +32,14 @@
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToLogin==true">
     <div class="login">
 
-      <ion-title class="tabHeading" no-padding> 
-        <ion-buttons>
-          <ion-button (click)="loginClose()" icon-only>
-            <ion-icon class="cancel" name="ios-close"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-        Login</ion-title>
+      <div class="loginRegisterHeader">
+      <ion-buttons>
+        <ion-button (click)="loginClose()" icon-only>
+          <ion-icon class="cancel" name="ios-close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="tabHeading" no-padding> Login</ion-title>
+    </div> <!-- HEADER: X & Login -->
         
     <ion-list>
       <ion-col no-padding>
@@ -50,7 +54,7 @@
          no-margin maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
       </ion-col>
     
-      <ion-button color="warning" expand="full" (click)="userService.login(data.loggedInUser, data.currentBookmark ,data.url)">Login</ion-button>
+      <ion-button color="warning" expand="full" (click)="login()">Login</ion-button>
       <ion-button expand="full" (click)="userService.goToResetPw()">Forgot Password</ion-button>
     </ion-list>
     <ion-button expand="full" (click)="userService.goToRegistration()">Register</ion-button>
@@ -82,13 +86,14 @@
   <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister && userService.wantsToLogin == true">
     <div class="register">
 
-      <ion-buttons>
-        <ion-button (click)="loginClose()" icon-only>
-          <ion-icon class="cancel" name="ios-close"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-
-      <ion-title class="tabHeading" no-padding>Register</ion-title>
+      <div class="loginRegisterHeader">
+        <ion-buttons>
+          <ion-button (click)="loginClose()" icon-only>
+            <ion-icon class="cancel" name="ios-close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="tabHeading" no-padding> Register</ion-title>
+      </div> <!-- HEADER: X & Register -->
 
     <ion-list>
       <ion-col no-padding>
@@ -161,7 +166,7 @@
       </div>
   </ion-list>
     
-    <ion-button expand="full" (click)="userService.register(data.loggedInUser,data.url)">Register</ion-button>
+    <ion-button expand="full" (click)="register()">Register</ion-button>
     <ion-label class="importantThings">
       * Fields marked with a <b class="importantStars">*</b> are mandatory.
     </ion-label>

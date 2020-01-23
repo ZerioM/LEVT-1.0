@@ -3,6 +3,9 @@ import { DataService } from 'src/app/services/data.service';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { BookmarkService } from 'src/app/services/bookmark.service';
+import { Journey } from 'src/app/Interfaces/Journey';
+
 
 @Component({
   selector: 'app-tab1',
@@ -16,13 +19,15 @@ export class Tab1Page implements AfterViewChecked {
 
 //@ViewChild (Content) content: Content;
 
-  constructor(private data: DataService, private userService: UserService, private navCtrl:NavController, private router: Router) {
+  constructor(private data: DataService, private bookmarkService: BookmarkService, private userService: UserService, private navCtrl:NavController, private router: Router) {
 
     this.loadJSON();
 
     if(this.data.resetTab){
       this.data.resetTab=false;
       if(this.data.settingsFromHome==false){
+        this.data.search.searchEntry = '';
+        this.data.loadTopPosts();
         this.router.navigateByUrl('/tabs/tab5');
       }
     }
@@ -45,14 +50,18 @@ export class Tab1Page implements AfterViewChecked {
 
     async showJourney(journeyID: number){
 
-    this.data.clickedJourney = true;
-    if(this.data.loggedInUser.explorerBadgeProgress < 100 && this.data.showedExplorerJourney==false){
-      this.data.loggedInUser.explorerBadgeProgress += 33;
+    if(this.data.loggedInUser.explorerBadgeProgress==0 || this.data.loggedInUser.explorerBadgeProgress==22||this.data.loggedInUser.explorerBadgeProgress==28||this.data.loggedInUser.explorerBadgeProgress==50){
+    this.data.loggedInUser.explorerBadgeProgress += 25;
+     
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
     
     await this.data.presentLoading();  
     await this.data.loadOneJourney(journeyID);
-    await this.data.bookmarkExists();
+    await this.bookmarkService.bookmarkExists(this.data.currentBookmark, this.data.currentJourney, this.data.url, this.data.loggedInUser);
     await this.data.dismissLoading();
     if(this.data.currentBookmark.bookmarkID != null){
       this.data.bookmarkIcon = this.data.bookmarkSaved;
@@ -62,6 +71,8 @@ export class Tab1Page implements AfterViewChecked {
 
  
     //go To Journey Detail 
+    this.data.search.searchEntry = '';
+    this.data.loadTopPosts();
     this.router.navigateByUrl('/tabs/tab1/journey-detail');
   
    }
@@ -76,7 +87,8 @@ export class Tab1Page implements AfterViewChecked {
   goToSettings(){
 
     this.data.settingsFromHome=true;
-
+    this.data.search.searchEntry = '';
+    this.data.loadTopPosts();
     this.router.navigateByUrl('/tabs/tab1/settings');
   }
 
@@ -93,15 +105,60 @@ export class Tab1Page implements AfterViewChecked {
 
   //Gamification
 
-  closePioneerFinishToast(){
+  async closePioneerFinishToast(){
 
 
-    this.data.showedPioneerFinish=true;
+    this.data.loggedInUser.pioneerBadgeProgress=101;
+
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
   }
 
-  closeExplorerFinishToast(){
+  async closeExplorerFinishToast(){
 
 
-    this.data.showedExplorerFulltext=true;
+    this.data.loggedInUser.explorerBadgeProgress +=1;
+    //Update User
+    if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+      await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+      }
+
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+      this.data.search.searchEntry = '';
+      this.data.loadTopPosts();
+    }, 500);
+  }
+
+  async goToUserPage(journey:Journey){
+    this.data.currentJourney = journey;
+    await this.data.presentLoading();
+    await this.data.goToUserPage();
+    await this.data.dismissLoading();
+    this.data.search.searchEntry = '';
+    this.data.loadTopPosts();
+    this.router.navigateByUrl('/tabs/tab1/user');
+  }
+
+  async logout(){
+    this.data.showsVerifyEmailWindow = false;
+    await this.data.presentLoading();
+    await this.userService.logout(this.data.loggedInUser,this.data.currentBookmark, this.data.url);
+    await this.data.dismissLoading();
+  }
+
+  async closeVerifyEmailWindow(){
+    await this.data.presentLoading();
+    await this.data.loadUser();
+    await this.data.dismissLoading();
   }
 }

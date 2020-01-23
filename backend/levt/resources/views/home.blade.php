@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Your Email is validated. Please login to your Levt app!</div>
+                <div class="card-header"></div>
 
                 <div class="card-body">
                     @if (session('status'))

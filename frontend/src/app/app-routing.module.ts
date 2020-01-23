@@ -15,6 +15,11 @@ const routes: Routes = [
   { path: 'user-place-detail', loadChildren: './Pages/user-place-detail/user-place-detail.module#UserPlaceDetailPageModule' },
   { path: 'user-post-detail', loadChildren: './Pages/user-post-detail/user-post-detail.module#UserPostDetailPageModule' },  { path: 'image', loadChildren: './Pages/image/image.module#ImagePageModule' },
   { path: 'settings', loadChildren: './Pages/settings/settings.module#SettingsPageModule' },
+  { path: 'chat-page', loadChildren: './Pages/chat-page/chat-page.module#ChatPagePageModule' },
+  { path: 'data-privacy-page', loadChildren: './Pages/data-privacy-page/data-privacy-page.module#DataPrivacyPagePageModule' },
+  { path: 'terms-of-use-page', loadChildren: './Pages/terms-of-use-page/terms-of-use-page.module#TermsOfUsePagePageModule' },
+  { path: 'user', loadChildren: './Pages/user/user.module#UserPageModule' },
+  { path: 'edit-profile', loadChildren: './Pages/edit-profile/edit-profile.module#EditProfilePageModule' },
 
   
 

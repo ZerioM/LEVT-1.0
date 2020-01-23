@@ -1,0 +1,48 @@
+<ion-header class="tabHeader">
+  <ion-buttons>
+    <ion-button icon-only (click)="close()">
+      <ion-icon class="cancel" name="ios-close"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title class="tabHeading" no-padding>Chat with {{data.chatUser.username}}</ion-title>
+    <img class="headerUserPic" *ngIf="data.chatUser.userImgSrc != null && data.chatUser.userImgSrc != ''" src={{data.chatUser.userImgSrc}} alt="User" (click)="goToUserPage()"/>
+    <img class="headerUserPic" *ngIf="data.chatUser.userImgSrc == null || data.chatUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" (click)="goToUserPage()"/>
+  </ion-header>
+<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
+
+<ion-content id="chat" color="none" class="tabsContent">
+  <ion-grid>
+    <ion-row *ngFor="let message of data.currentMessages.messages">
+      <ion-col size="9" *ngIf="data.loggedInUser.userID != message.fromUserID" class="message otherMessage">
+      <div id="fromUser">{{message.fromUsername}}</div><br>
+      <span>{{message.msg}}</span>
+      <div class="time" text-right><br>
+      <ion-label *ngIf="message.createdAt != null">{{message.createdAt |date:'short'}}</ion-label>
+      <ion-label *ngIf="message.createdAt == null">Saving...</ion-label>
+      </div>
+      </ion-col>
+
+      <ion-col offset="3" *ngIf="data.loggedInUser.userID == message.fromUserID" class="message myMessage">
+        <!--<div id="meUser">{{message.fromUsername}}</div><br>-->
+        <div id="meUser">{{data.loggedInUser.username}}</div><br>
+        <span>{{message.msg}}</span>
+        <div class="timeMeUser" text-right><br>
+        {{message.createdAt |date:'short'}}</div>
+        </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer no-padding no-margin >
+    <ion-row align-items-center no-padding>
+      <ion-col>
+        <textarea autosize [(ngModel)]="data.currentMessage.msg" class="messageInput"></textarea>
+      </ion-col>
+      <ion-button expand="block" fill="clear" [disabled]="data.currentMessage.msg==='' || data.currentMessage.msg == null" class="msgButton" (click)="sendMessage()">
+        <ion-icon class="sendButton" name="md-send" slot="icon-only"></ion-icon >
+      </ion-button>
+    </ion-row>
+</ion-footer>
+

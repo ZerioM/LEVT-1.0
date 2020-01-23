@@ -24,12 +24,17 @@ class _UserController extends BaseController
     //protected $redirectTo = RouteServiceProvider::HOME;
 
     use RegistersUsers;
+
     public function selectUsernamePerID($id){
         return DB::table('users')->where('userid',$id)->value('username');
     }
 
     public function selectIDPerUsername($username){
         return DB::table('users')->where('username',$username)->value('userID');
+    }
+
+    public function selectIDPerEmail($email){
+        return DB::table('users')->where('email',$email)->value('userID');
     }
 
     public function selectIDPerJourneyID($id){
@@ -55,27 +60,14 @@ class _UserController extends BaseController
         //wenn Sessions nicht übereinstimmen
         //Wenn Session in DB leer is
         if($headerSessionID != $DBsessionID || $DBsessionID == null){
-            $outputArray = [
-                'userID' => null,
-                'username' => null,
-                'password' => null,
-                'emailAddress' => null,
-                'birthday' => null,
-                '_countryOfResidenceID' => null,
-                //'remember_token' => null,
-                'gamificationPoints' => null,
-                '_profileImageID' => null,
-                'sessionID' => null,
-                'explorerBadgeProgress' => null,
-                'pioneerBadgeProgress' => null,
-                'age' => null,
-                'countryName' => null,
-                'userImgSrc' => null,
-                'pwClear' => null
-            ];
-            return json_encode($outputArray,JSON_PRETTY_PRINT);
+
+            return null;
         } else {
+            // if(DB::table('users')->where('userID',$userID)->value('email_verified_at') == null){
+            //     return '"verified" : false';
+            // } else {
             return true;
+            //}
         }
     }
 
@@ -86,7 +78,19 @@ class _UserController extends BaseController
 
         $outputUserArray = json_decode(json_encode(DB::table('users')->where('username',$username)->get()),true);
 
+        if($outputUserArray != null){
         $outputUser = $outputUserArray[0];
+
+        $explorerBadgeProgress =DB::table('userbadges')->where([
+            ['_userID',$outputUser['userID']],
+            ['_badgeID',2]])->value('progress');
+
+
+        $pioneerBadgeProgress= DB::table('userbadges')->where([
+            ['_userID',$outputUser['userID']],
+            ['_badgeID',1]])->value('progress');
+
+
         $outputArray = [
             'userID' => $outputUser['userID'],
             'username' => $outputUser['username'],
@@ -98,13 +102,35 @@ class _UserController extends BaseController
             'gamificationPoints' => $outputUser['gamificationPoints'],
             '_profileImageID' => $outputUser['_profileImageID'],
             'sessionID' => $outputUser['sessionID'],
-            'explorerBadgeProgress' => null, //aus DB
-            'pioneerBadgeProgress' => null, // aus DB
+            'explorerBadgeProgress' => $explorerBadgeProgress,
+            'pioneerBadgeProgress' => $pioneerBadgeProgress ,
             'age' => Carbon::parse($outputUser['birthday'])->age,
             'countryName' => $countryController->selectNamePerID($outputUser['_countryOfResidenceID']),
             'userImgSrc' => $imageController->selectSrcPerUserID($outputUser['userID']),
             'pwClear' => null,
+            'email_verified_at' => $outputUser['email_verified_at']
         ];
+        }else{
+            $outputArray = [
+                'userID' => null,
+                'username' => null,
+                'password' => null,
+                'emailAddress' => null,
+                'birthday' => null,
+                '_countryOfResidenceID' => null,
+                //'remember_token' => $outputUser['remember_token'],
+                'gamificationPoints' => null,
+                '_profileImageID' => null,
+                'sessionID' => null,
+                'explorerBadgeProgress' => null,
+                'pioneerBadgeProgress' => null,
+                'age' => null,
+                'countryName' => null,
+                'userImgSrc' => null,
+                'pwClear' => null,
+                'email_verified_at' => null 
+            ];
+        }
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
     }
@@ -133,6 +159,24 @@ class _UserController extends BaseController
             'sessionID' => $this->createSessionID()
         ]);
 
+
+
+        $insertPioneerArray=[
+            '_badgeID' => 1,
+            '_userID'=> $this->selectIDPerUsername($requestArray['username']),
+            'progress' => 0
+        ];
+
+        $insertExplorerArray=[
+            '_badgeID' => 2,
+            '_userID'=> $this->selectIDPerUsername($requestArray['username']),
+            'progress' => 0
+        ];
+
+        DB::table('userbadges')->insertGetId($insertPioneerArray);
+        DB::table('userbadges')->insertGetId($insertExplorerArray);
+
+
         $user->sendEmailVerificationNotification();
 
         return $this->selectOne($user['username']);
@@ -148,13 +192,18 @@ class _UserController extends BaseController
         $username = $requestArray['username'];
         $password = $requestArray['password'];
 
-        DB::table('users')->where('username',$username)->where('password',$password)->update([
-            'sessionID' => $this->createSessionID()
-        ]);
-
-        $userArray = json_decode(json_encode(DB::table('users')->where('username',$username)
-            ->where('password',$password)->get()),true);
-        if($userArray === null){
+        $user = json_decode(json_encode(DB::table('users')->where('username',$username)->first()),true);
+        if (hash::check($password,$user['password'])){
+            $userID = $this->selectIDPerUsername($username);
+            $user = User::find($userID);
+            $user->sessionID = $this->createSessionID();
+            $user->save();
+            // if($user->email_verified_at == null){
+            //     return '"verified" : false';
+            // } else {
+                return $this->selectOne($username);
+            //}
+        } else {
             $outputArray = [
                 'userID' => null,
                 'username' => $requestArray['username'],
@@ -171,9 +220,9 @@ class _UserController extends BaseController
                 'countryName' => $requestArray['countryName'],
                 'userImgSrc' => $requestArray['userImgSrc'],
                 'pwClear' => $requestArray['pwClear'],
+                'email_verified_at' => null
             ];
-        } else {
-            return $this->selectOne($username);
+            return $outputArray;
         }
     }
 
@@ -181,12 +230,6 @@ class _UserController extends BaseController
     public function logout(Request $request){
         $requestArray = $request->all();
         $userID = $requestArray['userID'];
-        $userController = new _UserController;
-
-        $validateUser = $userController->validateUser($request,$userID);
-        if($validateUser !== true){
-            return $validateUser;
-        }
 
         DB::table('users')->where('userID',$userID)->update([
             'sessionID' => null
@@ -208,6 +251,7 @@ class _UserController extends BaseController
             'countryName' => null,
             'userImgSrc' => null,
             'pwClear' => null,
+            //'email_verified_at' => null
         ];
 
         return json_encode($outputArray,JSON_PRETTY_PRINT);
@@ -215,15 +259,13 @@ class _UserController extends BaseController
 
 
     public function updateOne(Request $request){
-        $userController = new _UserController;
-
         $mail = false;
 
         $requestArray = $request->all();
 
         $userID = $requestArray['userID'];
 
-        $validateUser = $userController->validateUser($request,$userID);
+        $validateUser = $this->validateUser($request,$userID);
         if($validateUser !== true){
             return $validateUser;
         }
@@ -239,9 +281,19 @@ class _UserController extends BaseController
         $user->_countryOfResidenceID = $requestArray['_countryOfResidenceID'];
         $user->gamificationPoints = $requestArray['gamificationPoints'];
         $user->_profileImageID = $requestArray['_profileImageID'];
-        //explorerBadgeProgress
-        //pioneerBadgeProgress
         $user->save();
+
+        DB::table('userbadges')->where([
+            ['_userID',$requestArray['userID']],
+            ['_badgeID',2]])->update(['progress'=>$requestArray['explorerBadgeProgress']]);
+
+        DB::table('userbadges')->where([
+            ['_userID',$requestArray['userID']],
+            ['_badgeID',1]])->update(['progress'=>$requestArray['pioneerBadgeProgress']]);
+
+
+
+
         if ($mail) $user->sendEmailVerificationNotification();
         return $this->selectOne($user->username);
     }
@@ -268,8 +320,6 @@ class _UserController extends BaseController
     }
 
     public function updatePassword(Request $request){
-        $userController = new _UserController;
-
         $requestArray = $request->all();
 
         //$email = $requestArray['emailAddress'];
@@ -277,13 +327,13 @@ class _UserController extends BaseController
         $oldPassword = $requestArray['pwClear'];
         $newPassword = $requestArray['password'];
 
-        $validateUser = $userController->validateUser($request,$userID);
+        $validateUser = $this->validateUser($request,$userID);
         if($validateUser !== true){
             return $validateUser;
         }
         $user = User::find($userID);
-        if ($oldPassword == $user['password']){
-            $user->password = $newPassword;
+        if (hash::check($oldPassword,$user['password'])){
+            $user->password = Hash::make($newPassword);
             $user->save();
             return $this->selectOne($user->username);
         } else {
@@ -293,12 +343,52 @@ class _UserController extends BaseController
 
     public function sendEmail(Request $request){
         $requestArray = $request->all();
-        $username = $requestArray['username'];
-        $userID = $this->selectIDPerUsername($username);
+        $email = $requestArray['emailAddress'];
+        $userID = $this->selectIDPerEmail($email);
         $user = User::find($userID);
         $user->email_verified_at = null;
         $user->save();
         $user->sendEmailVerificationNotification();
-        return '"email" : "resent"';
+        return '{"free" : true}';
+    }
+
+    public function forgotPassword(Request $request){
+        $requestArray = $request->all();
+        $email = $requestArray['emailAddress'];
+        $userID = DB::table('users')->where('email',$email)->value('userID');
+        if($userID == null){
+            return '{"free" : false}';
+        }
+        $user = User::find($userID);
+        $token = app('auth.password.broker')->createToken($user);
+        $user->sendPasswordResetNotification($token);
+        return '{"free" : true}';
+    }
+
+    public function emailVerified(Request $request){
+        $requestArray = $request->all();
+        $username = $requestArray['username'];
+        $emailVerifiedAt=DB::table('users')->where('username',$username)->value('email_verified_at');
+        if($emailVerifiedAt==null){
+            return '{"email_verified_at":false}';
+        }else{
+            return '{"email_verified_at":true}';
+        }
+
+    }
+
+    public function loadLoggedInUser(Request $request){
+        $requestArray = $request->all();
+        $username=$requestArray['username'];
+        $userID=$requestArray['userID'];
+
+        $validateUser = $this->validateUser($request,$userID);
+        if($validateUser !== true){
+            return $validateUser;
+        }
+
+       return  $this->selectOne($username);
+
+
     }
 }

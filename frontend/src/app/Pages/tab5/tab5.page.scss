@@ -1,25 +1,36 @@
+.sc-ion-buttons-md-s ion-button {
+  --padding-start: 0px;
+  --padding-end: 0px;
+} // buttons x & <
+
 #profilUserpicInformations{
   width: 100%;
   margin-bottom: 10px;
 } // Kasten von -> Proflbild, Alter & Wohnort, Punkteanzeige
 #userpicProfil{
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: auto;
     object-fit: cover;
   } // Profilbild auf Profil
   #profilAgeResidence{
+    width: 30%;
     margin-left: 5px;
-    margin-top: -30px;
+    //margin-top: -30px;
     top:0;
   }// Alter & Wohnort am Profil
+
+  .residence{
+    overflow: visible;
+    white-space: inherit;
+  }
   #badges{
+    width: 30%;
     top:0;
-    margin-top: -25px;
+   // margin-top: -25px;
     margin-left: 20px;
   } // Alle Abzeichen & Punktanzeige
   .oneBadge{
     width: 60px;
-    height: 60px;
     object-fit: cover;
   }// Ein Abzeichen 
   #pointsView{
@@ -44,10 +55,22 @@
    text-align: center;
    margin-bottom: -20px;
  } // Heading My Journeys 
-  #PlatzhalterKartenVis{
-    width: 100%;
-    max-height: 200px;
+  
+ /*
+ #PlatzhalterKartenVis{
+    //width: 100%;
+    //max-height: 200px;
     padding: 2px;
     border: 1px solid #182f30;
     object-fit: cover;
   } // dies ist nur ein Platzhalter
+  */
+
+  #my_dataviz{
+    //width: 100%;
+    //max-height: 200px;
+    background-color: #182f30;
+    padding: 2px;
+    border: 1px solid #182f30;
+    object-fit: cover;
+  }

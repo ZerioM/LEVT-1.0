@@ -13,6 +13,7 @@ import { Image } from 'src/app/Interfaces/Image';
 
 import { Capacitor, Plugins, CameraResultType, FilesystemDirectory, CameraSource } from '@capacitor/core';
 import { ImageService } from 'src/app/services/image.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 
@@ -35,7 +36,7 @@ export class AddPlacePage implements OnInit {
 
   public delay = ms => new Promise(res => setTimeout(res, ms));
 
-  constructor(private journeyService: NewJourneyService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
+  constructor(private journeyService: NewJourneyService, private userService:UserService,private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
     if(this.data.placeInserted){
 
     } else {
@@ -57,7 +58,7 @@ export class AddPlacePage implements OnInit {
 
     this.data.presentLoading();
 
-    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
     if(this.image.imageID != null){
       this.data.newPlace._thumbnailID = this.image.imageID;
       this.data.newPlace.thumbnailSrc = this.image.imgSrc;
@@ -89,7 +90,7 @@ export class AddPlacePage implements OnInit {
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -105,7 +106,7 @@ export class AddPlacePage implements OnInit {
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.postService.deletePost(post, this.data.url);
+    isDeleted = await this.postService.deletePost(post, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -135,7 +136,7 @@ export class AddPlacePage implements OnInit {
     this.data.postInserted = false;
     if(this.placeValidated || this.data.newPlace.placeID != null){
       await this.data.presentLoading();
-      await this.placeService.savePlace(this.data.newPlace, this.data.url);
+      await this.placeService.savePlace(this.data.newPlace, this.data.url, this.data.loggedInUser);
       await this.data.dismissLoading();
       if(this.data.newPlace.placeID != null && this.data.updatePlaceWorks()){
         this.postService.newPost(this.data.newPlace);
@@ -164,7 +165,7 @@ export class AddPlacePage implements OnInit {
     this.data.postInserted = true;
     if(this.placeValidated || this.data.newPlace.placeID != null){
       await this.data.presentLoading();
-      await this.placeService.savePlace(this.data.newPlace, this.data.url);
+      await this.placeService.savePlace(this.data.newPlace, this.data.url, this.data.loggedInUser);
       await this.data.dismissLoading();
       if(this.data.newPlace.placeID != null && this.data.updatePlaceWorks()){
         this.data.newPost = po;
@@ -223,25 +224,38 @@ export class AddPlacePage implements OnInit {
     
     console.log(this.placeValidated);
     //Gamification
-    if(this.data.loggedInUser.pioneerBadgeProgress<50){
+    if(this.data.loggedInUser.pioneerBadgeProgress==26){
 
       this.data.loggedInUser.pioneerBadgeProgress=50;
 
-      //Progess in die DB speichern 
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
 
     if(this.enteredPlaceName == false){
       this.data.presentGamificationToast("Added a Place with a name! +10 Points!",3000);
       this.data.loggedInUser.gamificationPoints += 10;
       this.enteredPlaceName = true;
+
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
   }
 
-  focusOutPlaceDetail(){
+  async focusOutPlaceDetail(){
     if(this.enteredPlaceDetail == false){
       this.data.presentGamificationToast("Added more detail! +5 Points!",3000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredPlaceDetail = true;
+
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
     }
   }
 
@@ -289,7 +303,7 @@ export class AddPlacePage implements OnInit {
     if(this.placeValidated || this.data.newPlace.placeID != null){
 
       await this.data.presentLoading();
-      await this.placeService.savePlace(this.data.newPlace, this.data.url);
+      await this.placeService.savePlace(this.data.newPlace, this.data.url, this.data.loggedInUser);
       await this.data.dismissLoading();
 
       if(this.data.newPlace.placeID != null){
@@ -316,10 +330,15 @@ export class AddPlacePage implements OnInit {
 
   //Gamification
 
-  closePioneerStep2Toast(){
+  async closePioneerStep2Toast(){
 
 
-    this.data.showedPioneerStep2=true;
+    this.data.loggedInUser.pioneerBadgeProgress=51;
+
+       //Update User
+       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
+        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+        }
   }
 
   closeChallengeToast(){

@@ -38,6 +38,10 @@ import { UserService } from './user.service';
 import { Countries } from '../Interfaces/Countries';
 
 import { Storage } from '@ionic/storage';
+import { BookmarkService } from './bookmark.service';
+import { UserMessages } from '../Interfaces/UserMessages';
+import { UserMessage } from '../Interfaces/UserMessage';
+import { MessagesService } from './messages.service';
 
 @Injectable({
   providedIn: 'root'
@@ -61,16 +65,22 @@ export class DataService {
 
   public currentUserJourney:Journey={journeyID:null, _userID:null,_thumbnailID:null,_seasonID:null,_journeyCategoryID:null,_companionshipID:null,journeyName:"",year:null,duration:null,detail:"", totalCosts: null,accommodationCosts: null,leisureCosts: null,transportationCosts: null,mealsanddrinksCosts: null,otherCosts: null,plane:true, car:false, bus:false, train:false,ship:false,motorbike:false,campingtrailer:false,hiking:false,bicycle:false,places:[],username:"",userImgSrc:"",bookmarks:null,seasonName:"",thumbnailSrc:"",journeyCategoryName:"",companionshipType:"",}
 
-  public loggedInUser:User={userID:null, username:null,_profileImageID: null, userImgSrc: null,password: null,emailAddress: null, birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName: null, gamificationPoints:null, pwClear:null}
+  public otherUser:User = {userID:null, username:null,_profileImageID: null, userImgSrc: null,password: null,emailAddress: null, birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName: null, gamificationPoints:null, pwClear:null,email_verified_at:null};
+
+  public otherUserJourneys: Journeys = {journeys:[]};
+
+  public loggedInUser:User={userID:null, username:null,_profileImageID: null, userImgSrc: null,password: null,emailAddress: null, birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName: null, gamificationPoints:null, pwClear:null,email_verified_at:null}
   public loginHeaders = {
     headers: new HttpHeaders({})
   };
 
   //chat
-  public chatUser:User={userID:2, username:"leo41",_profileImageID:6, userImgSrc:"/assets/images/sarah3110.jpg",password:"",emailAddress:"",birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:"",gamificationPoints:null, pwClear:null}
+  public chatUser:User={userID:null, username:null,_profileImageID:null, userImgSrc:null,password:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null,gamificationPoints:null, pwClear:null, email_verified_at:null}
 
   public currentMessages:Messages={messages:[]};
   public currentMessage:Message={messageID: null, fromUserID: null, fromUsername: '', toUserID: null, createdAt: null, msg: ''}
+  public currentUserMessages:UserMessages = {userMessages: null};
+  public chatOpened:boolean = false;
 
   public newUser:User;
 
@@ -122,17 +132,6 @@ export class DataService {
   public errorMsg;
 
   //gamification
-  public showedPioneerStep1:boolean=false;
-  public showedPioneerStep2:boolean=false;
-  public showedPioneerStep3:boolean=false;
-  public showedPioneerFinish:boolean=false;
-
-  public showedExplorerFulltext:boolean=false;
-  public showedExplorerMap:boolean= false;
-  public showedExplorerJourney:boolean = false;
-  public clickedSearch:boolean=false;
-  public clickedMap:boolean=false;
-  public clickedJourney:boolean=false;
 
   public showPointsChallenge:boolean=false;
 
@@ -155,14 +154,20 @@ export class DataService {
   public edit: boolean=false;
   public fromEditJourney:boolean=false;
   public fromNewJourney:boolean=true;
+
+  //verifyEmail
+  public showsVerifyEmailWindow:boolean = false;
+
   
   private locale : string;
 
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
-  public url: string = this.flock;
+  public mario: string = "https://levt.online";
+  public url: string = this.mario;
+  
 
-  constructor(private storage: Storage, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
+  constructor(private storage: Storage, private messagesService: MessagesService, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
 
     this.loadCentralData();
 
@@ -178,22 +183,27 @@ export class DataService {
     this.locale = 'en';
   }
 
-  loadCentralData(){
+  async loadCentralData(){
     this.loadJourneyCategories();
     this.loadSeasons();
     this.loadCompanionships();
     this.loadCountries();
     this.loadTransports();
-    this.loadUser();
+    await this.loadUser();
+    await this.loadUserJourneys(this.loggedInUser);
+    await this.messagesService.loadUserChatted(this.currentUserMessages, this.loggedInUser, this.url);
   }
 
   // public saveUser() {
   //   this.storage.set("myUser",this.loggedInUser);
   // }
 
-  public loadUser() {
-    this.storage.get("myUser").then((someData: User) => {
+  async loadUser() {
+    let someDataNotNull:boolean = false;
+
+    await this.storage.get("myUser").then((someData: User) => {
       if(someData != null){
+        someDataNotNull = true;
         this.loggedInUser.userID = someData.userID;
         this.loggedInUser.username = someData.username;
         this.loggedInUser._profileImageID = someData._profileImageID;
@@ -205,6 +215,7 @@ export class DataService {
         this.loggedInUser.explorerBadgeProgress = someData.explorerBadgeProgress;
         this.loggedInUser.pioneerBadgeProgress = someData.pioneerBadgeProgress;
         this.loggedInUser.gamificationPoints = someData.gamificationPoints;
+        this.loggedInUser.email_verified_at=someData.email_verified_at;
         
         this.loggedInUser.age = someData.age;
         this.loggedInUser.countryName = someData.countryName;
@@ -213,15 +224,55 @@ export class DataService {
 
         console.log("Hehe, Daten geladen!");
         console.log(JSON.stringify(this.loggedInUser));
-
-        this.currentBookmark._userID = this.loggedInUser.userID;
+        
       } else {
+        someDataNotNull = false;
         console.log("someData war null");
       }
     }).catch((r)=>{
       console.log("catch");
       console.log(r);
     });
+
+    if(someDataNotNull){
+      const loginHeaders = {headers: new HttpHeaders({'Sessionid': this.loggedInUser.sessionID})};
+
+      await this.http.post(this.url+"/loadLoggedInUser", this.loggedInUser,loginHeaders).toPromise().then((loadedData: User) => {
+          console.log(loadedData);
+          this.loggedInUser.userID = loadedData.userID;
+          this.loggedInUser.username = loadedData.username;
+          this.loggedInUser._profileImageID = loadedData._profileImageID;
+          this.loggedInUser.password = loadedData.password;
+          this.loggedInUser.emailAddress = loadedData.emailAddress;
+          this.loggedInUser.birthday = loadedData.birthday;
+          this.loggedInUser._countryOfResidenceID = loadedData._countryOfResidenceID;
+          this.loggedInUser.sessionID = loadedData.sessionID;
+          this.loggedInUser.explorerBadgeProgress = loadedData.explorerBadgeProgress;
+          this.loggedInUser.pioneerBadgeProgress = loadedData.pioneerBadgeProgress;
+          this.loggedInUser.gamificationPoints = loadedData.gamificationPoints;
+          this.loggedInUser.email_verified_at=loadedData.email_verified_at;
+          
+          this.loggedInUser.age = loadedData.age;
+          this.loggedInUser.countryName = loadedData.countryName;
+          this.loggedInUser.userImgSrc = loadedData.userImgSrc;
+          this.loggedInUser.pwClear = loadedData.pwClear;
+
+          console.log("Post funktioniert - loadLoggedInUser");
+        }, error => {
+          console.log(error);
+        });
+
+        if(this.loggedInUser.email_verified_at == null){
+          this.showsVerifyEmailWindow = true;
+          this.presentGeneralToast("Email is not verified. Please try again!",3000);
+        } else {
+          this.showsVerifyEmailWindow = false;
+        }
+
+        this.currentBookmark._userID = this.loggedInUser.userID;
+        this.newJourney = this.journeyService.newJourney(this.loggedInUser);
+    }
+
   }
 
   loadJourneyCategories() {
@@ -593,106 +644,85 @@ export class DataService {
 
   }
 
-
-  //Bookmarks
-
-  async setBookmark(){
-    this.currentBookmark._userID=this.loggedInUser.userID;
-    this.currentBookmark._journeyID=this.currentJourney.journeyID;
-    let postData = this.currentBookmark;
-
-    //let bookmarked: boolean = false;
-
-    if(this.userService.userLoggedIn(this.loggedInUser)){
-
-      //this.userService.setHttpHeaders(this.loggedInUser, this.loginHeaders);
-
-      await this.http.post(this.url+"/newBookmark", postData).toPromise().then((loadedData: Bookmark) => {
-        this.currentBookmark = loadedData;
-        console.log(this.currentBookmark);
-        console.log("Post funktioniert");
-      }, error => {
-        console.log(error);
-        
-      });
-    } else {
-      this.userService.wantsToLogin = true;
-      console.log("DataService@setBookmark: User isn't logged in.");
-    }
-    
-  }
-
-  async unsetBookmark(){
-    this.currentBookmark._userID=this.loggedInUser.userID;
-    this.currentBookmark._journeyID=this.currentJourney.journeyID;
-    let postData = this.currentBookmark;
-
-    if(this.userService.userLoggedIn(this.loggedInUser)){
-
-      //this.userService.setHttpHeaders(this.loggedInUser,this.loginHeaders);
-
-      await this.http.post(this.url+"/deleteBookmark", postData).toPromise().then((loadedData: Bookmark) => {
-        this.currentBookmark = loadedData;
-        console.log(this.currentBookmark);
-        console.log("Post funktioniert");
-      }, error => {
-        console.log(error);
-      });
-    } else {
-    this.userService.wantsToLogin = true;
-    console.log("DataService@unsetBookmark: User isn't logged in.");
-    }
-    
-  }
-
-  async bookmarkExists(){
-    this.currentBookmark._userID=this.loggedInUser.userID;
-    this.currentBookmark._journeyID=this.currentJourney.journeyID;
-    let postData = this.currentBookmark;
-
-    console.log(this.loggedInUser.userID);
-    console.log(this.currentJourney.journeyID);
-
-    let bookmarked: boolean = false;
-
-    await this.http.post(this.url+"/proveBookmarkExists", postData).toPromise().then((loadedData: Bookmark) => {
+  async loadOtherUserJourneys(user:User){
+    await this.http.post(this.url+"/userJourneys", user).subscribe((loadedData: Journeys) => {
       console.log(loadedData);
-      this.currentBookmark = loadedData;
-      console.log(this.currentBookmark);
+      this.otherUserJourneys.journeys=loadedData.journeys;
       console.log("Post funktioniert");
     }, error => {
       console.log(error);
     });
   }
 
-  loadBookmarkedPosts(){
+  async loadOneOtherUser(user:User){
+    await this.http.post(this.url+"/oneUser", user).subscribe((loadedData: User) => {
+      console.log(loadedData);
 
-    //VIELLEICHT NOCH ÜBERPRÜFEN DURCH SESSION-KEY
-
-    this.http.post(this.url+"/allBookmarkedJourneys",this.loggedInUser).toPromise().then( (loadedData: Journeys) => {
-      if(loadedData!=null){
-        console.log("Json file wurde geladen");
-        console.log(loadedData);
-        this.currentJourneys=loadedData;
-
-        console.log(this.currentJourneys);
-
-      }else{
-        this.loadTopPosts();
-        this.presentGeneralToast("We couldn`t find any results for your entered search. Please try again!",5000);
-        console.log("null per http geladen");
-        }
+      this.otherUser.userID=loadedData.userID;
+      this.otherUser.username=loadedData.username;
+      this.otherUser._profileImageID=loadedData._profileImageID;
+      this.otherUser.password=loadedData.password;
+      this.otherUser.emailAddress=loadedData.emailAddress;
+      this.otherUser.birthday=loadedData.birthday;
+      this.otherUser._countryOfResidenceID=loadedData._countryOfResidenceID;
+      this.otherUser.sessionID=loadedData.sessionID;
+      this.otherUser.explorerBadgeProgress=loadedData.explorerBadgeProgress;
+      this.otherUser.pioneerBadgeProgress=loadedData.pioneerBadgeProgress;
+      this.otherUser.email_verified_at=loadedData.email_verified_at;
+      this.otherUser.age=loadedData.age;
+      this.otherUser.countryName=loadedData.countryName;
+      this.otherUser.userImgSrc=loadedData.userImgSrc;
+      this.otherUser.pwClear=loadedData.pwClear;
+      
+      console.log("User geladen");
     }, error => {
       console.log(error);
-      console.info(error);
-      this.errorMsg = error;
-      this.presentGeneralToast("There was a problem with the connection to the database. Please try again later!",5000);
-    }
-    );
+    });
+  }
+
+  async goToUserPage(){
+    let user:User = {userID:null, username:null,_profileImageID:null, userImgSrc:null,password:null,emailAddress:null,birthday:null, _countryOfResidenceID:null,sessionID:null,explorerBadgeProgress:null,pioneerBadgeProgress:null,age:null,countryName:null,gamificationPoints:null, pwClear:null, email_verified_at:null};
+    user.userID = this.currentJourney._userID;
+    user.username = this.currentJourney.username;
+    await this.presentLoading();
+    await this.loadOneOtherUser(user);
+    await this.loadOtherUserJourneys(this.otherUser);
+    await this.dismissLoading();
   }
 
 
+  //Bookmarks
 
+  async setBookmark(){
+    if(this.userService.userLoggedIn(this.loggedInUser)){
+      await this.bookmarkService.setBookmark(this.loggedInUser, this.currentBookmark, this.currentJourney, this.url);      
+    } else {
+      this.userService.wantsToLogin = true;
+      console.log("DataService@setBookmark: User isn't logged in.");
+    }
+  }
+
+  async unsetBookmark(){
+    if(this.userService.userLoggedIn(this.loggedInUser)){
+      await this.bookmarkService.unsetBookmark(this.loggedInUser, this.currentBookmark, this.currentJourney, this.url);
+    } else {
+      this.userService.wantsToLogin = true;
+      console.log("DataService@unsetBookmark: User isn't logged in.");
+    }
+  }
+
+  async loadBookmarkedPosts(){
+
+    let loadWorked = await this.bookmarkService.loadBookmarkedPosts(this.currentJourneys, this.url, this.loggedInUser);
+
+    //VIELLEICHT NOCH ÜBERPRÜFEN DURCH SESSION-KEY
+    if(loadWorked == 0){
+      this.loadTopPosts();
+      this.presentGeneralToast("We couldn`t find any results for your entered search. Please try again!",5000);
+    }else if(loadWorked == 2){
+      this.presentGeneralToast("There was a problem with the connection to the database. Please try again later!",5000);
+    }
+  }
 
 
   //TOASTS
@@ -706,7 +736,7 @@ export class DataService {
   }
   
   async presentNotSavedToast() {
-      this.presentGeneralToast('There was a problem with saving the content to database. Please try again!',8000);
+      this.presentGeneralToast('There was a problem with saving the content to database. Please try again!',3000);
   }
   
   async presentValidPlaceToast() {
@@ -783,11 +813,17 @@ export class DataService {
 
   //Search
 
-  filterSearch(){
-    if(this.loggedInUser.explorerBadgeProgress < 100 && this.showedExplorerFulltext==false){
-      this.loggedInUser.explorerBadgeProgress+=34;
-      this.clickedSearch = true; 
-    }
+  async filterSearch(){
+    if(this.loggedInUser.explorerBadgeProgress==0 || this.loggedInUser.explorerBadgeProgress==22||this.loggedInUser.explorerBadgeProgress==26||this.loggedInUser.explorerBadgeProgress==48){
+      this.loggedInUser.explorerBadgeProgress += 27;
+       
+         //Update User
+         if(this.userService.updateUser(this.loggedInUser,this.url)!=null){
+          await this.userService.updateUser(this.loggedInUser,this.url);
+          }
+      }
+
+
     if(this.search.searchEntry == ''){
       this.loadTopPosts();
     } else {

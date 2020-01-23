@@ -152,4 +152,24 @@ class ReadController extends BaseController
         return $uc->checkIfExistsPerEmail($request);
     }
 
+    public function emailVerified(Request $request){
+        $uc =new _UserController;
+        return $uc->emailVerified($request);
+    }
+
+    public function loadMessages(Request $request){
+        $mc =new _MessageController;
+        return $mc->loadMessages($request);
+    }
+
+    public function loadUserChats(Request $request){
+        $mc =new _MessageController;
+        return $mc->loadUserChats($request);
+    }
+
+    public function loadLoggedInUser(Request $request){
+        $uc = new _UserController;
+        return $uc->loadLoggedInUser($request);
+    }
+
 }

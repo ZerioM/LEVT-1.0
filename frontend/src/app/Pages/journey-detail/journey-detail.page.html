@@ -6,9 +6,10 @@
   </ion-buttons>
   
   <ion-title class="tabHeading" no-padding>{{data.currentJourney.journeyName}}</ion-title>
-    <img *ngIf="data.currentJourney.userImgSrc != null && data.currentJourney.userImgSrc != ''" class="headerUserPic" src={{data.currentJourney.userImgSrc}} alt="User" />
-    <img *ngIf="data.currentJourney.userImgSrc == null || data.currentJourney.userImgSrc == ''" class="headerUserPic" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
-</ion-header>
+    <img *ngIf="data.currentJourney._userID != null && data.currentJourney.userImgSrc != null && data.currentJourney.userImgSrc != ''" class="headerUserPic" (click)="goToUserPage()" src={{data.currentJourney.userImgSrc}} alt="User" />
+    <img *ngIf="data.currentJourney._userID != null && data.currentJourney.userImgSrc == null || data.currentJourney.userImgSrc == ''" class="headerUserPic" (click)="goToUserPage()" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
+    <img *ngIf="data.currentJourney._userID == null" class="headerUserPic" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
+  </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 <ion-content>
 
@@ -176,7 +177,7 @@
       </div>
   </ion-list>
     
-    <ion-button expand="full" (click)="userService.register(data.loggedInUser,data.url)">Register</ion-button>
+    <ion-button expand="full" (click)="register()">Register</ion-button>
     <ion-label class="importantThings">
       * Fields marked with a <b class="importantStars">*</b> are mandatory.
     </ion-label>
@@ -186,24 +187,36 @@
 
   <!-- Gamification: Explorer/IF lower than 100 % progress -->
 
-  <div class="gamificationBg" *ngIf="data.clickedJourney && data.showedExplorerJourney==false && data.loggedInUser.explorerBadgeProgress<100">
+  <div class="gamificationBg" *ngIf="data.loggedInUser.explorerBadgeProgress==27|| data.loggedInUser.explorerBadgeProgress==21||data.loggedInUser.explorerBadgeProgress==25">
     <div class="login">
       <ion-title class="tabHeading" no-padding>New Badge available!</ion-title>
       <img class="oneBadge" src="/assets/images/badge_explorer.png">
-      <p>Yeah! By scrolling through our top 100 journeys, you find quite interesting informations! Look for the other search methods and try them out to reach the "Explorer" Badge! Your progress: ({{data.loggedInUser.explorerBadgeProgress}}%) </p>
-      <ion-progress-bar [value]="data.loggedInUser.explorerBadgeProgress/100"></ion-progress-bar>
+      <p>Great! You found one of our search methods. Look for the other ones and try them out to reach the "Explorer" Badge! Your progress: 33% </p>
+      <ion-progress-bar [value]=0.33></ion-progress-bar>
     <br>
     
     <ion-button  (click)="closeExplorerToast()" expand="full" >OK</ion-button>
   </div>
   </div>
 
-  <div class="gamificationBg" *ngIf="data.loggedInUser.explorerBadgeProgress>=100 && data.clickedJourney && data.showedExplorerJourney==false">
+  <div class="gamificationBg"*ngIf="data.loggedInUser.explorerBadgeProgress==49|| data.loggedInUser.explorerBadgeProgress==53||data.loggedInUser.explorerBadgeProgress==47">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge Progress!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Great! You found another search method. Look for the last one and try them out to reach the "Explorer" Badge! Your progress: 66% </p>
+      <ion-progress-bar [value]=0.66></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <div class="gamificationBg" *ngIf="data.loggedInUser.explorerBadgeProgress==75" >
     <div class="login">
       <ion-title class="tabHeading" no-padding>New Badge achieve!</ion-title>
       <img class="oneBadge" src="/assets/images/badge_explorer.png">
       <p>Congratulations! You tried out all of our search methods and maybe learned something new. Visit your profile to see your new achieved Badge! (100%) </p>
-      <ion-progress-bar [value]="data.loggedInUser.explorerBadgeProgress/100"></ion-progress-bar>
+      <ion-progress-bar [value]=1></ion-progress-bar>
     <br>
     
     <ion-button  (click)="closeExplorerToast()" expand="full" >OK</ion-button>

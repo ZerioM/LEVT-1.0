@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Message } from '../Interfaces/Message';
 import { Messages } from '../Interfaces/Messages';
 import { User } from '../Interfaces/User';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserMessages } from '../Interfaces/UserMessages';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +12,7 @@ import { User } from '../Interfaces/User';
 export class MessagesService {
 
 
-  constructor() { }
+  constructor(private http: HttpClient, private toastController: ToastController) { }
 
   public newMessage(fromUser: User,toUser: User){
     let message: Message;
@@ -26,17 +29,73 @@ export class MessagesService {
     return message;
   }
 
-  async saveMessage(url: string, message: Message){
+  async saveMessage(url: string, message: Message, loggedInUser: User){
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
+    console.log(message);
+
+    await this.http.post(url+"/saveMessage", message, loginHeaders).toPromise().then((loadedData: Message) => {
+      console.log(loadedData);
+      console.log(message);
+      if(loadedData != null){
+        console.log("Loaded Messages from DB");
+        message.messageID = loadedData.messageID;
+      } else {
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",5000);
+      }
+      
+    }, error => {
+      console.log(error);
+    });
 
     return message.messageID;
   }
 
-  async loadMessages(url: string, fromUser: User, toUser: User){
-    let messages: Messages;
+  async loadMessages(messages: Messages, url: string, loggedInUser: User, chatUser: User){
+    //let messages: Messages;
+    let postData={
+      "fromUserID": loggedInUser.userID,
+      "toUserID": chatUser.userID
+    }
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
+
     
-    //POST request here
+    await this.http.post(url+"/loadMessages", postData, loginHeaders).toPromise().then((loadedData: Messages) => {
+      console.log(loadedData);
+      if(loadedData != null){
+        console.log("Loaded Messages from DB");
+        messages.messages = loadedData.messages;
+      } else {
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",5000);
+      }
+      
+    }, error => {
+      console.log(error);
+    });
 
     return messages;
+  }
+
+  async loadUserChatted(currentUserMessages: UserMessages, loggedInUser: User, url: string){
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
+    await this.http.post(url+"/loadUserChats", loggedInUser, loginHeaders).toPromise().then((loadedData: UserMessages) => {
+      console.log(loadedData);
+      if(loadedData == null){
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",5000);
+      } else {
+      console.log("Loaded Messages from DB");
+      currentUserMessages.userMessages = loadedData.userMessages;
+      }
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  async presentGeneralToast(msg: string, dur: number){
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: dur
+    });
+    toast.present();
   }
 
 }

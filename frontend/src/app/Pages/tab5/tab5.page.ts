@@ -19,7 +19,10 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
 
   public image: Image;
 
-  constructor(private data: DataService, private userService: UserService, private messageService: MessagesService, private imageService: ImageService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
+  public showsExplorerInfo:boolean = false;
+  public showsPioneerInfo:boolean = false;
+
+  constructor(private data: DataService, private messagesService: MessagesService, private userService: UserService, private messageService: MessagesService, private imageService: ImageService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
 
     this.loadJSON();
    }
@@ -43,9 +46,8 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
   }
 
    //Daten laden
-   loadJSON(){
-
-    this.data.loadUserJourneys(this.data.loggedInUser);
+   async loadJSON(){
+    await this.data.loadUserJourneys(this.data.loggedInUser);
    // this.data.loadTopPosts();
     
 
@@ -72,20 +74,13 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
 
   }
 
-  chatWith(){
-  //this.data.chatUser = this.profileuser;
-  this.data.currentMessage = this.messageService.newMessage(this.data.loggedInUser,this.data.chatUser);
-  //this.router.navigateByUrl('/tabs/tab4');
-  //eigentlich navigieren zu Unterseite von tab4, wo sich chat befindet
-  }
-
   async selectProfileImage(){
 
     const webPath = await this.getPhoto(CameraSource.Prompt);
 
     this.data.presentLoading();
 
-    this.image = await this.imageService.uploadImage(webPath, null, this.data.url);
+    this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
     if(this.image.imageID != null){
       this.data.loggedInUser._profileImageID = this.image.imageID;
       this.data.loggedInUser.userImgSrc = this.image.imgSrc;
@@ -116,7 +111,7 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
     let isDeleted: boolean;
 
     this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url);
+    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
     if(isDeleted){
@@ -127,4 +122,45 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
     }
   }
 
+  async login(){
+    await this.data.presentLoading();
+    await this.userService.login(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
+    await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
+    await this.data.dismissLoading();
+  }
+
+  async register(){
+    await this.data.presentLoading();
+    await this.userService.register(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
+    await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
+    await this.data.dismissLoading();
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+      this.data.loadUser();
+      this.data.loadUserJourneys(this.data.loggedInUser);
+    }, 500);
+  }
+
+  showPioneerInfo(){
+    this.showsPioneerInfo = true;
+  }
+
+  closePioneerInfo(){
+    this.showsPioneerInfo = false;
+  }
+
+  showExplorerInfo(){
+    this.showsExplorerInfo = true;
+  }
+
+  closeExplorerInfo(){
+    this.showsExplorerInfo = false;
+  }
 }

@@ -59,9 +59,8 @@
 
 <ion-item no-padding lines="none" no-margin>
     <div id="journeyYear" lines="none">
-      <ion-label><b class="importantThings">Year</b><b class="importantStars">*</b></ion-label> 
-    <ion-datetime [(ngModel)]="data.newJourney.year" displayFormat="YYYY" value="Year" placholder="Year"
-       no-padding ></ion-datetime>
+      <ion-label margin-top="10px" *ngIf="data.newJourney.year == null"><b class="importantThings">Year</b><b class="importantStars">*</b></ion-label> 
+    <ion-datetime [(ngModel)]="data.newJourney.year" displayFormat="YYYY" no-padding ></ion-datetime>
     </div>
   </ion-item>
 
@@ -244,11 +243,16 @@
     Delete Journey
   </ion-button>
 
-
+    <!-- LOGIN & REGISTER -->
+    <!-- LOGIN -->
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false">
     <div class="login">
-      <ion-title class="tabHeading" no-padding>Login</ion-title>
-    <ion-list>
+      
+      <div class="loginRegisterHeader">
+        <ion-title class="tabHeading" no-padding> Login</ion-title>
+      </div> <!-- HEADER: Login -->
+    
+      <ion-list>
       <ion-col no-padding>
         <ion-label><b class="importantThings">Username</b></ion-label>
       <ion-input class="inputField" type="text" placeholder="username"
@@ -261,7 +265,7 @@
          no-margin maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
       </ion-col>
     
-      <ion-button color="warning" expand="full" (click)="userService.login(data.loggedInUser, data.currentBookmark ,data.url)">Login</ion-button>
+      <ion-button color="warning" expand="full" (click)="login()">Login</ion-button>
       <ion-button expand="full" (click)="userService.goToResetPw()">Forgot Password</ion-button>
     </ion-list>
     <ion-button expand="full" (click)="userService.goToRegistration()">Register</ion-button>
@@ -269,8 +273,6 @@
   </div>
   </div>
 
-    <!-- LOGIN & REGISTER -->
-    <!-- LOGIN -->
   <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToResetPw == true">
     <div class="login">
       <ion-buttons>
@@ -295,7 +297,10 @@
   <!-- REGISTER -->
   <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister">
     <div class="register">
-      <ion-title class="tabHeading" no-padding>Register</ion-title>
+      
+      <div class="loginRegisterHeader">
+        <ion-title class="tabHeading" no-padding> Register</ion-title>
+      </div> <!-- HEADER: Register -->
 
     <ion-list>
       <ion-col no-padding>
@@ -363,13 +368,13 @@
       </ion-col>
     
       <div class="birthdayRegister" lines="none">
-        <ion-label><b class="importantThings">Birthday</b><!--<b class="importantStars">*</b>--></ion-label>
+        <ion-label><b class="importantThings">Birthday</b></ion-label>
         <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
            no-padding ></ion-datetime>
       </div>
   </ion-list>
     
-    <ion-button expand="full" (click)="userService.register(data.loggedInUser,data.url)">Register</ion-button>
+    <ion-button expand="full" (click)="register()">Register</ion-button>
     <ion-label class="importantThings">
       * Fields marked with a <b class="importantStars">*</b> are mandatory.
     </ion-label>
@@ -380,7 +385,7 @@
 
   <!-- Gamification -->
 
-  <div class="gamificationBg" *ngIf="data.showedPioneerStep1==false && data.loggedInUser.pioneerBadgeProgress==25">
+  <div class="gamificationBg" *ngIf="data.loggedInUser.pioneerBadgeProgress==25">
     <div class="login">
     
       <ion-title class="tabHeading" no-padding>Your Adventure starts!</ion-title>
