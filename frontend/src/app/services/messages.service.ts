@@ -14,7 +14,8 @@ export class MessagesService {
 
   constructor(private http: HttpClient, private toastController: ToastController) { }
 
-  public newMessage(message: Message, fromUser: User,toUser: User){
+  public newMessage(fromUser: User,toUser: User){
+    let message: Message;
 
     message = {
       messageID: null,
@@ -30,9 +31,11 @@ export class MessagesService {
 
   async saveMessage(url: string, message: Message, loggedInUser: User){
     const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
+    console.log(message);
 
     await this.http.post(url+"/saveMessage", message, loginHeaders).toPromise().then((loadedData: Message) => {
       console.log(loadedData);
+      console.log(message);
       if(loadedData != null){
         console.log("Loaded Messages from DB");
         message.messageID = loadedData.messageID;

@@ -24,7 +24,7 @@ export class ChatPagePage implements OnInit, AfterViewChecked{
     if(this.data.chatUser.userID == null){
       this.router.navigateByUrl("/tabs/tab4");
     }
-    await this.messagesService.newMessage(this.data.currentMessage, this.data.loggedInUser,this.data.chatUser);
+    this.data.currentMessage = await this.messagesService.newMessage(this.data.loggedInUser,this.data.chatUser);
   }
 
   async ngAfterViewChecked(){
@@ -49,7 +49,7 @@ export class ChatPagePage implements OnInit, AfterViewChecked{
     await this.messagesService.saveMessage(this.data.url, this.data.currentMessage, this.data.loggedInUser);
     if(this.data.currentMessage.messageID != null){
       this.data.currentMessages.messages.push(this.data.currentMessage);
-      this.messagesService.newMessage(this.data.currentMessage, this.data.loggedInUser,this.data.chatUser);
+      this.data.currentMessage = this.messagesService.newMessage(this.data.loggedInUser,this.data.chatUser);
     } else {
       this.data.presentNotSavedToast();
     }

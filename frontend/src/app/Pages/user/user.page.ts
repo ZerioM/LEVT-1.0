@@ -36,7 +36,7 @@ export class UserPage{
 
  async chatWith(){
   this.data.chatUser = this.data.otherUser;
-  this.messagesService.newMessage(this.data.currentMessage, this.data.loggedInUser,this.data.chatUser);
+  this.data.currentMessage = this.messagesService.newMessage(this.data.loggedInUser,this.data.chatUser);
   await this.data.presentLoading();
   await this.messagesService.loadMessages(this.data.currentMessages,this.data.url, this.data.loggedInUser,this.data.chatUser);
   await this.data.dismissLoading();
