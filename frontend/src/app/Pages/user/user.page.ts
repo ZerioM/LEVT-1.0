@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, AfterViewChecked } from '@angular/cor
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { MessagesService } from 'src/app/services/messages.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { MessagesService } from 'src/app/services/messages.service';
 })
 export class UserPage{
 
-  constructor(private data: DataService, private messagesService: MessagesService, private router: Router) {
+  constructor(private data: DataService, private userService: UserService, private messagesService: MessagesService, private router: Router) {
 
     this.loadJSON();
    }

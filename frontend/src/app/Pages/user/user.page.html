@@ -9,7 +9,7 @@
   <ion-title class="tabHeading" no-padding>{{data.otherUser.username}}</ion-title>
   <ion-buttons slot="end" no-padding>
     <ion-button icon-only no-padding (click)="chatWith()">
-      <img id="chatRequestIcon" src="/assets/images/icon_chatanfrage.svg">
+      <img *ngIf="userService.userLoggedIn(data.loggedInUser)" id="chatRequestIcon" src="/assets/images/icon_chatanfrage.svg">
     </ion-button>
   </ion-buttons>
 </ion-header>
