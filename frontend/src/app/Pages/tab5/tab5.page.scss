@@ -1,7 +1,3 @@
-.sc-ion-buttons-md-s ion-button {
-  --padding-start: 20px;
-  --padding-end: 20px;
-} // buttons x & <
 #profilUserpicInformations{
   width: 100%;
   margin-bottom: 10px;
@@ -13,12 +9,12 @@
   } // Profilbild auf Profil
   #profilAgeResidence{
     margin-left: 5px;
-    margin-top: -30px;
+    //margin-top: -30px;
     top:0;
   }// Alter & Wohnort am Profil
   #badges{
     top:0;
-    margin-top: -25px;
+    //margin-top: -25px;
     margin-left: 20px;
   } // Alle Abzeichen & Punktanzeige
   .oneBadge{

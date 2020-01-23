@@ -186,6 +186,11 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
     }
   }
 
+  goToDataPrivacy(){
+    console.log("Navigate to DataPrivacyPage...");
+    this.router.navigateByUrl("/tabs/tab1/settings/data-privacy-page");
+  }
+
   // async toMySQLDate(){
   //   await this.delay(1000);
   //   this.data.loggedInUser.birthday = this.jsBirthday.toString().slice(0,19).replace('T',' ');
