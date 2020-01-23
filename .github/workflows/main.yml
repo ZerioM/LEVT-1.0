@@ -27,6 +27,6 @@ jobs:
       - run: ln -nfs $STORAGE_DIR /var/www/levt/releases/$GITHUB_SHA/storage
       - run: ln -nfs $ENV_FILE /var/www/levt/releases/$GITHUB_SHA/.env
       - run: ln -nfs /var/www/levt/releases/$GITHUB_SHA $CURRENT_DIR
-      - run: composer install --prefer-dist --no-scripts -q -o -d=$BACKEND_DIR
+      - run: composer install --prefer-dist --no-scripts -q -o -d $BACKEND_DIR
       - run: php $BACKEND_DIR/artisan migrate
       - run: php $BACKEND_DIR/artisan storage:link
