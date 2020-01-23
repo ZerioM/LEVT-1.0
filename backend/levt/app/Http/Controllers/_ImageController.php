@@ -88,7 +88,7 @@ class _ImageController extends BaseController
         // }
 
         $image = Image::find($requestArray['imageID']);
-        
+
         if($image != null){
             $imageArray = json_decode($image,true);
             $src = $imageArray['src'];
@@ -104,7 +104,7 @@ class _ImageController extends BaseController
             return json_encode($outputArray,JSON_PRETTY_PRINT);
         }
 
-        
+
     }
 
 
@@ -112,7 +112,7 @@ class _ImageController extends BaseController
 
         $userController = new _UserController;
         $requestArray = $request->all();
-     
+
 
         $mytime = Carbon::now();
         $mytime->toDateTimeString();
@@ -120,9 +120,9 @@ class _ImageController extends BaseController
         $month = substr($mytime, 5, -12);
         $day = substr($mytime, 8, -9);
         $hour = substr($mytime, 11, -6);
-        Storage::makeDirectory('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
-        $path = $request->file('picUpload')->store('images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
-        
+        Storage::makeDirectory('public/images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
+        $path = $request->file('picUpload')->store('public/images/'.$year.'/'.$month.'/'.$day.'/'.$hour);
+
         $array = (json_decode($requestArray['data'],true));
 
         $userID = $userController->selectIDPerPostID($array['_postID']);
@@ -134,7 +134,7 @@ class _ImageController extends BaseController
 
 
         $insertImagesArray = [
-            'src' => "https://flock-1427.students.fhstp.ac.at/backend/storage/app/".$path,
+            'src' =>  $request->getSchemeAndHttpHost().Storage::url($path),
             'coordinateX' => $array['coordinateX'],
             'coordinateY' => $array['coordinateY'],
             'date' => $array['date'],
