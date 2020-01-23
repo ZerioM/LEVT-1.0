@@ -31,11 +31,18 @@ export class MessagesService {
 
   async saveMessage(url: string, message: Message, loggedInUser: User){
     const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
+    console.log(message);
 
     await this.http.post(url+"/saveMessage", message, loginHeaders).toPromise().then((loadedData: Message) => {
       console.log(loadedData);
-      console.log("Loaded Messages from DB");
-      message.messageID = loadedData.messageID;
+      console.log(message);
+      if(loadedData != null){
+        console.log("Loaded Messages from DB");
+        message.messageID = loadedData.messageID;
+      } else {
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",5000);
+      }
+      
     }, error => {
       console.log(error);
     });
@@ -54,8 +61,13 @@ export class MessagesService {
     
     await this.http.post(url+"/loadMessages", postData, loginHeaders).toPromise().then((loadedData: Messages) => {
       console.log(loadedData);
-      console.log("Loaded Messages from DB");
-      messages.messages = loadedData.messages;
+      if(loadedData != null){
+        console.log("Loaded Messages from DB");
+        messages.messages = loadedData.messages;
+      } else {
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",5000);
+      }
+      
     }, error => {
       console.log(error);
     });

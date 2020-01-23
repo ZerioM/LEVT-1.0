@@ -20,11 +20,11 @@ export class ChatPagePage implements OnInit, AfterViewChecked{
 
   constructor(private data: DataService, private messagesService: MessagesService,navCtrl: NavController, private router: Router,private alertController: AlertController, private loadingController: LoadingController) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     if(this.data.chatUser.userID == null){
       this.router.navigateByUrl("/tabs/tab4");
     }
-    this.data.currentMessage = this.messagesService.newMessage(this.data.loggedInUser,this.data.chatUser);
+    this.data.currentMessage = await this.messagesService.newMessage(this.data.loggedInUser,this.data.chatUser);
   }
 
   async ngAfterViewChecked(){
