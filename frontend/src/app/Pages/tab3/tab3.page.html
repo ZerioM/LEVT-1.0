@@ -4,8 +4,8 @@
 </ion-header>
 <hr> <!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
-<ion-content class="tabsContent">
-  <div #map class="map" (click)="clickedMap()"></div>
+<ion-content class="tabsContent" (click)="clickedMap()">
+  <div #map class="map" ></div>
 
   <!-- Gamification: Explorer -->
   <div class="gamificationBg" *ngIf="data.loggedInUser.explorerBadgeProgress==27|| data.loggedInUser.explorerBadgeProgress==21||data.loggedInUser.explorerBadgeProgress==25">

@@ -71,10 +71,6 @@ export class Tab3Page implements AfterViewInit, AfterViewChecked {
             infoWindow.open(this.map, marker);
           });
           google.maps.event.addListener(marker, 'mousedown', () => {
-            console.log("mouse down: ");
-            infoWindow.open(this.map, marker);
-          });
-          google.maps.event.addListener(marker, 'dblclick', () => {
             this.routeToJourneyDetail(place);
           });
 
@@ -91,10 +87,6 @@ export class Tab3Page implements AfterViewInit, AfterViewChecked {
             infoWindow.open(this.map, marker);
           });
           google.maps.event.addListener(marker, 'mousedown', () => {
-            console.log("mouse down: ");
-            infoWindow.open(this.map, marker);
-          });
-          google.maps.event.addListener(marker, 'dblclick', () => {
             this.routeToJourneyDetail(place);
           });
         }
