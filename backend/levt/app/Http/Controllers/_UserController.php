@@ -335,9 +335,9 @@ class _UserController extends BaseController
         if (hash::check($oldPassword,$user['password'])){
             $user->password = Hash::make($newPassword);
             $user->save();
-            return $this->selectOne($user->username);
+            return '{"free" : true}';
         } else {
-            return '{"oldPassword" : false}';
+            return '{"free" : false}';
         }
     }
 

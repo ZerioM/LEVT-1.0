@@ -1,9 +1,89 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>editProfile</ion-title>
-  </ion-toolbar>
+<ion-header class="tabHeader">
+  <ion-buttons>
+    <ion-button icon-only (click)="backToProfileOrHomepage()">
+      <ion-icon class="back" name="ios-arrow-back"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  
+  <ion-title class="tabHeading" no-padding> Edit your Profile</ion-title>
+  <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
+<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
 <ion-content>
+
+  <ion-item lines="none" no-padding>
+    <ion-label ><b class="importantThings" position="floating">Upload a new Profilepicture</b></ion-label>
+  </ion-item>
+  <ion-item no-padding lines="none">
+    <div *ngIf="data.loggedInUser.userImgSrc != '' && data.loggedInUser.userImgSrc != null" id="placeThumbnails" class="gridContainer">
+      <div class="pictureFrame">
+        <div class="frameLeft"></div>
+          <img class="journeythumbnail" alt="" src="{{data.loggedInUser.userImgSrc}}" alt="Journeycover" />
+          <ion-button class="trash" icon-only (click)="deleteImage()">
+            <ion-icon name="trash"></ion-icon>
+          </ion-button>
+          <div class="frameRight"></div>
+        </div>
+      </div>
+      <div *ngIf="data.loggedInUser.userImgSrc == '' || data.loggedInUser.userImgSrc == null" class="grid-item" (click)="selectProfileImage()">
+        <ion-icon name="ios-add" class="addPlace">
+        </ion-icon>
+      </div>
+  </ion-item>
+
+  <ion-col no-padding>
+    <ion-label><b class="importantThings">Change your Email address</b></ion-label>
+    <ion-input id="journeyName" [(ngModel)]="userService.enteredEmailAddress" type="text" placeholder="New Email Address"
+     no-margin (focusout)="userService.checkEmailAvailableUserUpdate(data.loggedInUser, data.url)"></ion-input>
+    </ion-col>
+
+    <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
+      <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label><br>
+    </ion-col>
+    <ion-col no-padding *ngIf="userService.emailAvailable == false">
+      <ion-label><b class="importantStars">This email is already assigned. Please use another E-Mail address!</b></ion-label><br>
+    </ion-col>
+
+  <ion-col no-padding>
+    <ion-label><b class="importantThings">Change your Username</b></ion-label>
+    <ion-input id="journeyName" [(ngModel)]="userService.enteredUsername" type="text" placeholder="New Username"
+     no-margin (focusout)="userService.checkUsernameUpdateUser(data.loggedInUser,data.url)"></ion-input>
+    </ion-col>
+
+    <ion-col no-padding no-margin *ngIf="userService.usernameAvailable == false">
+      <b class="importantStars">This username is already assigned. Please pick another username!</b><br>
+    </ion-col>
+  
+
+  <ion-col no-padding>
+    <ion-label><b class="importantThings">Change your Birthday</b></ion-label>
+    <ion-input id="journeyName" [(ngModel)]="data.loggedInUser.birthday" type="text" placeholder="New Birthday"
+     no-margin></ion-input> 
+  </ion-col> 
+
+  <ion-button color="primary" expand="full" (click)="submitUpdateUser()">
+    Update User Information
+  </ion-button>
+
+  <ion-col no-padding>
+    <ion-label><b class="importantThings">Change your Password</b></ion-label>
+    <ion-input id="journeyName" [(ngModel)]="data.loggedInUser.pwClear" type="text" placeholder="Old Password"
+     no-margin></ion-input> 
+  </ion-col> 
+
+  <ion-col no-padding>
+    <ion-input id="journeyName" [(ngModel)]="data.loggedInUser.password" type="text" placeholder="New Password"
+    no-margin></ion-input> 
+  </ion-col> 
+  <ion-col no-padding>
+    <ion-input id="journeyName" [(ngModel)]="userService.secondPw" (focusout)="userService.checkPasswordUpdateUser(data.loggedInUser)" type="text" placeholder="New Password"
+    no-margin></ion-input> 
+  </ion-col> 
+  <ion-col no-padding *ngIf="userService.passwordIsTheSame == false"><b class="importantStars">The passwords are not identical. Please check your entry!</b> <br></ion-col>
+
+  <ion-button color="primary" expand="full" (click)="submitUpdatePassword()">
+    Update Password
+  </ion-button>
 
 </ion-content>

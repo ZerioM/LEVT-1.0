@@ -24,6 +24,9 @@
     <ion-item no-padding lines="none">
       <ion-button>Terms of use</ion-button>
     </ion-item>
+    <ion-item *ngIf="userService.userLoggedIn(data.loggedInUser)" no-padding lines="none">
+      <ion-button (click)="editProfile()">Edit Profile</ion-button>
+    </ion-item>
   </ion-list>
 
 

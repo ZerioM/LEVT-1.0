@@ -78,9 +78,9 @@ class _ImageController extends BaseController
 
         $requestArray = $request->all();
 
-        $userController = new _UserController;
+        //$userController = new _UserController;
 
-        $userID = $userController->selectIDPerPostID($requestArray['_postID']);
+        //$userID = $userController->selectIDPerPostID($requestArray['_postID']);
 
         // $validateUser = $userController->validateUser($request,$userID);
         // if($validateUser !== true){
