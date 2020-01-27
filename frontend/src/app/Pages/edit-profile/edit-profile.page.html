@@ -5,15 +5,15 @@
     </ion-button>
   </ion-buttons>
   
-  <ion-title class="tabHeading" no-padding> Edit your Profile</ion-title>
+  <ion-title class="tabHeading" no-padding> Edit your profile</ion-title>
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
 </ion-header>
 <hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
-<ion-content>
+<ion-content class="tabsContent">
 
   <ion-item lines="none" no-padding>
-    <ion-label ><b class="importantThings" position="floating">Upload a new Profilepicture</b></ion-label>
+    <ion-label ><b class="importantThings" position="floating">Upload a new profile picture</b></ion-label>
   </ion-item>
   <ion-item no-padding lines="none">
     <div *ngIf="data.loggedInUser.userImgSrc != '' && data.loggedInUser.userImgSrc != null" id="placeThumbnails" class="gridContainer">
@@ -27,7 +27,7 @@
         </div>
       </div>
       <div *ngIf="data.loggedInUser.userImgSrc == '' || data.loggedInUser.userImgSrc == null" class="grid-item" (click)="selectProfileImage()">
-        <ion-icon name="ios-add" class="addPlace">
+        <ion-icon name="ios-add" class="addPhoto">
         </ion-icon>
       </div>
   </ion-item>
@@ -35,7 +35,7 @@
   <ion-col no-padding>
     <ion-label><b class="importantThings">Change your Email address</b></ion-label>
     <ion-input id="journeyName" [(ngModel)]="userService.enteredEmailAddress" type="text" placeholder="New Email Address"
-     no-margin (focusout)="userService.checkEmailAvailableUserUpdate(data.loggedInUser, data.url)"></ion-input>
+     no-margin no-padding (focusout)="userService.checkEmailAvailableUserUpdate(data.loggedInUser, data.url)"></ion-input>
     </ion-col>
 
     <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
@@ -46,9 +46,9 @@
     </ion-col>
 
   <ion-col no-padding>
-    <ion-label><b class="importantThings">Change your Username</b></ion-label>
+    <ion-label><b class="importantThings">Change your username</b></ion-label>
     <ion-input id="journeyName" [(ngModel)]="userService.enteredUsername" type="text" placeholder="New Username"
-     no-margin (focusout)="userService.checkUsernameUpdateUser(data.loggedInUser,data.url)"></ion-input>
+     no-margin no-padding (focusout)="userService.checkUsernameUpdateUser(data.loggedInUser,data.url)"></ion-input>
     </ion-col>
 
     <ion-col no-padding no-margin *ngIf="userService.usernameAvailable == false">
@@ -57,9 +57,9 @@
   
 
   <ion-col no-padding>
-    <ion-label><b class="importantThings">Change your Birthday</b></ion-label>
+    <ion-label><b class="importantThings">Change your birthday</b></ion-label>
     <ion-input id="journeyName" [(ngModel)]="data.loggedInUser.birthday" type="text" placeholder="New Birthday"
-     no-margin></ion-input> 
+     no-margin no-padding></ion-input> 
   </ion-col> 
 
   <ion-button color="primary" expand="full" (click)="submitUpdateUser()">
@@ -67,18 +67,18 @@
   </ion-button>
 
   <ion-col no-padding>
-    <ion-label><b class="importantThings">Change your Password</b></ion-label>
+    <ion-label><b class="importantThings">Change your password</b></ion-label>
     <ion-input id="journeyName" [(ngModel)]="data.loggedInUser.pwClear" type="text" placeholder="Old Password"
-     no-margin></ion-input> 
+     no-margin no-padding></ion-input> 
   </ion-col> 
 
   <ion-col no-padding>
     <ion-input id="journeyName" [(ngModel)]="data.loggedInUser.password" type="text" placeholder="New Password"
-    no-margin></ion-input> 
+    no-margin no-padding></ion-input> 
   </ion-col> 
   <ion-col no-padding>
     <ion-input id="journeyName" [(ngModel)]="userService.secondPw" (focusout)="userService.checkPasswordUpdateUser(data.loggedInUser)" type="text" placeholder="New Password"
-    no-margin></ion-input> 
+    no-margin no-padding></ion-input> 
   </ion-col> 
   <ion-col no-padding *ngIf="userService.passwordIsTheSame == false"><b class="importantStars">The passwords are not identical. Please check your entry!</b> <br></ion-col>
 

@@ -196,6 +196,17 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
   object-fit: cover;
 } // User Pic im Header auf allen Seiten
 
+.grid-item .addPhoto {
+  width: 100px;
+  height: 100px;
+  background-color: #7ba9a9bf;
+  vertical-align: middle;
+  text-align: center;
+  color: #182f30;
+  font-size: 70pt;
+  font-weight: bolder;
+}// Add a Photo + Button
+
 
 
 /* -------- Reisen mit Titelbild, Ecken, Bildinformationen ----------*/
