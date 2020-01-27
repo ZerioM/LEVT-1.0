@@ -57,11 +57,11 @@
     </ion-radio-group>
   </ion-item>
 
-  <ion-col *ngIf="data.newJourney.year != null"><ion-label><b>Year</b><b class="importantStars">*</b></ion-label></ion-col>
+  <ion-col ><ion-label><b>Year</b><b class="importantStars">*</b></ion-label></ion-col>
 <ion-item no-padding lines="none" no-margin>
     <div id="journeyYear" lines="none">
-      <ion-label margin-top="10px" *ngIf="data.newJourney.year == null"><b class="importantThings">Year</b><b class="importantStars">*</b></ion-label> 
-    <ion-datetime [(ngModel)]="data.newJourney.year" displayFormat="YYYY" no-padding ></ion-datetime>
+      <!-- <ion-label align-items-start margin-top="10px" *ngIf="data.newJourney.year == null"><b class="importantThings">Year</b><b class="importantStars">*</b></ion-label>  -->
+    <ion-datetime [(ngModel)]="data.newJourney.year" displayFormat="YYYY" no-padding placeholder="Year" ></ion-datetime>
     </div>
   </ion-item>
 

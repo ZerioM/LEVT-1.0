@@ -77,6 +77,10 @@ export class NewJourneyService {
         } else {
           this.updateJourneyWorks = true;
           journey.journeyID = loadedData.journeyID;
+          journey.userImgSrc = loadedData.userImgSrc;
+          journey._userID = loadedData._userID;
+          journey.username = loadedData.username;
+          journey.thumbnailSrc = loadedData.thumbnailSrc;
           console.log("New Journey in DB inserted.");
           console.log("Journey after insert:");
           console.log(journey);
@@ -94,11 +98,15 @@ export class NewJourneyService {
           this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
           this.updateJourneyWorks = false;
         } else {
-        console.log("Journey with ID: ");
-        console.log(journey.journeyID);
-        console.log(" in DB updated.");
-        this.updateJourneyWorks = true;
-        journey.journeyID = loadedData.journeyID;
+          console.log("Journey with ID: ");
+          console.log(journey.journeyID);
+          console.log(" in DB updated.");
+          this.updateJourneyWorks = true;
+          journey.journeyID = loadedData.journeyID;
+          journey.userImgSrc = loadedData.userImgSrc;
+          journey._userID = loadedData._userID;
+          journey.username = loadedData.username;
+          journey.thumbnailSrc = loadedData.thumbnailSrc;
         }
       }, error => {
         this.updateJourneyWorks = false;

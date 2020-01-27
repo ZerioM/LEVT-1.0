@@ -350,6 +350,8 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     await this.data.dismissLoading();
 
     if (this.data.newJourney.journeyID != null) {
+      this.data.currentJourneys.journeys.unshift(this.data.newJourney);     
+      console.log(this.data.currentJourneys);
       this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
       if(this.data.loggedInUser.pioneerBadgeProgress==76){
         this.data.loggedInUser.pioneerBadgeProgress=100;
@@ -358,7 +360,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
         await this.userService.updateUser(this.data.loggedInUser,this.data.url);
         }
       }
-      this.data.loadTopPosts();
+      //this.data.loadTopPosts();
       this.data.loadUserJourneys(this.data.loggedInUser);
       this.router.navigateByUrl('/tabs/tab1');
     } else {
