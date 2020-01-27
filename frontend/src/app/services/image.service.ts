@@ -100,8 +100,9 @@ export class ImageService {
   async deleteImageByID(imageID: number, url: string, loggedInUser: User){
     let isDeleted;
     const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
+    let postData = {'imageID': imageID};
 
-    await this.http.post(url+"/deleteImage", imageID, loginHeaders).toPromise().then((loadedData: boolean) => {
+    await this.http.post(url+"/deleteImage", postData, loginHeaders).toPromise().then((loadedData: boolean) => {
       console.log(loadedData);
       if(loadedData == null){
         this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
