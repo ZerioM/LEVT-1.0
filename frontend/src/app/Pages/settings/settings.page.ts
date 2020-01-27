@@ -186,6 +186,10 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
     }
   }
 
+  editProfile(){
+    this.router.navigateByUrl('/tabs/tab5/edit-profile');
+  }
+
   // async toMySQLDate(){
   //   await this.delay(1000);
   //   this.data.loggedInUser.birthday = this.jsBirthday.toString().slice(0,19).replace('T',' ');

@@ -160,7 +160,7 @@ export class DataService {
 
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
-  public url: string = this.flock;
+  public url: string = this.homestead;
   
 
   constructor(private storage: Storage, private messagesService: MessagesService, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
@@ -214,6 +214,8 @@ export class DataService {
         this.loggedInUser.countryName = someData.countryName;
         this.loggedInUser.userImgSrc = someData.userImgSrc;
         this.loggedInUser.pwClear = someData.pwClear;
+        this.userService.enteredUsername = this.loggedInUser.username;
+        this.userService.enteredEmailAddress = this.loggedInUser.emailAddress;
 
         console.log("Hehe, Daten geladen!");
         console.log(JSON.stringify(this.loggedInUser));
