@@ -33,8 +33,8 @@
   </ion-item>
 
   <ion-col no-padding>
-    <ion-label><b class="importantThings">Change your Email address</b></ion-label>
-    <ion-input id="journeyName" [(ngModel)]="userService.enteredEmailAddress" type="text" placeholder="New Email Address"
+    <ion-label><b class="importantThings">Change your email address</b></ion-label>
+    <ion-input class="inputField" [(ngModel)]="userService.enteredEmailAddress" type="text" placeholder="New Email Address"
      no-margin no-padding (focusout)="userService.checkEmailAvailableUserUpdate(data.loggedInUser, data.url)"></ion-input>
     </ion-col>
 
@@ -47,7 +47,7 @@
 
   <ion-col no-padding>
     <ion-label><b class="importantThings">Change your username</b></ion-label>
-    <ion-input id="journeyName" [(ngModel)]="userService.enteredUsername" type="text" placeholder="New Username"
+    <ion-input class="inputField" [(ngModel)]="userService.enteredUsername" type="text" placeholder="New Username"
      no-margin no-padding (focusout)="userService.checkUsernameUpdateUser(data.loggedInUser,data.url)"></ion-input>
     </ion-col>
 
@@ -58,7 +58,7 @@
 
   <ion-col no-padding>
     <ion-label><b class="importantThings">Change your birthday</b></ion-label>
-    <ion-input id="journeyName" [(ngModel)]="data.loggedInUser.birthday" type="text" placeholder="New Birthday"
+    <ion-input class="inputField" [(ngModel)]="data.loggedInUser.birthday" type="text" placeholder="New Birthday"
      no-margin no-padding></ion-input> 
   </ion-col> 
 
@@ -68,16 +68,16 @@
 
   <ion-col no-padding>
     <ion-label><b class="importantThings">Change your password</b></ion-label>
-    <ion-input id="journeyName" [(ngModel)]="data.loggedInUser.pwClear" type="text" placeholder="Old Password"
+    <ion-input class="inputField" [(ngModel)]="data.loggedInUser.pwClear" type="text" placeholder="Old Password"
      no-margin no-padding></ion-input> 
   </ion-col> 
 
   <ion-col no-padding>
-    <ion-input id="journeyName" [(ngModel)]="data.loggedInUser.password" type="text" placeholder="New Password"
+    <ion-input class="inputField" [(ngModel)]="data.loggedInUser.password" type="text" placeholder="New Password"
     no-margin no-padding></ion-input> 
   </ion-col> 
   <ion-col no-padding>
-    <ion-input id="journeyName" [(ngModel)]="userService.secondPw" (focusout)="userService.checkPasswordUpdateUser(data.loggedInUser)" type="text" placeholder="New Password"
+    <ion-input class="inputField" [(ngModel)]="userService.secondPw" (focusout)="userService.checkPasswordUpdateUser(data.loggedInUser)" type="text" placeholder="New Password"
     no-margin no-padding></ion-input> 
   </ion-col> 
   <ion-col no-padding *ngIf="userService.passwordIsTheSame == false"><b class="importantStars">The passwords are not identical. Please check your entry!</b> <br></ion-col>
