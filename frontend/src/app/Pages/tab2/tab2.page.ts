@@ -24,12 +24,12 @@ import { MessagesService } from 'src/app/services/messages.service';
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
-export class Tab2Page implements AfterViewChecked, AfterViewInit{
+export class Tab2Page implements AfterViewChecked, AfterViewInit {
 
   //Gamification
-  public enteredAJourneyName:boolean = false;
-  public enteredAmountofDays:boolean = false;
-  public enteredJourneyDetails:boolean = false;
+  public enteredAJourneyName: boolean = false;
+  public enteredAmountofDays: boolean = false;
+  public enteredJourneyDetails: boolean = false;
   public enteredTotalCosts = false;
   public enteredLeisureCosts = false;
 
@@ -47,28 +47,28 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
 
 
 
-  constructor(private journeyService: NewJourneyService, private messagesService: MessagesService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController, private userService:UserService) {
+  constructor(private journeyService: NewJourneyService, private messagesService: MessagesService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController, private userService: UserService) {
 
     this.loadJSON();
 
   }
 
   ngAfterViewInit() {
-    if(this.userService.userLoggedIn(this.data.loggedInUser)){
+    if (this.userService.userLoggedIn(this.data.loggedInUser)) {
       console.log("View inited.");
-      this.userService.wantsToLogin=true;
+      this.userService.wantsToLogin = true;
       this.userService.loginAtTab2OrTab5 = true;
     }
-   
+
   }
 
   ngAfterViewChecked() {
 
-    if(this.userService.userRecentlyLoggedInCreateNewJourney){
+    if (this.userService.userRecentlyLoggedInCreateNewJourney) {
       this.userService.userRecentlyLoggedInCreateNewJourney = false;
       this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
     }
-    
+
   }
 
   //Daten laden
@@ -82,14 +82,14 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     this.data.loadSeasons();
   }
 
-  async selectThumbnail(){
+  async selectThumbnail() {
 
     const webPath = await this.getPhoto(CameraSource.Prompt);
 
     this.data.presentLoading();
 
     this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
-    if(this.image.imageID != null){
+    if (this.image.imageID != null) {
       this.data.newJourney._thumbnailID = this.image.imageID;
       this.data.newJourney.thumbnailSrc = this.image.imgSrc;
     } else {
@@ -97,8 +97,8 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     }
 
     this.data.dismissLoading();
-    
-    
+
+
 
   }
 
@@ -112,10 +112,10 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     });
 
     return image.webPath;
-    
+
   }
 
-  private async deleteImage(image:Image){
+  private async deleteImage(image: Image) {
 
     let isDeleted: boolean;
 
@@ -123,24 +123,24 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
-    if(isDeleted){
+    if (isDeleted) {
       this.data.newJourney._thumbnailID = null;
       this.data.newJourney.thumbnailSrc = '';
     } else {
       this.data.presentNotSavedToast();
     }
-    
+
   }
 
-  private async deletePlace(place: Place, index: number){
+  private async deletePlace(place: Place, index: number) {
     let isDeleted: boolean;
 
     this.data.presentLoading();
     isDeleted = await this.placeService.deletePlace(place, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
-    if(isDeleted){
-      this.data.newJourney.places.splice(index,1);
+    if (isDeleted) {
+      this.data.newJourney.places.splice(index, 1);
     } else {
       this.data.presentNotSavedToast();
     }
@@ -218,14 +218,14 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
   }
 
   async goBacktoHomepageWithoutSaving() {
-    if(this.data.newJourney.journeyID != null && this.data.fromEditJourney == false){
+    if (this.data.newJourney.journeyID != null && this.data.fromEditJourney == false) {
       let isDeleted: boolean;
 
       this.data.presentLoading();
       isDeleted = await this.journeyService.deleteJourney(this.data.newJourney, this.data.url, this.data.loggedInUser);
       this.data.dismissLoading();
 
-      if(isDeleted){
+      if (isDeleted) {
         this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
         this.data.loadTopPosts();
         this.data.loadUserJourneys(this.data.loggedInUser);
@@ -239,10 +239,10 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
       this.data.loadTopPosts();
       this.data.loadUserJourneys(this.data.loggedInUser);
       this.router.navigateByUrl('/tabs/tab1');
-    } 
+    }
   }
 
-  async deleteJourney(){
+  async deleteJourney() {
 
     let isDeleted: boolean;
 
@@ -250,7 +250,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     isDeleted = await this.journeyService.deleteJourney(this.data.newJourney, this.data.url, this.data.loggedInUser);
     this.data.dismissLoading();
 
-    if(isDeleted){
+    if (isDeleted) {
       this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
       this.data.loadTopPosts();
       this.data.loadUserJourneys(this.data.loggedInUser);
@@ -265,7 +265,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     if (this.data.newJourney.journeyName == "" && this.data.newJourney._seasonID == null && this.data.newJourney._companionshipID == null && this.data.newJourney._journeyCategoryID == null
       && this.data.newJourney.plane == false && this.data.newJourney.car == false && this.data.newJourney.bus == false
       && this.data.newJourney.train == false && this.data.newJourney.ship == false && this.data.newJourney.motorbike == false
-      && this.data.newJourney.campingtrailer == false && this.data.newJourney.hiking == false && this.data.newJourney.bicycle == false && this.data.newJourney.detail == "" && this.data.newJourney.totalCosts == null && this.data.newJourney.transportationCosts == null && this.data.newJourney.leisureCosts == null && this.data.newJourney.mealsanddrinksCosts == null && this.data.newJourney.accommodationCosts == null && this.data.newJourney.otherCosts == null && this.data.newJourney.places.length==null) {
+      && this.data.newJourney.campingtrailer == false && this.data.newJourney.hiking == false && this.data.newJourney.bicycle == false && this.data.newJourney.detail == "" && this.data.newJourney.totalCosts == null && this.data.newJourney.transportationCosts == null && this.data.newJourney.leisureCosts == null && this.data.newJourney.mealsanddrinksCosts == null && this.data.newJourney.accommodationCosts == null && this.data.newJourney.otherCosts == null && this.data.newJourney.places.length == null) {
       this.goBacktoHomepageWithoutSaving();
     } else {
       this.alert();
@@ -310,14 +310,14 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
   }
 
   showNoPlaceWarning() {
-    if(this.data.newJourney.places != null){
+    if (this.data.newJourney.places != null) {
       if (this.data.newJourney.places.length == 0) {
         return true;
       } else {
         return false;
       }
     }
-    
+
     return true;
   }
 
@@ -327,7 +327,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     console.log(this.data.transportsCheckbox[index]);
   }
 
-  
+
 
   async finishJourney() {
     //Data binding testen
@@ -350,14 +350,14 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
     await this.data.dismissLoading();
 
     if (this.data.newJourney.journeyID != null) {
-      this.data.currentJourneys.journeys.unshift(this.data.newJourney);     
+      this.data.currentJourneys.journeys.unshift(this.data.newJourney);
       console.log(this.data.currentJourneys);
       this.data.newJourney = this.journeyService.newJourney(this.data.loggedInUser);
-      if(this.data.loggedInUser.pioneerBadgeProgress==76){
-        this.data.loggedInUser.pioneerBadgeProgress=100;
-         //Update User
-      if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
-        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
+      if (this.data.loggedInUser.pioneerBadgeProgress == 76) {
+        this.data.loggedInUser.pioneerBadgeProgress = 100;
+        //Update User
+        if (this.userService.updateUser(this.data.loggedInUser, this.data.url) != null) {
+          await this.userService.updateUser(this.data.loggedInUser, this.data.url);
         }
       }
       //this.data.loadTopPosts();
@@ -369,161 +369,126 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit{
       console.log("Das Speichern hat nicht funktioniert.");
     }
 
-    if(this.data.fromEditJourney==true){
-      this.data.fromEditJourney=false;
-      this.data.fromNewJourney=true;
+    if (this.data.fromEditJourney == true) {
+      this.data.fromEditJourney = false;
+      this.data.fromNewJourney = true;
     }
 
 
   }
-
-  async selectProfileImage(){
-
-    const webPath = await this.getPhoto(CameraSource.Prompt);
-
-    this.data.presentLoading();
-
-    this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
-    if(this.image.imageID != null){
-      this.data.loggedInUser._profileImageID = this.image.imageID;
-      this.data.loggedInUser.userImgSrc = this.image.imgSrc;
-    } else {
-      this.data.presentNotSavedToast();
-    }
-
-    this.data.dismissLoading();
-    
-    
-
-  }
-
-  async deleteProfileImage(image: Image){
-    let isDeleted: boolean;
-
-    this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
-    this.data.dismissLoading();
-
-    if(isDeleted){
-      this.data.loggedInUser._profileImageID = null;
-      this.data.loggedInUser.userImgSrc = null;
-    } else {
-      this.data.presentNotSavedToast();
-    }
-  }
-
 
   //Gamification
 
-  async focusOutJourneyName(){
+  async focusOutJourneyName() {
 
-    if(this.data.loggedInUser.pioneerBadgeProgress==0){
+    if (this.data.loggedInUser.pioneerBadgeProgress == 0) {
 
-      this.data.loggedInUser.pioneerBadgeProgress=25;
+      this.data.loggedInUser.pioneerBadgeProgress = 25;
 
       //Update User
-      if(await this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
-      
-        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
-      
-    }}
+      if (await this.userService.updateUser(this.data.loggedInUser, this.data.url) != null) {
 
-    if(this.enteredAJourneyName == false){
-      this.data.presentGamificationToast("Added a Journey Name! +5 Points",1000);
+        await this.userService.updateUser(this.data.loggedInUser, this.data.url);
+
+      }
+    }
+
+    if (this.enteredAJourneyName == false) {
+      this.data.presentGamificationToast("Added a Journey Name! +5 Points", 1000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredAJourneyName = true;
 
       //Update User
-      if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
-        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
-        }
-    
+      if (this.userService.updateUser(this.data.loggedInUser, this.data.url) != null) {
+        await this.userService.updateUser(this.data.loggedInUser, this.data.url);
+      }
+
     }
 
 
-      
-  }
-    
-    
-    
 
-  async focusOutDays(){
-    if(this.enteredAmountofDays == false){
-      this.data.presentGamificationToast("Added the Amount of Days! +5 Points!",3000);
+  }
+
+
+
+
+  async focusOutDays() {
+    if (this.enteredAmountofDays == false) {
+      this.data.presentGamificationToast("Added the Amount of Days! +5 Points!", 3000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredAmountofDays = true;
 
       //Update User
-      if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
-        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
-        }
+      if (this.userService.updateUser(this.data.loggedInUser, this.data.url) != null) {
+        await this.userService.updateUser(this.data.loggedInUser, this.data.url);
+      }
     }
   }
 
-  async focusOutJourneyDetails(){
-    if(this.enteredJourneyDetails == false){
-      this.data.presentGamificationToast("Added more details! +5 Points!",3000);
+  async focusOutJourneyDetails() {
+    if (this.enteredJourneyDetails == false) {
+      this.data.presentGamificationToast("Added more details! +5 Points!", 3000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredJourneyDetails = true;
 
       //Update User
-      if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
-        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
-        }
+      if (this.userService.updateUser(this.data.loggedInUser, this.data.url) != null) {
+        await this.userService.updateUser(this.data.loggedInUser, this.data.url);
+      }
     }
   }
 
-  async focusOutTotalCosts(){
-    if(this.enteredTotalCosts == false){
-      this.data.presentGamificationToast("Added total costs! +5 Points!",3000);
+  async focusOutTotalCosts() {
+    if (this.enteredTotalCosts == false) {
+      this.data.presentGamificationToast("Added total costs! +5 Points!", 3000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredTotalCosts = true;
 
-       //Update User
-       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
-        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
-        }
+      //Update User
+      if (this.userService.updateUser(this.data.loggedInUser, this.data.url) != null) {
+        await this.userService.updateUser(this.data.loggedInUser, this.data.url);
+      }
     }
   }
 
- async focusOutLeisureCosts(){
-    if(this.enteredLeisureCosts == false){
-      this.data.presentGamificationToast("Added cost details! +5 Points!",3000);
+  async focusOutLeisureCosts() {
+    if (this.enteredLeisureCosts == false) {
+      this.data.presentGamificationToast("Added cost details! +5 Points!", 3000);
       this.data.loggedInUser.gamificationPoints += 5;
       this.enteredLeisureCosts = true;
 
-       //Update User
-       if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
-        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
-        }
+      //Update User
+      if (this.userService.updateUser(this.data.loggedInUser, this.data.url) != null) {
+        await this.userService.updateUser(this.data.loggedInUser, this.data.url);
+      }
     }
   }
 
-  async closePioneerStep1Toast(){
+  async closePioneerStep1Toast() {
 
 
-   this.data.loggedInUser.pioneerBadgeProgress=26;
+    this.data.loggedInUser.pioneerBadgeProgress = 26;
 
-      //Update User
-      if(this.userService.updateUser(this.data.loggedInUser,this.data.url)!=null){
-        await this.userService.updateUser(this.data.loggedInUser,this.data.url);
-        }
+    //Update User
+    if (this.userService.updateUser(this.data.loggedInUser, this.data.url) != null) {
+      await this.userService.updateUser(this.data.loggedInUser, this.data.url);
+    }
   }
 
-  async login(){
+  async login() {
     await this.data.presentLoading();
     await this.userService.login(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
     await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
 
-  async register(){
+  async register() {
     await this.data.presentLoading();
     await this.userService.register(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
     await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
-  
+
 
 
 }

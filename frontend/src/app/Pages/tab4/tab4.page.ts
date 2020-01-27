@@ -67,54 +67,6 @@ export class Tab4Page implements OnInit, AfterViewChecked{
     await this.data.dismissLoading();
   }
 
-  async selectProfileImage(){
-
-    const webPath = await this.getPhoto(CameraSource.Prompt);
-
-    this.data.presentLoading();
-
-    this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
-    if(this.image.imageID != null){
-      this.data.loggedInUser._profileImageID = this.image.imageID;
-      this.data.loggedInUser.userImgSrc = this.image.imgSrc;
-    } else {
-      this.data.presentNotSavedToast();
-    }
-
-    this.data.dismissLoading();
-    
-    
-
-  }
-
-  private async getPhoto(source: CameraSource) {
-    const image = await Plugins.Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.Uri,
-      source,
-      //height, width, allowEditing
-    });
-
-    return image.webPath;
-    
-  }
-
-  async deleteProfileImage(image: Image){
-    let isDeleted: boolean;
-
-    this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
-    this.data.dismissLoading();
-
-    if(isDeleted){
-      this.data.loggedInUser._profileImageID = null;
-      this.data.loggedInUser.userImgSrc = null;
-    } else {
-      this.data.presentNotSavedToast();
-    }
-  }
-
   async loadUserChat(chatUser: User){
     this.data.chatUser.userID = chatUser.userID;
     this.data.chatUser.username = chatUser.username;

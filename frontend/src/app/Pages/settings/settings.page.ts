@@ -14,7 +14,7 @@ import { MessagesService } from 'src/app/services/messages.service';
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
 })
-export class SettingsPage implements AfterViewInit, AfterViewChecked {
+export class SettingsPage implements AfterViewInit {
 
   public image: Image;
 
@@ -22,66 +22,46 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
 
   public delay = ms => new Promise(res => setTimeout(res, ms));
 
-  constructor(private data: DataService, private messagesService: MessagesService, private userService: UserService, private imageService: ImageService, private navCtrl:NavController, private router: Router, private alertController: AlertController) {
+  constructor(private data: DataService, private messagesService: MessagesService, private userService: UserService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private alertController: AlertController) {
 
-   }
+  }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.userService.wantsToLogin = false;
     this.userService.wasOnSettingsPage = true;
   }
 
-  ngAfterViewChecked(){
-    // if(this.userService.loginAtTab2OrTab5){
-    //   this.userService.wantsToLogin = false;
-    // }
+  backToProfileOrHomepage() {
+    this.data.resetTab = true;
+    this.router.navigateByUrl('/tabs/tab1');
   }
 
-
-  backToProfileOrHomepage(){
-
-
-    this.data.resetTab=true;
-
-  
-
-    this.router.navigateByUrl('/tabs/tab1');
-  
-
-
-   }
-
-   showLogoutAlert(){
-
+  showLogoutAlert() {
     this.alert();
-   }
+  }
 
-  showLogin(){
-
+  showLogin() {
     this.userService.wantsToLogin = true;
     console.log("showed Login");
     console.log(this.userService.wantsToLogin);
-    
   }
 
-  loginClose(){
+  loginClose() {
     this.userService.wantsToLogin = false;
     this.userService.wantsToRegister = false;
     this.userService.userLoggedOut = true;
   }
 
-  cancleWantsToLogin(){
-
-    this.userService.wantsToLogin=false;
+  cancleWantsToLogin() {
+    this.userService.wantsToLogin = false;
   }
 
-  cancleWantsToRegister(){
-
-    this.userService.wantsToLogin=false;
-    this.userService.wantsToRegister=false;
+  cancleWantsToRegister() {
+    this.userService.wantsToLogin = false;
+    this.userService.wantsToRegister = false;
   }
 
-   async alert() {
+  async alert() {
     const alert = await this.alertController.create({
       header: 'Are you sure you want to log out?',
       //message: '<strong>Would you like to save your created journey?</strong>',
@@ -101,122 +81,48 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
             console.log('Confirm Cancel');
             this.goBacktoSettingsWithoutSaving();
           }
-        }, 
+        },
       ]
     });
 
     await alert.present();
   }
 
-  async login(){
+  async login() {
     await this.data.presentLoading();
     await this.userService.login(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
     await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
 
-  async register(){
+  async register() {
     await this.data.presentLoading();
     await this.userService.register(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
     await this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
     await this.data.dismissLoading();
   }
 
-  async logout(){
+  async logout() {
     await this.data.presentLoading();
-    await this.userService.logout(this.data.loggedInUser,this.data.currentBookmark, this.data.url);
+    await this.userService.logout(this.data.loggedInUser, this.data.currentBookmark, this.data.url);
     await this.data.dismissLoading();
   }
 
-  goBacktoSettingsWithoutSaving(){
-
+  goBacktoSettingsWithoutSaving() {
     this.router.navigateByUrl('/tabs/tab1/settings');
   }
 
-  async selectProfileImage(){
-
-    const webPath = await this.getPhoto(CameraSource.Prompt);
-
-    this.data.presentLoading();
-
-    this.image = await this.imageService.uploadImage(webPath, null, this.data.url, this.data.loggedInUser);
-    if(this.image.imageID != null){
-      this.data.loggedInUser._profileImageID = this.image.imageID;
-      this.data.loggedInUser.userImgSrc = this.image.imgSrc;
-    } else {
-      this.data.presentNotSavedToast();
-    }
-
-    this.data.dismissLoading();
-    
-    
-
-  }
-
-  private async getPhoto(source: CameraSource) {
-    const image = await Plugins.Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.Uri,
-      source,
-      //height, width, allowEditing
-    });
-
-    return image.webPath;
-    
-  }
-
-  checkEmail(){
+  checkEmail() {
     this.userService.checkEmail(this.data.loggedInUser);
     this.userService.checkEmailAvailable(this.data.loggedInUser, this.data.url);
   }
 
-  async deleteProfileImage(image: Image){
-    let isDeleted: boolean;
-
-    this.data.presentLoading();
-    isDeleted = await this.imageService.deleteImage(image, this.data.url, this.data.loggedInUser);
-    this.data.dismissLoading();
-
-    if(isDeleted){
-      this.data.loggedInUser._profileImageID = null;
-      this.data.loggedInUser.userImgSrc = null;
-    } else {
-      this.data.presentNotSavedToast();
-    }
-  }
-
-  editProfile(){
+  editProfile() {
     this.router.navigateByUrl('/tabs/tab5/edit-profile');
   }
-  
-  goToDataPrivacy(){
+
+  goToDataPrivacy() {
     console.log("Navigate to DataPrivacyPage...");
     this.router.navigateByUrl("/tabs/tab1/settings/data-privacy-page");
   }
-
-  // async toMySQLDate(){
-  //   await this.delay(1000);
-  //   this.data.loggedInUser.birthday = this.jsBirthday.toString().slice(0,19).replace('T',' ');
-  //   console.log(this.data.loggedInUser.birthday);
-  // }
-
-  // function() {
-  //   Date.prototype.toDateString = Date_toYMD;
-
-  //   function Date_toYMD() {
-  //       var year, month, day;
-  //       year = String(this.getFullYear());
-  //       month = String(this.getMonth() + 1);
-  //       if (month.length == 1) {
-  //           month = "0" + month;
-  //       }
-  //       day = String(this.getDate());
-  //       if (day.length == 1) {
-  //           day = "0" + day;
-  //       }
-  //       return year + "-" + month + "-" + day;
-  //   }
-  // }
-
 }
