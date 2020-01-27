@@ -57,6 +57,7 @@
     </ion-radio-group>
   </ion-item>
 
+  <ion-col *ngIf="data.newJourney.year != null"><ion-label><b>Year</b><b class="importantStars">*</b></ion-label></ion-col>
 <ion-item no-padding lines="none" no-margin>
     <div id="journeyYear" lines="none">
       <ion-label margin-top="10px" *ngIf="data.newJourney.year == null"><b class="importantThings">Year</b><b class="importantStars">*</b></ion-label> 
@@ -91,7 +92,7 @@
   </ion-item>
 
   <ion-label>
-    <b>With which means of transport did you travel?</b><b class="importantStars">*</b></ion-label>
+    <b>Which means of transport did you travel with?</b><b class="importantStars">*</b></ion-label>
   <div id="transport">
     <ion-chip>
       <ion-checkbox [(ngModel)]="data.newJourney.plane"></ion-checkbox>
@@ -367,12 +368,15 @@
         </ion-select>
       </ion-col>
     
-      <div class="birthdayRegister" lines="none">
-        <ion-label><b class="importantThings">Birthday</b></ion-label>
-        <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
-           no-padding ></ion-datetime>
-      </div>
-  </ion-list>
+      <ion-col no-padding *ngIf="data.loggedInUser.birthday != null">
+        <ion-label> <b>Birthday</b></ion-label>
+        </ion-col>
+        <div class="birthdayRegister" lines="none">
+          <ion-label *ngIf="data.loggedInUser.birthday == null"><b class="importantThings">Birthday</b><!--<b class="importantStars">*</b>--></ion-label>
+          <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
+             no-padding></ion-datetime>
+        </div>
+    </ion-list>
     
     <ion-button expand="full" (click)="register()">Register</ion-button>
     <ion-label class="importantThings">

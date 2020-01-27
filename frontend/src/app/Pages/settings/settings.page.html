@@ -159,12 +159,16 @@
         </ion-select>
       </ion-col>
     
-      <div class="birthdayRegister" lines="none">
-        <ion-label><b class="importantThings">Birthday</b><!--<b class="importantStars">*</b>--></ion-label>
-        <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
-           no-padding></ion-datetime>
-      </div>
-  </ion-list>
+      <ion-col no-padding *ngIf="data.loggedInUser.birthday != null">
+        <ion-label> <b>Birthday</b></ion-label>
+        </ion-col>
+        <div class="birthdayRegister" lines="none">
+          <ion-label *ngIf="data.loggedInUser.birthday == null"><b class="importantThings">Birthday</b><!--<b class="importantStars">*</b>--></ion-label>
+          <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
+             no-padding></ion-datetime>
+        </div>
+    </ion-list>
+  
     
     <ion-button expand="full" (click)="register()">Register</ion-button>
     <ion-label class="importantThings">
