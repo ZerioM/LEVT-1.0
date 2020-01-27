@@ -80,11 +80,30 @@ ion-footer{
     font-size: 20pt;
     vertical-align: middle;
     position: absolute;
-  } 
+    background-color: none;
+    box-shadow: none;
+} 
 
 .refreshButton{
 
     margin-top:15px;
     margin-left:10px;
-
 }
+
+.tabHeadingSmall {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 13pt;
+    text-align: center;
+    font-variant: small-caps;
+    vertical-align: middle;
+    max-width: 65%;
+  }
+
+  .tabHeadingVerySmall {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12pt;
+    text-align: center;
+    font-variant: small-caps;
+    vertical-align: middle;
+    max-width: 65%;
+  }
