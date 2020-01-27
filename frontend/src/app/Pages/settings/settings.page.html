@@ -19,10 +19,7 @@
       <ion-button (click)="showLogoutAlert()">Logout</ion-button>
     </ion-item>
     <ion-item no-padding lines="none">
-      <ion-button>About Gamfication</ion-button>
-    </ion-item>
-    <ion-item no-padding lines="none">
-      <ion-button>Data privacy</ion-button>
+      <ion-button (click)="goToDataPrivacy()">Data privacy</ion-button>
     </ion-item>
     <ion-item no-padding lines="none">
       <ion-button>Terms of use</ion-button>
@@ -165,8 +162,11 @@
         </ion-select>
       </ion-col>
     
+      <ion-col no-padding *ngIf="data.loggedInUser.birthday != null">
+      <ion-label> <b>Birthday</b></ion-label>
+      </ion-col>
       <div class="birthdayRegister" lines="none">
-        <ion-label><b class="importantThings">Birthday</b><!--<b class="importantStars">*</b>--></ion-label>
+        <ion-label *ngIf="data.loggedInUser.birthday == null"><b class="importantThings">Birthday</b><!--<b class="importantStars">*</b>--></ion-label>
         <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
            no-padding></ion-datetime>
       </div>

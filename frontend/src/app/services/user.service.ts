@@ -165,8 +165,36 @@ export class UserService {
     this.wantsToLogin = true;
   }
 
-  resetPassword(loggedInUser: User, url: string) {
-    //POST REQUEST HERE
+  async resetPassword(loggedInUser: User, url: string){
+    await this.http.post(url+"/forgotPassword", loggedInUser).toPromise().then((loadedData: BoolObj) => {
+      if(loadedData.free == true){
+        this.presentGeneralToast("An E-Mail has been sent to your account.",5000);
+        console.log("Email sent.");
+      } else {
+        this.presentGeneralToast("The sending of the email did not work.",5000);
+        console.log("Email not sent.");
+      }
+    }, error => {
+      console.log(error);
+      this.presentGeneralToast("The sending of the email did not work.",5000);
+      console.log("Email not sent.");
+    });
+  }
+
+  async sendVerificationEmail(loggedInUser: User, url: string){
+    await this.http.post(url+"/sendEmailAgain", loggedInUser).toPromise().then((loadedData: BoolObj) => {
+      if(loadedData.free == true){
+        this.presentGeneralToast("An E-Mail has been sent to your account. Please click on the link and then click on ok here.",5000);
+        console.log("Email sent.");
+      } else {
+        this.presentGeneralToast("The sending of the email did not work.",5000);
+        console.log("Email not sent.");
+      }
+    }, error => {
+      console.log(error);
+      this.presentGeneralToast("The sending of the email did not work.",5000);
+      console.log("Email not sent.");
+    });
   }
 
 

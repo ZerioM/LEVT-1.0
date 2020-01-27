@@ -41,16 +41,13 @@
      <ion-col no-padding no-margin id="badges">
       <ion-label no-padding no-margin><b>My Badges</b></ion-label>
     <ion-item no-padding lines="none">
-      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 101" class="oneBadge" src="/assets/images/badge_pioneer.png">
-      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 76" class="oneBadge" src="/assets/images/pioneer_75.png">
-      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 51" class="oneBadge" src="/assets/images/pioneer_50.png">
-      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 26" class="oneBadge" src="/assets/images/pioneer_25.png">
-
-      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 76" class="oneBadge" src="/assets/images/badge_explorer.png">
-
-      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 28 || data.loggedInUser.explorerBadgeProgress == 22 || data.loggedInUser.explorerBadgeProgress == 26" class="oneBadge" src="/assets/images/explorer_33.png">
-
-      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 50 || data.loggedInUser.explorerBadgeProgress == 54 || data.loggedInUser.explorerBadgeProgress == 48" class="oneBadge" src="/assets/images/explorer_66.png">
+      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 101" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 76" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_75.png">
+      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 51" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_50.png">
+      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 26" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_25.png">
+      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 76" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/badge_explorer.png">
+      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 28 || data.loggedInUser.explorerBadgeProgress == 22 || data.loggedInUser.explorerBadgeProgress == 26" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_33.png">
+      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 50 || data.loggedInUser.explorerBadgeProgress == 54 || data.loggedInUser.explorerBadgeProgress == 48" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_66.png">
     </ion-item>
   <div id="pointsView">{{data.loggedInUser.gamificationPoints}} Points</div>
   </ion-col>
@@ -58,59 +55,7 @@
   </ion-item>
 
   <div id="PlatzhalterKartenVis">
-    <!-- Create an element where the map will take place -->
-<svg id="my_dataviz" width="100%" height="auto"></svg>
- <!-- <svg id="my_dataviz" width="700" height="600"></svg>-->
-   <!-- <img src="/assets/images/kartenvisualisierung.png">-->
-
-   <script>
-  
-    // The svg
-    this.svg = d3.select('#PlatzhalterKartenVis')
-      .append('svg')
-    //var svg = d3.select("svg"),
-      width = +svg.attr("width"),
-      height = +svg.attr("height");
-    
-    // Map and projection
-    var path = d3.geoPath();
-    var projection = d3.geoMercator()
-      .scale(70)
-      .center([0,20])
-      .translate([width / 2, height / 2]);
-    
-    // Data and color scale
-    var data = d3.map();
-    var colorScale = d3.scaleThreshold()
-      .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
-      .range(d3.schemeBlues[7]);
-    
-    // Load external data and boot
-    d3.queue()
-      .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-      .defer(d3.csv, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv", function(d) { data.set(d.code, +d.pop); })
-      .await(ready);
-    
-    function ready(error, topo) {
-    
-      // Draw the map
-      svg.append("g")
-        .selectAll("path")
-        .data(topo.features)
-        .enter()
-        .append("path")
-          // draw each country
-          .attr("d", d3.geoPath()
-            .projection(projection)
-          )
-          // set the color of each country
-          .attr("fill", function (d) {
-            d.total = data.get(d.id) || 0;
-            return colorScale(d.total);
-          });
-        }
-    
-    </script>
+  <img src="/assets/images/kartenvisualisierung.png">
   </div>
 
 
@@ -199,7 +144,7 @@
       
       <div class="loginRegisterHeader">
         <ion-title class="tabHeading" no-padding> Register</ion-title>
-      </div> <!-- HEADER: X & Register -->
+      </div> <!-- HEADER: Register -->
 
     <ion-list>
       <ion-col no-padding>
@@ -278,6 +223,31 @@
       * Fields marked with a <b class="importantStars">*</b> are mandatory.
     </ion-label>
 
+  </div>
+  </div>
+
+  <!-- EXPLORER BADGE INFO -->
+  <div class="gamificationBg" *ngIf="showsExplorerInfo" >
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>Dora the Explorer</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Try out all of our search methods (the interactive map, the search bar and clicking on a journey) to earn this badge.</p>
+    <br>
+    
+    <ion-button  (click)="closeExplorerInfo()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <!-- PIONEER BADGE INFO -->
+  <div class="gamificationBg" *ngIf="showsPioneerInfo">
+    <div class="login">
+    
+      <ion-title class="tabHeading" no-padding>Pioneer</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <p>Create a journey with one place, one post and at least one photo to become a PIONEER on your own and help other people with your experience!</p>
+    <br>
+    
+    <ion-button (click)="closePioneerInfo()" expand="full" >OK</ion-button>
   </div>
   </div>
 

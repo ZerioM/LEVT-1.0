@@ -57,11 +57,11 @@
     </ion-radio-group>
   </ion-item>
 
+  <ion-col *ngIf="data.newJourney.year != null"><ion-label><b>Year</b><b class="importantStars">*</b></ion-label></ion-col>
 <ion-item no-padding lines="none" no-margin>
     <div id="journeyYear" lines="none">
-      <ion-label><b class="importantThings">Year</b><b class="importantStars">*</b></ion-label> 
-    <ion-datetime [(ngModel)]="data.newJourney.year" displayFormat="YYYY" value="Year" placholder="Year"
-       no-padding ></ion-datetime>
+      <ion-label margin-top="10px" *ngIf="data.newJourney.year == null"><b class="importantThings">Year</b><b class="importantStars">*</b></ion-label> 
+    <ion-datetime [(ngModel)]="data.newJourney.year" displayFormat="YYYY" no-padding ></ion-datetime>
     </div>
   </ion-item>
 
@@ -251,7 +251,7 @@
       
       <div class="loginRegisterHeader">
         <ion-title class="tabHeading" no-padding> Login</ion-title>
-      </div> <!-- HEADER: X & Login -->
+      </div> <!-- HEADER: Login -->
     
       <ion-list>
       <ion-col no-padding>
@@ -301,7 +301,7 @@
       
       <div class="loginRegisterHeader">
         <ion-title class="tabHeading" no-padding> Register</ion-title>
-      </div> <!-- HEADER: X & Register -->
+      </div> <!-- HEADER: Register -->
 
     <ion-list>
       <ion-col no-padding>

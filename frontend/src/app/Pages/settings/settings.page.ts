@@ -189,6 +189,11 @@ export class SettingsPage implements AfterViewInit, AfterViewChecked {
   editProfile(){
     this.router.navigateByUrl('/tabs/tab5/edit-profile');
   }
+  
+  goToDataPrivacy(){
+    console.log("Navigate to DataPrivacyPage...");
+    this.router.navigateByUrl("/tabs/tab1/settings/data-privacy-page");
+  }
 
   // async toMySQLDate(){
   //   await this.delay(1000);

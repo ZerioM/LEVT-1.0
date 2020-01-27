@@ -349,7 +349,7 @@ class _UserController extends BaseController
         $user->email_verified_at = null;
         $user->save();
         $user->sendEmailVerificationNotification();
-        return '"email" : true';
+        return '{"free" : true}';
     }
 
     public function forgotPassword(Request $request){
@@ -357,12 +357,12 @@ class _UserController extends BaseController
         $email = $requestArray['emailAddress'];
         $userID = DB::table('users')->where('email',$email)->value('userID');
         if($userID == null){
-            return '"email" : false';
+            return '{"free" : false}';
         }
         $user = User::find($userID);
         $token = app('auth.password.broker')->createToken($user);
         $user->sendPasswordResetNotification($token);
-        return '"email" : true';
+        return '{"free" : true}';
     }
 
     public function emailVerified(Request $request){
@@ -370,9 +370,9 @@ class _UserController extends BaseController
         $username = $requestArray['username'];
         $emailVerifiedAt=DB::table('users')->where('username',$username)->value('email_verified_at');
         if($emailVerifiedAt==null){
-            return '"email_verified_at":false';
+            return '{"email_verified_at":false}';
         }else{
-            return '"email_verified_at":true';
+            return '{"email_verified_at":true}';
         }
 
     }
