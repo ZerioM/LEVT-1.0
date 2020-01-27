@@ -221,6 +221,8 @@ export class DataService {
         this.loggedInUser.countryName = someData.countryName;
         this.loggedInUser.userImgSrc = someData.userImgSrc;
         this.loggedInUser.pwClear = someData.pwClear;
+        this.userService.enteredUsername = this.loggedInUser.username;
+        this.userService.enteredEmailAddress = this.loggedInUser.emailAddress;
 
         console.log("Hehe, Daten geladen!");
         console.log(JSON.stringify(this.loggedInUser));

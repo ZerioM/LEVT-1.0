@@ -9,32 +9,34 @@
 } // Kasten von -> Proflbild, Alter & Wohnort, Punkteanzeige
 #userpicProfil{
     width: 100%;
+    min-width: 30px;
     height: auto;
     object-fit: cover;
   } // Profilbild auf Profil
   #profilAgeResidence{
-    width: 30%;
     margin-left: 5px;
     //margin-top: -30px;
     top:0;
   }// Alter & Wohnort am Profil
 
   .residence{
-    overflow: visible;
+    margin-left: 10px;
+    overflow: hidden;
     white-space: inherit;
   }
   #badges{
-    width: 30%;
     top:0;
-   // margin-top: -25px;
     margin-left: 20px;
+    margin-bottom: 10px;
   } // Alle Abzeichen & Punktanzeige
   .oneBadge{
-    width: 60px;
+    width: 40%;
+    max-width: 60px;
     object-fit: cover;
+    margin-right: 10px;
   }// Ein Abzeichen 
   #pointsView{
-    height: 15px;
+    height: 20px;
     width: 130px;
     border: 1px solid #415f4b;
     bottom: 0;
