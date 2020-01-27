@@ -77,6 +77,17 @@ export class ChatPagePage implements OnInit, AfterViewChecked{
     }, 500);
   }
 
+ clickedOnRefreshButton() {
+    console.log('Begin async operation');
+    
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      this.messagesService.loadMessages(this.data.currentMessages, this.data.url, this.data.loggedInUser, this.data.chatUser);
+      this.content.scrollToBottom(200);
+    }, 500);
+  }
+
   close(){
     this.router.navigateByUrl('/tabs/tab4');
   }

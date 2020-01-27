@@ -164,7 +164,7 @@ export class DataService {
   public flock: string = "https://flock-1427.students.fhstp.ac.at/backend/public";
   public homestead: string = "http://levt.test";
   public mario: string = "https://levt.online";
-  public url: string = this.mario;
+  public url: string = this.homestead;
   
 
   constructor(private storage: Storage, private messagesService: MessagesService, private bookmarkService: BookmarkService, private http: HttpClient, private userService: UserService, private journeyService: NewJourneyService, private placeService: PlaceService, private postService: PostService,private imageService:ImageService, public toastController: ToastController, public loadingController:LoadingController) { 
