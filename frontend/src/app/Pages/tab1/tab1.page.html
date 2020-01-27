@@ -15,6 +15,9 @@
   </ion-list>
 </ion-header>
 
+<div id="start">
+  <ion-icon id="arrowUp" color="#d68900" name="ios-arrow-up" (click)="smoothScrollJS()"></ion-icon>
+</div>
 <ion-content color="none">
 
   
@@ -57,9 +60,7 @@
       </div>
     </div>
   </ion-list>
-  <div id="start">
-    <ion-icon id="arrowUp" color="#d68900" name="ios-arrow-up" (click)="smoothScrollJS()"></ion-icon>
-  </div>
+
 
   <ion-item lines="none" no-padding *ngIf="data.currentJourneys.journeys == null || data.currentJourneys.journeys.length == 0">
     <ion-label><b class="importantStars">This search has no results. <br> Please try again!</b></ion-label>
