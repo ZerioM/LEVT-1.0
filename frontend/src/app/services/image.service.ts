@@ -97,6 +97,26 @@ export class ImageService {
     return isDeleted;
   }
 
+  async deleteImageByID(imageID: number, url: string, loggedInUser: User){
+    let isDeleted;
+    const loginHeaders = {headers: new HttpHeaders({'Sessionid': loggedInUser.sessionID})};
+
+    await this.http.post(url+"/deleteImage", imageID, loginHeaders).toPromise().then((loadedData: boolean) => {
+      console.log(loadedData);
+      if(loadedData == null){
+        this.presentGeneralToast("Your session is expired. Please exit without saving, go to login page and login again!",10000);
+      } else {
+      console.log("Image in DB deleted");
+      isDeleted = loadedData;
+      }      
+    }, error => {
+        console.log(error);
+    });
+
+
+    return isDeleted;
+  }
+
   async presentGeneralToast(msg: string, dur: number){
     const toast = await this.toastController.create({
       message: msg,
