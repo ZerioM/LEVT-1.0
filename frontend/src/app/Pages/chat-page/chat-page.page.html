@@ -4,7 +4,7 @@
       <ion-icon class="cancel" name="ios-close"></ion-icon>
     </ion-button>
   </ion-buttons>
-  <ion-title class="tabHeading" no-padding>Chat with {{data.chatUser.username}}</ion-title>
+  <ion-title class="tabHeading" no-padding>{{data.chatUser.username}}</ion-title>
     <img class="headerUserPic" *ngIf="data.chatUser.userImgSrc != null && data.chatUser.userImgSrc != ''" src={{data.chatUser.userImgSrc}} alt="User" (click)="goToUserPage()"/>
     <img class="headerUserPic" *ngIf="data.chatUser.userImgSrc == null || data.chatUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" (click)="goToUserPage()"/>
     <ion-button (click)="clickedOnRefreshButton()" size="small" icon-only class="refreshButton">
