@@ -30,9 +30,8 @@
     </ion-item>
     <!--Profilbild-->
 
-
     <ion-col no-padding no-margin class="badges">
-      <ion-label no-padding no-margin style="text-align: left;"><b>{{data.otherUser.username}}'s Badges</b></ion-label>
+      <ion-label no-padding no-margin style="text-align: left;"><b>Badges</b></ion-label>
     <ion-item no-padding lines="none">
       <img *ngIf="data.otherUser.pioneerBadgeProgress == 101" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/badge_pioneer.png">
       <img *ngIf="data.otherUser.pioneerBadgeProgress == 76" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_75.png">
