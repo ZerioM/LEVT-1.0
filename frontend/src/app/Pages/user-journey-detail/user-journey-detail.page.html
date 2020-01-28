@@ -63,6 +63,43 @@
           <ion-text *ngIf="data.currentUserJourney.bicycle">Bicycle <br></ion-text>
         </ion-label>
       </ion-item>
+
+      <ion-item *ngIf="data.currentJourney.totalCosts != null" lines="none">
+        <ion-label><b>Total Costs</b><br>
+        <ion-text>€ {{data.currentJourney.totalCosts}}</ion-text>
+        </ion-label>
+      </ion-item>
+  
+      <ion-item *ngIf="data.currentJourney.leisureCosts != null" lines="none">
+        <ion-label><b>Leisure Costs</b><br>
+          <ion-text>€ {{data.currentJourney.leisureCosts}}</ion-text>
+        </ion-label>
+      </ion-item>
+  
+      <ion-item *ngIf="data.currentJourney.accommodationCosts != null" lines="none">
+        <ion-label><b>Accommodation Costs</b><br>
+          <ion-text>€ {{data.currentJourney.accommodationCosts}}</ion-text>
+        </ion-label>
+      </ion-item>
+  
+      <ion-item *ngIf="data.currentJourney.mealsanddrinksCosts != null" lines="none">
+        <ion-label><b>Costs for Meals and Drinks</b><br>
+          <ion-text>€ {{data.currentJourney.mealsanddrinksCosts}}</ion-text>
+        </ion-label>
+      </ion-item>
+  
+      <ion-item *ngIf="data.currentJourney.transportationCosts != null" lines="none">
+        <ion-label><b>Transportation Costs</b><br>
+          <ion-text>€ {{data.currentJourney.transportationCosts}}</ion-text>
+        </ion-label>
+      </ion-item>
+  
+      <ion-item *ngIf="data.currentJourney.otherCosts != null" lines="none">
+        <ion-label><b>Other Costs</b><br>
+          <ion-text>€ {{data.currentJourney.otherCosts}}</ion-text>
+        </ion-label>
+      </ion-item>
+
       <ion-item *ngIf="data.currentUserJourney.detail != null && data.currentUserJourney.detail != ''" no-padding no-margin lines="none" style="margin-bottom: 2px;">
         <ion-text><b>Details</b><br> {{data.currentUserJourney.detail}}</ion-text>
       </ion-item>
