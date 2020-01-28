@@ -101,8 +101,8 @@ export class ChatPagePage implements OnInit, AfterViewChecked, OnDestroy{
   }
 
   close(){
-    // console.log("Interval cleared.");
-    // clearInterval(this.interval);
+    console.log("Interval cleared.");
+    clearInterval(this.interval);
     this.router.navigateByUrl('/tabs/tab4');
   }
 
