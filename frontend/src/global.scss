@@ -137,6 +137,30 @@ ion-loading{
 } // Hintergrund bei Emai Verify
 
 
+/* -------- Profilseite Heimatland & Alter ----------*/
+.profilAgeResidence{
+  margin-left: 5px;
+  top:0;
+}// Alter & Wohnort am Profil
+
+.residence{
+  margin-left: 10px;
+  overflow: hidden;
+  white-space: inherit;
+}//Heimatland
+.pointsView{
+  height: 20px;
+  width: 130px;
+  border: 1px solid #415f4b;
+  bottom: 0;
+  color: white;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;;
+  background-color: #415f4b;
+}// Punkteanzeige am Profil
+
+
+
 /* -------- HEADER & CONTENT auf allen Seiten ----------*/
 div.tabs-inner {
   width: 90%;
@@ -207,6 +231,23 @@ ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
   font-weight: bolder;
 }// Add a Photo + Button
 
+.tabHeadingSmall {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 13pt;
+  text-align: center;
+  font-variant: small-caps;
+  vertical-align: middle;
+  max-width: 68%;
+}//wenn Titel zu lang ist
+
+.tabHeadingVerySmall {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 11pt;
+  text-align: center;
+  font-variant: small-caps;
+  vertical-align: middle;
+  max-width: 68%;
+}//wenn Titel zu lang ist
 
 
 /* -------- Reisen mit Titelbild, Ecken, Bildinformationen ----------*/

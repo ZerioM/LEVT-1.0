@@ -6,7 +6,9 @@
 
 <ion-header class="tabHeader">
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
-  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser)" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
+  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) && data.loggedInUser.username.length < 15" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
+  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) && data.loggedInUser.username.length >= 15 && data.loggedInUser.username.length < 20" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
+  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) && data.loggedInUser.username.length >= 20" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
   <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) == false" class="tabHeading" no-padding>Your profile</ion-title>
   <ion-buttons slot="end" no-padding>
     <ion-button icon-only no-padding (click)="goToSettings()">
@@ -41,12 +43,12 @@
       <img *ngIf="data.loggedInUser.explorerBadgeProgress == 28 || data.loggedInUser.explorerBadgeProgress == 22 || data.loggedInUser.explorerBadgeProgress == 26" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_33.png">
       <img *ngIf="data.loggedInUser.explorerBadgeProgress == 50 || data.loggedInUser.explorerBadgeProgress == 54 || data.loggedInUser.explorerBadgeProgress == 48" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_66.png">
     </ion-item>
-  <div id="pointsView">{{data.loggedInUser.gamificationPoints}} Points</div>
+  <div class="pointsView">{{data.loggedInUser.gamificationPoints}} Points</div>
   </ion-col>
 
   </ion-item>
 
-  <ion-row *ngIf="userService.userLoggedIn(data.loggedInUser)" id="profilAgeResidence" no-padding no-margin>
+  <ion-row *ngIf="userService.userLoggedIn(data.loggedInUser)" class="profilAgeResidence" no-padding no-margin>
     <ion-item lines="none" no-margin no-padding>
       <ion-label no-padding no-margin><b> Age</b><br> {{data.loggedInUser.age}} Years</ion-label>
     </ion-item>

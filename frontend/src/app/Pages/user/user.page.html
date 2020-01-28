@@ -6,7 +6,9 @@
 
 <ion-header class="tabHeader">
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
-  <ion-title class="tabHeading" no-padding>{{data.otherUser.username}}</ion-title>
+  <ion-title class="tabHeading" no-padding *ngIf="data.otherUser.username.length < 15">{{data.otherUser.username}}</ion-title>
+  <ion-title class="tabHeadingSmall" no-padding *ngIf="data.otherUser.username.length >= 15 && data.otherUser.username.length < 20">{{data.otherUser.username}}</ion-title>
+  <ion-title class="tabHeadingVerySmall" no-padding *ngIf="data.otherUser.username.length >= 20">{{data.otherUser.username}}</ion-title>
   <ion-buttons slot="end" no-padding>
     <ion-button *ngIf="userService.userLoggedIn(data.loggedInUser)" icon-only no-padding (click)="chatWith()">
       <img id="chatRequestIcon" src="/assets/images/icon_chatanfrage.svg">
@@ -28,83 +30,35 @@
     </ion-item>
     <!--Profilbild-->
 
-    <ion-list id="profilAgeResidence" no-padding no-margin>
-      <ion-item lines="none" no-margin no-padding>
-        <ion-label no-padding no-margin><b> Age</b><br> {{data.otherUser.age}} Years</ion-label>
-      </ion-item>
-      <ion-item lines="none" no-margin no-padding>
-        <ion-label class="residence" no-padding no-margin><b>Residence</b><br>{{data.otherUser.countryName}}</ion-label>
-      </ion-item>
-    </ion-list>
 
-     <ion-col no-padding no-margin id="badges">
-      <!-- <ion-label no-padding no-margin><b>{{data.otherUser.username}}'s Badges</b></ion-label> -->
-      <ion-label no-padding no-margin><b>Badges</b></ion-label>
+    <ion-col no-padding no-margin id="badges">
+      <ion-label no-padding no-margin style="text-align: left;"><b>{{data.otherUser.username}}'s Badges</b></ion-label>
     <ion-item no-padding lines="none">
-      <img *ngIf="data.otherUser.pioneerBadgeProgress == 101" class="oneBadge" src="/assets/images/badge_pioneer.png">
-      <img *ngIf="data.otherUser.explorerBadgeProgress ==76" class="oneBadge" src="/assets/images/badge_explorer.png">
+      <img *ngIf="data.otherUser.pioneerBadgeProgress == 101" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <img *ngIf="data.otherUser.pioneerBadgeProgress == 76" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_75.png">
+      <img *ngIf="data.otherUser.pioneerBadgeProgress == 51" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_50.png">
+      <img *ngIf="data.otherUser.pioneerBadgeProgress == 26" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_25.png">
+      <img *ngIf="data.otherUser.explorerBadgeProgress == 76" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/badge_explorer.png">
+      <img *ngIf="data.otherUser.explorerBadgeProgress == 28 || data.otherUser.explorerBadgeProgress == 22 || data.otherUser.explorerBadgeProgress == 26" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_33.png">
+      <img *ngIf="data.otherUser.explorerBadgeProgress == 50 || data.otherUser.explorerBadgeProgress == 54 || data.otherUser.explorerBadgeProgress == 48" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_66.png">
     </ion-item>
-  <div id="pointsView">{{data.otherUser.gamificationPoints}} Points</div>
+  <!-- <div class="pointsView">{{data.otherUser.gamificationPoints}} Points</div> -->
   </ion-col>
-
-  
 
   </ion-item>
 
-  <div id="PlatzhalterKartenVis">
-    <!-- Create an element where the map will take place -->
-<svg id="my_dataviz" width="100%" height="auto"></svg>
- <!-- <svg id="my_dataviz" width="700" height="600"></svg>-->
-   <!-- <img src="/assets/images/kartenvisualisierung.png">-->
+  <ion-row class="profilAgeResidence" no-padding no-margin>
+    <ion-item lines="none" no-margin no-padding>
+      <ion-label no-padding no-margin><b> Age</b><br> {{data.otherUser.age}} Years</ion-label>
+    </ion-item>
+    <ion-item lines="none" no-margin no-padding>
+      <ion-label class="residence" no-padding no-margin><b>Residence</b><br>{{data.otherUser.countryName}}</ion-label>
+    </ion-item>
+  </ion-row>
 
-   <script>
-  
-    // The svg
-    this.svg = d3.select('#PlatzhalterKartenVis')
-      .append('svg')
-    //var svg = d3.select("svg"),
-      width = +svg.attr("width"),
-      height = +svg.attr("height");
-    
-    // Map and projection
-    var path = d3.geoPath();
-    var projection = d3.geoMercator()
-      .scale(70)
-      .center([0,20])
-      .translate([width / 2, height / 2]);
-    
-    // Data and color scale
-    var data = d3.map();
-    var colorScale = d3.scaleThreshold()
-      .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
-      .range(d3.schemeBlues[7]);
-    
-    // Load external data and boot
-    d3.queue()
-      .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-      .defer(d3.csv, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv", function(d) { data.set(d.code, +d.pop); })
-      .await(ready);
-    
-    function ready(error, topo) {
-    
-      // Draw the map
-      svg.append("g")
-        .selectAll("path")
-        .data(topo.features)
-        .enter()
-        .append("path")
-          // draw each country
-          .attr("d", d3.geoPath()
-            .projection(projection)
-          )
-          // set the color of each country
-          .attr("fill", function (d) {
-            d.total = data.get(d.id) || 0;
-            return colorScale(d.total);
-          });
-        }
-    
-    </script>
+
+  <div id="PlatzhalterKartenVis">
+   <img src="/assets/images/kartenvisualisierung.png">
   </div>
 
 

@@ -12,6 +12,9 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserPage{
 
+  public showsExplorerInfo:boolean = false;
+  public showsPioneerInfo:boolean = false;
+
   constructor(private data: DataService, private userService: UserService, private messagesService: MessagesService, private router: Router) {
 
     this.loadJSON();
@@ -54,5 +57,21 @@ export class UserPage{
       this.data.loadUser();
       this.data.loadUserJourneys(this.data.loggedInUser);
     }, 500);
+  }
+
+  showPioneerInfo(){
+    this.showsPioneerInfo = true;
+  }
+
+  closePioneerInfo(){
+    this.showsPioneerInfo = false;
+  }
+
+  showExplorerInfo(){
+    this.showsExplorerInfo = true;
+  }
+
+  closeExplorerInfo(){
+    this.showsExplorerInfo = false;
   }
 }
