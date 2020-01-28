@@ -146,6 +146,11 @@ ion-loading{
   object-fit: cover;
 } // Profilbild auf Profil
 
+.profilUserpicInformations{
+  width: 100%;
+  margin-bottom: 10px;
+} // Kasten von -> Proflbild, Alter & Wohnort, Punkteanzeige
+
 .profilAgeResidence{
   margin-left: 5px;
   top:0;
@@ -157,6 +162,19 @@ ion-loading{
   white-space: inherit;
 }//Heimatland
 
+.badges{
+  top:0;
+  margin-left: 20px;
+  margin-bottom: 10px;
+} // Alle Abzeichen & Punktanzeige
+
+.oneBadge{
+  width: 40%;
+  max-width: 60px;
+  object-fit: cover;
+  margin-right: 10px;
+}// Ein Abzeichen 
+
 .pointsView{
   height: 20px;
   width: 130px;
@@ -167,6 +185,12 @@ ion-loading{
   font-family: Verdana, Geneva, Tahoma, sans-serif;;
   background-color: #415f4b;
 }// Punkteanzeige am Profil
+
+.myJourneys.hydrated{
+  width: 100%;
+  text-align: center;
+  margin-bottom: -20px;
+} // Heading My Journeys 
 
 
 

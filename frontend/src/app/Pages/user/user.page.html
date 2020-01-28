@@ -22,16 +22,15 @@
     <ion-refresher-content>
     </ion-refresher-content>
   </ion-refresher>
-  <ion-item id="profilUserpicInformations" color="none" lines="none" no-padding no-margin>
+  <ion-item class="profilUserpicInformations" color="none" lines="none" no-padding no-margin>
 
     <ion-item no-padding lines="none">
-      <img id="userpicProfil" *ngIf="data.otherUser.userImgSrc != null && data.otherUser.userImgSrc != ''" src={{data.otherUser.userImgSrc}} alt="User" />
-      <img id="userpicProfil" *ngIf="data.otherUser.userImgSrc == null || data.otherUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
+      <img class="userpicProfil" *ngIf="data.otherUser.userImgSrc != null && data.otherUser.userImgSrc != ''" src={{data.otherUser.userImgSrc}} alt="User" />
+      <img class="userpicProfil" *ngIf="data.otherUser.userImgSrc == null || data.otherUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
     </ion-item>
     <!--Profilbild-->
 
-
-    <ion-col no-padding no-margin id="badges">
+    <ion-col no-padding no-margin class="badges">
       <ion-label no-padding no-margin style="text-align: left;"><b>Badges</b></ion-label>
     <ion-item no-padding lines="none">
       <img *ngIf="data.otherUser.pioneerBadgeProgress == 101" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/badge_pioneer.png">
@@ -57,7 +56,7 @@
   </ion-row>
 
 
-  <div id="PlatzhalterKartenVis">
+  <div>
    <img src="/assets/images/kartenvisualisierung.png">
   </div>
 
