@@ -58,8 +58,7 @@
 
   <ion-col no-padding>
     <ion-label><b class="importantThings">Change your birthday</b></ion-label>
-    <ion-input class="inputField" [(ngModel)]="data.loggedInUser.birthday" type="text" placeholder="New Birthday"
-     no-margin no-padding></ion-input> 
+    <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY" no-padding></ion-datetime>
   </ion-col> 
 
   <ion-button color="primary" expand="full" (click)="submitUpdateUser()">
