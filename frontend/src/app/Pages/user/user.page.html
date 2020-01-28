@@ -6,9 +6,9 @@
 
 <ion-header class="tabHeader">
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
-  <ion-title class="tabHeading" no-padding *ngIf="data.otherUser.username.length < 15">{{data.otherUser.username}}</ion-title>
-  <ion-title class="tabHeadingSmall" no-padding *ngIf="data.otherUser.username.length >= 15 && data.otherUser.username.length < 20">{{data.otherUser.username}}</ion-title>
-  <ion-title class="tabHeadingVerySmall" no-padding *ngIf="data.otherUser.username.length >= 20">{{data.otherUser.username}}</ion-title>
+  <ion-title class="tabHeading" no-padding *ngIf="data.otherUser.username != null && data.otherUser.username.length < 15">{{data.otherUser.username}}</ion-title>
+  <ion-title class="tabHeadingSmall" no-padding *ngIf="data.otherUser.username != null && data.otherUser.username.length >= 15 && data.otherUser.username.length < 20">{{data.otherUser.username}}</ion-title>
+  <ion-title class="tabHeadingVerySmall" no-padding *ngIf="data.otherUser.username != null && data.otherUser.username.length >= 20">{{data.otherUser.username}}</ion-title>
   <ion-buttons slot="end" no-padding>
     <ion-button *ngIf="userService.userLoggedIn(data.loggedInUser)" icon-only no-padding (click)="chatWith()">
       <img id="chatRequestIcon" src="/assets/images/icon_chatanfrage.svg">
