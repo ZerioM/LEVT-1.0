@@ -18,6 +18,7 @@ import { Capacitor, Plugins, CameraResultType, FilesystemDirectory, CameraSource
 export class Tab5Page implements AfterViewInit, AfterViewChecked {
 
   public image: Image;
+  public showPassword:boolean = false;
 
   public showsExplorerInfo:boolean = false;
   public showsPioneerInfo:boolean = false;

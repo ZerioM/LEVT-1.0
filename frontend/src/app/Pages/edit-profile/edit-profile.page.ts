@@ -15,6 +15,8 @@ export class EditProfilePage implements OnInit {
 
   public secondPassword: string;
   public checkSecondPasswordIsTheSameAsPassword: boolean = true;
+  public showPasswordOld: boolean = false;
+  public showPasswordNew: boolean = false;
 
   constructor(public data:DataService, public imageService:ImageService, public userService:UserService, private router: Router) { }
 

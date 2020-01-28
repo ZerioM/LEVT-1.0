@@ -16,6 +16,8 @@ import { MessagesService } from 'src/app/services/messages.service';
 })
 export class SettingsPage implements AfterViewInit {
 
+  public showPassword: boolean = false;
+
   public image: Image;
 
   public jsBirthday: Date;

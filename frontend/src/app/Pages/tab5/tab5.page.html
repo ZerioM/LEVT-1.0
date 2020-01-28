@@ -6,17 +6,23 @@
 
 <ion-header class="tabHeader">
   <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
-  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) && data.loggedInUser.username.length < 15" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
-  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) && data.loggedInUser.username.length >= 15 && data.loggedInUser.username.length < 20" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
-  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) && data.loggedInUser.username.length >= 20" class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
-  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) == false" class="tabHeading" no-padding>Your profile</ion-title>
+  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) && data.loggedInUser.username.length < 15"
+    class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
+  <ion-title
+    *ngIf="userService.userLoggedIn(data.loggedInUser) && data.loggedInUser.username.length >= 15 && data.loggedInUser.username.length < 20"
+    class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
+  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) && data.loggedInUser.username.length >= 20"
+    class="tabHeading" no-padding>{{data.loggedInUser.username}}</ion-title>
+  <ion-title *ngIf="userService.userLoggedIn(data.loggedInUser) == false" class="tabHeading" no-padding>Your profile
+  </ion-title>
   <ion-buttons slot="end" no-padding>
     <ion-button icon-only no-padding (click)="goToSettings()">
-     <ion-icon name="md-more" size="large" style="color:#182f30"></ion-icon>
+      <ion-icon name="md-more" size="large" style="color:#182f30"></ion-icon>
     </ion-button>
   </ion-buttons>
 </ion-header>
-<hr><!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
+<hr>
+<!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
 
 <ion-content class="tabsContent">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -26,25 +32,36 @@
   <ion-item class="profilUserpicInformations" color="none" lines="none" no-padding no-margin>
 
     <ion-item no-padding lines="none" *ngIf="userService.userLoggedIn(data.loggedInUser)">
-      <img class="userpicProfil" *ngIf="data.loggedInUser.userImgSrc != null && data.loggedInUser.userImgSrc != ''" src={{data.loggedInUser.userImgSrc}} alt="User" />
-      <img class="userpicProfil" *ngIf="data.loggedInUser.userImgSrc == null || data.loggedInUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
+      <img class="userpicProfil" *ngIf="data.loggedInUser.userImgSrc != null && data.loggedInUser.userImgSrc != ''"
+        src={{data.loggedInUser.userImgSrc}} alt="User" />
+      <img class="userpicProfil" *ngIf="data.loggedInUser.userImgSrc == null || data.loggedInUser.userImgSrc == ''"
+        src="/assets/images/platzhalter_gender_divers.png" alt="User" />
     </ion-item>
     <!--Profilbild-->
 
 
     <ion-col no-padding no-margin class="badges">
       <ion-label no-padding no-margin style="text-align: left;"><b>My Badges</b></ion-label>
-    <ion-item no-padding lines="none">
-      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 101" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/badge_pioneer.png">
-      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 76" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_75.png">
-      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 51" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_50.png">
-      <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 26" (click)="showPioneerInfo()" class="oneBadge" src="/assets/images/pioneer_25.png">
-      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 76" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/badge_explorer.png">
-      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 28 || data.loggedInUser.explorerBadgeProgress == 22 || data.loggedInUser.explorerBadgeProgress == 26" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_33.png">
-      <img *ngIf="data.loggedInUser.explorerBadgeProgress == 50 || data.loggedInUser.explorerBadgeProgress == 54 || data.loggedInUser.explorerBadgeProgress == 48" (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_66.png">
-    </ion-item>
-  <div class="pointsView">{{data.loggedInUser.gamificationPoints}} Points</div>
-  </ion-col>
+      <ion-item no-padding lines="none">
+        <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 101" (click)="showPioneerInfo()" class="oneBadge"
+          src="/assets/images/badge_pioneer.png">
+        <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 76" (click)="showPioneerInfo()" class="oneBadge"
+          src="/assets/images/pioneer_75.png">
+        <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 51" (click)="showPioneerInfo()" class="oneBadge"
+          src="/assets/images/pioneer_50.png">
+        <img *ngIf="data.loggedInUser.pioneerBadgeProgress == 26" (click)="showPioneerInfo()" class="oneBadge"
+          src="/assets/images/pioneer_25.png">
+        <img *ngIf="data.loggedInUser.explorerBadgeProgress == 76" (click)="showExplorerInfo()" class="oneBadge"
+          src="/assets/images/badge_explorer.png">
+        <img
+          *ngIf="data.loggedInUser.explorerBadgeProgress == 28 || data.loggedInUser.explorerBadgeProgress == 22 || data.loggedInUser.explorerBadgeProgress == 26"
+          (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_33.png">
+        <img
+          *ngIf="data.loggedInUser.explorerBadgeProgress == 50 || data.loggedInUser.explorerBadgeProgress == 54 || data.loggedInUser.explorerBadgeProgress == 48"
+          (click)="showExplorerInfo()" class="oneBadge" src="/assets/images/explorer_66.png">
+      </ion-item>
+      <div class="pointsView">{{data.loggedInUser.gamificationPoints}} Points</div>
+    </ion-col>
 
   </ion-item>
 
@@ -64,7 +81,9 @@
   </div> -->
 
 
-  <ion-list lines="none" *ngIf="data.currentUserJourneys.journeys != null && data.currentUserJourneys.journeys.length > 0" no-padding no-margin>
+  <ion-list lines="none"
+    *ngIf="data.currentUserJourneys.journeys != null && data.currentUserJourneys.journeys.length > 0" no-padding
+    no-margin>
     <ion-item no-padding no-margin>
       <ion-label class="myJourneys" no-padding no-margin><b>My Journeys</b></ion-label>
     </ion-item>
@@ -89,40 +108,53 @@
     </div>
   </ion-list>
 
-  <ion-item no-padding lines="none" *ngIf="data.currentUserJourneys.journeys == null || data.currentUserJourneys.journeys.length == 0">
-    <ion-label><b class="importantStars">Add some journeys to see your posted <br/> journeys here.</b></ion-label>
+  <ion-item no-padding lines="none"
+    *ngIf="data.currentUserJourneys.journeys == null || data.currentUserJourneys.journeys.length == 0">
+    <ion-label><b class="importantStars">Add some journeys to see your posted <br /> journeys here.</b></ion-label>
   </ion-item>
 
-    <!-- LOGIN & REGISTER -->
-    <!-- LOGIN -->
-  <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false">
+  <!-- LOGIN & REGISTER -->
+  <!-- LOGIN -->
+  <div class="loginBg"
+    *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false">
     <div class="login">
-      
+
       <div class="loginRegisterHeader">
         <ion-title class="tabHeading" no-padding> Login</ion-title>
       </div> <!-- HEADER: X & Login -->
 
-    <ion-list>
-      <ion-col no-padding>
-        <ion-label><b class="importantThings">Username</b></ion-label>
-      <ion-input class="inputField" type="email" placeholder="Username"
-         no-margin [(ngModel)]="data.loggedInUser.username"></ion-input>
-      </ion-col>
-    
-      <ion-col no-padding>
-        <ion-label><b class="importantThings">Password</b></ion-label>
-      <ion-input class="inputField" type="text" placeholder="password"
-         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
-      </ion-col>
-    
-      <ion-button color="warning" expand="full" (click)="login()">Login</ion-button>
-      <ion-button expand="full" (click)="userService.goToResetPw()">Forgot Password</ion-button>
-    </ion-list>
-    <ion-button expand="full" (click)="userService.goToRegistration()">Register</ion-button>
-  </div>
+      <ion-list>
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Username</b></ion-label>
+          <ion-input class="inputField" type="email" placeholder="Username" no-margin
+            [(ngModel)]="data.loggedInUser.username"></ion-input>
+        </ion-col>
+
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Password</b></ion-label>
+          <ion-row>
+            <ion-input *ngIf="showPassword" class="inputField" type="text" placeholder="password" no-margin
+              maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+            <ion-input *ngIf="!showPassword" class="inputField" type="password" placeholder="password" no-margin
+              maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+            <ion-buttons class="eye" (click)="showPassword = false" *ngIf="showPassword" icon-only>
+              <ion-icon color="secondary" name="eye"></ion-icon>
+            </ion-buttons>
+            <ion-buttons class="eye" (click)="showPassword = true" *ngIf="!showPassword" icon-only>
+              <ion-icon color="secondary" name="eye-off"></ion-icon>
+            </ion-buttons>
+          </ion-row>
+        </ion-col>
+
+        <ion-button color="warning" expand="full" (click)="login()">Login</ion-button>
+        <ion-button expand="full" (click)="userService.goToResetPw()">Forgot Password</ion-button>
+      </ion-list>
+      <ion-button expand="full" (click)="userService.goToRegistration()">Register</ion-button>
+    </div>
   </div>
 
-  <div class="loginBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToResetPw == true">
+  <div class="loginBg"
+    *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToResetPw == true">
     <div class="login">
       <ion-buttons>
         <ion-button (click)="userService.backToLogin()" icon-only>
@@ -130,114 +162,146 @@
         </ion-button>
       </ion-buttons>
       <ion-title class="tabHeading" no-padding>Forgot Password</ion-title>
-    <ion-list>
-      <ion-col no-padding>
-        <ion-label><b class="importantThings">E-mail Address</b></ion-label>
-      <ion-input class="inputField" type="email" placeholder="E-mail"
-         no-margin [(ngModel)]="data.loggedInUser.emailAddress"></ion-input>
-      </ion-col>
-    
-      <ion-button color="warning" expand="full" (click)="userService.resetPassword(data.loggedInUser,data.url)">Send E-Mail</ion-button>
-    </ion-list>
-   
-  </div>
+      <ion-list>
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">E-mail Address</b></ion-label>
+          <ion-input class="inputField" type="email" placeholder="E-mail" no-margin
+            [(ngModel)]="data.loggedInUser.emailAddress"></ion-input>
+        </ion-col>
+
+        <ion-button color="warning" expand="full" (click)="userService.resetPassword(data.loggedInUser,data.url)">Send
+          E-Mail</ion-button>
+      </ion-list>
+
+    </div>
   </div>
 
-    <!-- REGISTER -->
+  <!-- REGISTER -->
   <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister">
     <div class="register">
-      
+
       <div class="loginRegisterHeader">
         <ion-title class="tabHeading" no-padding> Register</ion-title>
       </div> <!-- HEADER: Register -->
 
-    <ion-list>
-      <ion-col no-padding>
-        <ion-label><b class="importantThings">Username</b><b class="importantStars">*</b></ion-label>
-      <ion-input class="inputField" type="text" placeholder="username" 
-         no-margin maxlength="20" [(ngModel)]="data.loggedInUser.username" (focusout)="userService.checkUsername(data.loggedInUser, data.url)"></ion-input>
-      </ion-col>
+      <ion-list>
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Username</b><b class="importantStars">*</b></ion-label>
+          <ion-input class="inputField" type="text" placeholder="username" no-margin maxlength="20"
+            [(ngModel)]="data.loggedInUser.username"
+            (focusout)="userService.checkUsername(data.loggedInUser, data.url)"></ion-input>
+        </ion-col>
 
-      <ion-col no-padding no-margin *ngIf="userService.usernameAvailable == false">
-        <ion-label><b class="importantStars">This username is already assigned. Please pick another username!</b></ion-label><br>
-      </ion-col>
-    
-      <ion-col no-padding>
-        <ion-label><b class="importantThings">Password</b><b class="importantStars">*</b></ion-label>
-      <ion-input class="inputField" type="text" placeholder="password"
-         no-margin [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
-      </ion-col>
+        <ion-col no-padding no-margin *ngIf="userService.usernameAvailable == false">
+          <ion-label><b class="importantStars">This username is already assigned. Please pick another username!</b>
+          </ion-label><br>
+        </ion-col>
 
-      <ion-col no-padding>
-        <ion-label><b class="importantThings">Repeat Password</b><b class="importantStars">*</b></ion-label>
-      <ion-input class="inputField" type="text" placeholder="repeat password"
-         no-margin [(ngModel)]="userService.secondPw" (focusout)="userService.checkPassword(data.loggedInUser)"></ion-input>
-      </ion-col>
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Password</b><b class="importantStars">*</b></ion-label>
+          <ion-row>
+            <ion-input *ngIf="showPassword" class="inputField" type="text" placeholder="password" no-margin
+              maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+            <ion-input *ngIf="!showPassword" class="inputField" type="password" placeholder="password" no-margin
+              maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+            <ion-buttons class="eye" (click)="showPassword = false" *ngIf="showPassword" icon-only>
+              <ion-icon color="secondary" name="eye"></ion-icon>
+            </ion-buttons>
+            <ion-buttons class="eye" (click)="showPassword = true" *ngIf="!showPassword" icon-only>
+              <ion-icon color="secondary" name="eye-off"></ion-icon>
+            </ion-buttons>
+          </ion-row>
+        </ion-col>
 
-      <ion-col no-padding *ngIf="userService.passwordIsTheSame == false">
-        <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b><br></ion-label>
-      </ion-col>
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Repeat Password</b><b class="importantStars">*</b></ion-label>
+          <ion-row>
+            <ion-input *ngIf="showPassword" class="inputField" type="text" placeholder="repeat password" no-margin
+              maxlength="20" [(ngModel)]="userService.secondPw"
+              (focusout)="userService.checkPassword(data.loggedInUser)"></ion-input>
+            <ion-input *ngIf="!showPassword" class="inputField" type="password" placeholder="repeat password" no-margin
+              maxlength="20" [(ngModel)]="userService.secondPw"
+              (focusout)="userService.checkPassword(data.loggedInUser)"></ion-input>
+            <ion-buttons class="eye" (click)="showPassword = false" *ngIf="showPassword" icon-only>
+              <ion-icon color="secondary" name="eye"></ion-icon>
+            </ion-buttons>
+            <ion-buttons class="eye" (click)="showPassword = true" *ngIf="!showPassword" icon-only>
+              <ion-icon color="secondary" name="eye-off"></ion-icon>
+            </ion-buttons>
+          </ion-row>
+        </ion-col>
 
-      <ion-col no-padding>
-        <ion-label><b class="importantThings">E-Mail</b><b class="importantStars">*</b></ion-label>
-      <ion-input type="e-mail" class="inputField" type="text" placeholder="e-mail"
-         no-margin [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="userService.checkEmail(data.loggedInUser)"></ion-input>
-      </ion-col>
+        <ion-col no-padding *ngIf="userService.passwordIsTheSame == false">
+          <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b><br>
+          </ion-label>
+        </ion-col>
 
-      <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
-        <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b></ion-label><br>
-      </ion-col>
-      <ion-col no-padding *ngIf="userService.emailAvailable == false">
-        <ion-label><b class="importantStars">This email is already assigned. Please use another E-Mail address!</b></ion-label><br>
-      </ion-col>
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">E-Mail</b><b class="importantStars">*</b></ion-label>
+          <ion-input type="e-mail" class="inputField" type="text" placeholder="e-mail" no-margin
+            [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="userService.checkEmail(data.loggedInUser)">
+          </ion-input>
+        </ion-col>
 
-      <ion-col no-padding>
-        <ion-label><b class="importantThings">Country of residence</b><b class="importantStars">*</b></ion-label>
-        <ion-select placeholder="Country of Residence" [(ngModel)]="data.loggedInUser._countryOfResidenceID">
-          <ion-select-option *ngFor="let c of data.countries.countries" [value]="c.countryID">
-            {{c.countryName}}
-          </ion-select-option>
-        </ion-select>
-      </ion-col>
-    
-      <div class="birthdayRegister"  lines="none">
-        <ion-label><b class="importantThings">Birthday</b><!--<b class="importantStars">*</b>--></ion-label>
-        <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
-           no-padding ></ion-datetime>
-      </div>
-  </ion-list>
-    
-    <ion-button expand="full" (click)="register()">Register</ion-button>
-    <ion-label class="importantThings">
-      * Fields marked with a <b class="importantStars">*</b> are mandatory.
-    </ion-label>
+        <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
+          <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b>
+          </ion-label><br>
+        </ion-col>
+        <ion-col no-padding *ngIf="userService.emailAvailable == false">
+          <ion-label><b class="importantStars">This email is already assigned. Please use another E-Mail address!</b>
+          </ion-label><br>
+        </ion-col>
 
-  </div>
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Country of residence</b><b class="importantStars">*</b></ion-label>
+          <ion-select placeholder="Country of Residence" [(ngModel)]="data.loggedInUser._countryOfResidenceID">
+            <ion-select-option *ngFor="let c of data.countries.countries" [value]="c.countryID">
+              {{c.countryName}}
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+
+        <div class="birthdayRegister" lines="none">
+          <ion-label><b class="importantThings">Birthday</b>
+            <!--<b class="importantStars">*</b>-->
+          </ion-label>
+          <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY" no-padding></ion-datetime>
+        </div>
+      </ion-list>
+
+      <ion-button expand="full" (click)="register()">Register</ion-button>
+      <ion-label class="importantThings">
+        * Fields marked with a <b class="importantStars">*</b> are mandatory.
+      </ion-label>
+
+    </div>
   </div>
 
   <!-- EXPLORER BADGE INFO -->
-  <div class="gamificationBg" *ngIf="showsExplorerInfo" >
+  <div class="gamificationBg" *ngIf="showsExplorerInfo">
     <div class="login">
       <ion-title class="tabHeading" no-padding>Dora the Explorer</ion-title>
       <img class="oneBadge" src="/assets/images/badge_explorer.png">
-      <p>Try out all of our search methods (the interactive map, the search bar and clicking on a journey) to earn this badge.</p>
-    <br>
-    
-    <ion-button  (click)="closeExplorerInfo()" expand="full" >OK</ion-button>
-  </div>
+      <p>Try out all of our search methods (the interactive map, the search bar and clicking on a journey) to earn this
+        badge.</p>
+      <br>
+
+      <ion-button (click)="closeExplorerInfo()" expand="full">OK</ion-button>
+    </div>
   </div>
 
   <!-- PIONEER BADGE INFO -->
   <div class="gamificationBg" *ngIf="showsPioneerInfo">
     <div class="login">
-    
+
       <ion-title class="tabHeading" no-padding>Pioneer</ion-title>
       <img class="oneBadge" src="/assets/images/badge_pioneer.png">
-      <p>Create a journey with one place, one post and at least one photo to become a PIONEER on your own and help other people with your experience!</p>
-    <br>
-    
-    <ion-button (click)="closePioneerInfo()" expand="full" >OK</ion-button>
-  </div>
+      <p>Create a journey with one place, one post and at least one photo to become a PIONEER on your own and help other
+        people with your experience!</p>
+      <br>
+
+      <ion-button (click)="closePioneerInfo()" expand="full">OK</ion-button>
+    </div>
   </div>
 
 </ion-content>

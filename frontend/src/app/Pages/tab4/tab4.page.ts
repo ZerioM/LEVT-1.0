@@ -20,6 +20,7 @@ export class Tab4Page implements OnInit{
  public newMsg:string='';
  public currentTime: number = new Date().getTime();
  public image: Image;
+ public showPassword: boolean = false;
 
   @ViewChild(IonContent,{read: false, static: false}) content: IonContent
 

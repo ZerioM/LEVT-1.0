@@ -35,6 +35,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit {
 
   public showC: Boolean = true;
   public divideC: Boolean = false;
+  public showPassword:boolean = false;
 
   public image: Image;
 

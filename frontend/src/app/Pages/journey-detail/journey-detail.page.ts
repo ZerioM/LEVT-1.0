@@ -28,6 +28,8 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
   marker: any;
   icon: any;
 
+  public showPassword: boolean = false;
+
   public focusIsOut: boolean = false;
 
   constructor(public data: DataService, public userService: UserService, private navCtrl:NavController, private router: Router, public journeyService:NewJourneyService) {
