@@ -43,12 +43,12 @@
   <ion-list no-padding>
   
   <ion-button no-margin style="--border-radius: 0;margin-bottom: 10px;" *ngIf="data.edit" (click)="editJourney()"><ion-icon name="ios-create"></ion-icon>Edit Journey</ion-button>
-
+<!-- 
 
   <div id="kostenVisualisierung">
     <ion-label><b>Expenses of your Journey</b></ion-label>
       <img src="/assets/images/kostenvisualisierung_sankey.png">
-  </div>
+  </div> -->
 
     <ion-item lines="none">
         <ion-label><b>Duration</b><br> {{data.currentJourney.duration}}  days </ion-label>
@@ -71,6 +71,36 @@
         <ion-text *ngIf="data.currentJourney.hiking">Hiking <br></ion-text>
         <ion-text *ngIf="data.currentJourney.bicycle">Bicycle <br></ion-text>
       </ion-label>
+    </ion-item>
+    <ion-item *ngIf="data.currentJourney.totalCosts != null" lines="none">
+      <ion-label><b>Total Costs</b><br>
+      </ion-label>
+    <ion-text>€ {{data.currentJourney.totalCosts}}</ion-text>
+    </ion-item>
+    <ion-item *ngIf="data.currentJourney.leisureCosts != null" lines="none">
+      <ion-label><b>Leisure Costs</b><br>
+      </ion-label>
+    <ion-text>€ {{data.currentJourney.leisureCosts}}</ion-text>
+    </ion-item>
+    <ion-item *ngIf="data.currentJourney.accommodationCosts != null" lines="none">
+      <ion-label><b>Accommodation Costs</b><br>
+      </ion-label>
+    <ion-text>€ {{data.currentJourney.accommodationCosts}}</ion-text>
+    </ion-item>
+    <ion-item *ngIf="data.currentJourney.mealsanddrinksCosts != null" lines="none">
+      <ion-label><b>Costs for Meals and Drinks</b><br>
+      </ion-label>
+    <ion-text>€ {{data.currentJourney.mealsanddrinksCosts}}</ion-text>
+    </ion-item>
+    <ion-item *ngIf="data.currentJourney.transportationCosts != null" lines="none">
+      <ion-label><b>Transportation Costs</b><br>
+      </ion-label>
+    <ion-text>€ {{data.currentJourney.transportationCosts}}</ion-text>
+    </ion-item>
+    <ion-item *ngIf="data.currentJourney.otherCosts != null" lines="none">
+      <ion-label><b>Other Costs</b><br>
+      </ion-label>
+    <ion-text>€ {{data.currentJourney.otherCosts}}</ion-text>
     </ion-item>
     <ion-item *ngIf="data.currentJourney.detail != null && data.currentJourney.detail != ''" lines="none">
       <ion-text><b>Details</b><br> {{data.currentJourney.detail}}</ion-text>
