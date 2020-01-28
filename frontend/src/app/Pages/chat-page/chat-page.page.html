@@ -43,7 +43,7 @@
 <ion-footer no-padding no-margin >
     <ion-row align-items-center no-padding>
       <ion-col>
-        <textarea autosize [(ngModel)]="data.currentMessage.msg" class="messageInput"></textarea>
+        <textarea (focusout)="focusOutMessage()" autosize [(ngModel)]="data.currentMessage.msg" class="messageInput"></textarea>
       </ion-col>
       <ion-button expand="block" fill="clear" [disabled]="data.currentMessage.msg==='' || data.currentMessage.msg == null" class="msgButton" (click)="sendMessage()">
         <ion-icon class="sendButton" name="md-send" slot="icon-only"></ion-icon >

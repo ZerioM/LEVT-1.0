@@ -18,6 +18,7 @@ export class ChatPagePage implements OnInit, AfterViewChecked, OnDestroy{
   @ViewChild(IonContent,{read: false, static: false}) content: IonContent
 
   public interval;
+  public intervalCalled:number = 0;
 
   constructor(private data: DataService, private messagesService: MessagesService,navCtrl: NavController, private router: Router,private alertController: AlertController, private loadingController: LoadingController) {
 
@@ -29,9 +30,15 @@ export class ChatPagePage implements OnInit, AfterViewChecked, OnDestroy{
     }
     this.data.currentMessage = await this.messagesService.newMessage(this.data.loggedInUser,this.data.chatUser);
     this.interval = setInterval(() => { 
-      console.log("Checking for updates...");
-      this.messagesService.loadMessages(this.data.currentMessages,this.data.url,this.data.loggedInUser,this.data.chatUser);
-      this.content.scrollToBottom(200);
+      
+      if(this.intervalCalled < 100){
+        console.log("Checking for updates...");
+        this.messagesService.loadMessages(this.data.currentMessages,this.data.url,this.data.loggedInUser,this.data.chatUser);
+        this.intervalCalled++;
+        console.log(this.intervalCalled);
+        this.content.scrollToBottom(200);
+      }
+      
     }, 10000);
   }
 
@@ -114,6 +121,10 @@ export class ChatPagePage implements OnInit, AfterViewChecked, OnDestroy{
     await this.data.loadOtherUserJourneys(this.data.otherUser);
     await this.data.dismissLoading();
     this.router.navigateByUrl('/tabs/tab1/user');
+  }
+
+  focusOutMessage(){
+    this.intervalCalled = 0;
   }
     
   
