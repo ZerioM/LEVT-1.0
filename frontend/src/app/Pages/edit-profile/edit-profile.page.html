@@ -35,7 +35,7 @@
   <ion-col no-padding>
     <ion-label><b class="importantThings">Change your email address</b></ion-label>
     <ion-input class="inputField" [(ngModel)]="userService.enteredEmailAddress" type="text" placeholder="New Email Address"
-     no-margin no-padding (focusout)="userService.checkEmailAvailableUserUpdate(data.loggedInUser, data.url)"></ion-input>
+     no-margin (focusout)="userService.checkEmailAvailableUserUpdate(data.loggedInUser, data.url)"></ion-input>
     </ion-col>
 
     <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
@@ -48,7 +48,7 @@
   <ion-col no-padding>
     <ion-label><b class="importantThings">Change your username</b></ion-label>
     <ion-input class="inputField" [(ngModel)]="userService.enteredUsername" type="text" placeholder="New Username"
-     no-margin no-padding (focusout)="userService.checkUsernameUpdateUser(data.loggedInUser,data.url)"></ion-input>
+     no-margin (focusout)="userService.checkUsernameUpdateUser(data.loggedInUser,data.url)"></ion-input>
     </ion-col>
 
     <ion-col no-padding no-margin *ngIf="userService.usernameAvailable == false">
@@ -68,16 +68,17 @@
   <ion-col no-padding>
     <ion-label><b class="importantThings">Change your password</b></ion-label>
     <ion-input class="inputField" [(ngModel)]="data.loggedInUser.pwClear" type="text" placeholder="Old Password"
-     no-margin no-padding></ion-input> 
+     no-margin ></ion-input> 
   </ion-col> 
 
   <ion-col no-padding>
     <ion-input class="inputField" [(ngModel)]="data.loggedInUser.password" type="text" placeholder="New Password"
-    no-margin no-padding></ion-input> 
+    no-margin ></ion-input> 
   </ion-col> 
+
   <ion-col no-padding>
     <ion-input class="inputField" [(ngModel)]="userService.secondPw" (focusout)="userService.checkPasswordUpdateUser(data.loggedInUser)" type="text" placeholder="New Password"
-    no-margin no-padding></ion-input> 
+    no-margin ></ion-input> 
   </ion-col> 
   <ion-col no-padding *ngIf="userService.passwordIsTheSame == false"><b class="importantStars">The passwords are not identical. Please check your entry!</b> <br></ion-col>
 
