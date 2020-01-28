@@ -60,7 +60,7 @@ class _JourneyController extends BaseController
         $journeyTransportController = new _JourneyTransportController;
 
         $requestArray = $request->all();
-        
+
         //Hier wird überprüft ob der User eingeloggt ist
         $userID = $requestArray['_userID'];
         $validateUser = $userController->validateUser($request,$userID);
@@ -70,19 +70,38 @@ class _JourneyController extends BaseController
 
         //Create DB table object
 
+            if($requestArray['leisureCosts'] != null
+                || $requestArray['accommodationCosts'] != null
+                || $requestArray['mealsanddrinksCosts'] != null
+                || $requestArray['transportationCosts'] != null
+                || $requestArray['otherCosts'] != null){
+                    $insertJourneyArray = [
+                        '_userID' => $requestArray['_userID'],
+                        '_thumbnailID' => $requestArray['_thumbnailID'], //nullable
+                        'journeyName' => $requestArray['journeyName'],
+                        '_seasonID' => $requestArray['_seasonID'],
+                        '_journeyCategoryID' => $requestArray['_journeyCategoryID'],
+                        '_companionshipID' => $requestArray['_companionshipID'],
+                        'year' => $requestArray['year'],
+                        'detail' => $requestArray['detail'], //nullable, 65.000 Zeichen
+                        'duration' => $requestArray['duration'],
+                        'cost' => null, //nullable
+                    ];
+            } else {
+                $insertJourneyArray = [
+                    '_userID' => $requestArray['_userID'],
+                    '_thumbnailID' => $requestArray['_thumbnailID'], //nullable
+                    'journeyName' => $requestArray['journeyName'],
+                    '_seasonID' => $requestArray['_seasonID'],
+                    '_journeyCategoryID' => $requestArray['_journeyCategoryID'],
+                    '_companionshipID' => $requestArray['_companionshipID'],
+                    'year' => $requestArray['year'],
+                    'detail' => $requestArray['detail'], //nullable, 65.000 Zeichen
+                    'duration' => $requestArray['duration'],
+                    'cost' => $requestArray['totalCosts'], //nullable
+                ];
+            }
 
-            $insertJourneyArray = [
-                '_userID' => $requestArray['_userID'],
-                '_thumbnailID' => $requestArray['_thumbnailID'], //nullable
-                'journeyName' => $requestArray['journeyName'],
-                '_seasonID' => $requestArray['_seasonID'],
-                '_journeyCategoryID' => $requestArray['_journeyCategoryID'],
-                '_companionshipID' => $requestArray['_companionshipID'],
-                'year' => $requestArray['year'],
-                'detail' => $requestArray['detail'], //nullable, 65.000 Zeichen
-                'duration' => $requestArray['duration'],
-                'cost' => $requestArray['totalCosts'], //nullable
-            ];
 
 
 
@@ -91,7 +110,11 @@ class _JourneyController extends BaseController
 
 
         //insert data in costs table
-            if($requestArray['totalCosts'] == null){
+            if($requestArray['leisureCosts'] != null
+                || $requestArray['accommodationCosts'] != null
+                || $requestArray['mealsanddrinksCosts'] != null
+                || $requestArray['transportationCosts'] != null
+                || $requestArray['otherCosts'] != null){
                 if($requestArray['leisureCosts'] != null)
                     $costcontroller->insertOne($id,'leisure',$requestArray['leisureCosts']); //nullable
                 if($requestArray['accommodationCosts'] != null)
@@ -363,7 +386,7 @@ class _JourneyController extends BaseController
 
         $requestArray = $request->all();
 
-        
+
         //Hier wird überprüft ob der User eingeloggt ist
         $userID = $requestArray['_userID'];
         $validateUser = $userController->validateUser($request,$userID);
@@ -445,9 +468,9 @@ class _JourneyController extends BaseController
     }
 
     public function ifExistsDeleteOne(Request $request){
-        
+
         $userController = new _UserController;
-        
+
         $requestArray = $request->all();
         $userID = $userController->selectIDPerJourneyID($requestArray['journeyID']);
 
@@ -525,7 +548,7 @@ class _JourneyController extends BaseController
 
                 $placesBetweenCoordinates = json_decode(json_encode($placeController->selectBetweenCoordinates($latSW,$lngSW,$latNE,$lngNE)),true);
 
-                $journeyIDs = array();              
+                $journeyIDs = array();
 
                 foreach($placesBetweenCoordinates as $place){
                     $journeyIDofPlace = $place['_journeyID'];
