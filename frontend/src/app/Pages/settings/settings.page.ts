@@ -22,7 +22,7 @@ export class SettingsPage implements AfterViewInit {
 
   public delay = ms => new Promise(res => setTimeout(res, ms));
 
-  constructor(private data: DataService, private messagesService: MessagesService, private userService: UserService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private alertController: AlertController) {
+  constructor(public data: DataService, public messagesService: MessagesService, public userService: UserService, public imageService: ImageService, private navCtrl: NavController, private router: Router, private alertController: AlertController) {
 
   }
 

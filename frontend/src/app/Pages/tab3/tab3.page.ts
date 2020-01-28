@@ -19,7 +19,7 @@ export class Tab3Page implements AfterViewInit, AfterViewChecked {
   map: any;
   public clicked: boolean = false;
 
-  constructor(private data: DataService, private router: Router, private userService:UserService) {
+  constructor(public data: DataService, private router: Router, public userService:UserService) {
     
   }
 

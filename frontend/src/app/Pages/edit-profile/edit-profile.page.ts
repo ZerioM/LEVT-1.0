@@ -16,7 +16,7 @@ export class EditProfilePage implements OnInit {
   public secondPassword: string;
   public checkSecondPasswordIsTheSameAsPassword: boolean = true;
 
-  constructor(private data:DataService, private imageService:ImageService, private userService:UserService, private router: Router) { }
+  constructor(public data:DataService, public imageService:ImageService, public userService:UserService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -34,7 +34,7 @@ export class EditProfilePage implements OnInit {
     return image.webPath;
   }
 
-  private async deleteImage(){
+  public async deleteImage(){
 
     let isDeleted: boolean;
 

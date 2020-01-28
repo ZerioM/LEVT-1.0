@@ -20,7 +20,7 @@ export class UserJourneyDetailPage implements AfterViewInit, AfterViewChecked {
   icon: any;
 
 
-  constructor(private data: DataService, private navCtrl:NavController, private router: Router, private journeyService:NewJourneyService) { }
+  constructor(public data: DataService, private navCtrl:NavController, private router: Router, public journeyService:NewJourneyService) { }
 
   ngAfterViewInit() {
   this.loadMap();

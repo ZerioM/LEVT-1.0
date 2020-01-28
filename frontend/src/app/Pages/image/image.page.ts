@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ImagePage implements OnInit {
 
-  constructor(private data: DataService,private router: Router) { }
+  constructor(public data: DataService,private router: Router) { }
 
   ngOnInit() {
   }

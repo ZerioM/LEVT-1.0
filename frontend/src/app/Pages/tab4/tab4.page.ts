@@ -25,7 +25,7 @@ export class Tab4Page implements OnInit{
 
   public interval;
 
-  constructor(private data: DataService, private imageService: ImageService, private userService: UserService, private messagesService: MessagesService,navCtrl: NavController, private router: Router,private alertController: AlertController, private loadingController: LoadingController) {
+  constructor(public data: DataService, public imageService: ImageService, public userService: UserService, public messagesService: MessagesService,navCtrl: NavController, private router: Router,private alertController: AlertController, private loadingController: LoadingController) {
     this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
   }
 

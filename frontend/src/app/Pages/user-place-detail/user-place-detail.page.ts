@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class UserPlaceDetailPage implements OnInit {
 
-  constructor(private data: DataService, private navCtrl:NavController, private router: Router) { }
+  constructor(public data: DataService, private navCtrl:NavController, private router: Router) { }
 
   ngOnInit() {
   }

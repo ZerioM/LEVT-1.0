@@ -47,7 +47,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit {
 
 
 
-  constructor(private journeyService: NewJourneyService, private messagesService: MessagesService, private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController, private userService: UserService) {
+  constructor(public journeyService: NewJourneyService, public messagesService: MessagesService, public data: DataService, public imageService: ImageService, private navCtrl: NavController, private router: Router, public placeService: PlaceService, private alertController: AlertController, private loadingController: LoadingController, public userService: UserService) {
 
     this.loadJSON();
 
@@ -115,7 +115,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit {
 
   }
 
-  private async deleteImage(image: Image) {
+  public async deleteImage(image: Image) {
 
     let isDeleted: boolean;
 
@@ -132,7 +132,7 @@ export class Tab2Page implements AfterViewChecked, AfterViewInit {
 
   }
 
-  private async deletePlace(place: Place, index: number) {
+  public async deletePlace(place: Place, index: number) {
     let isDeleted: boolean;
 
     this.data.presentLoading();

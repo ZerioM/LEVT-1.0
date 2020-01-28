@@ -40,7 +40,7 @@ export class AddPostPage implements OnInit {
   photos:SafeResourceUrl[]=[];
   public cropPath:string;
 
-  constructor(private domSanitizer: DomSanitizer, private journeyService: NewJourneyService, private imageService:ImageService, private data: DataService,private userService:UserService, private postService: PostService, private placeService: PlaceService, private navCtrl: NavController, private router: Router, private alertController:AlertController, private crop: Crop, private imagePicker: ImagePicker, private transfer: FileTransfer, public actionSheetController: ActionSheetController) {
+  constructor(private domSanitizer: DomSanitizer, public journeyService: NewJourneyService, public imageService:ImageService, public data: DataService,public userService:UserService, public postService: PostService, public placeService: PlaceService, private navCtrl: NavController, private router: Router, private alertController:AlertController, private crop: Crop, private imagePicker: ImagePicker, private transfer: FileTransfer, public actionSheetController: ActionSheetController) {
     this.data.loadActivities();
     if(this.data.postInserted){
 
@@ -124,7 +124,7 @@ export class AddPostPage implements OnInit {
   
   
 
-  private showImage(image: Image){
+  public showImage(image: Image){
 
     this.data.newImage=image;
     this.router.navigateByUrl('/tabs/tab2/image');
@@ -132,7 +132,7 @@ export class AddPostPage implements OnInit {
 
   }
 
-  private async deleteImage(image:Image,index:number){
+  public async deleteImage(image:Image,index:number){
 
     let isDeleted: boolean;
 

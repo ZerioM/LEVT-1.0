@@ -19,7 +19,7 @@ export class Tab1Page implements AfterViewChecked {
 
 //@ViewChild (Content) content: Content;
 
-  constructor(private data: DataService, private bookmarkService: BookmarkService, private userService: UserService, private navCtrl:NavController, private router: Router) {
+  constructor(public data: DataService, public bookmarkService: BookmarkService, public userService: UserService, private navCtrl:NavController, private router: Router) {
 
     this.loadJSON();
 

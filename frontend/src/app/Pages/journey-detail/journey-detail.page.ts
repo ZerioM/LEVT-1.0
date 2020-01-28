@@ -30,7 +30,7 @@ export class JourneyDetailPage implements AfterViewInit, AfterViewChecked{
 
   public focusIsOut: boolean = false;
 
-  constructor(private data: DataService, private userService: UserService, private navCtrl:NavController, private router: Router, private journeyService:NewJourneyService) {
+  constructor(public data: DataService, public userService: UserService, private navCtrl:NavController, private router: Router, public journeyService:NewJourneyService) {
     
   }
 

@@ -181,7 +181,7 @@
       <ion-col no-padding>
         <ion-label><b class="importantThings">E-Mail</b><b class="importantStars">*</b></ion-label>
       <ion-input type="e-mail" class="inputField" type="text" placeholder="e-mail"
-         no-margin [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="userService.checkEmail(data.loggedInUser, data.url)"></ion-input>
+         no-margin [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="userService.checkEmail(data.loggedInUser)"></ion-input>
       </ion-col>
 
       <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">

@@ -20,7 +20,7 @@ export class ChatPagePage implements OnInit, AfterViewChecked, OnDestroy{
   public interval;
   public intervalCalled:number = 0;
 
-  constructor(private data: DataService, private messagesService: MessagesService,navCtrl: NavController, private router: Router,private alertController: AlertController, private loadingController: LoadingController) {
+  constructor(public data: DataService, public messagesService: MessagesService,navCtrl: NavController, private router: Router,private alertController: AlertController, private loadingController: LoadingController) {
 
   }
 

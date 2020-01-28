@@ -36,7 +36,7 @@ export class AddPlacePage implements OnInit {
 
   public delay = ms => new Promise(res => setTimeout(res, ms));
 
-  constructor(private journeyService: NewJourneyService, private userService:UserService,private data: DataService, private imageService: ImageService, private navCtrl: NavController, private router: Router, private placeService: PlaceService, private postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
+  constructor(public journeyService: NewJourneyService, public userService:UserService,public data: DataService, public imageService: ImageService, private navCtrl: NavController, private router: Router, public placeService: PlaceService, public postService: PostService, private alertController: AlertController,private changeRef: ChangeDetectorRef) {
     if(this.data.placeInserted){
 
     } else {
@@ -85,7 +85,7 @@ export class AddPlacePage implements OnInit {
     
   }
 
-  private async deleteImage(image:Image){
+  public async deleteImage(image:Image){
 
     let isDeleted: boolean;
 
@@ -102,7 +102,7 @@ export class AddPlacePage implements OnInit {
     
   }
 
-  private async deletePost(post: Post, index: number){
+  public async deletePost(post: Post, index: number){
     let isDeleted: boolean;
 
     this.data.presentLoading();

@@ -22,7 +22,7 @@ export class Tab5Page implements AfterViewInit, AfterViewChecked {
   public showsExplorerInfo:boolean = false;
   public showsPioneerInfo:boolean = false;
 
-  constructor(private data: DataService, private messagesService: MessagesService, private userService: UserService, private messageService: MessagesService, private imageService: ImageService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
+  constructor(public data: DataService, public messagesService: MessagesService, public userService: UserService, public messageService: MessagesService, public imageService: ImageService, private navCtrl:NavController, private router: Router,private changeRef: ChangeDetectorRef) {
 
     this.loadJSON();
    }

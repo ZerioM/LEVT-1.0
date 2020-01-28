@@ -15,7 +15,7 @@ export class UserPage{
   public showsExplorerInfo:boolean = false;
   public showsPioneerInfo:boolean = false;
 
-  constructor(private data: DataService, private userService: UserService, private messagesService: MessagesService, private router: Router) {
+  constructor(public data: DataService, public userService: UserService, public messagesService: MessagesService, private router: Router) {
 
     this.loadJSON();
    }
