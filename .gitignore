@@ -46,3 +46,4 @@ npm-debug.log*
 /www
 .env.flock
 backend/levt/resources/views/auth/login.blade.php
+frontend/android/my-release-key.jks
