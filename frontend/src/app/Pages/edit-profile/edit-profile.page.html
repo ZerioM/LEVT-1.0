@@ -54,12 +54,15 @@
     <ion-col no-padding no-margin *ngIf="userService.usernameAvailable == false">
       <b class="importantStars">This username is already assigned. Please pick another username!</b><br>
     </ion-col>
-  
 
-  <ion-col no-padding>
-    <ion-label><b class="importantThings">Change your birthday</b></ion-label>
-    <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY" no-padding></ion-datetime>
-  </ion-col> 
+  <ion-col no-padding *ngIf="data.loggedInUser.birthday != null">
+    <ion-label> <b>Change your birthday</b></ion-label>
+    </ion-col>
+    <div class="birthdayRegister" lines="none">
+      <ion-label *ngIf="data.loggedInUser.birthday == null"><b class="importantThings">Birthday</b><!--<b class="importantStars">*</b>--></ion-label>
+      <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY"
+         no-padding></ion-datetime>
+    </div>
 
   <ion-button color="primary" expand="full" (click)="submitUpdateUser()">
     Update User Information
