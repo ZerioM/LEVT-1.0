@@ -49,7 +49,7 @@
   </ion-item>
 
   <ion-row *ngIf="userService.userLoggedIn(data.loggedInUser)" class="profilAgeResidence" no-padding no-margin>
-    <ion-item lines="none" no-margin no-padding>
+    <ion-item *ngIf="data.loggedInUser.age" lines="none" no-margin no-padding>
       <ion-label no-padding no-margin><b> Age</b><br> {{data.loggedInUser.age}} Years</ion-label>
     </ion-item>
     <ion-item class="residence" lines="none" no-margin no-padding>
