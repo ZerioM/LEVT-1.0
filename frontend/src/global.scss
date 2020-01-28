@@ -137,6 +137,15 @@ ion-loading{
 } // Hintergrund bei Emai Verify
 
 
+/* -------- Profil & Userprofil ----------*/
+.userpicProfil{
+  max-width: 100px;
+  min-width: 30px;
+  max-height: 100px;
+  object-fit: cover;
+} // Profilbild auf Profil
+
+
 /* -------- HEADER & CONTENT auf allen Seiten ----------*/
 div.tabs-inner {
   width: 90%;

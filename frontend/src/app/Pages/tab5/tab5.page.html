@@ -24,8 +24,8 @@
   <ion-item id="profilUserpicInformations" color="none" lines="none" no-padding no-margin>
 
     <ion-item no-padding lines="none" *ngIf="userService.userLoggedIn(data.loggedInUser)">
-      <img id="userpicProfil" *ngIf="data.loggedInUser.userImgSrc != null && data.loggedInUser.userImgSrc != ''" src={{data.loggedInUser.userImgSrc}} alt="User" />
-      <img id="userpicProfil" *ngIf="data.loggedInUser.userImgSrc == null || data.loggedInUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
+      <img class="userpicProfil" *ngIf="data.loggedInUser.userImgSrc != null && data.loggedInUser.userImgSrc != ''" src={{data.loggedInUser.userImgSrc}} alt="User" />
+      <img class="userpicProfil" *ngIf="data.loggedInUser.userImgSrc == null || data.loggedInUser.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" />
     </ion-item>
     <!--Profilbild-->
 
