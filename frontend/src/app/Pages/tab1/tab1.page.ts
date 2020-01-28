@@ -141,7 +141,6 @@ export class Tab1Page implements AfterViewChecked {
 
   async goToUserPage(journey:Journey){
     this.data.currentJourney = journey;
-    await this.data.presentLoading();
     await this.data.goToUserPage();
     await this.data.dismissLoading();
     this.data.search.searchEntry = '';
