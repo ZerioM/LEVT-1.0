@@ -32,9 +32,13 @@ export class ImageService {
 
     const blob = await fetch(imageString).then(r => r.blob());
 
+    console.log(blob.size);
+
     const formData = new FormData();
     formData.append('picUpload', blob);
     formData.append('data',JSON.stringify(image));
+
+    console.log(formData);
 
     const httpOptions= {headers:new HttpHeaders({'enctype':'multipart/form-data', 'Sessionid': loggedInUser.sessionID})};
 

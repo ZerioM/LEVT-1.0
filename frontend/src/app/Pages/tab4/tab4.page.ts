@@ -14,7 +14,7 @@ import { User } from 'src/app/Interfaces/User';
   templateUrl: './tab4.page.html',
   styleUrls: ['./tab4.page.scss'],
 })
-export class Tab4Page implements OnInit, AfterViewChecked{
+export class Tab4Page implements OnInit{
 
  //public  currentUser: string=this.data.loggedInUser.username;
  public newMsg:string='';
@@ -23,6 +23,7 @@ export class Tab4Page implements OnInit, AfterViewChecked{
 
   @ViewChild(IonContent,{read: false, static: false}) content: IonContent
 
+  public interval;
 
   constructor(private data: DataService, private imageService: ImageService, private userService: UserService, private messagesService: MessagesService,navCtrl: NavController, private router: Router,private alertController: AlertController, private loadingController: LoadingController) {
     this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
@@ -30,16 +31,19 @@ export class Tab4Page implements OnInit, AfterViewChecked{
 
   ngOnInit() {
     this.messagesService.loadUserChatted(this.data.currentUserMessages, this.data.loggedInUser, this.data.url);
-  
+    this.interval = setInterval(() => { 
+      console.log("Checking for updates...");
+      this.messagesService.loadUserChatted(this.data.currentUserMessages,this.data.loggedInUser,this.data.url);
+     }, 10000);
   }
 
-  async ngAfterViewChecked(){
-    if(this.currentTime <= (new Date().getTime()-10000)){
-      this.currentTime = new Date().getTime();
-      console.log("Checking for updates...");
-      await this.messagesService.loadUserChatted(this.data.currentUserMessages,this.data.loggedInUser,this.data.url);
-    } 
-  }
+  // async ngAfterViewChecked(){
+  //   if(this.currentTime <= (new Date().getTime()-10000)){
+  //     this.currentTime = new Date().getTime();
+  //     console.log("Checking for updates...");
+  //     await this.messagesService.loadUserChatted(this.data.currentUserMessages,this.data.loggedInUser,this.data.url);
+  //   } 
+  // }
 
   //////////////////
   doRefresh(event) {

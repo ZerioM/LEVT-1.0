@@ -137,7 +137,15 @@ ion-loading{
 } // Hintergrund bei Emai Verify
 
 
-/* -------- Profilseite Heimatland & Alter ----------*/
+
+/* -------- Profil & Userprofil ----------*/
+.userpicProfil{
+  max-width: 100px;
+  min-width: 30px;
+  max-height: 100px;
+  object-fit: cover;
+} // Profilbild auf Profil
+
 .profilAgeResidence{
   margin-left: 5px;
   top:0;
@@ -148,6 +156,7 @@ ion-loading{
   overflow: hidden;
   white-space: inherit;
 }//Heimatland
+
 .pointsView{
   height: 20px;
   width: 130px;

@@ -7,13 +7,6 @@
   width: 100%;
   margin-bottom: 10px;
 } // Kasten von -> Proflbild, Alter & Wohnort, Punkteanzeige
-#userpicProfil{
-    width: 100%;
-    min-width: 30px;
-    height: auto;
-    object-fit: cover;
-  } // Profilbild auf Profil
-
   #badges{
     top:0;
     margin-left: 20px;
@@ -38,21 +31,3 @@
    margin-bottom: -20px;
  } // Heading My Journeys 
   
- /*
- #PlatzhalterKartenVis{
-    //width: 100%;
-    //max-height: 200px;
-    padding: 2px;
-    border: 1px solid #182f30;
-    object-fit: cover;
-  } // dies ist nur ein Platzhalter
-  */
-
-  #my_dataviz{
-    //width: 100%;
-    //max-height: 200px;
-    background-color: #182f30;
-    padding: 2px;
-    border: 1px solid #182f30;
-    object-fit: cover;
-  }
