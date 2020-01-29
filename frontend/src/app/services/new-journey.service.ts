@@ -179,6 +179,7 @@ export class NewJourneyService {
       newJourney.accommodationCosts=loadedData.accommodationCosts;
       newJourney.leisureCosts=loadedData.leisureCosts;
       newJourney.totalCosts=loadedData.totalCosts;
+      newJourney.mealsanddrinksCosts=loadedData.mealsanddrinksCosts;
       newJourney.transportationCosts=loadedData.transportationCosts;
       newJourney.otherCosts=loadedData.otherCosts;
       newJourney.plane=loadedData.plane;
