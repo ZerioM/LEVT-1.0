@@ -1,0 +1,28 @@
+{"activities":[
+    {
+        "activityID": 0,
+        "activityName": "leisure"
+    },
+
+    {
+        "activityID": 1,
+        "activityName": "accommodation"
+    },
+
+    {
+        "activityID": 2,
+        "activityName": "mealsanddrinks"
+    },
+
+    {
+        "activityID": 3,
+        "activityName": "transport"
+    },
+
+    {
+        "activityID": 4,
+        "activityName": "other"
+    }
+
+    ]
+}

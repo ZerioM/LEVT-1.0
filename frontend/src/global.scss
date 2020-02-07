@@ -1,0 +1,508 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+.setup {
+  color: #182f30;
+  position: fixed;
+  z-index: 2;
+  padding: 0;
+  right: 0;
+  margin-top: 5px;
+} // Setup Button auf Startseite & Profil
+
+.setup ion-button{
+  //--padding-start: 0;
+  //--padding-end: 0;
+  padding: 0;
+  right:0; 
+
+} // Setup Button padding auf Startseite & Profil
+
+ion-item {
+  font-size: 10pt;
+  --inner-padding-end: none;
+  background-color: none;
+}
+
+input {
+  background-color: none;
+}
+
+.alignright {
+  float: right !important;
+}
+
+div .item-native {
+  padding-left: -16px;
+}
+
+* {
+  border-radius: 0px;
+} //macht radiobutton eckig
+
+button {
+  padding: none;
+}
+
+ion-chip {
+  padding: 0px;
+  background: 0;
+  margin-right: 5px;
+}
+
+b{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  color: #415f4b;
+} // dicker Text
+
+p{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  font-weight: bold;
+  color:#d68900;
+  padding-bottom: 5px;
+}// Click the plus to add a new post!
+
+.importantThings{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt !important;
+  font-weight: bold;
+  color:#415f4b;
+}// Info text dass mit * markiert
+
+.importantStars{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  font-weight: bold;
+  color:#d68900;
+}// Sternchen *
+
+.map {
+  height: 100%;
+} //Map
+
+ion-loading{
+  width: 100%;
+  height: 100%;
+--background: url("/assets/images/loadingscreen.gif");
+} // Animation des Ladens
+
+.kostenVisualisierung{
+  height: 200px;
+  border: 1px solid #182f30;
+} // Visualisierung der Kosten
+
+.gamificationBg{
+  width: 100%;
+  height: 100%;
+  background-color: #16161699;
+  z-index: 1000;
+  position: fixed;
+  top:0;
+} // Hintergrund bei Gamification Badges
+
+.verifyEmailBG{
+  width: 100%;
+  height: 100%;
+  background-color: #16161699;
+  z-index: 1000;
+  position: fixed;
+  top:0;
+} // Hintergrund bei Emai Verify
+
+
+
+/* -------- Profil & Userprofil ----------*/
+.userpicProfil{
+  max-width: 100px;
+  min-width: 30px;
+  max-height: 100px;
+  object-fit: cover;
+} // Profilbild auf Profil
+
+.profilUserpicInformations{
+  width: 100%;
+  margin-bottom: 10px;
+} // Kasten von -> Proflbild, Alter & Wohnort, Punkteanzeige
+
+.profilAgeResidence{
+  margin-left: 5px;
+  top:0;
+}// Alter & Wohnort am Profil
+
+.residence{
+  margin-left: 10px;
+  overflow: hidden;
+  white-space: inherit;
+}//Heimatland
+
+.badges{
+  top:0;
+  margin-left: 20px;
+  margin-bottom: 10px;
+} // Alle Abzeichen & Punktanzeige
+
+.oneBadge{
+  width: 40%;
+  max-width: 60px;
+  object-fit: cover;
+  margin-right: 10px;
+}// Ein Abzeichen 
+
+.pointsView{
+  height: 20px;
+  width: 130px;
+  border: 1px solid #415f4b;
+  bottom: 0;
+  color: white;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;;
+  background-color: #415f4b;
+}// Punkteanzeige am Profil
+
+.myJourneys.hydrated{
+  width: 100%;
+  text-align: center;
+  margin-bottom: -20px;
+} // Heading My Journeys 
+
+
+
+/* -------- HEADER & CONTENT auf allen Seiten ----------*/
+div.tabs-inner {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+} // => Content auf allen Seiten
+
+ion-header.tabHeader.md.header-md.header-collapse-none.hydrated::after {
+  background: #415f4b66;
+  height: 1px;
+} //Linie nach Header
+
+.tabHeader {
+  height: 60px;
+  margin: -10px auto 0 auto; // top-right-bottom-left
+  padding-top: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+} // Header auf allen Seiten
+
+.cancel {
+  justify-content: left;
+  color: #d68900;
+  font-size: 50pt;
+  vertical-align: middle;
+  position: absolute;
+} // X auf Unterseiten
+
+.back {
+  justify-content: left;
+  color: #7ba9a9;
+  font-size: 30pt;
+  vertical-align: middle;
+  position: absolute;
+} // < auf Unterseiten
+
+.tabHeading {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15pt;
+  text-align: center;
+  font-variant: small-caps;
+  vertical-align: middle;
+} // Headerüberschrift auf allen Seiten
+
+.headerLogo {
+  height: 50px;
+  vertical-align: middle;
+} // Logo im Header auf allen Seiten
+
+.headerUserPic {
+  height: 30px;
+  width: 30px;
+  align-self: center;
+  object-fit: cover;
+} // User Pic im Header auf allen Seiten
+
+.grid-item .addPhoto {
+  width: 100px;
+  height: 100px;
+  background-color: #7ba9a9bf;
+  vertical-align: middle;
+  text-align: center;
+  color: #182f30;
+  font-size: 70pt;
+  font-weight: bolder;
+}// Add a Photo + Button
+
+.tabHeadingSmall {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 13pt;
+  text-align: center;
+  font-variant: small-caps;
+  vertical-align: middle;
+  max-width: 65%;
+}//wenn Titel zu lang ist
+
+.tabHeadingVerySmall {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 11pt;
+  text-align: center;
+  font-variant: small-caps;
+  vertical-align: middle;
+  max-width: 65%;
+}//wenn Titel zu lang ist
+
+
+/* -------- Reisen mit Titelbild, Ecken, Bildinformationen ----------*/
+.gallery {
+  width: 100%;
+} // Alle Beiträge auf der Startseite & Profil
+
+.pictureFrame {
+  width: 100%;
+  margin-bottom: 50px;
+  position: relative;
+} // Bilderrahmen mit Rahmen, Bild & Text auf Startseite
+
+.frameLeft .frameRight {
+  position: absolute;
+} // Bilderrahmen link und rechts
+
+.frameLeft {
+  width: 30px;
+  height: 30px;
+  top: 0;
+  left: 0;
+  border-top: 4px solid #182f30;
+  border-left: 4px solid #182f30;
+} //Rahmen Links
+
+.frameRight {
+  float: right;
+  width: 30px;
+  height: 30px;
+  bottom: 0;
+  right: 0;
+  border-bottom: 4px solid #182f30;
+  border-right: 4px solid #182f30;
+} // Rahmen Rechts
+
+.imgAndInfo {
+  width: 95%;
+  display: block;
+  margin-top: -20px;
+  margin-left: auto;
+  margin-right: auto;
+}// Bild und Infotext
+
+.travelTitle{
+  width: 100%;
+  margin-top: 50px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 18pt;
+  line-height: 26pt;
+  text-align:center;
+  background-color: #eceeefbf;
+  font-variant: small-caps;
+  position:absolute;
+} // Titel der Reise im Bild Startseite & Profil
+
+.thumbnailImg {
+  margin-top: -10px;
+  padding: 0px !important;
+}// Titelbild der Reise
+
+.picInformations {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: -35px;
+  margin-top: -5px;
+} // Username & Season
+
+.userpicAndName {
+  display: flex;
+  flex-direction: row;
+} // Profilbild & Username
+
+.userpic {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  margin-right: 5px;
+} // Profilbild unter Beiträgen
+
+.travelTime {
+  display: flex;
+  flex-direction: row;
+} // Season & Year
+
+.timeIcon {
+  margin-right: 5px;
+  color: #7ba9a9;
+} // Uhr Icon
+
+
+
+/* -------- Visited Places, Posts bei ADD JOURNEY ----------*/
+.gridContainer {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  //flex-wrap: wrap;
+  flex-flow: row wrap;
+  justify-content: space-between;
+} // Container von Visited Places, Posts bei Erstellen einer Reise
+
+.grid-item {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 30px;
+  background: #7ba9a9bf;
+} //=> Bild & Text
+
+.grid-item .addPlace {
+  width: 100px;
+  height: 100px;
+  background-color: #7ba9a9bf;
+  vertical-align: middle;
+  text-align: center;
+  color: #182f30;
+  font-size: 70pt;
+  font-weight: bolder;
+}// Add a Place
+
+.pictureGrid {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+} //=> Bild alleine
+
+.visitedPlaceName {
+  width: 100%;
+  margin-top: -30px;
+  align-self: center;
+  background-color: #eceeefbf;
+  vertical-align: middle;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  text-align: center;
+  position: relative;
+  z-index: 100; 
+}//Text auf transparenten Hintergrund
+
+
+
+/* -------- LOGIN & REGISTRIERUNG ----------*/
+.loginRegisterHeader{
+  display: flex;
+  flex-direction: row;
+} // Überschriften Login oder Register bei den jeweiligen Kästen
+
+.loginBg{
+  width: 100%;
+  height: 100%;
+  background-color: #16161699;
+  z-index: 1000;
+  position: fixed;
+  top:0;
+} // Grau Transparenter Hintergrund bei Login
+
+.login{
+  width:85%;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15%;
+  vertical-align: middle;
+} // Alles was in weißen Fenster steht bei Login
+
+.registerBg{
+  width: 100%;
+  height: 100%;
+  background-color: #16161699;
+  z-index: 1000;
+  position: fixed;
+  top:0;
+  overflow: scroll;
+} // Grau Transparenter Hintergrund bei Registrierung
+
+.register{
+  width:85%;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 10px;
+  padding-top: 5px;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15%;
+  vertical-align: middle;
+} //Alles was in weißen Fenster steht bei Registrierung
+
+.birthdayRegister{
+  width: 100%;
+  max-height: 30px;
+  background-color: #7ba9a926;
+  font-weight: bolder;
+  text-align: center;
+  vertical-align: middle;
+  padding: 5px;
+} // Registrierung Geburtstag
+
+.inputField{
+  border-bottom: 1px solid #16161650;
+  border-left: 1px solid #16161650;
+  border-right: 1px solid #16161650;
+  vertical-align: middle;
+  margin-top: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  line-height: 15px;
+  margin-bottom: 20px;
+  max-width: 100%;
+} // Einzelnen Input Felder bei Login & Registrierung & Edit Profil
+
+.eye{
+  z-index: 1000;
+  margin-left: -15px;
+  margin-bottom: 10px;
+  right: 10px;
+  position: relative;
+}//Auge für Passwort

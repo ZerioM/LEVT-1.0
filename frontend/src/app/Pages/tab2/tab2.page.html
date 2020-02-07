@@ -1,0 +1,442 @@
+<ion-header class="tabHeader">
+  <ion-buttons>
+    <ion-button icon-only (click)="close()">
+      <ion-icon class="cancel" name="ios-close"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title *ngIf="data.fromNewJourney" class="tabHeading" no-padding>New Journey</ion-title>
+  <ion-title *ngIf="data.fromEditJourney" class="tabHeading" no-padding>Edit Journey</ion-title>
+  <img class="headerLogo" src="/assets/images/LEVT_Logo_ohneSchrift.svg" alt="Logo" />
+</ion-header>
+<hr>
+<!--macht eine durchsichtige Linie zwischen Header und eigentlichen Content-->
+<ion-content class="tabsContent">
+
+  <ion-item lines="none" no-padding>
+    <ion-label><b class="importantThings" position="floating">Upload a Thumbnail for this Journey</b></ion-label>
+  </ion-item>
+  <ion-item no-padding lines="none">
+    <div *ngIf="data.newJourney.thumbnailSrc != '' && data.newJourney.thumbnailSrc != null" id="placeThumbnails"
+      class="gridContainer">
+      <div class="pictureFrame">
+        <div class="frameLeft"></div>
+        <img class="journeythumbnail" alt="" src="{{data.newJourney.thumbnailSrc}}" alt="Journeycover" />
+        <ion-button class="trash" icon-only (click)="deleteImage(image)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+        <div class="frameRight"></div>
+      </div>
+    </div>
+    <div *ngIf="data.newJourney.thumbnailSrc == '' || data.newJourney.thumbnailSrc == null" class="grid-item"
+      (click)="selectThumbnail()">
+      <ion-icon name="ios-add" class="addPlace">
+      </ion-icon>
+    </div>
+  </ion-item>
+
+  <ion-col no-padding>
+    <ion-label><b class="importantThings">Give your journey a name</b><b class="importantStars">*</b></ion-label>
+    <ion-input id="journeyName" (focusout)="focusOutJourneyName()" [(ngModel)]="data.newJourney.journeyName" type="text"
+      placeholder="Unnamed Journey" no-margin maxlength="20"></ion-input>
+  </ion-col>
+
+  <ion-col no-padding>
+    <ion-label><b>How many days did you spend?</b><b class="importantStars">*</b></ion-label>
+    <ion-input id="journeyDuration" (focusout)="focusOutDays()" [(ngModel)]="data.newJourney.duration"
+      placeholder="Amount of days " inputmode="decimal" type="number" no-margin>
+    </ion-input>
+  </ion-col>
+
+  <ion-label><b>When did you go there?</b><b class="importantStars">*</b></ion-label>
+  <ion-item class="seasonYear" lines="none" no-padding no-margin>
+    <ion-radio-group class="season" [(ngModel)]="data.newJourney._seasonID">
+      <ion-chip *ngFor="let s of data.seasons.seasons">
+        <ion-radio [value]="s.seasonID"></ion-radio>
+        <ion-label class="labelsCategories">
+          {{s.seasonName}}
+        </ion-label>
+      </ion-chip>
+    </ion-radio-group>
+  </ion-item>
+
+  <ion-col>
+    <ion-label><b>Year</b><b class="importantStars">*</b></ion-label>
+  </ion-col>
+  <ion-item no-padding lines="none" no-margin>
+    <div id="journeyYear" lines="none">
+      <!-- <ion-label align-items-start margin-top="10px" *ngIf="data.newJourney.year == null"><b class="importantThings">Year</b><b class="importantStars">*</b></ion-label>  -->
+      <ion-datetime [(ngModel)]="data.newJourney.year" displayFormat="YYYY" no-padding placeholder="Year">
+      </ion-datetime>
+    </div>
+  </ion-item>
+
+  <ion-label>
+    <b>Which category does your journey belong to?</b><b class="importantStars">*</b>
+  </ion-label>
+  <ion-item id="journeyCategory" lines="none" no-padding>
+    <ion-radio-group [(ngModel)]="data.newJourney._journeyCategoryID">
+      <ion-chip *ngFor="let c of data.journeyCategories.journeyCategories">
+        <ion-radio [value]="c.journeyCategoryID"></ion-radio>
+        <ion-label class="labelsCategories">
+          {{c.journeyCategoryName}}
+        </ion-label>
+      </ion-chip>
+    </ion-radio-group>
+  </ion-item>
+
+  <ion-label><b>Who did you travel with?</b><b class="importantStars">*</b></ion-label>
+  <ion-item id="companionshipsCategory" no-padding lines="none">
+    <ion-radio-group [(ngModel)]="data.newJourney._companionshipID" class="radioButtons">
+      <ion-chip *ngFor="let cs of data.companionships.companionships">
+        <ion-radio [value]="cs.companionshipID"></ion-radio>
+        <ion-label class="labelsCategories">
+          {{cs.companionshipType}}
+        </ion-label>
+      </ion-chip>
+    </ion-radio-group>
+  </ion-item>
+
+  <ion-label>
+    <b>Which means of transport did you travel with?</b><b class="importantStars">*</b></ion-label>
+  <div id="transport">
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.plane"></ion-checkbox>
+      <ion-label (click)="toggleTransports(1)" id="1" class="labelsCategories">
+        Plane
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.car"></ion-checkbox>
+      <ion-label (click)="toggleTransports(2)" id="2" class="labelsCategories">
+        Car
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.bus"></ion-checkbox>
+      <ion-label (click)="toggleTransports(3)" id="3" class="labelsCategories">
+        Bus
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.train"></ion-checkbox>
+      <ion-label (click)="toggleTransports(4)" id="4" class="labelsCategories">
+        Train
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.ship"></ion-checkbox>
+      <ion-label (click)="toggleTransports(5)" id="5" class="labelsCategories">
+        Ship
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.motorbike"></ion-checkbox>
+      <ion-label (click)="toggleTransports(6)" id="6" class="labelsCategories">
+        Motorbike
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.campingtrailer"></ion-checkbox>
+      <ion-label (click)="toggleTransports(7)" id="7" class="labelsCategories">
+        Camping Trailer
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.hiking"></ion-checkbox>
+      <ion-label (click)="toggleTransports(8)" id="8" class="labelsCategories">
+        Hiking
+      </ion-label>
+    </ion-chip>
+    <ion-chip>
+      <ion-checkbox [(ngModel)]="data.newJourney.bicycle"></ion-checkbox>
+      <ion-label (click)="toggleTransports(9)" id="9" class="labelsCategories">
+        Bicycle
+      </ion-label>
+    </ion-chip>
+  </div>
+
+  <ion-item no-padding>
+    <ion-textarea [(ngModel)]="data.newJourney.detail" (focusout)="focusOutJourneyDetails()"
+      placeholder="Tell us more about your Journey" rows="8" background="light" id="journeyDetails" no-padding>
+      <ion-label no-padding bo-margin><b>Journey Details</b></ion-label><br>
+    </ion-textarea>
+  </ion-item>
+
+  <div id="divideCosts">
+
+    <div id="journeycostsTotal" *ngIf="showC">
+      <ion-label><b>Total costs</b></ion-label>
+      <ion-item no-padding>
+        <ion-input [(ngModel)]="data.newJourney.totalCosts" (focusout)="focusOutTotalCosts()" id="totalcosts"
+          inputmode="decimal" type="number" placeholder="0" no-padding>
+        </ion-input>
+        <ion-label>€</ion-label>
+      </ion-item>
+    </div>
+
+    <ion-item no-padding lines="none" no-margin>
+      <ion-checkbox (click)="divideCosts()"></ion-checkbox>
+      <ion-label style="padding-left:5px;">divide costs by category</ion-label>
+    </ion-item>
+    <div *ngIf="divideC" id="journeycostsCategories">
+      <ion-item no-padding>
+        <ion-label><b>Leisure</b></ion-label>
+        <ion-input id="Leisure" [(ngModel)]="data.newJourney.leisureCosts" (focusout)="focusOutLeisureCosts()"
+          class="costcategories" inputmode="decimal" type="number" placeholder="0"></ion-input>
+        <ion-label>€</ion-label>
+      </ion-item>
+      <ion-item no-padding>
+        <ion-label><b>Accommodation</b></ion-label>
+        <ion-input id="Accommodation" [(ngModel)]="data.newJourney.accommodationCosts" class="costcategories"
+          inputmode="decimal" type="number" placeholder="0"></ion-input>
+        <ion-label>€</ion-label>
+      </ion-item>
+      <ion-item no-padding>
+        <ion-label><b>Meals and Drinks</b></ion-label>
+        <ion-input id="Meals and Drinks" [(ngModel)]="data.newJourney.mealsanddrinksCosts" class="costcategories"
+          inputmode="decimal" type="number" placeholder="0"></ion-input>
+        <ion-label>€</ion-label>
+      </ion-item>
+      <ion-item no-padding>
+        <ion-label><b>Transport</b></ion-label>
+        <ion-input id="Transport" [(ngModel)]="data.newJourney.transportationCosts" class="costcategories"
+          inputmode="decimal" type="number" placeholder="0"></ion-input>
+        <ion-label>€</ion-label>
+      </ion-item>
+      <ion-item no-padding>
+        <ion-label><b>Other</b></ion-label>
+        <ion-input id="Other" [(ngModel)]="data.newJourney.otherCosts" class="costcategories" inputmode="decimal"
+          type="number" placeholder="0"></ion-input>
+        <ion-label>€</ion-label>
+      </ion-item>
+    </div>
+  </div>
+
+  <ion-item lines="none" no-padding>
+    <ion-label position="floating"><b>Visited places</b></ion-label><br>
+    <!--<ion-label color="warning" id="NoPlace"> You haven't added any places to your journey!</ion-label>-->
+    <br>
+    <p *ngIf="showNoPlaceWarning()" id="NoPlace" no-margin> Click the plus to add a new visited place!</p>
+  </ion-item>
+  <ion-item no-padding>
+    <div id="alreadyAddedPlaces" class="gridContainer">
+      <div class="grid-item" *ngFor="let p of data.newJourney.places; let in of index">
+        <img class="pictureGrid" (click)="goToEditPlace(p,in)" *ngIf="p.thumbnailSrc == null || p.thumbnailSrc == ''"
+          src="/assets/images/platzhalter_travellocation.png" alt="" />
+        <img class="pictureGrid" (click)="goToEditPlace(p,in)" *ngIf="p.thumbnailSrc != null && p.thumbnailSrc != ''"
+          src="{{p.thumbnailSrc}}" alt="" />
+        <div id="visitedPlaceName" class="visitedPlaceName">{{p.placeName}}</div>
+        <ion-button class="trash" icon-only (click)="deletePlace(p,in)">
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="grid-item" (click)="goToAddNewPlace()">
+        <ion-icon name="ios-add" class="addPlace"></ion-icon>
+      </div>
+      <!--Plus Button-->
+    </div>
+  </ion-item>
+
+  <ion-label class="importantThings">
+    * Fields marked with a <b class="importantStars">*</b> are mandatory.
+  </ion-label>
+
+  <ion-button color="primary" expand="full" (click)="finishJourney()">
+    Finish
+  </ion-button>
+
+  <ion-button *ngIf="data.fromEditJourney" color="primary" expand="full" (click)="deleteJourney()">
+    Delete Journey
+  </ion-button>
+
+  <!-- LOGIN & REGISTER -->
+  <!-- LOGIN -->
+  <div class="loginBg"
+    *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false">
+    <div class="login">
+
+      <div class="loginRegisterHeader">
+        <ion-title class="tabHeading" no-padding> Login</ion-title>
+      </div> <!-- HEADER: Login -->
+
+      <ion-list>
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Username</b></ion-label>
+          <ion-input class="inputField" type="text" placeholder="username" no-margin maxlength="20"
+            [(ngModel)]="data.loggedInUser.username"></ion-input>
+        </ion-col>
+
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Password</b></ion-label>
+          <ion-row>
+            <ion-input *ngIf="showPassword" class="inputField" type="text" placeholder="password" no-margin
+              maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+            <ion-input *ngIf="!showPassword" class="inputField" type="password" placeholder="password" no-margin
+              maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+            <ion-buttons class="eye" (click)="showPassword = false" *ngIf="showPassword" icon-only>
+              <ion-icon color="secondary" name="eye"></ion-icon>
+            </ion-buttons>
+            <ion-buttons class="eye" (click)="showPassword = true" *ngIf="!showPassword" icon-only>
+              <ion-icon color="secondary" name="eye-off"></ion-icon>
+            </ion-buttons>
+          </ion-row>
+        </ion-col>
+
+        <ion-button color="warning" expand="full" (click)="login()">Login</ion-button>
+        <ion-button expand="full" (click)="userService.goToResetPw()">Forgot Password</ion-button>
+      </ion-list>
+      <ion-button expand="full" (click)="userService.goToRegistration()">Register</ion-button>
+
+    </div>
+  </div>
+
+  <div class="loginBg"
+    *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister==false && userService.wantsToResetPw == true">
+    <div class="login">
+      <ion-buttons>
+        <ion-button (click)="userService.backToLogin()" icon-only>
+          <ion-icon class="cancel" name="ios-arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="tabHeading" no-padding>Forgot Password</ion-title>
+      <ion-list>
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">E-mail Address</b></ion-label>
+          <ion-input class="inputField" type="email" placeholder="E-mail" no-margin
+            [(ngModel)]="data.loggedInUser.emailAddress"></ion-input>
+        </ion-col>
+
+        <ion-button color="warning" expand="full" (click)="userService.resetPassword(data.loggedInUser,data.url)">Send
+          E-Mail</ion-button>
+      </ion-list>
+
+    </div>
+  </div>
+
+  <!-- REGISTER -->
+  <div class="registerBg" *ngIf="userService.userLoggedIn(data.loggedInUser) == false && userService.wantsToRegister">
+    <div class="register">
+
+      <div class="loginRegisterHeader">
+        <ion-title class="tabHeading" no-padding> Register</ion-title>
+      </div> <!-- HEADER: Register -->
+
+      <ion-list>
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Username</b><b class="importantStars">*</b></ion-label>
+          <ion-input class="inputField" type="text" placeholder="username" no-margin maxlength="20"
+            [(ngModel)]="data.loggedInUser.username"
+            (focusout)="userService.checkUsername(data.loggedInUser, data.url)"></ion-input>
+        </ion-col>
+
+        <ion-col no-padding no-margin *ngIf="userService.usernameAvailable == false">
+          <ion-label><b class="importantStars">This username is already assigned. Please pick another username!</b>
+          </ion-label><br>
+        </ion-col>
+
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Password</b><b class="importantStars">*</b></ion-label>
+          <ion-row>
+            <ion-input *ngIf="showPassword" class="inputField" type="text" placeholder="password" no-margin
+              maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+            <ion-input *ngIf="!showPassword" class="inputField" type="password" placeholder="password" no-margin
+              maxlength="20" [(ngModel)]="data.loggedInUser.pwClear"></ion-input>
+            <ion-buttons class="eye" (click)="showPassword = false" *ngIf="showPassword" icon-only>
+              <ion-icon color="secondary" name="eye"></ion-icon>
+            </ion-buttons>
+            <ion-buttons class="eye" (click)="showPassword = true" *ngIf="!showPassword" icon-only>
+              <ion-icon color="secondary" name="eye-off"></ion-icon>
+            </ion-buttons>
+          </ion-row>
+        </ion-col>
+
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Repeat Password</b><b class="importantStars">*</b></ion-label>
+          <ion-row>
+            <ion-input *ngIf="showPassword" class="inputField" type="text" placeholder="repeat password" no-margin
+              maxlength="20" [(ngModel)]="userService.secondPw"
+              (focusout)="userService.checkPassword(data.loggedInUser)"></ion-input>
+            <ion-input *ngIf="!showPassword" class="inputField" type="password" placeholder="repeat password" no-margin
+              maxlength="20" [(ngModel)]="userService.secondPw"
+              (focusout)="userService.checkPassword(data.loggedInUser)"></ion-input>
+            <ion-buttons class="eye" (click)="showPassword = false" *ngIf="showPassword" icon-only>
+              <ion-icon color="secondary" name="eye"></ion-icon>
+            </ion-buttons>
+            <ion-buttons class="eye" (click)="showPassword = true" *ngIf="!showPassword" icon-only>
+              <ion-icon color="secondary" name="eye-off"></ion-icon>
+            </ion-buttons>
+          </ion-row>
+        </ion-col>
+
+        <ion-col no-padding *ngIf="userService.passwordIsTheSame == false">
+          <ion-label><b class="importantStars">The passwords are not identical. Please check your entry!</b><br>
+          </ion-label>
+        </ion-col>
+
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">E-Mail</b><b class="importantStars">*</b></ion-label>
+          <ion-input type="e-mail" class="inputField" type="text" placeholder="e-mail" no-margin
+            [(ngModel)]="data.loggedInUser.emailAddress" (focusout)="userService.checkEmail(data.loggedInUser)">
+          </ion-input>
+        </ion-col>
+
+        <ion-col no-padding *ngIf="userService.emailFormatIsCorrect == false">
+          <ion-label><b class="importantStars">This is not a correct email format. Please check your entry!</b>
+          </ion-label><br>
+        </ion-col>
+        <ion-col no-padding *ngIf="userService.emailAvailable == false">
+          <ion-label><b class="importantStars">This email is already assigned. Please use another E-Mail address!</b>
+          </ion-label><br>
+        </ion-col>
+
+        <ion-col no-padding>
+          <ion-label><b class="importantThings">Country of residence</b><b class="importantStars">*</b></ion-label>
+          <ion-select placeholder="Country of Residence" [(ngModel)]="data.loggedInUser._countryOfResidenceID">
+            <ion-select-option *ngFor="let c of data.countries.countries" [value]="c.countryID">
+              {{c.countryName}}
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+
+        <ion-col no-padding *ngIf="data.loggedInUser.birthday != null">
+          <ion-label> <b>Birthday</b></ion-label>
+        </ion-col>
+        <div class="birthdayRegister" lines="none">
+          <ion-label *ngIf="data.loggedInUser.birthday == null"><b class="importantThings">Birthday</b>
+            <!--<b class="importantStars">*</b>-->
+          </ion-label>
+          <ion-datetime [(ngModel)]="data.loggedInUser.birthday" displayFormat="MMM DD YYYY" no-padding></ion-datetime>
+        </div>
+      </ion-list>
+
+      <ion-button expand="full" (click)="register()">Register</ion-button>
+      <ion-label class="importantThings">
+        * Fields marked with a <b class="importantStars">*</b> are mandatory.
+      </ion-label>
+
+    </div>
+  </div>
+
+
+  <!-- Gamification -->
+
+  <div class="gamificationBg" *ngIf="data.loggedInUser.pioneerBadgeProgress==25">
+    <div class="login">
+
+      <ion-title class="tabHeading" no-padding>Your Adventure starts!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <p>Yeah! Your journey got a name! Add more information to reach the "Pioneer" Badge! Your progress: (25%) </p>
+      <ion-progress-bar value="0.25"></ion-progress-bar>
+      <br>
+
+      <ion-button (click)="closePioneerStep1Toast()" expand="full">OK</ion-button>
+    </div>
+  </div>
+
+
+
+
+
+
+</ion-content>

@@ -1,0 +1,31 @@
+name: main.yml
+
+on: 
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    name: Deploy to server
+    runs-on: self-hosted
+    env: 
+      PROJECT_ROOT_DIR: /var/www/levt
+      RELEASES_DIR: /var/www/levt/releases
+      NEW_RELEASE_DIR: /var/www/levt/releases/$GITHUB_SHA
+      STORAGE_DIR: /var/www/levt/storage
+      ENV_FILE: /var/www/levt/.env
+      CURRENT_DIR: /var/www/levt/current
+      BACKEND_DIR: /var/www/levt/current/backend/levt
+      BUILD_DIR: $GITHUB_WORKSPACE
+    steps:
+      - uses: actions/checkout@v2
+      - run: mkdir -p $RELEASES_DIR
+      - run: mkdir -p /var/www/levt/releases/$GITHUB_SHA && cp -r $GITHUB_WORKSPACE/* /var/www/levt/releases/$GITHUB_SHA/
+      - run: rm -rf /var/www/levt/releases/$GITHUB_SHA/backend/levt/storage
+      - run: ln -nfs $STORAGE_DIR /var/www/levt/releases/$GITHUB_SHA/backend/levt/storage
+      - run: ln -nfs $ENV_FILE /var/www/levt/releases/$GITHUB_SHA/backend/levt/.env
+      - run: ln -nfs /var/www/levt/releases/$GITHUB_SHA $CURRENT_DIR
+      - run: composer install --prefer-dist --no-scripts -q -o -d $BACKEND_DIR
+      - run: php $BACKEND_DIR/artisan migrate --force
+      - run: php $BACKEND_DIR/artisan storage:link

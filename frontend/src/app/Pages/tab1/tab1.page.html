@@ -1,0 +1,134 @@
+<ion-header color="none">
+  <ion-list class="headerAll" no-padding no-margin>
+ <ion-buttons no-padding class="setup"  style="margin-top: 0px; right: 0;z-index: 1000;"slot="end" no-padding>
+      <ion-button (click)="goToSettings()" icon-only no-padding>
+        <ion-icon name="md-more" size="large" style="color:#182f30"></ion-icon>
+        <!-- <ion-icon name="settings" size="large" style="color:#182f30"></ion-icon> -->
+      </ion-button>
+    </ion-buttons>
+    <div id="header" >
+    <img src="/assets/images/LEVT_Header.svg" alt="header" /></div>
+    <ion-searchbar [(ngModel)]="data.search.searchEntry" placeholder="Dream destination" (focusout)="data.filterSearch()" (keyup.enter)="data.filterSearch()"></ion-searchbar>
+    <ion-item *ngIf="userService.userLoggedIn(data.loggedInUser)" lines="none" color="none" style="background-color:0;" no-margin no-padding>
+      <ion-toggle [(ngModel)]="showBookmarkedJourneys" (ngModelChange)="showMyBookmarks()" color="warning"></ion-toggle> Show bookmarked journeys
+    </ion-item>
+  </ion-list>
+</ion-header>
+
+<div id="start">
+  <ion-icon id="arrowUp" color="#d68900" name="ios-arrow-up" (click)="smoothScrollJS()"></ion-icon>
+</div>
+<ion-content color="none">
+
+  
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content>
+      </ion-refresher-content>
+    </ion-refresher>
+
+  <ion-item lines="none" no-padding *ngIf="data.search.searchEntry !==''">
+  <ion-label><b class="importantStars">Journeys which include "{{data.search.searchEntry}}"</b></ion-label>
+  </ion-item>
+
+  <ion-list lines="none" *ngIf="data.currentJourneys.journeys != null && data.currentJourneys.journeys.length > 0">
+    <div class="gallery" *ngFor="let j of data.currentJourneys.journeys">
+      <div class="pictureFrame">
+        <div class="frameLeft"></div>
+        <div class="imgAndInfo">
+          <ion-item class="thumbnailImg" color="none" (click)="showJourney(j.journeyID)">
+            <img *ngIf="j.thumbnailSrc != null" src="{{j.thumbnailSrc}}" alt="Reise" />
+            <img *ngIf="j.thumbnailSrc == null" src="/assets/images/platzhalter_journey.png" alt="Reise" />
+            <div class="travelTitle">{{j.journeyName}}</div>
+          </ion-item>
+          <div class="picInformations">
+            <div class="userpicAndName" (click)="goToUserPage(j)">
+              <ion-item color="none">
+                <img *ngIf="j.userImgSrc != null && j.userImgSrc != ''" src={{j.userImgSrc}} alt="User" class="userpic"/>
+                <img *ngIf="j.userImgSrc == null || j.userImgSrc == ''" src="/assets/images/platzhalter_gender_divers.png" alt="User" class="userpic"/>
+              </ion-item>
+              <ion-item color="none">
+                <ion-label>{{j.username}}</ion-label>
+              </ion-item>
+            </div>
+            <ion-item color="none" class="travelTime">
+                <ion-icon name="md-time" class="timeIcon"></ion-icon>
+              <ion-label>{{j.seasonName}} - {{j.year}}</ion-label>
+            </ion-item>
+          </div>
+        </div>
+        <div class="frameRight"></div>
+      </div>
+    </div>
+  </ion-list>
+
+
+  <ion-item lines="none" no-padding *ngIf="data.currentJourneys.journeys == null || data.currentJourneys.journeys.length == 0">
+    <ion-label><b class="importantStars">This search has no results. <br> Please try again!</b></ion-label>
+  </ion-item>
+
+  <!-- Gamification: Pioneer -->
+
+  <div class="gamificationBg" *ngIf="data.loggedInUser.pioneerBadgeProgress==100">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge achieved!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_pioneer.png">
+      <p>Congrats! You successfully created a journey and shared it with the world for helping other people! Visit your profile to see your new badge! (100%) </p>
+      <ion-progress-bar value="1"></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closePioneerFinishToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <!-- Gamification: Explorer -->
+
+  <div class="gamificationBg" *ngIf="data.loggedInUser.explorerBadgeProgress==27|| data.loggedInUser.explorerBadgeProgress==21||data.loggedInUser.explorerBadgeProgress==25">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge available!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Great! You found one of our search methods. Look for the other ones and try them out to reach the "Explorer" Badge! Your progress: 33% </p>
+      <ion-progress-bar [value]=0.33></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerFinishToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <div class="gamificationBg"*ngIf="data.loggedInUser.explorerBadgeProgress==49|| data.loggedInUser.explorerBadgeProgress==53||data.loggedInUser.explorerBadgeProgress==47">
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge Progress!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Great! You found another search method. Look for the last one and try them out to reach the "Explorer" Badge! Your progress: 66% </p>
+      <ion-progress-bar [value]=0.66></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerFinishToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <div class="gamificationBg" *ngIf="data.loggedInUser.explorerBadgeProgress==75" >
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>New Badge achieve!</ion-title>
+      <img class="oneBadge" src="/assets/images/badge_explorer.png">
+      <p>Congratulations! You tried out all of our search methods and maybe learned something new. Visit your profile to see your new achieved Badge! (100%) </p>
+      <ion-progress-bar [value]=1></ion-progress-bar>
+    <br>
+    
+    <ion-button  (click)="closeExplorerFinishToast()" expand="full" >OK</ion-button>
+  </div>
+  </div>
+
+  <!-- EMAIL VERIFICATION INFO -->
+  <div class="verifyEmailBG" *ngIf="data.showsVerifyEmailWindow" >
+    <div class="login">
+      <ion-title class="tabHeading" no-padding>Please verify <br> your E-Mail!</ion-title>
+      <p>Please click on the link in the E-Mail we sent you or click on the button to send a new E-Mail to your account in order to verify your E-Mail.</p>
+  
+    <ion-button (click)="userService.sendVerificationEmail(data.loggedInUser,data.url)" expand="full"> Send new E-Mail</ion-button>
+    <ion-button  (click)="closeVerifyEmailWindow()" expand="full" >Ok! Check if verified</ion-button>
+    <ion-button (click)="logout()" expand="full"> Logout </ion-button>
+  </div>
+  </div>
+
+
+</ion-content>

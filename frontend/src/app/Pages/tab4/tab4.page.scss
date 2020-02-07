@@ -1,0 +1,49 @@
+.letzteNachricht{
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+}
+
+ion-list{
+    display: contents;
+    content: none;
+}
+
+#chat{
+    background-image: url("/assets/images/LEVT_Header.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+} // Ganzes Chatfenster
+
+.timeAllChats{
+    color:  #182f30;
+    font-weight: bold;
+}
+
+.chatsBg{
+    margin-bottom: 10px;
+    background-color: #7ba9a9d8;
+    border-top: 1px solid#415f4b;
+    border-bottom: 1px solid#415f4b;
+}
+
+img.chatUserPic{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+.username{
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.chatFett{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 10pt !important;
+    font-weight: bold;
+    color:#182f30;
+
+}

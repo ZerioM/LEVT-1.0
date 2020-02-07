@@ -1,0 +1,81 @@
+button.button-native{
+  padding:0;
+}
+.sc-ion-buttons-md-s ion-button {
+  --padding-start: 20px;
+  --padding-end: 20px;
+} // buttons x & <
+.journeythumbnail {
+  width: 95%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -20px;
+  margin-bottom: -20px;
+  padding: 0px !important;
+}
+.pictureFrame{
+  margin-bottom: 30px;
+}
+.colJourneyName{
+  margin-top:20px;
+}
+#journeyName{
+  width: 100%;
+  border-bottom: 1px solid #16161650;
+  border-left: 1px solid #16161650;
+  border-right: 1px solid #16161650;
+  vertical-align: middle;
+  margin-top: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  line-height: 15px;
+  margin-bottom: 5px;
+}
+.seasonYear{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  z-index: 1;
+}// Jahreszeiten & Jahr
+.season{
+  color: #161616;
+}
+#journeyYear{
+  width: 100%;
+  background-color: #7ba9a926;
+  font-weight: bolder;
+  text-align: center;
+  padding: 5px;
+  margin-top: -20px;
+}
+.radioButtons ion-radio{
+  border: none;
+}
+.labelsCategories{
+  margin-left: 3px;
+  overflow: visible;
+}// alle Labels bei den jeweiligen Kategorien
+.costcategories{
+  justify-content: right;
+  text-align: right;
+  margin-right: 2px;
+}
+#journeyDuration{
+  width: 100%;
+  border-bottom: 1px solid #16161650;
+  border-left: 1px solid #16161650;
+  border-right: 1px solid #16161650;
+  vertical-align: middle;
+  margin-top: 5px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10pt;
+  line-height: 15px;
+  margin-bottom: 5px;
+}
+.trash{
+  background-color: 0;
+  margin-top: -168px;
+  margin-left: 58px;
+} // Mülleimer bei Add A Post & Add A Place -> Visited Place/Post
