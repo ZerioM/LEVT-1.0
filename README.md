@@ -10,7 +10,7 @@ As we were completely new to creating an application from scratch, as well as cr
 
 ## Completed User Stories and work packages (needs to be completed)
 
-## #10 feature/newJourney: A logged in user wants to upload pictures and texts about his last journey in order to share his experience.
+### #10 feature/newJourney: A logged in user wants to upload pictures and texts about his last journey in order to share his experience.
 
 ### #70 feature/homepage: A visitor wants to see the most popular journeys on the homepage, in order to get a good first impression of the application and an overview of the current hotspots.
 
